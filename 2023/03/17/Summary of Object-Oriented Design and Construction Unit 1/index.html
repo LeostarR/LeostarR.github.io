@@ -1,0 +1,1889 @@
+<!--
+	作者：Sariay
+	时间：2018-08-26
+	描述：There may be a bug, but don't worry, Qiling(器灵) says that it can work normally! aha!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      Summary of Object-Oriented Design and Construction Unit 1 | Leostar&#39;s Blog
+    
+  </title>
+  <meta name="author" content="Leo Chen">
+  <meta name="keywords" content="" />
+  <meta name="description" content="九万里风鹏正举" />
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  
+<link rel="stylesheet" href="/css/Annie.css">
+
+  
+  <!-- jquery -->
+	
+<script src="/plugin/jquery/jquery.min.js"></script>
+
+
+<script>
+    const CONFIG_BGIMAGE = {
+      mode: 'normal',
+      normalSrc: '/img/header-bg.jpg',
+      randomYouMax: 110,
+      randomYouSrc: 'https://sariay.github.io/Random-img/',
+	  randomOtherSrc: 'https://api.berryapi.net/?service=App.Bing.Images&day=-0',
+	  preloaderEnable: true
+    }
+	
+    const CONFIG_LEACLOUD_COUNT = {
+      enable: false,
+	  appId: 'AU8...',
+	  appKey: '4cU...',
+	  serverURLs: 'http' || ' '
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground bg-pan-br">
+	<div class="mask">
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<div class="motto text-shadow-pop-left">
+					<p class="content" id="motto-content">获取中...</p>
+					<p>-<p>
+					<p class="author" id="motto-author">Just a minute...</p>
+				</div>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more" class="scroll-down">
+				<span class="icon-anchor1 animation-scroll-down"></span>
+			</a>
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><span>0.0%</span></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			「Summary of Object-Oriented Design and Construction Unit 1」
+		
+	</p>
+
+	
+	
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<span class="logo"> 
+			<img src="/img/logo.png">
+		</span>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	
+	<div class="nav-body">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+		<li class="menu-gallery">
+			<a href="/gallery" class="menu-item-gallery" target="_blank">相册</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	
+	<div class="nav-footer">
+		<ul id="global-social">
+	
+		<li>
+			<a href="https://github.com/LeostarR" target="_blank">
+				<span class="icon-github"></span>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+<script src="/plugin/toc/katelog.min.js"></script>
+
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+		<div class="article-title">
+			
+	<a href="/2023/03/17/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%201/" itemprop="url">
+		Summary of Object-Oriented Design and Construction Unit 1
+	</a>
+
+		</div>
+
+		<div class="article-meta">
+			<span>
+				<i class="icon-calendar1"></i>
+				
+				
+
+
+
+
+	更新于
+
+	<a href="/2023/03/17/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%201/" itemprop="url">
+		<time datetime="2023-03-17T12:56:47.000Z" itemprop="dateUpdated">
+	  		2023-06-18
+	  </time>
+	</a> 
+
+
+
+			</span>
+			<span>
+				
+	<i class="icon-price-tags"></i>
+	
+		<a href="/tags/Object-Oriented/" class=" ">
+			Object-Oriented
+		</a>
+	
+		<a href="/tags/Java/" class=" ">
+			Java
+		</a>
+	
+		
+			</span>
+			
+			
+
+
+
+		</div>
+
+		<div class="article-content" id="article-content">
+			<h1 id="面向对象设计与构造第一单元博客总结"><a href="#面向对象设计与构造第一单元博客总结" class="headerlink" title="面向对象设计与构造第一单元博客总结"></a>面向对象设计与构造第一单元博客总结</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>第一单元作业总的训练目标是对表达式结构进行建模，体会层次化的思想，三次作业为迭代开发。第一次作业是完成对多项式括号的展开，第二次作业新引入了三角函数(sin,cos)以及自定义函数(f(x),g(x,y),h(x,y,z))，第三次作业新增求导因子(dx(表达式))并允许函数定义时调用其他已定义过的函数。</p>
+<h2 id="第一次作业总结"><a href="#第一次作业总结" class="headerlink" title="第一次作业总结"></a>第一次作业总结</h2><h3 id="设计与架构"><a href="#设计与架构" class="headerlink" title="设计与架构"></a>设计与架构</h3><p>我的总思路分为三步：</p>
+<ol>
+<li>预处理表达式</li>
+<li>解析表达式</li>
+<li>转化为字符串并打印</li>
+</ol>
+<h4 id="预处理表达式"><a href="#预处理表达式" class="headerlink" title="预处理表达式"></a>预处理表达式</h4><h5 id="PreStr"><a href="#PreStr" class="headerlink" title="PreStr"></a><code>PreStr</code></h5><p>预处理：</p>
+<p><img src="https://img-community.csdnimg.cn/images/6183d2495e6f428da423340be3538899.png" alt="img"></p>
+<ul>
+<li>去除所有连续的空白字符（用Java自带的方法<code>replaceAll</code>即可解决）</li>
+<li>通过一系列<code>replaceAll</code>使得字符串不含有连续的两个及以上的’+’和’-‘（例如”—-“应化为”+”，”+-“应化为”-“）</li>
+<li>将表示幂次的”**”替换为”^”，防止与乘号弄混，产生不必要的bug</li>
+</ul>
+<h4 id="解析表达式"><a href="#解析表达式" class="headerlink" title="解析表达式"></a>解析表达式</h4><h5 id="Lexer"><a href="#Lexer" class="headerlink" title="Lexer"></a><code>Lexer</code></h5><p>读取处理：</p>
+<p><img src="https://img-community.csdnimg.cn/images/59a6df4919c0441a832b6dbe5b8ba98d.png" alt="img"></p>
+<ul>
+<li><code>read()</code>能够保证每次取出当前的操作数或者运算符</li>
+<li><code>next()</code>能够往后读一个操作数或者运算符</li>
+<li>由于数字长度的不确定，使用<code>getNumber()</code>能够取出当前数字</li>
+</ul>
+<h5 id="Ele"><a href="#Ele" class="headerlink" title="Ele"></a><code>Ele</code></h5><p>根据题目要求，我选择新建一个<code>Ele</code>类完成对基本元素的存储，每一个<code>Ele</code>应形如：</p>
+<p><img src="https://img-community.csdnimg.cn/images/4408f0de50aa4965ba13ad4f9637bbca.png" alt="img"></p>
+<p><img src="https://img-community.csdnimg.cn/images/d9190b1763fe4bdabdd0607cdd9d7642.png" alt="img"></p>
+<p><code>coe</code>存储每一个<code>Ele</code>的系数，<code>hashVar</code>通过<code>HashMap</code>存储变量及其对应幂次。</p>
+<p><img src="https://img-community.csdnimg.cn/images/c0c8dd1afb62450990d5e2338d5e3b9d.png" alt="img"></p>
+<p>刚开始写<code>Ele</code>时只写了<code>setCoe()</code>,<code>getCoe()</code>,<code>setHashVar()</code>,<code>getHashVar()</code>四个方法用于设定值和取值，其他方法是在后续框架的整体搭建中书写的，因此放到后面讲解。</p>
+<h5 id="Expr"><a href="#Expr" class="headerlink" title="Expr"></a><code>Expr</code></h5><p>一连串的表达式形如：</p>
+<p><img src="https://img-community.csdnimg.cn/images/0a0e165990ac4e97b6ad21a4e4a32fc7.png" alt="img"></p>
+<p>此处系数本身是可能带符号的，因此直接用加号相连。</p>
+<p>为了方便数据的调用，我选择<code>ArrayList</code>来存储多个<code>Ele</code>：</p>
+<p><img src="https://img-community.csdnimg.cn/images/85911cff457c48e9ac87d10dce1cb758.png" alt="img"></p>
+<p><code>Expr</code>方法中，<code>initExperList(ArrayList&lt;Ele&gt;)</code>,<code>initExpr(Ele)</code>用于初始化，<code>getExperlist()</code>用于取出该<code>ArrayList</code>，其他很多方法是在构建整体的过程中完成的，因此也放到后面。</p>
+<p><img src="https://img-community.csdnimg.cn/images/b21d49768baa41a29c6ac2ca958b2653.png" alt="img"></p>
+<h5 id="Parser"><a href="#Parser" class="headerlink" title="Parser"></a><code>Parser</code></h5><p>使用递归下降解析表达式：</p>
+<p><img src="https://img-community.csdnimg.cn/images/0089d12fb33b43158fc6c2dd198bd718.png" alt="img"></p>
+<p>注：<code>dealEx(Expr)</code>是<code>parseExpr()</code>的一部分，分离出来是因为方法过长影响码风:）</p>
+<p>1.<code>parseExpr()</code>用于解析表达式，根据定义，表达式由加法和减法运算符连接若干项组成并且在第一项之前，可以带一个正号或者负号，表示第一个项的正负，因此考虑如下结构。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">parseExpr</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (当前符号 == <span class="string">&#x27;+&#x27;</span> || 当前符号 == <span class="string">&#x27;-&#x27;</span>) &#123; <span class="comment">//表达式的第一个项可以有符号（+，-）</span></span><br><span class="line">            parseTerm();</span><br><span class="line">            combTerm();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            parseTerm();</span><br><span class="line">            combTerm();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (当前符号 == <span class="string">&#x27;+&#x27;</span> || 当前符号 == <span class="string">&#x27;-&#x27;</span>) &#123;</span><br><span class="line">            parseTerm();</span><br><span class="line">            combTerm();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> expr;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>此处涉及到正负号的处理，因此不在方法中区分加减，而是新建合并的方法<code>Expr.combTerm(ArrayList&lt;Ele&gt; list, String s)</code>，<code>s</code>代表符号。若<code>s</code>为负号，就通过<code>Expr.reverseList(ArrayList&lt;Ele&gt; list)</code>取反，然后使用<code>addAll()</code>，考虑性能，我们需要化简，在<code>combTerm</code>之后使用<code>merge()</code>合并同类项。</p>
+<p>2.<code>parseTerm()</code>用于解析项，项由乘法运算符连接若干因子组成，总体架构与上文相似，只是要重新写一个乘法的方法，也就是<code>Expr.mulTerm(ArrayList&lt;Ele&gt;)</code>能够实现两个<code>ArrayList&lt;Ele&gt;</code>的相乘（实际上就是多个相加）。</p>
+<p>3.<code>parseFactor()</code>用于解析因子。由定义知，因子包括幂函数，常数因子和表达式因子。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">parseFactor</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (符号 == <span class="string">&#x27;(&#x27;</span>) &#123; <span class="comment">//表达式因子，函数表达式（已在PreStr中套上了一层括号，因此也可以当成表达式因子处理）</span></span><br><span class="line">            parseExpr();</span><br><span class="line">            <span class="keyword">if</span> (下一个符号是<span class="string">&#x27;^&#x27;</span>) &#123; <span class="comment">//下一个一定为指数</span></span><br><span class="line">                <span class="comment">//读入下一个整数n;</span></span><br><span class="line">                <span class="keyword">if</span> (n == <span class="number">0</span>) &#123; <span class="comment">//考虑特殊情况</span></span><br><span class="line">                    <span class="comment">//置1;</span></span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">//重复的乘原表达式n-1次;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> expr;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (符号 == <span class="string">&#x27;+&#x27;</span> || 符号 == <span class="string">&#x27;-&#x27;</span>) &#123; <span class="comment">//不是第一个带符号的因子，则一定为有符号常数</span></span><br><span class="line">            <span class="comment">//读入常数n并结合当前符号;</span></span><br><span class="line">            <span class="keyword">return</span> expr;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (符号为数字) &#123; <span class="comment">//处理无符号整数</span></span><br><span class="line">           <span class="comment">// 读入常数n;</span></span><br><span class="line">            <span class="keyword">return</span> expr;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; <span class="comment">//处理幂函数</span></span><br><span class="line">            <span class="keyword">return</span>  parsePow();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.<code>parsePow()</code>同上文分支一样，用于解析幂函数，并返回一个<code>Expr</code>类。这里单独写是因为方法行数太多影响码风：)</p>
+<h4 id="转化为字符串并打印"><a href="#转化为字符串并打印" class="headerlink" title="转化为字符串并打印"></a>转化为字符串并打印</h4><p>这一点主要体现在<code>Expr</code>类中的<code>toString()</code>方法。总的思路是设置<code>StringBuilder</code>然后不断<code>append</code>。对<code>ArrayList</code>中的每一个<code>Ele</code>依次判断是否有’+’，是否为正负1，幂次是否为0，整体是否为0。（这一部分细节还挺多的需要特别注意）</p>
+<h3 id="基于度量的程序结构分析"><a href="#基于度量的程序结构分析" class="headerlink" title="基于度量的程序结构分析"></a>基于度量的程序结构分析</h3><h4 id="代码规模分析"><a href="#代码规模分析" class="headerlink" title="代码规模分析"></a>代码规模分析</h4><p><img src="https://img-community.csdnimg.cn/images/f092e334bc704e5087dccde18c46acf7.png" alt="img"></p>
+<p>核心代码在450行左右，<code>Expr</code>类行数最多，占到了175行，其次是119行的解析<code>Parser</code>类。</p>
+<h4 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h4><h5 id="方法复杂度"><a href="#方法复杂度" class="headerlink" title="方法复杂度"></a>方法复杂度</h5><table>
+<thead>
+<tr>
+<th align="left">Method</th>
+<th align="left">CogC</th>
+<th align="left">ev(G)</th>
+<th align="left">iv(G)</th>
+<th align="left">v(G)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Lexer.Lexer(String)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Lexer.getNumber()</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Lexer.next()</td>
+<td align="left">3</td>
+<td align="left">2</td>
+<td align="left">3</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">Lexer.read()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">MainClass.main(String[])</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.Parser(Lexer)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.dealEx(Expr)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.parseExpr()</td>
+<td align="left">5</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="left">Parser.parseFactor()</td>
+<td align="left">16</td>
+<td align="left">4</td>
+<td align="left">9</td>
+<td align="left">10</td>
+</tr>
+<tr>
+<td align="left">Parser.parsePow()</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Parser.parseTerm()</td>
+<td align="left">9</td>
+<td align="left">1</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">PreStr.pre(String)</td>
+<td align="left">6</td>
+<td align="left">1</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.Ele()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.canMerge(Ele)</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.compareTo(Object)</td>
+<td align="left">7</td>
+<td align="left">5</td>
+<td align="left">5</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.getCoe()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.getHashVar()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.initHashVar(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.isOne()</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">4</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.isZero()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.setCoe(BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.setHashVar(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.zero()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.combTerm(ArrayList, String)</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.getExprList()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.initExpr(Ele)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.initExprList(ArrayList)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.merge()</td>
+<td align="left">10</td>
+<td align="left">4</td>
+<td align="left">7</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.mulTerm(ArrayList)</td>
+<td align="left">3</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.reverse()</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.reverseList(ArrayList)</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.sort()</td>
+<td align="left">9</td>
+<td align="left">5</td>
+<td align="left">5</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.toString()</td>
+<td align="left">16</td>
+<td align="left">1</td>
+<td align="left">10</td>
+<td align="left">11</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.varStr(Ele)</td>
+<td align="left">21</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">16</td>
+</tr>
+<tr>
+<td align="left">Total</td>
+<td align="left">118</td>
+<td align="left">49</td>
+<td align="left">109</td>
+<td align="left">117</td>
+</tr>
+<tr>
+<td align="left">Average</td>
+<td align="left">3.47</td>
+<td align="left">1.44</td>
+<td align="left">3.21</td>
+<td align="left">3.44</td>
+</tr>
+</tbody></table>
+<h5 id="类复杂度"><a href="#类复杂度" class="headerlink" title="类复杂度"></a>类复杂度</h5><p><img src="https://img-community.csdnimg.cn/images/3ae1db68b4bf44ac888b385bb34a685a.png" alt="img"></p>
+<p>表中可以看出最复杂的三个方法：<code>Parser.parseFactor()</code>，<code>expr.Expr.toString()</code>和<code>expr.Expr.varStr(Ele)</code>。由于因子的可能类型较多，讨论情况较多，因此复杂度也较高。后两者都是转化为字符串的方法，由于情况种类较多，因此复杂度上升较显著。</p>
+<p>图中也能看到<code>Expr</code>类，<code>Ele</code>类和<code>Parser</code>类的复杂度较高，<code>Parser</code>类中分解的方法较多，<code>Expr</code>和<code>Ele</code>中计算合并之类的方法较多导致了这几个类的复杂度较高。</p>
+<h6 id="附：度量分析条目解释"><a href="#附：度量分析条目解释" class="headerlink" title="附：度量分析条目解释"></a>附：度量分析条目解释</h6><ul>
+<li>CogC：认知复杂度</li>
+<li>ev(G)：非抽象方法的基本复杂度，用以衡量一个方法的控制流结构缺陷，范围是 [1, v(G)]</li>
+<li>iv(G)：方法的设计复杂度，用以衡量方法控制流与其他方法之间的耦合程度，范围是 [1, v(G)]</li>
+<li>v(G)：非抽象方法的圈复杂度，用以衡量每个方法中不同执行路径的数量</li>
+<li>OC：类的非抽象方法圈复杂度，继承类不计入</li>
+<li>WMC：类的总圈复杂度</li>
+</ul>
+<h4 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h4><p><img src="https://img-community.csdnimg.cn/images/fda5915f53e84d518c768ffe927194d1.png" alt="img"></p>
+<p>每个类的设计考虑已在上文的设计与架构中说明，此处不再赘述。</p>
+<h2 id="第二次作业总结"><a href="#第二次作业总结" class="headerlink" title="第二次作业总结"></a>第二次作业总结</h2><h3 id="设计与架构-1"><a href="#设计与架构-1" class="headerlink" title="设计与架构"></a>设计与架构</h3><p>本次作业新增了这些要求：</p>
+<ul>
+<li>支持嵌套多层括号</li>
+<li>新增三角函数因子，三角函数括号内部包含任意因子</li>
+<li>新增自定义函数因子，但自定义函数的函数表达式中不会调用其他函数</li>
+</ul>
+<p>因此在第一次作业的基础上，需要完成这些工作：</p>
+<ol>
+<li>替换自定义函数</li>
+<li>引入新的数据结构能够存储三角因子</li>
+<li>增加或完善方法并完成三角函数的计算与化简</li>
+</ol>
+<h4 id="替换自定义函数"><a href="#替换自定义函数" class="headerlink" title="替换自定义函数"></a>替换自定义函数</h4><h5 id="DeFun"><a href="#DeFun" class="headerlink" title="DeFun"></a><code>DeFun</code></h5><p>仅仅实现替换，替换之后即可按照之前的递归下降实现表达式解析：</p>
+<p><img src="https://img-community.csdnimg.cn/images/3287f1db204440fabcc0616ab9f208b4.png" alt="img"></p>
+<ul>
+<li>根据’&#x3D;’分割成左右两字符串，左边的可根据’,’找出形参，将形参和右边的表达式存入<code>HashMap</code></li>
+<li>在原表达式中通过<code>process()</code>替换所有的自定义函数</li>
+</ul>
+<h4 id="处理三角因子"><a href="#处理三角因子" class="headerlink" title="处理三角因子"></a>处理三角因子</h4><h5 id="Ele-1"><a href="#Ele-1" class="headerlink" title="Ele"></a><code>Ele</code></h5><p>本次作业每个<code>Ele</code>类型应形如：</p>
+<p><img src="https://img-community.csdnimg.cn/images/a1b92a4f7071446a82002e86dc15c70b.png" alt="img"></p>
+<p>将三角因子括号内部的因子<code>toString</code>作为<code>key</code>，指数作为<code>value</code>再存入<code>HashMap</code>：</p>
+<p><img src="https://img-community.csdnimg.cn/images/5dc3b6415e3d43cc9b6c3cc70390b008.png" alt="img"></p>
+<p>增加了处理三角因子的方法：</p>
+<p><img src="https://img-community.csdnimg.cn/images/134a70a2b9804f7ba4c7ec52900330ed.png" alt="img"></p>
+<h5 id="Expr-1"><a href="#Expr-1" class="headerlink" title="Expr"></a><code>Expr</code></h5><p>加法和乘法只需在原有基础上添加三角因子的运算即可（加法乘法需要在<code>canMerge()</code>中添加条件)。</p>
+<p><img src="https://img-community.csdnimg.cn/images/216553029e3c48738b060a701b366f69.png" alt="img"></p>
+<p>在<code>toString()</code>中加上打印三角因子的方法<code>triStr(Ele)</code>。</p>
+<h3 id="基于度量的程序结构分析-1"><a href="#基于度量的程序结构分析-1" class="headerlink" title="基于度量的程序结构分析"></a>基于度量的程序结构分析</h3><h4 id="代码规模分析-1"><a href="#代码规模分析-1" class="headerlink" title="代码规模分析"></a>代码规模分析</h4><p><img src="https://img-community.csdnimg.cn/images/4d0854e341814ac3a82118c649e48ea4.png" alt="img"></p>
+<p>核心代码在742行左右，<code>Expr</code>类行数最多，占到了259行，其次是150行的解析<code>Parser</code>类。</p>
+<h4 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a>复杂度分析</h4><h5 id="方法复杂度-1"><a href="#方法复杂度-1" class="headerlink" title="方法复杂度"></a>方法复杂度</h5><table>
+<thead>
+<tr>
+<th align="left">Method</th>
+<th align="left">CogC</th>
+<th align="left">ev(G)</th>
+<th align="left">iv(G)</th>
+<th align="left">v(G)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">DeFun.max(int, int)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">DeFun.process(String)</td>
+<td align="left">22</td>
+<td align="left">6</td>
+<td align="left">13</td>
+<td align="left">13</td>
+</tr>
+<tr>
+<td align="left">DeFun.readFun(String)</td>
+<td align="left">6</td>
+<td align="left">3</td>
+<td align="left">5</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">Lexer.Lexer(String)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Lexer.getNumber()</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Lexer.next()</td>
+<td align="left">5</td>
+<td align="left">2</td>
+<td align="left">3</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">Lexer.read()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">MainClass.main(String[])</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Parser.Parser(Lexer)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.dealEx(Expr)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.parseExpr()</td>
+<td align="left">5</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="left">Parser.parseFactor()</td>
+<td align="left">18</td>
+<td align="left">5</td>
+<td align="left">11</td>
+<td align="left">12</td>
+</tr>
+<tr>
+<td align="left">Parser.parsePow()</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Parser.parseTerm()</td>
+<td align="left">9</td>
+<td align="left">1</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">Parser.parseTri()</td>
+<td align="left">8</td>
+<td align="left">1</td>
+<td align="left">4</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">PreStr.pre(String)</td>
+<td align="left">6</td>
+<td align="left">1</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.Ele()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.canMerge(Ele)</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">4</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.compareTo(Object)</td>
+<td align="left">27</td>
+<td align="left">13</td>
+<td align="left">12</td>
+<td align="left">13</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.getCoe()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.getHashCos()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.getHashSin()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.getHashVar()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.initHashCos(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.initHashSin(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.initHashVar(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.isOne()</td>
+<td align="left">6</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">8</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.isZero()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.putHashCos(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.putHashSin(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.setCoe(BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.setHashCos(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.setHashSin(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.setHashVar(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.zero()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.combTerm(ArrayList, String)</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.getExprList()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.initExpr(Ele)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.initExprList(ArrayList)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.merge()</td>
+<td align="left">10</td>
+<td align="left">4</td>
+<td align="left">7</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.mulTerm(ArrayList)</td>
+<td align="left">3</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.reverse()</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.reverseList(ArrayList)</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.simplify()</td>
+<td align="left">4</td>
+<td align="left">3</td>
+<td align="left">4</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.sort()</td>
+<td align="left">32</td>
+<td align="left">13</td>
+<td align="left">12</td>
+<td align="left">13</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.toString()</td>
+<td align="left">16</td>
+<td align="left">1</td>
+<td align="left">10</td>
+<td align="left">11</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.triStr(Ele)</td>
+<td align="left">14</td>
+<td align="left">1</td>
+<td align="left">11</td>
+<td align="left">11</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.varStr(Ele)</td>
+<td align="left">21</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">16</td>
+</tr>
+<tr>
+<td align="left">expr.Term.getTermList()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Total</td>
+<td align="left">233</td>
+<td align="left">90</td>
+<td align="left">180</td>
+<td align="left">195</td>
+</tr>
+<tr>
+<td align="left">Average</td>
+<td align="left">4.75</td>
+<td align="left">1.83</td>
+<td align="left">3.67</td>
+<td align="left">3.97</td>
+</tr>
+</tbody></table>
+<h5 id="类复杂度-1"><a href="#类复杂度-1" class="headerlink" title="类复杂度"></a>类复杂度</h5><p><img src="https://img-community.csdnimg.cn/images/754e2697a44f4b8da1697d245e3102a4.png" alt="img"></p>
+<h4 id="UML类图-1"><a href="#UML类图-1" class="headerlink" title="UML类图"></a>UML类图</h4><p><img src="https://img-community.csdnimg.cn/images/856dd1ae8f234b5c81d3876b7ee5f51b.jpg" alt="img"></p>
+<p>每个类的设计考虑已在上文的设计与架构中说明，此处不再赘述。</p>
+<h2 id="第三次作业总结"><a href="#第三次作业总结" class="headerlink" title="第三次作业总结"></a>第三次作业总结</h2><h3 id="设计与架构-2"><a href="#设计与架构-2" class="headerlink" title="设计与架构"></a>设计与架构</h3><p>本次作业新增了这些要求：</p>
+<ul>
+<li>自定义函数定义时可以调用已经定义过的自定义函数</li>
+<li>新增求导因子</li>
+</ul>
+<p>因此，在第二次作业的基础上，需要完成这些工作：</p>
+<ol>
+<li>在<code>DeFun</code>类中完善方法使支持调用定义过的自定义函数并且包含求导因子</li>
+<li>在<code>Expr</code>类中新增求导的方法</li>
+</ol>
+<h4 id="完善替换自定义函数的方法"><a href="#完善替换自定义函数的方法" class="headerlink" title="完善替换自定义函数的方法"></a>完善替换自定义函数的方法</h4><h5 id="DeFun-1"><a href="#DeFun-1" class="headerlink" title="DeFun"></a><code>DeFun</code></h5><p>在同一个类中替换已经存在于HashMap中的自定义函数，然后替换求导因子（根据题目要求，需要在这里将求导因子化简并替换），因此我们直接复用之前的Parser类解析求导因子内部的表达式，并且用<code>toString()</code>替换原求导因子。</p>
+<p>下面是可能的示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (str.contains(<span class="string">&quot;d&quot;</span>)) &#123; <span class="comment">//求导因子只出现一次</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">begin</span> <span class="operator">=</span> str.indexOf(<span class="string">&quot;d&quot;</span>);</span><br><span class="line">            <span class="comment">//subString = dx(表达式) | dy(表达式) | dz(表达式)，是求导因子</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">subString</span> <span class="operator">=</span> sim.substring(<span class="comment">/*将dx()或dy()或dz()的子串提取出来*/</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">derFact</span> <span class="operator">=</span> subString.substring(<span class="number">2</span>); <span class="comment">//derFact是需要求导的表达式</span></span><br><span class="line">            parser.parseExpr();<span class="comment">//预处理，解析，返回一个Expr类</span></span><br><span class="line">            expr.derExpr();<span class="comment">//括号内的表达式进行求导能够返回一个Expr类</span></span><br><span class="line">            str = str.replace(subString, <span class="string">&quot;(&quot;</span> + expr + <span class="string">&quot;)&quot;</span>); <span class="comment">//将整个求导因子剔除（替换）</span></span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="增加求导的方法"><a href="#增加求导的方法" class="headerlink" title="增加求导的方法"></a>增加求导的方法</h4><h5 id="Ele-2"><a href="#Ele-2" class="headerlink" title="Ele"></a><code>Ele</code></h5><p>在<code>Ele</code>中增加方法支持判断该<code>Ele</code>是否包含该变量（’x’,’y’,’z’)，若不包含，则求导的结果为零，反之则可进行正常的求导。</p>
+<p><img src="https://img-community.csdnimg.cn/images/0138cd16f13c49d39aafa3bf2f6a0c40.png" alt="img"></p>
+<h5 id="Expr-2"><a href="#Expr-2" class="headerlink" title="Expr"></a><code>Expr</code></h5><p>增加支持求导的方法，<code>derExpr(char)</code>中对参数<code>char</code>作为自变量求导，分别对每一个<code>Ele</code>的变量部分，三角因子部分进行求导再合并。</p>
+<p><img src="https://img-community.csdnimg.cn/images/fff3292d4f724d97b99eb5c9ac512490.png" alt="img"></p>
+<h3 id="基于度量的程序结构分析-2"><a href="#基于度量的程序结构分析-2" class="headerlink" title="基于度量的程序结构分析"></a>基于度量的程序结构分析</h3><h4 id="代码规模分析-2"><a href="#代码规模分析-2" class="headerlink" title="代码规模分析"></a>代码规模分析</h4><p><img src="https://img-community.csdnimg.cn/images/8be04d5290fb4b968b39992b34542919.png" alt="img"></p>
+<p>核心代码在899行左右，<code>Expr</code>类行数最多，占到了370行，其次是173行的解析<code>Expr</code>类。</p>
+<h4 id="复杂度分析-2"><a href="#复杂度分析-2" class="headerlink" title="复杂度分析"></a>复杂度分析</h4><h5 id="方法复杂度-2"><a href="#方法复杂度-2" class="headerlink" title="方法复杂度"></a>方法复杂度</h5><table>
+<thead>
+<tr>
+<th align="left">Method</th>
+<th align="left">CogC</th>
+<th align="left">ev(G)</th>
+<th align="left">iv(G)</th>
+<th align="left">v(G)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">DeFun.findRi(int, String)</td>
+<td align="left">9</td>
+<td align="left">5</td>
+<td align="left">6</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">DeFun.max(int, int)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">DeFun.process(String)</td>
+<td align="left">10</td>
+<td align="left">1</td>
+<td align="left">8</td>
+<td align="left">8</td>
+</tr>
+<tr>
+<td align="left">DeFun.readFun(String)</td>
+<td align="left">7</td>
+<td align="left">3</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">Ele.Ele()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.canMerge(Ele)</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">4</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">Ele.compareTo(Object)</td>
+<td align="left">27</td>
+<td align="left">13</td>
+<td align="left">12</td>
+<td align="left">13</td>
+</tr>
+<tr>
+<td align="left">Ele.cosContain(String)</td>
+<td align="left">3</td>
+<td align="left">3</td>
+<td align="left">2</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Ele.getCoe()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.getHashCos()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.getHashSin()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.getHashVar()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.initHashCos(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.initHashSin(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.initHashVar(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.isOne()</td>
+<td align="left">6</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">8</td>
+</tr>
+<tr>
+<td align="left">Ele.isZero()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.putHashCos(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Ele.putHashSin(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Ele.setCoe(BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.setHashCos(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.setHashSin(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.setHashVar(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.sinContain(String)</td>
+<td align="left">3</td>
+<td align="left">3</td>
+<td align="left">2</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Ele.varContain(String)</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Ele.zero()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Expr.combTerm(ArrayList, String)</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Expr.derCos(int, String)</td>
+<td align="left">7</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="left">Expr.derExpr(char)</td>
+<td align="left">14</td>
+<td align="left">1</td>
+<td align="left">8</td>
+<td align="left">8</td>
+</tr>
+<tr>
+<td align="left">Expr.derSin(int, String)</td>
+<td align="left">7</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="left">Expr.derVar(int, String)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Expr.getExprList()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Expr.initExpr(Ele)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Expr.initExprList(ArrayList)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Expr.merge()</td>
+<td align="left">10</td>
+<td align="left">4</td>
+<td align="left">7</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">Expr.mulTerm(ArrayList)</td>
+<td align="left">3</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Expr.reverse()</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Expr.reverseList(ArrayList)</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Expr.simplify()</td>
+<td align="left">4</td>
+<td align="left">3</td>
+<td align="left">4</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">Expr.sort()</td>
+<td align="left">32</td>
+<td align="left">13</td>
+<td align="left">12</td>
+<td align="left">13</td>
+</tr>
+<tr>
+<td align="left">Expr.toString()</td>
+<td align="left">16</td>
+<td align="left">1</td>
+<td align="left">10</td>
+<td align="left">11</td>
+</tr>
+<tr>
+<td align="left">Expr.triStr(Ele)</td>
+<td align="left">22</td>
+<td align="left">1</td>
+<td align="left">13</td>
+<td align="left">13</td>
+</tr>
+<tr>
+<td align="left">Expr.varStr(Ele)</td>
+<td align="left">21</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">16</td>
+</tr>
+<tr>
+<td align="left">Lexer.Lexer(String)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Lexer.getNumber()</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Lexer.next()</td>
+<td align="left">6</td>
+<td align="left">2</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">Lexer.read()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">MainClass.main(String[])</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Parser.Parser(Lexer)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.dealEx(Expr)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.parseDer(char)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.parseExpr()</td>
+<td align="left">5</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="left">Parser.parseFactor()</td>
+<td align="left">20</td>
+<td align="left">6</td>
+<td align="left">14</td>
+<td align="left">15</td>
+</tr>
+<tr>
+<td align="left">Parser.parsePow()</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Parser.parseTerm()</td>
+<td align="left">9</td>
+<td align="left">1</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">Parser.parseTri()</td>
+<td align="left">8</td>
+<td align="left">1</td>
+<td align="left">4</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">PreStr.pre(String)</td>
+<td align="left">6</td>
+<td align="left">1</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">Total</td>
+<td align="left">277</td>
+<td align="left">102</td>
+<td align="left">214</td>
+<td align="left">230</td>
+</tr>
+<tr>
+<td align="left">Average</td>
+<td align="left">4.85</td>
+<td align="left">1.79</td>
+<td align="left">3.75</td>
+<td align="left">4.04</td>
+</tr>
+</tbody></table>
+<h5 id="类复杂度-2"><a href="#类复杂度-2" class="headerlink" title="类复杂度"></a>类复杂度</h5><p><img src="https://img-community.csdnimg.cn/images/7d9f828b68014b7ba227e306eaac6682.png" alt="img"></p>
+<p>图中也能看到<code>Expr</code>类，<code>Ele</code>类和<code>Parser</code>类的复杂度较高，Expr类中大量的化简、计算和求导方法使得该类复杂度很高。</p>
+<h4 id="UML类图-2"><a href="#UML类图-2" class="headerlink" title="UML类图"></a>UML类图</h4><p><img src="https://img-community.csdnimg.cn/images/f0baef67c72f45f8ad23d3eb1cd278f1.jpg" alt="img"></p>
+<p>每个类的设计考虑已在上文的设计与架构中说明，此处不再赘述。</p>
+<h2 id="bug分析"><a href="#bug分析" class="headerlink" title="bug分析"></a>bug分析</h2><h3 id="分析自己程序的bug"><a href="#分析自己程序的bug" class="headerlink" title="分析自己程序的bug"></a>分析自己程序的bug</h3><h5 id="第一次作业"><a href="#第一次作业" class="headerlink" title="第一次作业"></a>第一次作业</h5><ul>
+<li>一些特殊点的情况，例如：0^0+5^0+2*10^0，需要提前做好调试并在<code>toString()</code>中修改</li>
+</ul>
+<h5 id="第二次作业"><a href="#第二次作业" class="headerlink" title="第二次作业"></a>第二次作业</h5><ul>
+<li>替换自定义函数时根据逗号分割，因此在面对嵌套函数例如f(g(y,z),h(x,y),sin(x))中存在多于2个逗号的情况可能会出错，解决方案是每次循环找到最靠后的一个自定义函数（保证这个函数里异地没有嵌套的自定义）进行替换</li>
+<li>注意替换时索引的位置，例如f((((x,y,z))))可能会出现括号判断错误</li>
+<li>注意特殊和边界点，例如sin((0))^2,sin((0))^0,cos((0))^3</li>
+<li>幂次为0时应该直接读取整数而不是往后解析表达式（大概是脑子抽了才这样写，大部分类似的问题全都是这点引起的）</li>
+</ul>
+<h5 id="第三次作业"><a href="#第三次作业" class="headerlink" title="第三次作业"></a>第三次作业</h5><ul>
+<li>求导之后化简会出问题，例如dx(x*cos(x)**0)最后解析得到的Expr没有问题但是输出会出错，原因在于我判断cos部分含不含x是根据HashMap是否为空（第二次作业的遗留），但是在求导之后我没有进行相应的remove工作，导致输出错误</li>
+</ul>
+<h3 id="分析他人程序的bug"><a href="#分析他人程序的bug" class="headerlink" title="分析他人程序的bug"></a>分析他人程序的bug</h3><p>手动构造具有代表性的边界数据，拥有多层嵌套括号，同时包含特殊条件（结果为0，1，求导内部无自变量），例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="title function_">f</span>(x,y)=(((<span class="title function_">sin</span>(<span class="title function_">cos</span>(x))-(+<span class="number">1</span>-<span class="title function_">sin</span>(<span class="title function_">cos</span>(y))))))</span><br><span class="line"><span class="title function_">f</span>((<span class="title function_">sin</span>(x)),(y**<span class="number">2</span>-<span class="number">0</span>**<span class="number">0</span>))+<span class="title function_">cos</span>(<span class="number">0</span>)**<span class="number">0</span>-<span class="title function_">sin</span>(<span class="number">0</span>)**<span class="number">0</span></span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="title function_">dx</span>(x*<span class="title function_">cos</span>(x)**<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="心得体会"><a href="#心得体会" class="headerlink" title="心得体会"></a>心得体会</h2><p>第一单元作业主要是针对表达式括号展开和求导的三次迭代开发。从最开始的不理解git的作用，到现在渐渐认识到版本管理在工程中的重要性；从对IDEA的无所适从和屡次犯错，到逐渐领略到这款IDE功能的强大；从最开始的对Java感到陌生，到逐渐熟悉它的众多优良简便的方法、数据结构和其面向对象的思维。同时，三次作业对代码风格的要求使我进一步意识到码风的重要性并逐渐内在地提升了自己编程的码风。第一次作业由于只有整体的架构，在缺少对Java语法以及数据结构等知识的缺乏的情况下，完成得非常艰难。在第二次第三次的迭代开发中，任务量明显比第一次的从零开始要轻松一些，但是要特别特别注意类以及方法之间的耦合性，尽量不改变现有的方法，这样更容易发现代码的bug。最后，我认为可以多参考讨论区里同学们的设计思路，这对于我的架构设计有很大的帮助^_^ 感谢助教和同学们的热心帮助！</p>
+	
+		</div>
+		
+		<div id="current-post-cover" data-scr="/oo1/plane.jpg"></div>
+
+		<!-- relate post, comment...-->
+		<div class="investment-container">
+			<div class="investment-header">
+				<div class="investment-title-1">
+					<div class="on">相关文章</div>
+					<div>评论</div>
+					<div>分享</div>
+				</div>
+				<div class="investment-title-2">	            
+					
+	<span>
+		<a id="totop-post-page">返回顶部</a>
+		
+			<a href="/2023/06/18/hello-world/" title="Hello World" rel="prev">
+				&laquo;上一篇
+			</a>
+		
+			
+	</span>
+
+
+      		
+				</div>	
+			</div>
+			
+			<div class="investment-content">
+				<div class="investment-content-list">
+					
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2023/06/18/hello-world/" title="Hello World">
+								Hello World			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 18日, 2023				
+							</p>
+							<p class="relate-post-content">
+								Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using ...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2023/06/18/hello-world/" title="Hello World">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Hello World"/>
+							</a>
+						</div>
+					</li>												
+			
+		</ul>
+	
+</div>	
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-comment">
+
+	
+		<div class="config-info">
+			Please check the parameter of <b>comment</b> in config.yml of hexo-theme-Annie!
+		</div>	
+	
+
+</div>
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- show math formula -->
+
+	<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config(
+			{ 
+				tex2jax: {
+					inlineMath: [['$','$'], ['\\(','\\)']]
+				} 
+			}
+		);
+	</script>
+
+
+
+	 
+	
+<script src="/plugin/clipboard/clipboard.js"></script>
+
+	<script>
+		// Copy code !
+	    function preprocessing() {
+	        $("#article-content .highlight").each(function() {
+	            $(this).wrap('<div id="post-code"></div>');
+	        })
+
+	        $("#article-content #post-code").each(function() {
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            let languageClass = $(this).next().attr('class'),
+	                language = ((languageClass.length > 9) && (languageClass != null)) ? languageClass.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+	            $(this).append('<span class="copy-btn icon-paste"></span>');
+	        });
+	    }
+
+		function copy() {
+		    $('#article-content #post-code').each(function(i) {
+		        let codeCopyId = 'codeCopy-' + i;
+
+		        let codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+   
+			let clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn icon-clipboard1');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn icon-paste');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');   
+			});
+			
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		}
+		
+		(function copyCode(){
+			if ($('.layout-post').length) {
+			    preprocessing();
+			    copy();
+			} 
+		})();
+	</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+
+
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+
+<script type="text/javascript">
+	(function gallerySet(){
+		let titleID = $('.article-title a'),
+			imageID = $('.article-content img'),
+			videoID = $('.article-content video');
+		
+		let postTitle = titleID.text() ? titleID.text() : "No post title!";
+		
+		imageID.each(function() {
+			let imgPath = $(this).attr('src'),
+				imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox="gallery" data-caption="《 ' + postTitle + ' 》' + imgTitle + '"href="' + imgPath + '"> </a>');
+		});
+		
+		videoID.each(function() {
+			let videoPath = $(this).attr('src');
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+		});
+		
+		//TODO：支持html5 video
+
+		if($('#layout-post').length) {
+			$('[data-fancybox="gallery"]').fancybox({
+				loop: true,
+				buttons: [
+					"zoom",
+					"share",
+					"slideShow",
+					"fullScreen",
+					//"download",
+					"thumbs",
+					"close"
+				],
+				protect: true
+			});
+		}
+	})();
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div id="navigation-show">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+		<li class="menu-gallery">
+			<a href="/gallery" class="menu-item-gallery" target="_blank">相册</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+
+	<div class="copyright">
+		<p>
+			 
+				&copy;2023, content by Leostar. All Rights Reserved.
+			
+			
+				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			
+		</p>
+		<p>
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+
+
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- Local or hitokoto! -->
+
+	
+<script src="/plugin/motto/motto.js"></script>
+
+	
+	<script type="text/javascript">
+		(function motto(){
+			let mottoText = getMingYanContent().split('</br> - </br>'),
+			
+			mottoTextContent = mottoText[0]?mottoText[0]:'请刷新...',
+			
+			mottoTextFrom = mottoText[1]?mottoText[1]:'one/一个';
+			
+			mottoTextContent = mottoTextContent.trim().substring(0, 100);
+		
+			$("#motto-content").html( mottoTextContent);
+			$("#motto-author").html( mottoTextFrom  );
+		})();	
+	</script>	
+
+
+
+<!-- love effect -->
+
+	
+<script src="/plugin/love/love.js"></script>
+
+
+
+<!-- back to top -->
+
+	<div id="totop">
+	<span class="icon-circle-up"></span>
+</div>
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<!-- leancloud -->
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+  
+
+	<!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup scrollbar" >
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      		ESC
+   		</span>
+		<div class="local-search-header">
+			<div class="input-prompt">				
+			</div>
+			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			<div class="topN-post">				
+				
+								
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="/plugin/search/ziploader.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imagelazyloader/yall.min.js"></script>
+<script src="/plugin/imageloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/plugin/resizediv/resizediv.js"></script>
+<script src="/js/main.js"></script>
+
+	</body>	
+</html>
