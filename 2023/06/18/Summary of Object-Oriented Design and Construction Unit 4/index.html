@@ -1,0 +1,845 @@
+<!--
+	作者：Sariay
+	时间：2018-08-26
+	描述：There may be a bug, but don't worry, Qiling(器灵) says that it can work normally! aha!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      Summary of Object-Oriented Design and Construction Unit 4 | Leostar&#39;s Blog
+    
+  </title>
+  <meta name="author" content="Leo Chen">
+  <meta name="keywords" content="" />
+  <meta name="description" content="九万里风鹏正举" />
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  
+<link rel="stylesheet" href="/css/Annie.css">
+
+  
+  <!-- jquery -->
+	
+<script src="/plugin/jquery/jquery.min.js"></script>
+
+
+<script>
+    const CONFIG_BGIMAGE = {
+      mode: 'normal',
+      normalSrc: '/img/header-bg.jpg',
+      randomYouMax: 110,
+      randomYouSrc: 'https://sariay.github.io/Random-img/',
+	  randomOtherSrc: 'https://api.berryapi.net/?service=App.Bing.Images&day=-0',
+	  preloaderEnable: true
+    }
+	
+    const CONFIG_LEACLOUD_COUNT = {
+      enable: false,
+	  appId: 'AU8...',
+	  appKey: '4cU...',
+	  serverURLs: 'http' || ' '
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground bg-pan-br">
+	<div class="mask">
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<div class="motto text-shadow-pop-left">
+					<p class="content" id="motto-content">获取中...</p>
+					<p>-<p>
+					<p class="author" id="motto-author">Just a minute...</p>
+				</div>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more" class="scroll-down">
+				<span class="icon-anchor1 animation-scroll-down"></span>
+			</a>
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><span>0.0%</span></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			「Summary of Object-Oriented Design and Construction Unit 4」
+		
+	</p>
+
+	
+	
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<span class="logo"> 
+			<img src="/img/logo.png">
+		</span>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	
+	<div class="nav-body">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+		<li class="menu-gallery">
+			<a href="/gallery" class="menu-item-gallery" target="_blank">相册</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	
+	<div class="nav-footer">
+		<ul id="global-social">
+	
+		<li>
+			<a href="https://github.com/LeostarR" target="_blank">
+				<span class="icon-github"></span>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+<script src="/plugin/toc/katelog.min.js"></script>
+
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+		<div class="article-title">
+			
+	<a href="/2023/06/18/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%204/" itemprop="url">
+		Summary of Object-Oriented Design and Construction Unit 4
+	</a>
+
+		</div>
+
+		<div class="article-meta">
+			<span>
+				<i class="icon-calendar1"></i>
+				
+				
+
+
+
+
+	更新于
+
+	<a href="/2023/06/18/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%204/" itemprop="url">
+		<time datetime="2023-06-18T04:30:37.000Z" itemprop="dateUpdated">
+	  		2023-06-18
+	  </time>
+	</a> 
+
+
+
+			</span>
+			<span>
+				
+	<i class="icon-price-tags"></i>
+	
+		<a href="/tags/Object-Oriented/" class=" ">
+			Object-Oriented
+		</a>
+	
+		<a href="/tags/Java/" class=" ">
+			Java
+		</a>
+	
+		
+			</span>
+			
+			
+
+
+
+		</div>
+
+		<div class="article-content" id="article-content">
+			<h1 id="面向对象设计与构造第四单元博客总结"><a href="#面向对象设计与构造第四单元博客总结" class="headerlink" title="面向对象设计与构造第四单元博客总结"></a>面向对象设计与构造第四单元博客总结</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>第四单元作业主要任务是完成一个图书馆模拟系统，以训练对程序架构的设计和抽象能力。</p>
+<p>点击此处可以参考我的代码：<a target="_blank" rel="noopener" href="https://github.com/LeostarR/Object-oriented-Design-and-Construction">https://github.com/LeostarR/Object-oriented-Design-and-Construction</a></p>
+<h2 id="本单元所实践的正向建模与开发"><a href="#本单元所实践的正向建模与开发" class="headerlink" title="本单元所实践的正向建模与开发"></a>本单元所实践的正向建模与开发</h2><h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h3><p>在正向建模与开发的过程中，首先需要进行需求分析。根据指导书，我们需要完成这些任务：</p>
+<ul>
+<li><p>选用合适的方式表示书本，并提供合适的容器</p>
+<ul>
+<li><p>在第一次作业中，由于不涉及校际借阅，情况较为简单，因此我直接用字符串（书本名称）指代这本书，所有的容器都采用<code>HashMap&lt;String, Integer&gt;</code>的形式表示对应书本及其数量。但是后续作业中新增了校际借阅的功能，这意味着每一本书都有其来源学校，并且还存在是否允许借阅的权限问题。因此必须重构，对书建类<code>Book</code>类，在构造方法中提供对来源地（<code>source</code>）、书名（<code>bookName</code>）、是否允许校际借阅（<code>permisssion</code>）的初始化并配置对应访问方法，重构之后所有存储书的容器就应该转化为<code>HashMap&lt;Book, Integer&gt;</code>。值得注意的是，将Book类作为键时，需要确保重新实现了<code>hashCode()</code>和<code>equals()</code>方法，以便在<code>HashMap</code>中正确地进行键的比较和查找，这样可以确保相同的书对象将被视为相等的键。比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">hashCode</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="type">int</span> <span class="variable">prime</span> <span class="operator">=</span> <span class="number">31</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    result = prime * result + ((bookName == <span class="literal">null</span>) ? <span class="number">0</span> : bookName.hashCode());</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">equals</span><span class="params">(Object obj)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span> == obj) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="keyword">if</span> (obj == <span class="literal">null</span> || getClass() != obj.getClass()) &#123;</span><br><span class="line">	    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">Book</span> <span class="variable">other</span> <span class="operator">=</span> (Book) obj;</span><br><span class="line">    <span class="keyword">return</span> bookName.equals(other.bookName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>对于每种职责的管理人员需要为其建类并提供相应的方法处理书本，其中大部分标准输出在这些类里完成</p>
+<ul>
+<li>请看下一小节 <strong>类设计</strong></li>
+</ul>
+</li>
+<li><p>处理日期</p>
+<ul>
+<li><p>注意到作业要求整理日早晨必须整理并输出，因此对于图书借阅的标准输入要按照这样的步骤来处理：</p>
+<ol>
+<li>判断是否日期发生变化，若没有发生变化，继续处理当前信息</li>
+<li>日期发生变化，处理当天没有成功处理的信息（没有成功借书，走校际借阅or校内预定（等书或者购买））</li>
+<li>从变化前日期后一天开始，遍历所有在变化后日期之前的整理日，按顺序（完成新书购置，整理图书并输出整理信息，发放预定图书）处理</li>
+</ol>
+<p>其中日期可以调用<code>java.time.LocalDate</code>现有的方法，比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> HashSet&lt;String&gt; <span class="title function_">findArDays</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">LocalDate</span> <span class="variable">initDate</span> <span class="operator">=</span> LocalDate.of(<span class="number">2023</span>,<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">    <span class="type">LocalDate</span> <span class="variable">startDate</span> <span class="operator">=</span> LocalDate.of(<span class="number">2023</span>, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">    <span class="type">LocalDate</span> <span class="variable">endDate</span> <span class="operator">=</span> LocalDate.of(<span class="number">2023</span>, <span class="number">12</span>, <span class="number">31</span>);</span><br><span class="line">    HashSet&lt;String&gt; datesSet = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">while</span> (startDate.isBefore(endDate)) &#123; <span class="comment">//isBefore可以比较日期前后</span></span><br><span class="line">        <span class="keyword">if</span> (initDate.until(startDate, ChronoUnit.DAYS) % <span class="number">3</span> == <span class="number">0</span>) &#123; <span class="comment">//until返回日期间隔天数</span></span><br><span class="line">			datesSet.add(<span class="string">&#x27;[&#x27;</span> + startDate.toString() + <span class="string">&#x27;]&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        startDate = startDate.plusDays(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    datesSet.add(<span class="string">&#x27;[&#x27;</span> + initDate.toString() + <span class="string">&#x27;]&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span> datesSet;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（在程序开始之前的静态方法，找出这一年所有整理日，之后通过<code>contains()</code>可以判断是否为整理日）</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="类设计"><a href="#类设计" class="headerlink" title="类设计"></a>类设计</h3><h4 id="Student"><a href="#Student" class="headerlink" title="Student"></a><code>Student</code></h4><p> 每一个学生都是独一无二的，由于后续作业表明不同学校可能有相同学号的学生，因此每个Student类中需要包含学校名和学生名(学号）两个字段。此外，每个学生借书还书还需要提供书的容器，以及保存当前拥有书籍借阅日期的信息：</p>
+<p><img src="https://pic.imgdb.cn/item/648f0bde1ddac507cc00c7a2.png"></p>
+<p>对于书籍的损坏，我并没有将损坏作为一个字段放在<code>Book</code>类中，而是对于在<code>Student</code>类中新建<code>HashSet&lt;Book&gt;</code>中保存已损坏的书籍。下面是借书还书的示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">borrowB</span><span class="params">(Book book, String date)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.bs.add(book);</span><br><span class="line">    <span class="built_in">this</span>.borrowDate.put(book.getName(), date);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">public</span> Book <span class="title function_">returnB</span><span class="params">(String bookName)</span> &#123;</span><br><span class="line">    <span class="type">Book</span> <span class="variable">reBook</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">for</span> (Book book: bs) &#123;</span><br><span class="line">        <span class="keyword">if</span> (book.getName().equals(bookName)) &#123;</span><br><span class="line">            reBook = book;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.bs.remove(reBook);</span><br><span class="line">    <span class="built_in">this</span>.borrowDate.remove(bookName);</span><br><span class="line">    <span class="keyword">return</span> reBook;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>在主函数Main中，我是用<code>HashMap&lt;String, HashMap&lt;String, Student&gt;&gt; students</code>来保存所有的学生的。</p>
+<h4 id="Lib"><a href="#Lib" class="headerlink" title="Lib"></a><code>Lib</code></h4><p>用于表示每个学校的图书馆。提供查询图书方法，以及查询借阅是否合法（针对预定），校内借阅，校际借阅的方法。</p>
+<p><img src="https://pic.imgdb.cn/item/648f0bd31ddac507cc00b77f.png"></p>
+<h4 id="Bar（borrowing-and-returning-librarian）"><a href="#Bar（borrowing-and-returning-librarian）" class="headerlink" title="Bar（borrowing and returning librarian）"></a><code>Bar</code>（borrowing and returning librarian）</h4><p><img src="https://pic.imgdb.cn/item/648f0bd31ddac507cc00b723.png"></p>
+<p> 借还管理员类中应包含学校名称，接受校内归还的图书以及未成功借出的图书存储到<code>barLib</code>，校际借阅归的图书还到<code>outBooks</code>。其中包含了借书还书，赔偿罚款，运走接受书籍（校际借阅），判断日期间隔的方法。</p>
+<p><img src="https://pic.imgdb.cn/item/648f0bd31ddac507cc00b75c.png"></p>
+<h4 id="Mace-self-service-machine"><a href="#Mace-self-service-machine" class="headerlink" title="Mace(self-service machine)"></a><code>Mace</code>(self-service machine)</h4><p><img src="https://pic.imgdb.cn/item/648f0bd31ddac507cc00b7c5.png"></p>
+<p>与上文借还管理员类相似。</p>
+<h4 id="Rai（logistics-division）"><a href="#Rai（logistics-division）" class="headerlink" title="Rai（logistics division）"></a><code>Rai</code>（logistics division）</h4><p><img src="https://pic.imgdb.cn/item/648f0bde1ddac507cc00c77a.png"></p>
+<p>后勤管理处用于修补损坏的图书，提供<code>raiLib</code>存储校内借阅的图书，<code>outBooks</code>存储校际借阅的图书。同时提供运送书籍和接收书籍的方法。</p>
+<h4 id="Odr-ordering-librarian"><a href="#Odr-ordering-librarian" class="headerlink" title="Odr(ordering librarian)"></a><code>Odr</code>(ordering librarian)</h4><p><img src="https://pic.imgdb.cn/item/648f0bd41ddac507cc00b855.png"></p>
+<p>预定管理员通过<code>orderList</code>和<code>buyList</code>记录每一天需要进行校内预定（等待还书和购买）的信息，同时提供一个存储书籍的容器<code>counter</code>和存储购买的新书的容器<code>buyMap</code>。该类还提供分发书籍，将书籍放回图书馆等方法。</p>
+<h3 id="设计细节与bug分析"><a href="#设计细节与bug分析" class="headerlink" title="设计细节与bug分析"></a>设计细节与bug分析</h3><ul>
+<li><p>利用泛型存储每个学校的所有管理员对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用TreeMap在遍历时可以按照字典序输出</span></span><br><span class="line">TreeMap&lt;String, ArrayList&lt;Object&gt;&gt; schools = <span class="keyword">new</span> <span class="title class_">TreeMap</span>&lt;&gt;();</span><br><span class="line"><span class="comment">//ArrayList&lt;Object&gt;可以允许不同的类型存储</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">initDepartment</span><span class="params">(ArrayList&lt;Object&gt; departments, String schoolName)</span> &#123;</span><br><span class="line">    <span class="type">Bar</span> <span class="variable">bar</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bar</span>(schoolName);<span class="comment">// 1-&gt;Bar BorrowingAndReturningLibrarian</span></span><br><span class="line">    departments.add(bar);</span><br><span class="line">    <span class="type">Odr</span> <span class="variable">odr</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Odr</span>(schoolName);<span class="comment">// 2-&gt;Odr OrderLibrarian</span></span><br><span class="line">    departments.add(odr);</span><br><span class="line">    <span class="type">Mace</span> <span class="variable">mace</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Mace</span>(schoolName);<span class="comment">// 3-&gt;Mace ServiceMachine</span></span><br><span class="line">    departments.add(mace);</span><br><span class="line">    <span class="type">Rai</span> <span class="variable">rai</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Rai</span>(schoolName);<span class="comment">// 4-&gt;Rai LogisticsDivision</span></span><br><span class="line">    departments.add(rai);</span><br><span class="line">    <span class="type">Arg</span> <span class="variable">arg</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Arg</span>(schoolName);<span class="comment">// 5-&gt;Arg ArrangingLibrarian</span></span><br><span class="line">    departments.add(arg);</span><br><span class="line">    <span class="type">Pcd</span> <span class="variable">pcd</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Pcd</span>(schoolName);<span class="comment">// 6-&gt;Pcd PurchasingDepartment</span></span><br><span class="line">    departments.add(pcd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>特别注意最后一条信息之后也要处理当天的预定信息：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; m;i++) &#123;<span class="comment">//m条图书借还信息</span></span><br><span class="line">    ......</span><br><span class="line">	<span class="keyword">if</span> (i == m - <span class="number">1</span>) &#123;</span><br><span class="line">        process(proList, schools, transList, students);<span class="comment">//处理所有没能借成功的信息</span></span><br><span class="line">        transport(transList, schools, today);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意日期的加减，应该调用<code>plusDays()</code>方法，而不是将day++然后手动转化，比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">findArrDay</span><span class="params">(String year, String month, String day)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> LocalDate.of(year, month, day).plusDays(<span class="number">1</span>).toString();</span><br><span class="line">    <span class="comment">//错误示范：</span></span><br><span class="line">    <span class="comment">//String nextDay = (Integer.parseInt(day) + 1).toString();</span></span><br><span class="line">    <span class="comment">//return LocalDate.of(year, month, nextDay).toString();</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="最终的代码和UML模型设计之间的追踪关系"><a href="#最终的代码和UML模型设计之间的追踪关系" class="headerlink" title="最终的代码和UML模型设计之间的追踪关系"></a>最终的代码和UML模型设计之间的追踪关系</h2><p>本单元作业在第二次作业进行了重构。因为考虑到校际借阅的问题，每个图书中包含的信息量增大，不能仅仅用字符串来表示，这样底层的容器，方法必须全部修改。此外还要考虑多个学校多个管理员以及顺序输出，因此schools存储结构也要改变（相比之下，我的第一次作业就是一种单例模式）。</p>
+<p><img src="https://pic.imgdb.cn/item/648f0bdf1ddac507cc00c823.png"></p>
+<p>最终的代码和UML图基本吻合。从UML类图可以看出，图书馆的各个管理员都建立了类，每个类内部提供方法执行对应的职能，在主类中直接调用对象的方法即可。</p>
+<h2 id="四个单元中架构设计思维的演进"><a href="#四个单元中架构设计思维的演进" class="headerlink" title="四个单元中架构设计思维的演进"></a>四个单元中架构设计思维的演进</h2><ul>
+<li>第一单元（表达式化简）：架构设计的雏形，第一次接触到用递归下降方法解析表达式。我们需要通过各个类来实现具体的解析和计算，可以简单理解为分工合作，各个部分完成的工作大不相同却又相辅相成，相互依赖</li>
+<li>第二单元（多线程和电梯）：初步接触多线程编程，通过调度器类支持整个模块的运转</li>
+<li>第三单元（JML与规格）：掌握编程的规范化，了解了接口，继承以及多态（<code>emojiMessage, moneyMessage等</code>)在面向对象中的实现</li>
+<li>第四单元（通过UML对图书馆建模）：根据需求绘制UML类图，根据图进行正向建模</li>
+</ul>
+<h2 id="四个单元中测试思维的演进"><a href="#四个单元中测试思维的演进" class="headerlink" title="四个单元中测试思维的演进"></a>四个单元中测试思维的演进</h2><p>前两个单元主要依靠讨论区同学们提供的评测机以及手动构造数据来进行测试，认识到自动化测试是一种高效的测试方法。</p>
+<p>第三单元主要依靠JUnit进行方法进行单元测试，通过编写单元测试类和方法，来实现对类和方法实现正确性的快速检查和测试，可以很好排除bug。</p>
+<p>第四单元的测试点并没有刻意去增加强度，而是希望我们把重点放在UML图的设计中，手动构造数据即可很容易地通过测试。</p>
+<h2 id="课程收获"><a href="#课程收获" class="headerlink" title="课程收获"></a>课程收获</h2><ul>
+<li>深入理解了面向对象的思维方式。面向对象强调将问题领域的概念和行为转化为对象，并通过它们之间的交互来解决问题。这种思维方式使得系统的设计更加模块化、可扩展和可维护。比如说第一单元表达式分为表达式，项，因子类等，第四单元将众多图书管理员各自建立类实现。</li>
+<li>熟悉了一门编程语言。不得不说，Java和C语言在很多方面都有相似之处，通过面向对象的学习可以让我在实践中逐渐掌握一门新的语言。</li>
+<li>认识了一些设计模式。设计模式如工厂模式、观察者模式和单例模式等，提供了解决特定问题的经典解决方案。这些模式对于构建高质量的软件系统至关重要。</li>
+<li>对测试有了新的理解。千万不要妄想着一遍不做任何测试就能成功，即使整体思路不存在问题，还是会出现许多小bug，因此做好测试是十分有必要的。</li>
+</ul>
+	
+		</div>
+		
+		<div id="current-post-cover" data-scr="/img/OO4.jpg"></div>
+
+		<!-- relate post, comment...-->
+		<div class="investment-container">
+			<div class="investment-header">
+				<div class="investment-title-1">
+					<div class="on">相关文章</div>
+					<div>评论</div>
+					<div>分享</div>
+				</div>
+				<div class="investment-title-2">	            
+					
+	<span>
+		<a id="totop-post-page">返回顶部</a>
+		
+		
+			<a href="/2023/05/19/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%203/" title="Summary of Object-Oriented Design and Construction Unit 3" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+				</div>	
+			</div>
+			
+			<div class="investment-content">
+				<div class="investment-content-list">
+					
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2023/05/19/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%203/" title="Summary of Object-Oriented Design and Construction Unit 3">
+								Summary of Object-Oriented Design and Construction Unit 3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 19日, 2023				
+							</p>
+							<p class="relate-post-content">
+								面向对象设计与构造第三单元博客总结介绍第三单元作业的训练目标是掌握JML规格的理解与实现，三次作业为迭代开发。
+需要完成的任务为实现简单社交关系的模拟和查询（第一次作业），实现社交关系模拟系统中的群组和消息功能（第二次作业）和实现社交...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2023/05/19/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%203/" title="Summary of Object-Oriented Design and Construction Unit 3">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/OO3.jpg" alt="Summary of Object-Oriented Design and Construction Unit 3"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2023/04/14/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%202/" title="Summary of Object-Oriented Design and Construction Unit 2">
+								Summary of Object-Oriented Design and Construction Unit 2			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								四月 14日, 2023				
+							</p>
+							<p class="relate-post-content">
+								面向对象设计与构造第二单元博客总结介绍第二单元作业的基本训练目标是模拟多线程实时电梯系统，三次作业为迭代开发。
+
+第一次作业要求设计一个具有功能为上下行，开关门，以及模拟乘客进出的电梯系统，目标是让我们熟悉线程的创建、运行等基本操作，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2023/04/14/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%202/" title="Summary of Object-Oriented Design and Construction Unit 2">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/OO2.jpg" alt="Summary of Object-Oriented Design and Construction Unit 2"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2023/03/17/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%201/" title="Summary of Object-Oriented Design and Construction Unit 1">
+								Summary of Object-Oriented Design and Construction Unit 1			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								三月 17日, 2023				
+							</p>
+							<p class="relate-post-content">
+								面向对象设计与构造第一单元博客总结介绍第一单元作业总的训练目标是对表达式结构进行建模，体会层次化的思想，三次作业为迭代开发。第一次作业是完成对多项式括号的展开，第二次作业新引入了三角函数(sin,cos)以及自定义函数(f(x),g(...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2023/03/17/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%201/" title="Summary of Object-Oriented Design and Construction Unit 1">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/OO1.jpg" alt="Summary of Object-Oriented Design and Construction Unit 1"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2023/03/12/hello-world/" title="Hello World">
+								Hello World			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								三月 12日, 2023				
+							</p>
+							<p class="relate-post-content">
+								Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using ...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2023/03/12/hello-world/" title="Hello World">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Hello World"/>
+							</a>
+						</div>
+					</li>												
+			
+		</ul>
+	
+</div>	
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-comment">
+
+	
+		<div class="config-info">
+			Please check the parameter of <b>comment</b> in config.yml of hexo-theme-Annie!
+		</div>	
+	
+
+</div>
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- show math formula -->
+
+	<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config(
+			{ 
+				tex2jax: {
+					inlineMath: [['$','$'], ['\\(','\\)']]
+				} 
+			}
+		);
+	</script>
+
+
+
+	 
+	
+<script src="/plugin/clipboard/clipboard.js"></script>
+
+	<script>
+		// Copy code !
+	    function preprocessing() {
+	        $("#article-content .highlight").each(function() {
+	            $(this).wrap('<div id="post-code"></div>');
+	        })
+
+	        $("#article-content #post-code").each(function() {
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            let languageClass = $(this).next().attr('class'),
+	                language = ((languageClass.length > 9) && (languageClass != null)) ? languageClass.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+	            $(this).append('<span class="copy-btn icon-paste"></span>');
+	        });
+	    }
+
+		function copy() {
+		    $('#article-content #post-code').each(function(i) {
+		        let codeCopyId = 'codeCopy-' + i;
+
+		        let codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+   
+			let clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn icon-clipboard1');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn icon-paste');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');   
+			});
+			
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		}
+		
+		(function copyCode(){
+			if ($('.layout-post').length) {
+			    preprocessing();
+			    copy();
+			} 
+		})();
+	</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+
+
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+
+<script type="text/javascript">
+	(function gallerySet(){
+		let titleID = $('.article-title a'),
+			imageID = $('.article-content img'),
+			videoID = $('.article-content video');
+		
+		let postTitle = titleID.text() ? titleID.text() : "No post title!";
+		
+		imageID.each(function() {
+			let imgPath = $(this).attr('src'),
+				imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox="gallery" data-caption="《 ' + postTitle + ' 》' + imgTitle + '"href="' + imgPath + '"> </a>');
+		});
+		
+		videoID.each(function() {
+			let videoPath = $(this).attr('src');
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+		});
+		
+		//TODO：支持html5 video
+
+		if($('#layout-post').length) {
+			$('[data-fancybox="gallery"]').fancybox({
+				loop: true,
+				buttons: [
+					"zoom",
+					"share",
+					"slideShow",
+					"fullScreen",
+					//"download",
+					"thumbs",
+					"close"
+				],
+				protect: true
+			});
+		}
+	})();
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div id="navigation-show">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+		<li class="menu-gallery">
+			<a href="/gallery" class="menu-item-gallery" target="_blank">相册</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+
+	<div class="copyright">
+		<p>
+			 
+				&copy;2023, content by Leostar. All Rights Reserved.
+			
+			
+				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			
+		</p>
+		<p>
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+
+
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- Local or hitokoto! -->
+
+	
+<script src="/plugin/motto/motto.js"></script>
+
+	
+	<script type="text/javascript">
+		(function motto(){
+			let mottoText = getMingYanContent().split('</br> - </br>'),
+			
+			mottoTextContent = mottoText[0]?mottoText[0]:'请刷新...',
+			
+			mottoTextFrom = mottoText[1]?mottoText[1]:'one/一个';
+			
+			mottoTextContent = mottoTextContent.trim().substring(0, 100);
+		
+			$("#motto-content").html( mottoTextContent);
+			$("#motto-author").html( mottoTextFrom  );
+		})();	
+	</script>	
+
+
+
+<!-- love effect -->
+
+	
+<script src="/plugin/love/love.js"></script>
+
+
+
+<!-- back to top -->
+
+	<div id="totop">
+	<span class="icon-circle-up"></span>
+</div>
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<!-- leancloud -->
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+  
+
+	<!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup scrollbar" >
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      		ESC
+   		</span>
+		<div class="local-search-header">
+			<div class="input-prompt">				
+			</div>
+			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			<div class="topN-post">				
+				
+								
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="/plugin/search/ziploader.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imagelazyloader/yall.min.js"></script>
+<script src="/plugin/imageloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/plugin/resizediv/resizediv.js"></script>
+<script src="/js/main.js"></script>
+
+	</body>	
+</html>
