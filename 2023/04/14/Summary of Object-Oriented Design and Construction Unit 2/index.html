@@ -1,0 +1,880 @@
+<!--
+	作者：Sariay
+	时间：2018-08-26
+	描述：There may be a bug, but don't worry, Qiling(器灵) says that it can work normally! aha!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      Summary of Object-Oriented Design and Construction Unit 2 | Leostar&#39;s Blog
+    
+  </title>
+  <meta name="author" content="Leo Chen">
+  <meta name="keywords" content="" />
+  <meta name="description" content="九万里风鹏正举" />
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  
+<link rel="stylesheet" href="/css/Annie.css">
+
+  
+  <!-- jquery -->
+	
+<script src="/plugin/jquery/jquery.min.js"></script>
+
+
+<script>
+    const CONFIG_BGIMAGE = {
+      mode: 'normal',
+      normalSrc: '/img/header-bg.jpg',
+      randomYouMax: 110,
+      randomYouSrc: 'https://sariay.github.io/Random-img/',
+	  randomOtherSrc: 'https://api.berryapi.net/?service=App.Bing.Images&day=-0',
+	  preloaderEnable: true
+    }
+	
+    const CONFIG_LEACLOUD_COUNT = {
+      enable: false,
+	  appId: 'AU8...',
+	  appKey: '4cU...',
+	  serverURLs: 'http' || ' '
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground bg-pan-br">
+	<div class="mask">
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<div class="motto text-shadow-pop-left">
+					<p class="content" id="motto-content">获取中...</p>
+					<p>-<p>
+					<p class="author" id="motto-author">Just a minute...</p>
+				</div>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more" class="scroll-down">
+				<span class="icon-anchor1 animation-scroll-down"></span>
+			</a>
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><span>0.0%</span></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			「Summary of Object-Oriented Design and Construction Unit 2」
+		
+	</p>
+
+	
+	
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<span class="logo"> 
+			<img src="/img/logo.png">
+		</span>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	
+	<div class="nav-body">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+		<li class="menu-gallery">
+			<a href="/gallery" class="menu-item-gallery" target="_blank">相册</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	
+	<div class="nav-footer">
+		<ul id="global-social">
+	
+		<li>
+			<a href="https://github.com/LeostarR" target="_blank">
+				<span class="icon-github"></span>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+<script src="/plugin/toc/katelog.min.js"></script>
+
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+		<div class="article-title">
+			
+	<a href="/2023/04/14/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%202/" itemprop="url">
+		Summary of Object-Oriented Design and Construction Unit 2
+	</a>
+
+		</div>
+
+		<div class="article-meta">
+			<span>
+				<i class="icon-calendar1"></i>
+				
+				
+
+
+
+
+	更新于
+
+	<a href="/2023/04/14/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%202/" itemprop="url">
+		<time datetime="2023-04-14T03:00:39.000Z" itemprop="dateUpdated">
+	  		2023-06-18
+	  </time>
+	</a> 
+
+
+
+			</span>
+			<span>
+				
+	<i class="icon-price-tags"></i>
+	
+		<a href="/tags/Object-Oriented/" class=" ">
+			Object-Oriented
+		</a>
+	
+		<a href="/tags/Java/" class=" ">
+			Java
+		</a>
+	
+		
+			</span>
+			
+			
+
+
+
+		</div>
+
+		<div class="article-content" id="article-content">
+			<h1 id="面向对象设计与构造第二单元博客总结"><a href="#面向对象设计与构造第二单元博客总结" class="headerlink" title="面向对象设计与构造第二单元博客总结"></a>面向对象设计与构造第二单元博客总结</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>第二单元作业的基本训练目标是模拟<strong>多线程实时电梯系统</strong>，三次作业为迭代开发。</p>
+<ul>
+<li>第一次作业要求设计一个具有功能为上下行，开关门，以及模拟乘客进出的电梯系统，目标是让我们熟悉线程的创建、运行等基本操作，熟悉多线程程序的设计方法；</li>
+<li>第二次作业新增加了模拟电梯系统扩建和日常维护时乘客的调度的功能，目标是让我们掌握线程安全知识并解决线程安全问题，同时在架构上围绕线程之间的协同设计层次架构；</li>
+<li>第三次作业新增电梯系统调度参数，具体来说是对每一层楼正处于开门状态的电梯数量加以限制，同时电梯不一定满足每层楼可达， 目标是让我们掌握线程之间的交互，强化线程之间的协同设计层次架构。</li>
+</ul>
+<h2 id="第一次作业总结"><a href="#第一次作业总结" class="headerlink" title="第一次作业总结"></a>第一次作业总结</h2><h3 id="设计与架构"><a href="#设计与架构" class="headerlink" title="设计与架构"></a>设计与架构</h3><p>本次作业需要完成这些工作：</p>
+<ol>
+<li>设计一个<strong>队列</strong>类，用于进行乘客进入&#x2F;移除，同时还需有判断是否为空&#x2F;是否结束和设定结束等方法</li>
+<li>设计一个<strong>调度器</strong>类，作为总等候队列与电梯之间的桥梁，需要完成对乘客的分配工作</li>
+<li>设计一个<strong>电梯</strong>类，能够完成题目要求的任务</li>
+<li>在<code>Main</code>中启动调度器线程和电梯线程，并将输入（如果有）送给总等候队列，结束时将等候队列设定结束</li>
+</ol>
+<blockquote>
+<p>说明：本次作业课程组已经为我们提供了输入输出的接口，因此不再考虑解析输入的请求和格式化时间戳输出。</p>
+</blockquote>
+<h4 id="队列类"><a href="#队列类" class="headerlink" title="队列类"></a>队列类</h4><h5 id="PassengerQueue"><a href="#PassengerQueue" class="headerlink" title="PassengerQueue:"></a><code>PassengerQueue</code>:</h5><p><img src="https://pic.imgdb.cn/item/648eff681ddac507ccec5ffb.png"></p>
+<p> <code>addPassenger(Passenger)</code>和<code>removePassenger(Passenger)</code>用于添加和移除乘客，<code>getOnePassenger()</code>用于分配乘客时按时间先后取出，<code>setEnd(boolean)</code>用于设定队列结束。其他方法用于返回该队列的一些属性，例如是否结束，是否为空以及队列所有乘客组成的集合(<code>ArrayList&lt;Passenger&gt;</code>)。</p>
+<h4 id="调度器类"><a href="#调度器类" class="headerlink" title="调度器类"></a><strong>调度器类</strong></h4><h5 id="Controller"><a href="#Controller" class="headerlink" title="Controller:"></a><code>Controller</code>:</h5><p><img src="https://pic.imgdb.cn/item/648eff5a1ddac507ccec46f8.png"></p>
+<p>重写了<code>run()</code>方法将乘客分配。</p>
+<p>分配策略：采取均匀分配的策略。按照乘客到来的时间先后顺序将总等候队列中的乘客均匀分配给电梯的等候队列。（<del>所以性能不好$_$</del>)</p>
+<p>一个示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">           <span class="keyword">if</span> (<span class="comment">/*结束条件*/</span>) &#123;</span><br><span class="line">               <span class="comment">//将所有电梯等候队列设为结束//</span></span><br><span class="line">               <span class="keyword">return</span>;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="type">Passenger</span> <span class="variable">passenger</span> <span class="operator">=</span> waitQueue.getOnePassenger()<span class="comment">//按时间顺序取出//;</span></span><br><span class="line">           <span class="keyword">if</span> (passenger == <span class="literal">null</span>) &#123;</span><br><span class="line">               <span class="keyword">continue</span>;</span><br><span class="line">           &#125;</span><br><span class="line">           elevatorQueues.get(<span class="comment">/*index*/</span>).addPassenger(passenger);<span class="comment">//分配</span></span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="电梯类："><a href="#电梯类：" class="headerlink" title="电梯类："></a>电梯类：</h4><h5 id="Elevator"><a href="#Elevator" class="headerlink" title="Elevator:"></a><code>Elevator</code>:</h5><p><img src="https://pic.imgdb.cn/item/648eff5a1ddac507ccec47c9.png"></p>
+<p> 重写了<code>run()</code>方法使电梯运行，总的模式是这样的：根据等候队列中的顺序，确定主请求然后将主请求的乘客送到目的地。在这个过程中分为接主请求乘客和送主请求乘客两部分，这两个过程中在未超载（主请求计算在内）且运行方向相同的情况下可进行捎带。在每一个主请求到达的时候将电梯内部先到的乘客确定为主请求，继续运行直至电梯内部为空，再从等候队列中取出乘客。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">       <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">           <span class="keyword">if</span> (<span class="comment">/*结束条件*/</span>) &#123;</span><br><span class="line">		    <span class="keyword">return</span>;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="type">Passenger</span> <span class="variable">passenger</span> <span class="operator">=</span> queue.getOnePassenger();<span class="comment">//queue(ArrayList&lt;Passenger&gt;)是该电梯的等候队列</span></span><br><span class="line">           <span class="keyword">if</span> (passenger == <span class="literal">null</span>) &#123;</span><br><span class="line">               <span class="keyword">continue</span>;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">//分两步：</span></span><br><span class="line">           <span class="comment">//1.将最早的乘客起始点设为主请求，接人</span></span><br><span class="line">           <span class="built_in">this</span>.setTarget(passenger.getFromFloor());</span><br><span class="line">           forward(passenger);</span><br><span class="line">           <span class="comment">//2.将该乘客目的地设为主请求，送人</span></span><br><span class="line">           <span class="built_in">this</span>.setTarget(passenger.getToFloor());</span><br><span class="line">           forward(passenger);</span><br><span class="line">           <span class="keyword">while</span> (!<span class="built_in">this</span>.list.isEmpty()) &#123;</span><br><span class="line">               <span class="comment">//将剩下的乘客逐一运送</span></span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>forward(Passenger p)</code>方法用于<strong>接</strong>或<strong>送</strong>乘客<code>p</code>，同时还需满足捎带：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">forward</span><span class="params">(Passenger p)</span> &#123;</span><br><span class="line">       <span class="keyword">while</span> (<span class="built_in">this</span>.nowFloor != <span class="built_in">this</span>.targetFloor) &#123; <span class="comment">//捎带：方向一致，目标小于主目标</span></span><br><span class="line">           <span class="keyword">if</span> (<span class="comment">/*捎带或中途下人条件是否成立*/</span>openOrNot()) &#123;</span><br><span class="line">               <span class="comment">//开门、出人、进人、关门</span></span><br><span class="line">           &#125;</span><br><span class="line">           <span class="built_in">this</span>.move();<span class="comment">//移动一层</span></span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">//到达指定层</span></span><br><span class="line">       <span class="built_in">this</span>.open();</span><br><span class="line">       <span class="comment">//1.如果p在电梯内且到了目的地，先让p下电梯</span></span><br><span class="line">       <span class="comment">//2.如果捎带的乘客目的地也在此层，下电梯</span></span><br><span class="line">       <span class="comment">//3.如果p还没上电梯，先让p进电梯</span></span><br><span class="line">       <span class="comment">//4.根据剩余容量捎带此层满足条件的乘客</span></span><br><span class="line">       <span class="built_in">this</span>.close();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>in()</code>,<code>out()</code>,<code>open()</code>,<code>close()</code>,<code>arrive()</code>均需要输出指定内容，<code>addPassenger()</code>和<code>removePassenger()</code>是电梯内队列的增减乘客操作方法（这里的方法和前文的队列类不同，就是很简单的删减操作，因为每一个电梯内队列只会被当前电梯操作，无需考虑线程安全的问题），都很容易实现~</p>
+<h4 id="线程之间的交互和总运行流程"><a href="#线程之间的交互和总运行流程" class="headerlink" title="线程之间的交互和总运行流程"></a>线程之间的交互和总运行流程</h4><p>开始输入，官方接口接受输入，<code>Main</code>将每一个<code>Passenger</code>送到总等候队列<code>waitQueue</code>（相当于生产者消费者模型中的托盘），调度器是电梯和乘客之间的桥梁，按照某种方式将<code>waitQueue</code>中的乘客放入不同电梯的等候队列(注意不是电梯内部)。而此时电梯和等候队列的关系也正好对应了消费者和托盘的关系，不同的是，一个等候队列仅对应一个电梯，因此每个电梯只需考虑将自己的等候队列里乘客处理完毕，直至收到结束信号并且等候队列和电梯内均为空则结束线程。</p>
+<h4 id="同步块与锁"><a href="#同步块与锁" class="headerlink" title="同步块与锁"></a>同步块与锁</h4><p>和普通的程序不同，多线程编程中要注意线程安全的问题。例如，如果两个线程同时对一个对象进行写的操作，很有可能出现冲突和异常。因此要保证该对象每次只被一个线程访问，可以在所有可能被多个对象同时访问的成员方法加上synchronized关键字，在方法末尾调用<code>notifyAll()</code>唤醒其他线程。锁和同步块中处理语句之间的关系是，当一个线程进入同步块时，它会自动获取同步块所关联的锁对象，当它退出同步块时，它会自动释放锁对象，这样可以保证同步块中的处理语句不会被其他线程干扰。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">removePassenger</span><span class="params">(Passenger p)</span> &#123;</span><br><span class="line">        <span class="comment">//Your Method</span></span><br><span class="line">        notifyAll();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h4><p><img src="https://pic.imgdb.cn/item/648eff5b1ddac507ccec498a.png"></p>
+<h4 id="bug分析"><a href="#bug分析" class="headerlink" title="bug分析"></a>bug分析</h4><p>本次作业的中测在<del>写调度器之前</del>频繁超时，加上调度器之后就没有bug了。</p>
+<p>强测和互测各出现了一个不能稳定复现的超时bug，大概率是高频发时会引发某些问题，导致乘客没进或没出以至于程序无法终止。检查代码的时候我发现在捎带乘客那一部分实际设定的电梯容量是5（@_@)，改正之后居然就能够解决了。</p>
+<h2 id="第二次作业总结"><a href="#第二次作业总结" class="headerlink" title="第二次作业总结"></a>第二次作业总结</h2><h3 id="设计与架构-1"><a href="#设计与架构-1" class="headerlink" title="设计与架构"></a>设计与架构</h3><p>在第一次作业基础上需要增加这些工作：</p>
+<ol>
+<li>将<strong>电梯</strong>类的属性变量添加到构造方法中以满足个性化添加电梯，并在具体实现中将常量替换为该电梯的属性</li>
+<li>在<strong>队列</strong>类中新增和<code>maintain</code>有关的方法和变量以满足维修的需求</li>
+<li>在<strong>电梯</strong>类的运行方法中新增判断是否<code>maintain</code>的方法以及处理措施的方法</li>
+<li>修改线程结束的条件(<code>waitQueue</code>的输入来源不止一个main了，还有维修的电梯)</li>
+</ol>
+<h4 id="队列类-1"><a href="#队列类-1" class="headerlink" title="队列类"></a>队列类</h4><h5 id="PassengerQueue-1"><a href="#PassengerQueue-1" class="headerlink" title="PassengerQueue:"></a><code>PassengerQueue</code>:</h5><p><img src="https://pic.imgdb.cn/item/648eff681ddac507ccec604a.png"></p>
+<p>增加了<code>setMaintainSymbol(int)</code>， <code>isMaintained()</code>和<code>addMaintainList(ArrayList&lt;PersonRequest)</code>三个方法。其中<code>setMaintainSymbol(int)</code>和<code>isMaintained()</code>分别用于设定维修标志和判断维修标志,<code>addMaintainList()</code>将参数<code>ArrayList&lt;PersonRequest&gt; list</code>全部加入到此对象的<code>List</code>中，可以适应将与维修电梯相关人员加入到<code>waitQueue</code>的操作。</p>
+<h4 id="调度器类-1"><a href="#调度器类-1" class="headerlink" title="调度器类"></a>调度器类</h4><h5 id="Distribute"><a href="#Distribute" class="headerlink" title="Distribute:"></a><code>Distribute</code>:</h5><p><del>对的，不是打错了，是改名了</del></p>
+<p>由于电梯也能将<code>waitQueue</code>加入乘客，因此需要修改调度器的结束条件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">          <span class="keyword">if</span> (waitQueue.isEnd() &amp;&amp; waitQueue.isEmpty()) &#123;</span><br><span class="line">              <span class="keyword">try</span> &#123;</span><br><span class="line">                  sleep(<span class="number">1000</span>);</span><br><span class="line">              &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="keyword">if</span> (!waitQueue.isEmpty()) &#123;</span><br><span class="line">                  <span class="keyword">continue</span>;</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="keyword">for</span> (PassengerQueue elevatorQueue : elevatorQueues) &#123;</span><br><span class="line">                  elevatorQueue.setEnd(<span class="literal">true</span>);</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="keyword">return</span>;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="comment">//Your Method</span></span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+
+<p>对比一下之前的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">           <span class="keyword">if</span> (waitQueue.isEnd() &amp;&amp; waitQueue.isEmpty()) &#123;</span><br><span class="line">               <span class="keyword">for</span> (PassengerQueue elevatorQueue : elevatorQueues) &#123;</span><br><span class="line">                   elevatorQueue.setEnd(<span class="literal">true</span>);</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">return</span>;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">//Your Method</span></span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实仅仅时增加了中间一部分，因为考虑到maintain这个过程是需要时间的，如果仅仅在<code>waitQueue</code>为空时结束，那么一些收到maintain信号的电梯可能没来得及放出乘客，此时关闭调度器可能会使这些乘客无法参与分配从而永远到达不了目的地<del>_</del></p>
+<p>所以我在满足原结束条件的情况下使调度器休眠固定时间，这也是由于课程组要求两层<code>arrive</code>以内必须完成<code>maintain</code>的操作，因此这个时间不会太难控制。如果休眠之后仍满足该条件，则结束。</p>
+<p>第二次作业的调度策略与第一次作业的差别不大，此处不再赘述。</p>
+<h4 id="电梯类"><a href="#电梯类" class="headerlink" title="电梯类"></a>电梯类</h4><h5 id="Elevator-1"><a href="#Elevator-1" class="headerlink" title="Elevator:"></a><code>Elevator</code>:</h5><p>在第一次作业上新增了一个方法：</p>
+<p><img src="https://pic.imgdb.cn/item/648eff5a1ddac507ccec4773.png"></p>
+<p>用于处理维修请求，一个示例（删去了很多细节代码，仅供参考）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">dealMaintain</span><span class="params">(PersonRequest p)</span> &#123;</span><br><span class="line">       ArrayList&lt;PersonRequest&gt; arr = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(list);</span><br><span class="line">       <span class="keyword">if</span> (<span class="comment">/*p不在电梯中*/</span>) &#123;</span><br><span class="line">          waitQueue.add(p);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">for</span> (PersonRequest person : arr) &#123;</span><br><span class="line">           <span class="keyword">if</span> (<span class="comment">/*乘客未到达*/</span>) &#123;</span><br><span class="line">               <span class="comment">//修改person的属性fromFloor为当前楼层</span></span><br><span class="line">               person.setFromFloor(nowFloor);</span><br><span class="line">               waitQueue.add(person);</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="built_in">this</span>.out(person);</span><br><span class="line">       &#125;</span><br><span class="line">       waitQueue.addAll(<span class="built_in">this</span>.queue.getList());<span class="comment">//别忘了等候队列的可怜人:)</span></span><br><span class="line">       <span class="built_in">this</span>.maintainFlag = <span class="number">1</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>同时在其他方法比如<code>forward()</code>和<code>run()</code>中增加新内容以适应维修的需求：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="built_in">this</span>.nowFloor != <span class="built_in">this</span>.targetFloor) &#123; </span><br><span class="line">           <span class="comment">//需要在正常上下客之前判断maintain</span></span><br><span class="line">          <span class="keyword">if</span> (<span class="built_in">this</span>.queue.isMaintained()) &#123;</span><br><span class="line">               <span class="built_in">this</span>.dealMaintain(p);</span><br><span class="line">               <span class="keyword">return</span>;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">//Originated Method</span></span><br><span class="line">       &#125;   </span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">       <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">           ......</span><br><span class="line">           <span class="keyword">if</span> (<span class="comment">/*维护条件*/</span>) &#123;</span><br><span class="line">               <span class="comment">/*输出维护信号*/</span></span><br><span class="line">               <span class="keyword">return</span>;</span><br><span class="line">           &#125;</span><br><span class="line">           ......</span><br><span class="line">           forward(passenger);</span><br><span class="line">              <span class="keyword">if</span> (<span class="built_in">this</span>.maintainFlag == <span class="number">1</span>) &#123;</span><br><span class="line">               <span class="keyword">continue</span>;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">while</span> (<span class="comment">/*电梯非空*/</span>) &#123;</span><br><span class="line">               ......</span><br><span class="line">               forward(passenger);</span><br><span class="line">               <span class="keyword">if</span> (<span class="built_in">this</span>.maintainFlag == <span class="number">1</span>) &#123;</span><br><span class="line">                   <span class="keyword">break</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+
+<p>总体还是通过改变<code>maintainFlag</code>来实现的。</p>
+<h4 id="线程之间的交互和总运行流程-1"><a href="#线程之间的交互和总运行流程-1" class="headerlink" title="线程之间的交互和总运行流程"></a>线程之间的交互和总运行流程</h4><p>总体结构变化不大，与第一次作业的区别：</p>
+<ul>
+<li>调度器并不会在标准输入结束之后结束，而是还要确定所有维护电梯均被维护才能结束</li>
+<li>电梯线程可能会因为维护而提前结束，通过设定对应的等候队列的<code>maintainSymbol</code>，然后将其从<code>elevatorQueues</code>中<code>remove</code>可以切断调度器与之的联系，不会再给此电梯分配乘客，接着每个电梯根据是否收到此<code>maintainSymbol</code>来进行相应操作</li>
+</ul>
+<h4 id="同步块与锁-1"><a href="#同步块与锁-1" class="headerlink" title="同步块与锁"></a>同步块与锁</h4><p>和第一次作业区别不大。</p>
+<h4 id="UML类图-1"><a href="#UML类图-1" class="headerlink" title="UML类图"></a>UML类图</h4><p>第二次作业使用了官方的<code>PersonRequest</code>类，因此比第一次作业少一个类，区别不大。</p>
+<p><img src="https://pic.imgdb.cn/item/648eff601ddac507ccec5343.png"></p>
+<h4 id="bug分析-1"><a href="#bug分析-1" class="headerlink" title="bug分析"></a>bug分析</h4><p>本次作业应该是这个单元最折磨的一次了，因为我的代码出现了大面积CPU超时的问题，中测甚至提交了9次才通过:(</p>
+<p>那一次周六对着电脑看了一天都没看出来问题，看到晚上晚上几近崩溃。每一次提交得到的10个CPU超时真的很揪心……</p>
+<p><img src="https://pic.imgdb.cn/item/648eff591ddac507ccec467b.png"></p>
+<p>求助了助教还有很多同学，最终发现了问题的所在：</p>
+<p>我一开始并没有让调度器在所有维修电梯完成且分配完成之后休眠，而是一直等到了所有乘客离开整个系统。</p>
+<blockquote>
+<p>程序的输入输出为<strong>实时交互</strong>，评测机可以做到在某个时间点投放一定量的输入</p>
+</blockquote>
+<p>也就是说输入结束的时间应该是最后一条指令实际被接受到的时刻附近。而正是这样，我觉得<code>setEnd</code>（我的理解偏差，这个时候我认为输入结束是指将数据复制到终端然后按下回车的时刻）之后调度器还必须等待最后一条指令，因为最后一条指令也可能会将<code>waitqueue</code>中添加乘客。所以就有了下面的大量无意义循环：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">Distribute.java:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            ......</span><br><span class="line">            <span class="keyword">if</span> (waitQueue.isEnd()) &#123;</span><br><span class="line">                <span class="keyword">for</span> (PassengerQueue elevatorQueue : elevatorQueues) &#123;</span><br><span class="line">                    elevatorQueue.setEnd(<span class="literal">true</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (waitQueue.isEmpty() &amp;&amp; waitQueue.isEnd() &amp;&amp; table.isEmpty()) &#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">Passenger</span> <span class="variable">passenger</span> <span class="operator">=</span> waitQueue.getOnePassenger();<span class="comment">//每次出来的结果都是null</span></span><br><span class="line">            <span class="keyword">if</span> (passenger == <span class="literal">null</span>) &#123;                          </span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            .....</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">PassengerQueue.java:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">synchronized</span> Passenger <span class="title function_">getOnePassenger</span><span class="params">()</span> &#123; <span class="comment">//按时间先后取出(先来后到)</span></span><br><span class="line">            <span class="keyword">if</span> (queue.isEmpty() &amp;&amp; !<span class="built_in">this</span>.isEnd()) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    wait();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (queue.isEmpty()) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            ......</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>已经将<code>waitQueue</code>设定<code>setEnd()</code>，每次在<code>getOnePassenger</code>中的第一个if会直接跳过，而此时<code>queue</code>又确实为空会返回<code>null</code>。但整个系统还有乘客（<code>!table.isEmpty</code>），这样会进入大量循环返回<code>null</code>然后不断<code>continue</code>，占用大量的<code>CPU</code>资源导致超时。解决方法很容易，只要能理解到输入结束的时间就很好改了，正确的结束方式已经在前文的第二次作业总结-&gt;调度器类中解释了。</p>
+<p>强测中出现了很多捎带的问题，发现漏掉了捎带的条件。</p>
+<h5 id="debug方法"><a href="#debug方法" class="headerlink" title="debug方法"></a>debug方法</h5><p>使用了很多检查CPU时间的工具，都没能起到实质性的作用，不如直接在循环里<code>print(something)</code>，如果某个方法打印输出的东西达到了几十万行，就很好定位了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">       <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">           <span class="comment">//System.out.println(&quot;**********distributeI&quot;);</span></span><br><span class="line">           <span class="keyword">if</span> (waitQueue.isEnd() &amp;&amp; waitQueue.isEmpty()) &#123;</span><br><span class="line">               ......</span><br><span class="line">           &#125;</span><br><span class="line">           ......</span><br><span class="line">           <span class="comment">//System.out.println(&quot;**********distributeO&quot;);</span></span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>不断将两条语句向中间靠近，找到循环最多的一个分支，就很容易发现问题了。</p>
+<h2 id="第三次作业总结"><a href="#第三次作业总结" class="headerlink" title="第三次作业总结"></a>第三次作业总结</h2><h3 id="设计与架构-2"><a href="#设计与架构-2" class="headerlink" title="设计与架构"></a>设计与架构</h3><p>在第二次作业基础上，需要新增这些内容：</p>
+<ol>
+<li>对每层楼可开门的数量加以限制</li>
+<li>考虑到部分电梯的可达性，需要在分配乘客之前确定路径</li>
+</ol>
+<p>为了解决上述问题，我新增了一个<code>StateMap</code>类并提供诸多方法用于解决新的问题。</p>
+<h4 id="个性化需求类"><a href="#个性化需求类" class="headerlink" title="个性化需求类"></a>个性化需求类</h4><h5 id="StateMap"><a href="#StateMap" class="headerlink" title="StateMap:"></a><code>StateMap</code>:</h5><p><img src="https://pic.imgdb.cn/item/648eff6f1ddac507ccec6bfe.png"></p>
+<p>对于限制开门数量的要求，可以这样实现：</p>
+<p><img src="https://pic.imgdb.cn/item/648eff681ddac507ccec6068.png"></p>
+<p><code>serviceMap</code>的<code>value</code>对应了每层楼服务中的电梯数量，<code>key</code>指示楼层，因此初始时每层楼服务数量都是0。</p>
+<p>开门时，直接调用<code>addService()</code>，由于<code>synchronized</code>的存在，每次只会有一个电梯访问该方法，若数量大于规定数量，则等待，直至该楼层服务中电梯数量小于规定数量，被唤醒，然后该楼层服务中电梯数量加1：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">addService</span><span class="params">(<span class="type">int</span> floor)</span> &#123;</span><br><span class="line">       <span class="keyword">while</span> (<span class="built_in">this</span>.serviceMap.get(floor) &gt;= <span class="number">4</span>) &#123;</span><br><span class="line">           <span class="keyword">try</span> &#123;</span><br><span class="line">               wait();</span><br><span class="line">           &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">               e.printStackTrace();</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       serviceMap.put(floor, serviceMap.get(floor) + <span class="number">1</span>);</span><br><span class="line">       notifyAll();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>关门则直接调用<code>removeService()</code>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">removeService</span><span class="params">(<span class="type">int</span> floor)</span> &#123;</span><br><span class="line">        serviceMap.put(floor, serviceMap.get(floor) - <span class="number">1</span>);</span><br><span class="line">        notifyAll();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于只接人的电梯数量则跟上述方法类似，只不过需要新增方法来判断该电梯是否为只接人的。</p>
+<p>为了解决路径问题，我定义了两个HashMap：</p>
+<p><img src="https://pic.imgdb.cn/item/648eff671ddac507ccec5f6d.png"></p>
+<p><code>accessMap</code>指示每个电梯可以直达的楼层，<code>pathMap</code>指示每层楼可以直达的楼层（类似于邻接矩阵）。</p>
+<p>通过<code>findPath(Passenger p)</code>方法返回一个<code>LinkedList&lt;Integer&gt;</code>类型的需求队列，队列头部是该乘客下一个目的地，队列尾部是乘客的最终目的地。</p>
+<h4 id="调度器类-2"><a href="#调度器类-2" class="headerlink" title="调度器类"></a>调度器类</h4><h5 id="Distribute："><a href="#Distribute：" class="headerlink" title="Distribute："></a><code>Distribute</code>：</h5><p>在调度的时候需要考虑乘客的当前需求楼层和所在楼层对于该电梯是可达的，在此基础上均匀分配：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">LinkedList&lt;Integer&gt; demand = stateMap.findPath(passenger);</span><br><span class="line">passenger.updateDemand(demand);</span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    i = (i + <span class="number">1</span>) % elevatorQueues.size();</span><br><span class="line">&#125; <span class="keyword">while</span> (!(<span class="comment">/*乘客的当前需求楼层和所在楼层对于该电梯是可达的*/</span>));</span><br><span class="line">elevatorQueues.get(i).addPassenger(passenger);</span><br></pre></td></tr></table></figure>
+
+<h4 id="电梯类-1"><a href="#电梯类-1" class="headerlink" title="电梯类"></a>电梯类</h4><h5 id="Elevetor"><a href="#Elevetor" class="headerlink" title="Elevetor:"></a><code>Elevetor</code>:</h5><p>需要在开门前，关门后对<code>stateMap</code>做处理，如果数量不满足条件则会<code>wait()</code>直至被唤醒：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="comment">/*判断只接人的方法*/</span>) &#123;</span><br><span class="line">   	<span class="built_in">this</span>.stateMap.addOnly(nowFloor);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">this</span>.stateMap.addService(nowFloor);</span><br><span class="line">open();</span><br></pre></td></tr></table></figure>
+
+<p>还需要把原来<code>passenger.getToFloor()</code>替换为<code>passenger.getDemand()</code>。因为现在乘客的总需求被拆分为多个子请求，我们在得到路径之后需要逐一处理子请求，<code>getDemand()</code>就是取出队列头部元素：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getDemand</span><span class="params">()</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="built_in">this</span>.demand.getFirst();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="线程之间的交互和总运行流程-2"><a href="#线程之间的交互和总运行流程-2" class="headerlink" title="线程之间的交互和总运行流程"></a>线程之间的交互和总运行流程</h4><p>总的结构区别不大，与第二次作业的区别：</p>
+<ul>
+<li>开关门时需要有额外的判断条件，新增<code>stateMap</code>类解决</li>
+<li>对于换乘，我们在每次乘客进入<code>waitQueue</code>时更新<code>demand</code>队列，每次取出头部元素作为当前主请求，每次下电梯时判断是否为终点，再选择是否重新进入<code>waitQueue</code></li>
+</ul>
+<h4 id="同步块与锁-2"><a href="#同步块与锁-2" class="headerlink" title="同步块与锁"></a>同步块与锁</h4><p>和第一次作业区别不大。仅在新类<code>stateMap</code>中对应的添加删除对应楼层元素的方法中使用了synchronized关键字。</p>
+<h4 id="UML类图-2"><a href="#UML类图-2" class="headerlink" title="UML类图"></a>UML类图</h4><p><img src="https://pic.imgdb.cn/item/648eff671ddac507ccec5f30.png"></p>
+<h4 id="bug分析-2"><a href="#bug分析-2" class="headerlink" title="bug分析"></a>bug分析</h4><p>本次中测未测出bug，但是在使用评测机自行测试的时候发现了这样一个问题：即使设定了<code>addService</code>这样的方法但是还是会出现同一层服务电梯数量超过的情况，后来想清楚了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//之前的方法:</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">addService</span><span class="params">(<span class="type">int</span> floor)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.serviceMap.get(floor) &gt;= <span class="number">4</span>) &#123;</span><br><span class="line">            <span class="comment">//Your Method(wait......)</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//Your Method</span></span><br><span class="line">        notifyAll();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里要注意到<code>serviceMap</code>是一个<code>HashMap</code>类型，所有楼层的信息全部存储在这里。假如5楼开门的电梯已经达到最大数量，其他准备在5楼开门的电梯就会等待。但是要注意其他楼层的开关门操作也会改变该HashMap，但不一定改变此层楼对应的键值，这样5层不该开门的电梯有可能被错误地唤醒。修改方法很容易，把<code>if</code>改成<code>while</code>就行了，加一次判断即可。</p>
+<h5 id="debug方法-1"><a href="#debug方法-1" class="headerlink" title="debug方法"></a>debug方法</h5><p>先用评测机评测随机数据，如果出现错误，先根据错误信息定位错误区间，确定出问题的方法。</p>
+<p>强测出现了一个不能稳定复现的bug，在本地跑了好多遍都没有什么问题，官方给出的解释信息是real_time_limit_exceed，出现的异常信息：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Exception</span> <span class="keyword">in</span> thread <span class="string">&quot;Thread-6&quot;</span> java.<span class="property">lang</span>.<span class="property">NullPointerException</span></span><br><span class="line">    at <span class="title class_">StateMap</span>.<span class="title function_">findPath</span>(<span class="title class_">StateMap</span>.<span class="property">java</span>:<span class="number">100</span>)</span><br><span class="line">    at <span class="title class_">Distribute</span>.<span class="title function_">run</span>(<span class="title class_">Distribute</span>.<span class="property">java</span>:<span class="number">32</span>)</span><br></pre></td></tr></table></figure>
+
+<p>检查了这个方法，不能够确定是否是没有加锁导致的。加锁之后，交上去，过了。但是在代码中只有一个线程能够访问此方法，所以很疑惑，感觉也不一定是线程安全的问题。</p>
+<h2 id="三次作业总结"><a href="#三次作业总结" class="headerlink" title="三次作业总结"></a>三次作业总结</h2><h4 id="UML协作图"><a href="#UML协作图" class="headerlink" title="UML协作图"></a>UML协作图</h4><p><img src="https://pic.imgdb.cn/item/648eff6f1ddac507ccec6c2d.png"></p>
+<h4 id="分析内容"><a href="#分析内容" class="headerlink" title="分析内容"></a>分析内容</h4><p>稳定的内容：其实也就是第一次作业的内容，运送乘客，电梯开关门上下行。调度器线程从<code>waitQueue</code>中把乘客送给电梯的等候队列，电梯线程从等候队列中接人，捎带，运送乘客。</p>
+<p>易变的内容：加入了维修需求之后，<code>waitQueue</code>接受的输入不止有标准输入了，还有电梯线程。自定义需求（容量，操作时间）使得电梯线程中的时间操作，输出操作需要做出相应更改。可达性需求出现后，调度器分配时要考虑乘客当前和需求楼层均可达，电梯开关门和捎带也必须考虑这两点。限制开门数量的需求出现后，在原来开关门的基础上需要额外增加条件。</p>
+<h2 id="心得体会"><a href="#心得体会" class="headerlink" title="心得体会"></a>心得体会</h2><h4 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h4><p>线程安全问题在多线程编程中非常重要。由于存在多个线程同时共享一个资源的情况，我们需要严格控制能够访问这一资源的数量。方法就是加锁。本次作业中我只使用了<code>synchronized</code>这一种锁<del>（其实也只会这一种）</del>，在每个方法之前加上synchronized关键字，在方法最末尾<code>notifyAll</code>唤醒其他可能正在等待访问此资源的线程。</p>
+<h4 id="层次化设计"><a href="#层次化设计" class="headerlink" title="层次化设计"></a>层次化设计</h4><p>本单元的作业进一步加深了我对层次化设计的理解。使用生产者消费者模式可以很容易地理解每一个类扮演的角色是什么。如果是生产者，那么这个类里完成所有分配商品（乘客）到传送带（<code>waitQueue</code>）的工作，如果是消费者，只需要完成取出商品的工作即可。这样每个类能够仅考虑自己的工作，一定程度上吻合了“高内聚，低耦合”的思想，同时层次更加清晰，易于理解<del>（更容易找bug）</del>。</p>
+<h4 id="一些感想"><a href="#一些感想" class="headerlink" title="一些感想"></a>一些感想</h4><p>本单元真的是收获颇丰的一单元，从对多线程的一无所知到能够编写出这样多功能的多线程协作电梯调度程序，已经是一件非常有成就感的事。在这个过程中，我主要有这样几点认识：</p>
+<ul>
+<li><p>寻找问题比解决问题重要得多。这是本单元第二次作业给我的教训。在没有真正发现问题之前修改一些自认为可能的bug，非常浪费时间浪费精力。</p>
+<blockquote><p>The difficulty is not in finding a subject to talk about, but in discovering a subject that will reveal something in your own nature.</p>
+<footer><strong>Charles Dickens</strong><cite>David Copperfield</cite></footer></blockquote>
+
+
+<blockquote>
+<p>The difficulty is not in finding a subject to talk about, but in discovering a subject that will reveal something in your own nature. ― Charles Dickens, David Copperfield</p>
+</blockquote>
+</li>
+<li><p>协作与合作的重要性。在这之前，每次的作业基本都是自己慢慢琢磨出来的。但是这单元的第二次作业我请教了大量的同学，问了很多的高年级同学，最终才发现了这个问题。没有这么多人的帮助我不可能完成这一次作业。</p>
+</li>
+</ul>
+<p>感谢这么多同学的热心帮助^_^，希望在这条路上能够取得更大的收获。</p>
+	
+		</div>
+		
+		<div id="current-post-cover" data-scr="/img/OO2.jpg"></div>
+
+		<!-- relate post, comment...-->
+		<div class="investment-container">
+			<div class="investment-header">
+				<div class="investment-title-1">
+					<div class="on">相关文章</div>
+					<div>评论</div>
+					<div>分享</div>
+				</div>
+				<div class="investment-title-2">	            
+					
+	<span>
+		<a id="totop-post-page">返回顶部</a>
+		
+		
+			<a href="/2023/03/17/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%201/" title="Summary of Object-Oriented Design and Construction Unit 1" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+				</div>	
+			</div>
+			
+			<div class="investment-content">
+				<div class="investment-content-list">
+					
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2023/03/17/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%201/" title="Summary of Object-Oriented Design and Construction Unit 1">
+								Summary of Object-Oriented Design and Construction Unit 1			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								三月 17日, 2023				
+							</p>
+							<p class="relate-post-content">
+								面向对象设计与构造第一单元博客总结介绍第一单元作业总的训练目标是对表达式结构进行建模，体会层次化的思想，三次作业为迭代开发。第一次作业是完成对多项式括号的展开，第二次作业新引入了三角函数(sin,cos)以及自定义函数(f(x),g(...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2023/03/17/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%201/" title="Summary of Object-Oriented Design and Construction Unit 1">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/OO1.jpg" alt="Summary of Object-Oriented Design and Construction Unit 1"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2023/03/12/hello-world/" title="Hello World">
+								Hello World			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								三月 12日, 2023				
+							</p>
+							<p class="relate-post-content">
+								Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using ...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2023/03/12/hello-world/" title="Hello World">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Hello World"/>
+							</a>
+						</div>
+					</li>												
+			
+		</ul>
+	
+</div>	
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-comment">
+
+	
+		<div class="config-info">
+			Please check the parameter of <b>comment</b> in config.yml of hexo-theme-Annie!
+		</div>	
+	
+
+</div>
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- show math formula -->
+
+	<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config(
+			{ 
+				tex2jax: {
+					inlineMath: [['$','$'], ['\\(','\\)']]
+				} 
+			}
+		);
+	</script>
+
+
+
+	 
+	
+<script src="/plugin/clipboard/clipboard.js"></script>
+
+	<script>
+		// Copy code !
+	    function preprocessing() {
+	        $("#article-content .highlight").each(function() {
+	            $(this).wrap('<div id="post-code"></div>');
+	        })
+
+	        $("#article-content #post-code").each(function() {
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            let languageClass = $(this).next().attr('class'),
+	                language = ((languageClass.length > 9) && (languageClass != null)) ? languageClass.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+	            $(this).append('<span class="copy-btn icon-paste"></span>');
+	        });
+	    }
+
+		function copy() {
+		    $('#article-content #post-code').each(function(i) {
+		        let codeCopyId = 'codeCopy-' + i;
+
+		        let codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+   
+			let clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn icon-clipboard1');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn icon-paste');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');   
+			});
+			
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		}
+		
+		(function copyCode(){
+			if ($('.layout-post').length) {
+			    preprocessing();
+			    copy();
+			} 
+		})();
+	</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+
+
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+
+<script type="text/javascript">
+	(function gallerySet(){
+		let titleID = $('.article-title a'),
+			imageID = $('.article-content img'),
+			videoID = $('.article-content video');
+		
+		let postTitle = titleID.text() ? titleID.text() : "No post title!";
+		
+		imageID.each(function() {
+			let imgPath = $(this).attr('src'),
+				imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox="gallery" data-caption="《 ' + postTitle + ' 》' + imgTitle + '"href="' + imgPath + '"> </a>');
+		});
+		
+		videoID.each(function() {
+			let videoPath = $(this).attr('src');
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+		});
+		
+		//TODO：支持html5 video
+
+		if($('#layout-post').length) {
+			$('[data-fancybox="gallery"]').fancybox({
+				loop: true,
+				buttons: [
+					"zoom",
+					"share",
+					"slideShow",
+					"fullScreen",
+					//"download",
+					"thumbs",
+					"close"
+				],
+				protect: true
+			});
+		}
+	})();
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div id="navigation-show">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+		<li class="menu-gallery">
+			<a href="/gallery" class="menu-item-gallery" target="_blank">相册</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+
+	<div class="copyright">
+		<p>
+			 
+				&copy;2023, content by Leostar. All Rights Reserved.
+			
+			
+				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			
+		</p>
+		<p>
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+
+
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- Local or hitokoto! -->
+
+	
+<script src="/plugin/motto/motto.js"></script>
+
+	
+	<script type="text/javascript">
+		(function motto(){
+			let mottoText = getMingYanContent().split('</br> - </br>'),
+			
+			mottoTextContent = mottoText[0]?mottoText[0]:'请刷新...',
+			
+			mottoTextFrom = mottoText[1]?mottoText[1]:'one/一个';
+			
+			mottoTextContent = mottoTextContent.trim().substring(0, 100);
+		
+			$("#motto-content").html( mottoTextContent);
+			$("#motto-author").html( mottoTextFrom  );
+		})();	
+	</script>	
+
+
+
+<!-- love effect -->
+
+	
+<script src="/plugin/love/love.js"></script>
+
+
+
+<!-- back to top -->
+
+	<div id="totop">
+	<span class="icon-circle-up"></span>
+</div>
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<!-- leancloud -->
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+  
+
+	<!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup scrollbar" >
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      		ESC
+   		</span>
+		<div class="local-search-header">
+			<div class="input-prompt">				
+			</div>
+			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			<div class="topN-post">				
+				
+								
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="/plugin/search/ziploader.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imagelazyloader/yall.min.js"></script>
+<script src="/plugin/imageloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/plugin/resizediv/resizediv.js"></script>
+<script src="/js/main.js"></script>
+
+	</body>	
+</html>
