@@ -1,0 +1,1170 @@
+<!--
+	作者：Sariay
+	时间：2018-08-26
+	描述：There may be a bug, but don't worry, Qiling(器灵) says that it can work normally! aha!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      Python notes | Leostar&#39;s Blog
+    
+  </title>
+  <meta name="author" content="Leo Chen">
+  <meta name="keywords" content="" />
+  <meta name="description" content="九万里风鹏正举" />
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  
+<link rel="stylesheet" href="/css/Annie.css">
+
+  
+  <!-- jquery -->
+	
+<script src="/plugin/jquery/jquery.min.js"></script>
+
+
+<script>
+    const CONFIG_BGIMAGE = {
+      mode: 'normal',
+      normalSrc: 'https://pic.imgdb.cn/item/6495aade1ddac507cc356c22.jpg',
+      randomYouMax: 110,
+      randomYouSrc: 'https://sariay.github.io/Random-img/',
+	  randomOtherSrc: 'https://api.berryapi.net/?service=App.Bing.Images&day=-0',
+	  preloaderEnable: true
+    }
+	
+    const CONFIG_LEACLOUD_COUNT = {
+      enable: true,
+	  appId: 'zkduZkNdX6y9I8aLFmT4kLzy-gzGzoHsz',
+	  appKey: 'phZDnZVSqUgebBrHOXLTlXuY',
+	  serverURLs: 'https://zkduzknd.lc-cn-n1-shared.com' || ' '
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Leostar's Blog" type="application/atom+xml">
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground bg-pan-br">
+	<div class="mask">
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<div class="motto text-shadow-pop-left">
+					<p class="content" id="motto-content">获取中...</p>
+					<p>-<p>
+					<p class="author" id="motto-author">Just a minute...</p>
+				</div>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more" class="scroll-down">
+				<span class="icon-anchor1 animation-scroll-down"></span>
+			</a>
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><span>0.0%</span></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			「Python notes」
+		
+	</p>
+
+	
+	
+		<span id="star-button" rel="unlike">
+			<i class="icon-heart"></i>
+		</span>
+	
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<span class="logo"> 
+			<img src="/img/logo.png">
+		</span>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	
+	<div class="nav-body">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+		<li class="menu-gallery">
+			<a href="/gallery" class="menu-item-gallery" target="_blank">相册</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	
+	<div class="nav-footer">
+		<ul id="global-social">
+	
+		<li>
+			<a href="https://github.com/LeostarR" target="_blank">
+				<span class="icon-github"></span>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+<script src="/plugin/toc/katelog.min.js"></script>
+
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+		<div class="article-title">
+			
+	<a href="/2023/06/26/Python-notes/" itemprop="url">
+		Python notes
+	</a>
+
+		</div>
+
+		<div class="article-meta">
+			<span>
+				<i class="icon-calendar1"></i>
+				
+				
+
+
+
+
+	更新于
+
+	<a href="/2023/06/26/Python-notes/" itemprop="url">
+		<time datetime="2023-06-26T14:42:29.000Z" itemprop="dateUpdated">
+	  		2023-06-26
+	  </time>
+	</a> 
+
+
+
+			</span>
+			<span>
+				
+	<i class="icon-price-tags"></i>
+	
+		<a href="/tags/Python/" class=" ">
+			Python
+		</a>
+	
+		
+			</span>
+			
+			
+
+	
+    <span class="leancloud_visitors" id="/2023/06/26/Python-notes/_visitors" data-url="/2023/06/26/Python-notes/" data-title="Python notes">
+       	<i class="icon-eye"></i>
+       	热度
+        
+            <i class="leancloud_visitors_count" id="leancloud_visitors_count">1</i>
+                   
+    </span>
+    
+
+
+
+	
+    <span class="leancloud_likes" id="/2023/06/26/Python-notes/_likes" data-url="/2023/06/26/Python-notes/" data-title="Python notes" rel="unlike">
+        <i class="icon-heart"></i>
+        喜欢
+        <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
+    </span>
+	
+
+		</div>
+
+		<div class="article-content" id="article-content">
+			<h3 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h3><h5 id="Python保留字"><a href="#Python保留字" class="headerlink" title="Python保留字"></a>Python保留字</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import keyword</span><br><span class="line">&gt;&gt;&gt; keyword.kwlist</span><br><span class="line">[<span class="string">&#x27;False&#x27;</span>, <span class="string">&#x27;None&#x27;</span>, <span class="string">&#x27;True&#x27;</span>, <span class="string">&#x27;and&#x27;</span>, <span class="string">&#x27;as&#x27;</span>, <span class="string">&#x27;assert&#x27;</span>, <span class="string">&#x27;async&#x27;</span>, <span class="string">&#x27;await&#x27;</span>, <span class="string">&#x27;break&#x27;</span>, <span class="string">&#x27;class&#x27;</span>, <span class="string">&#x27;continue&#x27;</span>, <span class="string">&#x27;def&#x27;</span>, <span class="string">&#x27;del&#x27;</span>, <span class="string">&#x27;elif&#x27;</span>, <span class="string">&#x27;else&#x27;</span>, <span class="string">&#x27;except&#x27;</span>, <span class="string">&#x27;finally&#x27;</span>, <span class="string">&#x27;for&#x27;</span>, <span class="string">&#x27;from&#x27;</span>, <span class="string">&#x27;global&#x27;</span>, <span class="string">&#x27;if&#x27;</span>, <span class="string">&#x27;import&#x27;</span>, <span class="string">&#x27;in&#x27;</span>, <span class="string">&#x27;is&#x27;</span>, <span class="string">&#x27;lambda&#x27;</span>, <span class="string">&#x27;nonlocal&#x27;</span>, <span class="string">&#x27;not&#x27;</span>, <span class="string">&#x27;or&#x27;</span>, <span class="string">&#x27;pass&#x27;</span>, <span class="string">&#x27;raise&#x27;</span>, <span class="string">&#x27;return&#x27;</span>, <span class="string">&#x27;try&#x27;</span>, <span class="string">&#x27;while&#x27;</span>, <span class="string">&#x27;with&#x27;</span>, <span class="string">&#x27;yield&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<h5 id="多行语句"><a href="#多行语句" class="headerlink" title="多行语句"></a>多行语句</h5><p>使用反斜杠<code>\</code>来实现多行语句</p>
+<h5 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h5><ul>
+<li>单行注释以 <strong>#</strong> 开头</li>
+<li>多行注释可以用多个 <strong>#</strong> 号，也可用三个单引号 <strong>&#39;‘’</strong> 或者三个双引号 <strong>&quot;“”</strong> 将注释括起来</li>
+</ul>
+<h5 id="缩进"><a href="#缩进" class="headerlink" title="缩进"></a>缩进</h5><p>使用缩进来表示代码块，不需要使用大括号 <strong>{}</strong> ，缩进的空格数是可变的，但是同一个代码块的语句必须包含相同的缩进空格数</p>
+<h5 id="数字类型"><a href="#数字类型" class="headerlink" title="数字类型"></a>数字类型</h5><p>python中数字有四种类型：整数(int, 1…)、布尔型(bool, True…)、浮点数(float, 1.23…)和复数(complex, 1+2j…)</p>
+<h5 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h5><ul>
+<li>单引号 <strong>‘</strong> 和双引号 <strong>“</strong> 使用<strong>完全相同</strong></li>
+<li>使用三引号(<strong>‘’’</strong> 或 <strong>“””</strong>)可以指定一个多行字符串</li>
+<li>转义符 <code>\</code></li>
+<li>反斜杠可以用来转义，使用 <strong>r</strong> 可以让反斜杠不发生转义。 如 <strong>r”this is a line with \n”</strong> 则 <strong>\n</strong> 会显示，并不是换行</li>
+<li>按字面意义级联字符串，如 <strong>“this “ “is “ “string”</strong> 会被自动转换为 <strong>this is string</strong></li>
+<li>字符串可以用 <strong>+</strong> 运算符连接在一起，用 ***** 运算符重复</li>
+<li>字符串有两种索引方式，从左往右以 <strong>0</strong> 开始，从右往左以 <strong>-1</strong> 开始</li>
+<li>Python 中的字符串不能改变</li>
+<li>Python 没有单独的字符类型，一个字符就是长度为 1 的字符串</li>
+<li>字符串的截取的语法格式如下：<strong>变量[头下标:尾下标:步长]</strong>(步长表示间隔)</li>
+</ul>
+<h5 id="print-输出"><a href="#print-输出" class="headerlink" title="print 输出"></a>print 输出</h5><p><strong>print</strong> 默认输出是换行的，如果要实现不换行需要在变量末尾加上 **end&#x3D;””**：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x=<span class="string">&quot;a&quot;</span></span><br><span class="line">y=<span class="string">&quot;b&quot;</span></span><br><span class="line"><span class="comment"># 不换行输出</span></span><br><span class="line"><span class="built_in">print</span>( x, end=<span class="string">&quot; &quot;</span>)</span><br><span class="line"><span class="built_in">print</span>( y, end=<span class="string">&quot; &quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#结果：</span></span><br><span class="line">a b </span><br></pre></td></tr></table></figure>
+
+<h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><ul>
+<li>变量无需声明，但每个变量在使用前都必须赋值，变量赋值以后该变量才会被创建</li>
+<li>在 Python 中，变量就是变量，它没有类型，我们所说的”类型”是变量所指的内存中对象的类型</li>
+</ul>
+<p>同时为多个变量赋值：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = b = c = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>为多个对象指定多个变量：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a, b, c = <span class="number">1</span>, <span class="number">2</span>, <span class="string">&quot;runoob&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="标准数据类型"><a href="#标准数据类型" class="headerlink" title="标准数据类型"></a>标准数据类型</h5><p>Python3 的六个标准数据类型中：</p>
+<ul>
+<li><strong>不可变数据（3 个）：</strong>Number（数字）、String（字符串）、Tuple（元组）</li>
+<li><strong>可变数据（3 个）：</strong>List（列表）、Dictionary（字典）、Set（集合）</li>
+</ul>
+<h5 id="Number（数字）"><a href="#Number（数字）" class="headerlink" title="Number（数字）"></a>Number（数字）</h5><p>int、float、bool、complex（复数）</p>
+<p>内置的 <code>type()</code> 函数和 <code>isinstance</code>可以询变量所指的对象类型</p>
+<blockquote>
+<p><strong>注意：</strong>Python3 中，bool 是 int 的子类，True 和 False 可以和数字相加， <strong>True&#x3D;&#x3D;1、False&#x3D;&#x3D;0</strong> <em>会返回</em> <strong>True</strong>，但可以通过<strong>is</strong>来判断类型。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">issubclass</span>(<span class="built_in">bool</span>, <span class="built_in">int</span>) </span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="literal">True</span>==<span class="number">1</span></span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="literal">False</span>+<span class="number">1</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">1</span> <span class="keyword">is</span> <span class="literal">True</span></span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="数值运算"><a href="#数值运算" class="headerlink" title="数值运算"></a>数值运算</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">5</span> + <span class="number">4</span>  <span class="comment"># 加法</span></span><br><span class="line"><span class="number">9</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">4.3</span> - <span class="number">2</span> <span class="comment"># 减法</span></span><br><span class="line"><span class="number">2.3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">3</span> * <span class="number">7</span>  <span class="comment"># 乘法</span></span><br><span class="line"><span class="number">21</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">2</span> / <span class="number">4</span>  <span class="comment"># 除法，得到一个浮点数</span></span><br><span class="line"><span class="number">0.5</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">2</span> // <span class="number">4</span> <span class="comment"># 除法，得到一个整数, 往小的方向取整数</span></span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">17</span> % <span class="number">3</span> <span class="comment"># 取余</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">2</span> ** <span class="number">5</span> <span class="comment"># 乘方</span></span><br><span class="line"><span class="number">32</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在混合计算时，Python会把整型转换成为浮点数</li>
+<li>Python 还支持复数，复数由实数部分和虚数部分构成，可以用 **<code>a + bj</code>**，或者 <strong><code>complex(a,b)</code></strong> 表示， 复数的实部 <code>a</code> 和虚部 <strong><code>b</code></strong> 都是浮点型</li>
+</ul>
+<h5 id="String（字符串）"><a href="#String（字符串）" class="headerlink" title="String（字符串）"></a>String（字符串）</h5><ul>
+<li><p>字符串用单引号 <strong>‘</strong> 或双引号 <strong>“</strong> 括起来，同时使用反斜杠 <code>\</code>转义特殊字符</p>
+</li>
+<li><p>使用反斜杠 <code>\</code> 转义特殊字符，如果你不想让反斜杠发生转义，可以在字符串前面添加一个 <strong>r</strong>，表示原始字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="string">r&#x27;Ru\noob&#x27;</span>)</span><br><span class="line">Ru\noob</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自带空格连接</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>word = <span class="string">&#x27;Python&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(word[<span class="number">0</span>], word[<span class="number">5</span>])</span><br><span class="line">P n</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(word[-<span class="number">1</span>], word[-<span class="number">6</span>])</span><br><span class="line">n P</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Python 字符串不能被改变。向一个索引位置赋值，比如 <strong><code>word[0] = &#39;m&#39;</code></strong> 会导致错误\</p>
+</li>
+<li><p>用+运算符连接在一起，用*运算符重复</p>
+</li>
+<li><p>两种索引方式，从左往右以0开始，从右往左以-1开始</p>
+</li>
+<li><p>字符串的截取的语法格式如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">变量[头下标:尾下标]</span><br><span class="line"><span class="comment">#不会打印尾下标字符，也就是说会打印到尾下标之前的那一个字符</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="bool（布尔类型）"><a href="#bool（布尔类型）" class="headerlink" title="bool（布尔类型）"></a>bool（布尔类型）</h5><ul>
+<li>布尔类型即 True 或 False</li>
+<li>布尔类型可以和其他数据类型进行比较，比如数字、字符串等。在比较时，Python 会将 True 视为 1，False 视为 0</li>
+<li>可以和逻辑运算符一起使用，包括 and、or 和 not，这些运算符可以用来组合多个布尔表达式，生成一个新的布尔值</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="literal">True</span></span><br><span class="line">b = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 比较运算符</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">2</span> &lt; <span class="number">3</span>)   <span class="comment"># True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">2</span> == <span class="number">3</span>)  <span class="comment"># False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 逻辑运算符</span></span><br><span class="line"><span class="built_in">print</span>(a <span class="keyword">and</span> b)  <span class="comment"># False</span></span><br><span class="line"><span class="built_in">print</span>(a <span class="keyword">or</span> b)   <span class="comment"># True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="keyword">not</span> a)    <span class="comment"># False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 类型转换</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">int</span>(a))   <span class="comment"># 1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">float</span>(b)) <span class="comment"># 0.0</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>(a))   <span class="comment"># &quot;True&quot;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意:</strong> 在 Python 中，所有非零的数字和非空的字符串、列表、元组等数据类型都被视为 True，只有 <strong>0、空字符串、空列表、空元组</strong>等被视为 False。因此，在进行布尔类型转换时，需要注意数据类型的真假性。</p>
+</blockquote>
+<h5 id="List（列表）"><a href="#List（列表）" class="headerlink" title="List（列表）"></a>List（列表）</h5><ul>
+<li><p>表中元素的类型可以不相同，它支持数字，字符串甚至可以包含列表（类似于Java中的泛型）</p>
+</li>
+<li><p>列表是写在方括号 <strong>[]</strong> 之间、用逗号分隔开的元素列表</p>
+</li>
+<li><p>和字符串一样，列表同样可以被索引和截取，截取后返回一个包含所需元素的新列表</p>
+</li>
+<li><p>与Python字符串不一样的是，列表中的元素是可以改变的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a[<span class="number">0</span>] = <span class="number">9</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a[<span class="number">2</span>:<span class="number">5</span>] = [<span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="number">9</span>, <span class="number">2</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">6</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a[<span class="number">2</span>:<span class="number">5</span>] = []   <span class="comment"># 将对应的元素值设置为 []</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="number">9</span>, <span class="number">2</span>, <span class="number">6</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Python 列表截取可以接收第三个参数，参数作用是截取的步长，如果第三个参数为负数表示逆向读取</p>
+</li>
+</ul>
+<p>逆转句子的实例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">reverseWords</span>(<span class="params"><span class="built_in">input</span></span>):</span><br><span class="line">    <span class="comment"># 通过空格将字符串分隔符，把各个单词分隔为列表</span></span><br><span class="line">    inputWords = <span class="built_in">input</span>.split(<span class="string">&quot; &quot;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 翻转字符串</span></span><br><span class="line">    <span class="comment"># 假设列表 list = [1,2,3,4],  </span></span><br><span class="line">    <span class="comment"># list[0]=1, list[1]=2 ，而 -1 表示最后一个元素 list[-1]=4 ( 与 list[3]=4 一样)</span></span><br><span class="line">    <span class="comment"># inputWords[-1::-1] 有三个参数</span></span><br><span class="line">    <span class="comment"># 第一个参数 -1 表示最后一个元素</span></span><br><span class="line">    <span class="comment"># 第二个参数为空，表示移动到列表末尾</span></span><br><span class="line">    <span class="comment"># 第三个参数为步长，-1 表示逆向</span></span><br><span class="line">    inputWords=inputWords[-<span class="number">1</span>::-<span class="number">1</span>]</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># 重新组合字符串</span></span><br><span class="line">    output = <span class="string">&#x27; &#x27;</span>.join(inputWords)</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">return</span> output</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="built_in">input</span> = <span class="string">&#x27;I like runoob&#x27;</span></span><br><span class="line">    rw = reverseWords(<span class="built_in">input</span>)</span><br><span class="line">    <span class="built_in">print</span>(rw)</span><br></pre></td></tr></table></figure>
+
+<h5 id="Tuple（元组）"><a href="#Tuple（元组）" class="headerlink" title="Tuple（元组）"></a>Tuple（元组）</h5><ul>
+<li>与列表类似，不同之处在于元组的元素<strong>不能修改</strong>(可以把字符串看作一种特殊的元组)</li>
+<li>元组写在小括号 <strong>()</strong> 里，元素之间用逗号隔开</li>
+<li>元组中的元素类型也可以不相同</li>
+<li>虽然tuple的元素不可改变，但它可以包含可变的对象，比如list列表\</li>
+</ul>
+<p>构造包含 0 个或 1 个元素的元组比较特殊，所以有一些额外的语法规则：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tup1 = ()    <span class="comment"># 空元组</span></span><br><span class="line">tup2 = (<span class="number">20</span>,) <span class="comment"># 一个元素，需要在元素后添加逗号</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Set（集合）"><a href="#Set（集合）" class="headerlink" title="Set（集合）"></a>Set（集合）</h5><ul>
+<li>一个或数个形态各异的大小整体组成的，构成集合的事物或对象称作元素或是成员</li>
+<li>基本功能是进行成员关系测试和删除重复元素</li>
+<li>可以使用大括号 <strong>{ }</strong> 或者 <strong>set()</strong> 函数创建集合，注意：创建一个空集合必须用 <strong>set()</strong> 而不是 **{ }**，因为 <strong>{ }</strong> 是用来创建一个空字典</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">sites = &#123;<span class="string">&#x27;Google&#x27;</span>, <span class="string">&#x27;Taobao&#x27;</span>, <span class="string">&#x27;Runoob&#x27;</span>, <span class="string">&#x27;Facebook&#x27;</span>, <span class="string">&#x27;Zhihu&#x27;</span>, <span class="string">&#x27;Baidu&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(sites)   <span class="comment"># 输出集合，重复的元素被自动去掉</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 成员测试</span></span><br><span class="line"><span class="keyword">if</span> <span class="string">&#x27;Runoob&#x27;</span> <span class="keyword">in</span> sites :</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Runoob 在集合中&#x27;</span>)</span><br><span class="line"><span class="keyword">else</span> :</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Runoob 不在集合中&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># set可以进行集合运算</span></span><br><span class="line">a = <span class="built_in">set</span>(<span class="string">&#x27;abracadabra&#x27;</span>)</span><br><span class="line">b = <span class="built_in">set</span>(<span class="string">&#x27;alacazam&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"><span class="built_in">print</span>(a - b)     <span class="comment"># a 和 b 的差集</span></span><br><span class="line"><span class="built_in">print</span>(a | b)     <span class="comment"># a 和 b 的并集</span></span><br><span class="line"><span class="built_in">print</span>(a &amp; b)     <span class="comment"># a 和 b 的交集</span></span><br><span class="line"><span class="built_in">print</span>(a ^ b)     <span class="comment"># a 和 b 中不同时存在的元素</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="Dictionary（字典）"><a href="#Dictionary（字典）" class="headerlink" title="Dictionary（字典）"></a>Dictionary（字典）</h5><ul>
+<li>列表是有序的对象集合，字典是无序的对象集合，两者之间的区别在于：字典当中的元素是通过键来存取的，而不是通过偏移存取</li>
+<li>字典是一种映射类型，字典用 <strong>{ }</strong> 标识，它是一个无序的 <strong>键(key) : 值(value)</strong> 的集合</li>
+<li>键(key)必须使用不可变类型</li>
+</ul>
+<h3 id="数据类型转换"><a href="#数据类型转换" class="headerlink" title="数据类型转换"></a>数据类型转换</h3><h5 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title="隐式类型转换"></a>隐式类型转换</h5><ul>
+<li>自动将一种数据类型转换为另一种数据类型</li>
+<li>较低数据类型（整数）就会转换为较高数据类型（浮点数）以避免数据丢失</li>
+<li>某些情况（例如字符串与整数相加）无法隐式转换</li>
+</ul>
+<h5 id="显式类型转换"><a href="#显式类型转换" class="headerlink" title="显式类型转换"></a>显式类型转换</h5><p>使用 int()、float()、str() 等预定义函数来执行显式类型转换</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">y = <span class="built_in">int</span>(<span class="number">2.8</span>) <span class="comment"># y 输出结果为 2</span></span><br><span class="line">w = <span class="built_in">float</span>(<span class="string">&quot;4.2&quot;</span>) <span class="comment"># w 输出结果为 4.2</span></span><br><span class="line">z = <span class="built_in">str</span>(<span class="number">3.0</span>)  <span class="comment"># z 输出结果为 &#x27;3.0&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>以下几个内置的函数可以执行数据类型之间的转换，这些函数返回一个新的对象，表示转换的值：</p>
+<table>
+<thead>
+<tr>
+<th align="center">函数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-func-int.html">int(x[,base])</a></td>
+<td align="left">将x转换为一个整数</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python-func-float.html">float(x)</a></td>
+<td align="left">将x转换到一个浮点数</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-func-complex.html">complex(real[,imag])</a></td>
+<td align="left">创建一个复数</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python-func-str.html">str(x)</a></td>
+<td align="left">将对象 x 转换为字符串</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python-func-repr.html">repr(x)</a></td>
+<td align="left">将对象 x 转换为表达式字符串</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python-func-eval.html">eval(str)</a></td>
+<td align="left">用来计算在字符串中的有效Python表达式,并返回一个对象</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-tuple.html">tuple(s)</a></td>
+<td align="left">将序列 s 转换为一个元组</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-att-list-list.html">list(s)</a></td>
+<td align="left">将序列 s 转换为一个列表</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python-func-set.html">set(s)</a></td>
+<td align="left">转换为可变集合</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python-func-dict.html">dict(d)</a></td>
+<td align="left">创建一个字典。d 必须是一个 (key, value)元组序列。</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python-func-frozenset.html">frozenset(s)</a></td>
+<td align="left">转换为不可变集合</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python-func-chr.html">chr(x)</a></td>
+<td align="left">将一个整数转换为一个字符</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python-func-ord.html">ord(x)</a></td>
+<td align="left">将一个字符转换为它的整数值</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python-func-hex.html">hex(x)</a></td>
+<td align="left">将一个整数转换为一个十六进制字符串</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python-func-oct.html">oct(x)</a></td>
+<td align="left">将一个整数转换为一个八进制字符串</td>
+</tr>
+</tbody></table>
+<h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h3><h5 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+, -, *, /, %, **, //</span><br></pre></td></tr></table></figure>
+
+<h5 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">==, !=, &gt;, &lt; , &gt;=, &lt;=</span><br></pre></td></tr></table></figure>
+
+<h5 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=, +=, -=, *=, /=, %=, **=, //=, :=</span><br></pre></td></tr></table></figure>
+
+<p>(<code>:=</code>是海象运算符，可在表达式内部为变量赋值)</p>
+<h5 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;, |, ^, ~, &lt;&lt;, &gt;&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h5><p>假设a为10， b为20</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th align="left">逻辑表达式</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>and</td>
+<td align="left">x and y</td>
+<td align="left">布尔”与” - 如果 x 为 False，x and y 返回 x 的值，否则返回 y 的计算值</td>
+<td align="left">(a and b) 返回 20</td>
+</tr>
+<tr>
+<td>or</td>
+<td align="left">x or y</td>
+<td align="left">布尔”或” - 如果 x 是 True，它返回 x 的值，否则它返回 y 的计算值</td>
+<td align="left">(a or b) 返回 10</td>
+</tr>
+<tr>
+<td>not</td>
+<td align="left">not x</td>
+<td align="left">布尔”非” - 如果 x 为 True，返回 False 。如果 x 为 False，它返回 True</td>
+<td align="left">not(a and b) 返回 False</td>
+</tr>
+</tbody></table>
+<h5 id="成员运算符"><a href="#成员运算符" class="headerlink" title="成员运算符"></a>成员运算符</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#in, not in</span></span><br><span class="line"></span><br><span class="line">a = <span class="number">10</span></span><br><span class="line"><span class="built_in">list</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span> ]</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> ( a <span class="keyword">in</span> <span class="built_in">list</span> ):</span><br><span class="line">   <span class="built_in">print</span> (<span class="string">&quot;变量 a 在给定的列表中 list 中&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="built_in">print</span> (<span class="string">&quot;变量 a 不在给定的列表中 list 中&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>指示指定序列中是否包含元素</p>
+<h5 id="身份运算符"><a href="#身份运算符" class="headerlink" title="身份运算符"></a>身份运算符</h5><table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">is</td>
+<td align="left">is 是判断两个标识符是不是引用自一个对象</td>
+<td align="left"><strong>x is y</strong>, 类似 <strong>id(x) &#x3D;&#x3D; id(y)</strong> , 如果引用的是同一个对象则返回 True，否则返回 False</td>
+</tr>
+<tr>
+<td align="left">is not</td>
+<td align="left">is not 是判断两个标识符是不是引用自不同对象</td>
+<td align="left"><strong>x is not y</strong> ， 类似 **id(x) !&#x3D; id(y)**，如果引用的不是同一个对象则返回结果 True，否则返回 False</td>
+</tr>
+</tbody></table>
+<p><strong>注：</strong> <a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-func-id.html">id()</a> 函数用于获取对象内存地址</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">20</span></span><br><span class="line">b = <span class="number">20</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> ( a <span class="keyword">is</span> b ):</span><br><span class="line">   <span class="built_in">print</span> (<span class="string">&quot;1 - a 和 b 有相同的标识&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="built_in">print</span> (<span class="string">&quot;1 - a 和 b 没有相同的标识&quot;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> ( <span class="built_in">id</span>(a) == <span class="built_in">id</span>(b) ):</span><br><span class="line">   <span class="built_in">print</span> (<span class="string">&quot;2 - a 和 b 有相同的标识&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="built_in">print</span> (<span class="string">&quot;2 - a 和 b 没有相同的标识&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出：</span></span><br><span class="line"><span class="comment">#1 - a 和 b 有相同的标识</span></span><br><span class="line"><span class="comment">#2 - a 和 b 有相同的标识</span></span><br></pre></td></tr></table></figure>
+	
+		</div>
+		
+		<div id="current-post-cover" data-scr="https://pic.imgdb.cn/item/6499a4c11ddac507cc92f0c5.jpg"></div>
+
+		<!-- relate post, comment...-->
+		<div class="investment-container">
+			<div class="investment-header">
+				<div class="investment-title-1">
+					<div class="on">相关文章</div>
+					<div>评论</div>
+					<div>分享</div>
+				</div>
+				<div class="investment-title-2">	            
+					
+	<span>
+		<a id="totop-post-page">返回顶部</a>
+		
+		
+			<a href="/2023/06/18/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%204/" title="Summary of Object-Oriented Design and Construction Unit 4" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+				</div>	
+			</div>
+			
+			<div class="investment-content">
+				<div class="investment-content-list">
+					
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2023/06/18/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%204/" title="Summary of Object-Oriented Design and Construction Unit 4">
+								Summary of Object-Oriented Design and Construction Unit 4			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 18日, 2023				
+							</p>
+							<p class="relate-post-content">
+								面向对象设计与构造第四单元博客总结介绍第四单元作业主要任务是完成一个图书馆模拟系统，以训练对程序架构的设计和抽象能力。
+点击此处可以参考我的代码：https://github.com/LeostarR/Object-oriented-...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2023/06/18/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%204/" title="Summary of Object-Oriented Design and Construction Unit 4">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://pic.imgdb.cn/item/6495aadf1ddac507cc356e25.jpg" alt="Summary of Object-Oriented Design and Construction Unit 4"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2023/05/19/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%203/" title="Summary of Object-Oriented Design and Construction Unit 3">
+								Summary of Object-Oriented Design and Construction Unit 3			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 19日, 2023				
+							</p>
+							<p class="relate-post-content">
+								面向对象设计与构造第三单元博客总结介绍第三单元作业的训练目标是掌握JML规格的理解与实现，三次作业为迭代开发。
+需要完成的任务为实现简单社交关系的模拟和查询（第一次作业），实现社交关系模拟系统中的群组和消息功能（第二次作业）和实现社交...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2023/05/19/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%203/" title="Summary of Object-Oriented Design and Construction Unit 3">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://pic.imgdb.cn/item/6495aadf1ddac507cc356d8c.jpg" alt="Summary of Object-Oriented Design and Construction Unit 3"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2023/04/14/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%202/" title="Summary of Object-Oriented Design and Construction Unit 2">
+								Summary of Object-Oriented Design and Construction Unit 2			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								四月 14日, 2023				
+							</p>
+							<p class="relate-post-content">
+								面向对象设计与构造第二单元博客总结介绍第二单元作业的基本训练目标是模拟多线程实时电梯系统，三次作业为迭代开发。
+
+第一次作业要求设计一个具有功能为上下行，开关门，以及模拟乘客进出的电梯系统，目标是让我们熟悉线程的创建、运行等基本操作，...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2023/04/14/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%202/" title="Summary of Object-Oriented Design and Construction Unit 2">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://pic.imgdb.cn/item/649587271ddac507ccf3e836.jpg" alt="Summary of Object-Oriented Design and Construction Unit 2"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2023/03/17/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%201/" title="Summary of Object-Oriented Design and Construction Unit 1">
+								Summary of Object-Oriented Design and Construction Unit 1			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								三月 17日, 2023				
+							</p>
+							<p class="relate-post-content">
+								面向对象设计与构造第一单元博客总结介绍第一单元作业总的训练目标是对表达式结构进行建模，体会层次化的思想，三次作业为迭代开发。第一次作业是完成对多项式括号的展开，第二次作业新引入了三角函数(sin,cos)以及自定义函数(f(x),g(...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2023/03/17/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%201/" title="Summary of Object-Oriented Design and Construction Unit 1">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://pic.imgdb.cn/item/648eeed81ddac507ccd3d7ac.jpg" alt="Summary of Object-Oriented Design and Construction Unit 1"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2023/03/12/hello-world/" title="Hello World">
+								Hello World			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								三月 12日, 2023				
+							</p>
+							<p class="relate-post-content">
+								Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using ...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2023/03/12/hello-world/" title="Hello World">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Hello World"/>
+							</a>
+						</div>
+					</li>												
+			
+		</ul>
+	
+</div>	
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-comment">
+
+	
+
+		
+
+			<!-- gitalk comment -->
+			<!-- show gitalk comment -->
+<div id="gitalk-container"></div>
+
+<!-- gitalk`s css & js -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<link rel="stylesheet" href="/css/comment.css">
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+
+	(function gitalkComment(){
+		//Thanks O-R
+		//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
+		//去除尾部匹配正则数组的字符串  
+		//Remove redundant characters
+		String.prototype.trimEnd = function(regStr) {
+			let result = this;
+			if(regStr == undefined || regStr == null || regStr == "") {
+				return result;
+			}
+			let array = regStr.split(',');
+
+			if(array.length > 0) {
+
+				let c = array.shift(), 
+					str = this,
+					i = str.length,
+					rg = new RegExp(c),
+					matchArr = str.match(rg);
+
+				if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
+					let matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
+						.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
+						.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
+						.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
+						.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
+						.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
+						.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
+						.replace(/\./g, "\\.").replace(/\&/g, "\\&");
+					matchStr = matchStr + '$';
+					result = str.replace(new RegExp(matchStr), "");
+				}
+
+				if(array.length > 0) {
+					return result.trimEnd(array.join())
+				} else {
+					return result;
+				}
+			}
+		};
+
+		//Create gitalk
+		let gitalk = new Gitalk({
+			clientID: '33eb0ec52c22d17b68aa',
+			clientSecret: 'a07d6b28c06f968778975585c68f19966a6c535e',
+			//id: window.location.pathname,
+			//id: decodeURI(window.location.pathname),
+			//id: (window.location.pathname).split("/").pop().substring(0, 49),
+			id: decodeURI( md5( location.href.trimEnd('#.*$,\\?.*$,index.html$') ) ),
+			repo: 'LeostarR.github.io',
+			owner: 'LeostarR',
+			admin: 'LeostarR',
+			distractionFreeMode: 'true',
+		})
+		gitalk.render('gitalk-container');		
+	})();
+</script>
+
+		
+		
+	
+
+</div>
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- show math formula -->
+
+	<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config(
+			{ 
+				tex2jax: {
+					inlineMath: [['$','$'], ['\\(','\\)']]
+				} 
+			}
+		);
+	</script>
+
+
+
+	 
+	
+<script src="/plugin/clipboard/clipboard.js"></script>
+
+	<script>
+		// Copy code !
+	    function preprocessing() {
+	        $("#article-content .highlight").each(function() {
+	            $(this).wrap('<div id="post-code"></div>');
+	        })
+
+	        $("#article-content #post-code").each(function() {
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            let languageClass = $(this).next().attr('class'),
+	                language = ((languageClass.length > 9) && (languageClass != null)) ? languageClass.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+	            $(this).append('<span class="copy-btn icon-paste"></span>');
+	        });
+	    }
+
+		function copy() {
+		    $('#article-content #post-code').each(function(i) {
+		        let codeCopyId = 'codeCopy-' + i;
+
+		        let codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+   
+			let clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn icon-clipboard1');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn icon-paste');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');   
+			});
+			
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		}
+		
+		(function copyCode(){
+			if ($('.layout-post').length) {
+			    preprocessing();
+			    copy();
+			} 
+		})();
+	</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+
+
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+
+<script type="text/javascript">
+	(function gallerySet(){
+		let titleID = $('.article-title a'),
+			imageID = $('.article-content img'),
+			videoID = $('.article-content video');
+		
+		let postTitle = titleID.text() ? titleID.text() : "No post title!";
+		
+		imageID.each(function() {
+			let imgPath = $(this).attr('src'),
+				imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox="gallery" data-caption="《 ' + postTitle + ' 》' + imgTitle + '"href="' + imgPath + '"> </a>');
+		});
+		
+		videoID.each(function() {
+			let videoPath = $(this).attr('src');
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+		});
+		
+		//TODO：支持html5 video
+
+		if($('#layout-post').length) {
+			$('[data-fancybox="gallery"]').fancybox({
+				loop: true,
+				buttons: [
+					"zoom",
+					"share",
+					"slideShow",
+					"fullScreen",
+					//"download",
+					"thumbs",
+					"close"
+				],
+				protect: true
+			});
+		}
+	})();
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div id="navigation-show">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+		<li class="menu-gallery">
+			<a href="/gallery" class="menu-item-gallery" target="_blank">相册</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+
+	<div class="copyright">
+		<p>
+			 
+				&copy;2023, content by Leostar. All Rights Reserved.
+			
+			
+				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			
+		</p>
+		<p>
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- Local or hitokoto! -->
+
+	
+<script src="/plugin/motto/motto.js"></script>
+
+	
+	<script type="text/javascript">
+		(function motto(){
+			let mottoText = getMingYanContent().split('</br> - </br>'),
+			
+			mottoTextContent = mottoText[0]?mottoText[0]:'请刷新...',
+			
+			mottoTextFrom = mottoText[1]?mottoText[1]:'one/一个';
+			
+			mottoTextContent = mottoTextContent.trim().substring(0, 100);
+		
+			$("#motto-content").html( mottoTextContent);
+			$("#motto-author").html( mottoTextFrom  );
+		})();	
+	</script>	
+
+
+
+<!-- love effect -->
+
+	
+<script src="/plugin/love/love.js"></script>
+
+
+
+<!-- back to top -->
+
+	<div id="totop">
+	<span class="icon-circle-up"></span>
+</div>
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<!-- leancloud -->
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+  
+<script src="/plugin/leancloud/av-min.js"></script>
+<script src="/js/leancloud-count.js"></script>
+
+
+	
+
+  
+
+	<!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup scrollbar" >
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      		ESC
+   		</span>
+		<div class="local-search-header">
+			<div class="input-prompt">				
+			</div>
+			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			<div class="topN-post">				
+				
+
+   
+	<div id="topN">
+		<div class="topN-title" data-title= "热门文章"></div> 
+	</div>
+	
+    <script>
+        var limitCount = 10;
+        if( $('#topN').length ){
+            setTimeout(function() {
+                topNPost(limitCount);
+			}, 3000);
+        }
+    </script>
+   
+								
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="/plugin/search/ziploader.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imagelazyloader/yall.min.js"></script>
+<script src="/plugin/imageloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/plugin/resizediv/resizediv.js"></script>
+<script src="/js/main.js"></script>
+
+	</body>	
+</html>
