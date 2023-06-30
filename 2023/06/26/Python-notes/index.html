@@ -228,7 +228,7 @@
 
 	<a href="/2023/06/26/Python-notes/" itemprop="url">
 		<time datetime="2023-06-26T14:42:29.000Z" itemprop="dateUpdated">
-	  		2023-06-26
+	  		2023-06-30
 	  </time>
 	</a> 
 
@@ -322,7 +322,175 @@
 <ul>
 <li>在混合计算时，Python会把整型转换成为浮点数</li>
 <li>Python 还支持复数，复数由实数部分和虚数部分构成，可以用 **<code>a + bj</code>**，或者 <strong><code>complex(a,b)</code></strong> 表示， 复数的实部 <code>a</code> 和虚部 <strong><code>b</code></strong> 都是浮点型</li>
+<li><code>//</code> 得到的并不一定是整数类型的数，它与分母分子的数据类型有关系</li>
 </ul>
+<h6 id="数字类型转换"><a href="#数字类型转换" class="headerlink" title="数字类型转换"></a>数字类型转换</h6><p>只需要将数据类型作为函数名即可</p>
+<ul>
+<li><strong>int(x)</strong> 将x转换为一个整数</li>
+<li><strong>float(x)</strong> 将x转换到一个浮点数</li>
+<li><strong>complex(x)</strong> 将x转换到一个复数，实数部分为 x，虚数部分为 0</li>
+<li><strong>complex(x, y)</strong> 将 x 和 y 转换到一个复数，实数部分为 x，虚数部分为 y，x 和 y 是数字表达式</li>
+</ul>
+<h6 id="数学函数"><a href="#数学函数" class="headerlink" title="数学函数"></a>数学函数</h6><table>
+<thead>
+<tr>
+<th align="left">函数</th>
+<th align="left">返回值 ( 描述 )</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-abs.html">abs(x)</a></td>
+<td align="left">返回数字的绝对值，如abs(-10) 返回 10</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-ceil.html">ceil(x)</a></td>
+<td align="left">返回数字的上入整数，如math.ceil(4.1) 返回 5</td>
+</tr>
+<tr>
+<td align="left">cmp(x, y)</td>
+<td align="left">如果 x &lt; y 返回 -1, 如果 x &#x3D;&#x3D; y 返回 0, 如果 x &gt; y 返回 1。 <strong>Python 3 已废弃，使用 (x&gt;y)-(x&lt;y) 替换</strong>。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-exp.html">exp(x)</a></td>
+<td align="left">返回e的x次幂(ex),如math.exp(1) 返回2.718281828459045</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-fabs.html">fabs(x)</a></td>
+<td align="left">以浮点数形式返回数字的绝对值，如math.fabs(-10) 返回10.0</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-floor.html">floor(x)</a></td>
+<td align="left">返回数字的下舍整数，如math.floor(4.9)返回 4</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-log.html">log(x)</a></td>
+<td align="left">如math.log(math.e)返回1.0,math.log(100,10)返回2.0</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-log10.html">log10(x)</a></td>
+<td align="left">返回以10为基数的x的对数，如math.log10(100)返回 2.0</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-max.html">max(x1, x2,…)</a></td>
+<td align="left">返回给定参数的最大值，参数可以为序列</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-min.html">min(x1, x2,…)</a></td>
+<td align="left">返回给定参数的最小值，参数可以为序列</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-modf.html">modf(x)</a></td>
+<td align="left">返回x的整数部分与小数部分，两部分的数值符号与x相同，整数部分以浮点型表示。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-pow.html">pow(x, y)</a></td>
+<td align="left">x**y 运算后的值</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-round.html">round(x,[,n])</a></td>
+<td align="left">返回浮点数 x 的四舍五入值，如给出 n 值，则代表舍入到小数点后的位数。**其实准确的说是保留值将保留到离上一位更近的一端</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-sqrt.html">sqrt(x)</a></td>
+<td align="left">返回数字x的平方根</td>
+</tr>
+</tbody></table>
+<h6 id="随机数函数"><a href="#随机数函数" class="headerlink" title="随机数函数"></a>随机数函数</h6><table>
+<thead>
+<tr>
+<th align="left">函数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-choice.html">choice(seq)</a></td>
+<td align="left">从序列的元素中随机挑选一个元素，比如random.choice(range(10))，从0到9中随机挑选一个整数</td>
+</tr>
+<tr>
+<td align="left">[randrange (<a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-randrange.html">start,] stop [,step])</a></td>
+<td align="left">从指定范围内，按指定基数递增的集合中获取一个随机数，基数默认值为 1</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-random.html">random()</a></td>
+<td align="left">随机生成下一个实数，它在[0,1)范围内</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-seed.html">seed([x])</a></td>
+<td align="left">改变随机数生成器的种子seed。如果你不了解其原理，你不必特别去设定seed，Python会帮你选择seed</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-shuffle.html">shuffle(lst)</a></td>
+<td align="left">将序列的所有元素随机排序</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-uniform.html">uniform(x, y)</a></td>
+<td align="left">随机生成下一个实数，它在[x,y]范围内</td>
+</tr>
+</tbody></table>
+<h6 id="三角函数"><a href="#三角函数" class="headerlink" title="三角函数"></a>三角函数</h6><table>
+<thead>
+<tr>
+<th align="left">函数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-acos.html">acos(x)</a></td>
+<td align="left">返回x的反余弦弧度值</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-asin.html">asin(x)</a></td>
+<td align="left">返回x的反正弦弧度值</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-atan.html">atan(x)</a></td>
+<td align="left">返回x的反正切弧度值</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-atan2.html">atan2(y, x)</a></td>
+<td align="left">返回给定的 X 及 Y 坐标值的反正切值</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-cos.html">cos(x)</a></td>
+<td align="left">返回x的弧度的余弦值</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-hypot.html">hypot(x, y)</a></td>
+<td align="left">返回欧几里德范数 sqrt(x*x + y*y)</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-sin.html">sin(x)</a></td>
+<td align="left">返回的x弧度的正弦值</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-tan.html">tan(x)</a></td>
+<td align="left">返回x弧度的正切值</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-degrees.html">degrees(x)</a></td>
+<td align="left">将弧度转换为角度,如degrees(math.pi&#x2F;2) ， 返回90.0</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-radians.html">radians(x)</a></td>
+<td align="left">将角度转换为弧度</td>
+</tr>
+</tbody></table>
+<h6 id="数字常量"><a href="#数字常量" class="headerlink" title="数字常量"></a>数字常量</h6><table>
+<thead>
+<tr>
+<th align="left">常量</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">pi</td>
+<td align="left">数学常量 pi（圆周率，一般以π来表示）</td>
+</tr>
+<tr>
+<td align="left">e</td>
+<td align="left">数学常量 e，e即自然常数（自然常数）</td>
+</tr>
+</tbody></table>
 <h5 id="String（字符串）"><a href="#String（字符串）" class="headerlink" title="String（字符串）"></a>String（字符串）</h5><ul>
 <li>字符串用单引号 <strong>‘</strong> 或双引号 <strong>“</strong> 括起来，同时使用反斜杠 <code>\</code>转义特殊字符</li>
 <li>使用反斜杠 <code>\</code> 转义特殊字符，如果你不想让反斜杠发生转义，可以在字符串前面添加一个 <strong>r</strong>，表示原始字符串<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="string">r&#x27;Ru\noob&#x27;</span>)</span><br><span class="line">Ru\noob</span><br></pre></td></tr></table></figure></li>
@@ -332,6 +500,124 @@
 <li>两种索引方式，从左往右以0开始，从右往左以-1开始</li>
 <li>字符串的截取的语法格式如下：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">变量[头下标:尾下标]</span><br><span class="line"><span class="comment">#不会打印尾下标字符，也就是说会打印到尾下标之前的那一个字符</span></span><br></pre></td></tr></table></figure></li>
 </ul>
+<h6 id="字符串更新"><a href="#字符串更新" class="headerlink" title="字符串更新"></a>字符串更新</h6><p>通过截取字符串的一部分并与其他字段拼接：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var1 = <span class="string">&#x27;Hello World!&#x27;</span></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;已更新字符串 : &quot;</span>, var1[:<span class="number">6</span>] + <span class="string">&#x27;Runoob!&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h6 id="转义符"><a href="#转义符" class="headerlink" title="转义符"></a>转义符</h6><table>
+<thead>
+<tr>
+<th>转义字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>\</strong>(在行尾时)</td>
+<td>续行符</td>
+</tr>
+<tr>
+<td><strong>\\</strong></td>
+<td>反斜杠</td>
+</tr>
+<tr>
+<td><strong>\‘</strong></td>
+<td>单引号</td>
+</tr>
+<tr>
+<td><strong>\“</strong></td>
+<td>双引号</td>
+</tr>
+<tr>
+<td><strong>\a</strong></td>
+<td>响铃</td>
+</tr>
+<tr>
+<td><strong>\b</strong></td>
+<td>退格</td>
+</tr>
+<tr>
+<td><strong>\000</strong></td>
+<td>空</td>
+</tr>
+<tr>
+<td><strong>\n</strong></td>
+<td>换行</td>
+</tr>
+<tr>
+<td><strong>\v</strong></td>
+<td>纵向制表符</td>
+</tr>
+<tr>
+<td><strong>\t</strong></td>
+<td>横向制表符</td>
+</tr>
+<tr>
+<td><strong>\r</strong></td>
+<td>回车，将 <strong>\r</strong> 后面的内容移到字符串开头，并逐一替换开头部分的字符，直至将 <strong>\r</strong> 后面的内容完全替换完成</td>
+</tr>
+<tr>
+<td><strong>\f</strong></td>
+<td>换页</td>
+</tr>
+<tr>
+<td><strong>\yyy</strong></td>
+<td>八进制数，y 代表 0~7 的字符，例如：\012 代表换行</td>
+</tr>
+<tr>
+<td><strong>\xyy</strong></td>
+<td>十六进制数，以 \x 开头，y 代表的字符，例如：\x0a 代表换行</td>
+</tr>
+</tbody></table>
+<h6 id="字符串运算符"><a href="#字符串运算符" class="headerlink" title="字符串运算符"></a>字符串运算符</h6><p>下表实例变量 a 值为字符串 “Hello”，b 变量值为 “Python”：</p>
+<table>
+<thead>
+<tr>
+<th align="left">操作符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">+</td>
+<td align="left">字符串连接</td>
+<td align="left">a + b 输出结果： HelloPython</td>
+</tr>
+<tr>
+<td align="left">*</td>
+<td align="left">重复输出字符串</td>
+<td align="left">a*2 输出结果：HelloHello</td>
+</tr>
+<tr>
+<td align="left">[]</td>
+<td align="left">通过索引获取字符串中字符</td>
+<td align="left">a[1] 输出结果 <strong>e</strong></td>
+</tr>
+<tr>
+<td align="left">[ : ]</td>
+<td align="left">截取字符串中的一部分，遵循<strong>左闭右开</strong>原则，str[0:2] 是不包含第 3 个字符的。</td>
+<td align="left">a[1:4] 输出结果 <strong>ell</strong></td>
+</tr>
+<tr>
+<td align="left">in</td>
+<td align="left">成员运算符 - 如果字符串中包含给定的字符返回 True</td>
+<td align="left"><strong>‘H’ in a</strong> 输出结果 True</td>
+</tr>
+<tr>
+<td align="left">not in</td>
+<td align="left">成员运算符 - 如果字符串中不包含给定的字符返回 True</td>
+<td align="left"><strong>‘M’ not in a</strong> 输出结果 True</td>
+</tr>
+<tr>
+<td align="left">r&#x2F;R</td>
+<td align="left">原始字符串 - 原始字符串：所有的字符串都是直接按照字面的意思来使用，没有转义特殊或不能打印的字符。 原始字符串除在字符串的第一个引号前加上字母 <strong>r</strong>（可以大小写）以外，与普通字符串有着几乎完全相同的语法</td>
+<td align="left"><code>print( r&#39;\n&#39; ) print( R&#39;\n&#39; )</code></td>
+</tr>
+</tbody></table>
+<h6 id="字符串格式化"><a href="#字符串格式化" class="headerlink" title="字符串格式化"></a>字符串格式化</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span> (<span class="string">&quot;我叫 %s 今年 %d 岁!&quot;</span> % (<span class="string">&#x27;Leo&#x27;</span>, <span class="number">12</span>))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>字符串格式化符号与C语言类似</li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/python/att-string-format.html">str.format()</a>增强了字符串格式化的功能</li>
+</ul>
+<h6 id="三引号"><a href="#三引号" class="headerlink" title="三引号"></a>三引号</h6><p>三引号允许一个字符串跨多行，字符串中可以包含换行符、制表符以及其他特殊字符</p>
 <h5 id="bool（布尔类型）"><a href="#bool（布尔类型）" class="headerlink" title="bool（布尔类型）"></a>bool（布尔类型）</h5><ul>
 <li>布尔类型即 True 或 False</li>
 <li>布尔类型可以和其他数据类型进行比较，比如数字、字符串等。在比较时，Python 会将 True 视为 1，False 视为 0</li>
@@ -351,6 +637,21 @@
 </ul>
 <p>逆转句子的实例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">reverseWords</span>(<span class="params"><span class="built_in">input</span></span>):</span><br><span class="line">    <span class="comment"># 通过空格将字符串分隔符，把各个单词分隔为列表</span></span><br><span class="line">    inputWords = <span class="built_in">input</span>.split(<span class="string">&quot; &quot;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 翻转字符串</span></span><br><span class="line">    <span class="comment"># 假设列表 list = [1,2,3,4],  </span></span><br><span class="line">    <span class="comment"># list[0]=1, list[1]=2 ，而 -1 表示最后一个元素 list[-1]=4 ( 与 list[3]=4 一样)</span></span><br><span class="line">    <span class="comment"># inputWords[-1::-1] 有三个参数</span></span><br><span class="line">    <span class="comment"># 第一个参数 -1 表示最后一个元素</span></span><br><span class="line">    <span class="comment"># 第二个参数为空，表示移动到列表末尾</span></span><br><span class="line">    <span class="comment"># 第三个参数为步长，-1 表示逆向</span></span><br><span class="line">    inputWords=inputWords[-<span class="number">1</span>::-<span class="number">1</span>]</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># 重新组合字符串</span></span><br><span class="line">    output = <span class="string">&#x27; &#x27;</span>.join(inputWords)</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">return</span> output</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="built_in">input</span> = <span class="string">&#x27;I like runoob&#x27;</span></span><br><span class="line">    rw = reverseWords(<span class="built_in">input</span>)</span><br><span class="line">    <span class="built_in">print</span>(rw)</span><br></pre></td></tr></table></figure>
+
+<h6 id="更新列表"><a href="#更新列表" class="headerlink" title="更新列表"></a>更新列表</h6><p>直接进行修改或更新:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span> = [<span class="string">&#x27;Google&#x27;</span>, <span class="string">&#x27;Runoob&#x27;</span>, <span class="number">1997</span>, <span class="number">2000</span>]</span><br><span class="line"> </span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;第三个元素为 : &quot;</span>, <span class="built_in">list</span>[<span class="number">2</span>])</span><br><span class="line"><span class="built_in">list</span>[<span class="number">2</span>] = <span class="number">2001</span></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;更新后的第三个元素为 : &quot;</span>, <span class="built_in">list</span>[<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+
+<p>使用 append() 方法:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">list1 = [<span class="string">&#x27;Google&#x27;</span>, <span class="string">&#x27;Runoob&#x27;</span>, <span class="string">&#x27;Taobao&#x27;</span>]</span><br><span class="line">list1.append(<span class="string">&#x27;Baidu&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;更新后的列表 : &quot;</span>, list1)</span><br></pre></td></tr></table></figure>
+
+<h6 id="删除列表元素"><a href="#删除列表元素" class="headerlink" title="删除列表元素"></a>删除列表元素</h6><p>使用 del 语句来删除列表的的元素，如下实例:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span> = [<span class="string">&#x27;Google&#x27;</span>, <span class="string">&#x27;Runoob&#x27;</span>, <span class="number">1997</span>, <span class="number">2000</span>]</span><br><span class="line"><span class="keyword">del</span> <span class="built_in">list</span>[<span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+
+<h6 id="拼接"><a href="#拼接" class="headerlink" title="拼接"></a>拼接</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">squares = [<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>]</span><br><span class="line">squares += [<span class="number">36</span>, <span class="number">49</span>, <span class="number">64</span>, <span class="number">81</span>, <span class="number">100</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="与列表有关的函数和方法"><a href="#与列表有关的函数和方法" class="headerlink" title="与列表有关的函数和方法"></a>与列表有关的函数和方法</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">len(list)	max(list) 	min(list)	list(<span class="built_in">seq</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">list.append(obj)	list.count(obj)		list.extend(<span class="built_in">seq</span>)	list.index(obj)		</span><br><span class="line">list.insert(index, obj)		list.pop([index=-1])	list.remove(obj)	list.reverse()		</span><br><span class="line">list.sort( key=None, reverse=False)		list.clear()		list.copy()</span><br></pre></td></tr></table></figure>
 
 <h5 id="Tuple（元组）"><a href="#Tuple（元组）" class="headerlink" title="Tuple（元组）"></a>Tuple（元组）</h5><ul>
 <li>与列表类似，不同之处在于元组的元素<strong>不能修改</strong>(可以把字符串看作一种特殊的元组)</li>
