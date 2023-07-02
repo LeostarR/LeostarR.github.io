@@ -228,7 +228,7 @@
 
 	<a href="/2023/06/26/Python-notes/" itemprop="url">
 		<time datetime="2023-06-26T14:42:29.000Z" itemprop="dateUpdated">
-	  		2023-06-30
+	  		2023-07-02
 	  </time>
 	</a> 
 
@@ -655,13 +655,54 @@
 
 <h5 id="Tuple（元组）"><a href="#Tuple（元组）" class="headerlink" title="Tuple（元组）"></a>Tuple（元组）</h5><ul>
 <li>与列表类似，不同之处在于元组的元素<strong>不能修改</strong>(可以把字符串看作一种特殊的元组)</li>
-<li>元组写在小括号 <strong>()</strong> 里，元素之间用逗号隔开</li>
+<li>元组写在小括号 <strong>()</strong> 里，元素之间用<strong>逗号</strong>隔开</li>
 <li>元组中的元素类型也可以不相同</li>
 <li>虽然tuple的元素不可改变，但它可以包含可变的对象，比如list列表\</li>
 </ul>
 <p>构造包含 0 个或 1 个元素的元组比较特殊，所以有一些额外的语法规则：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tup1 = ()    <span class="comment"># 空元组</span></span><br><span class="line">tup2 = (<span class="number">20</span>,) <span class="comment"># 一个元素，需要在元素后添加逗号</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tup1 = ()    <span class="comment"># 空元组</span></span><br><span class="line">tup2 = (<span class="number">20</span>,) <span class="comment"># 一个元素，需要在元素后添加逗号，否则括号会被当作运算符使用</span></span><br></pre></td></tr></table></figure>
 
+<h6 id="访问元组"><a href="#访问元组" class="headerlink" title="访问元组"></a>访问元组</h6><p>使用下标索引：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tup1 = (<span class="string">&#x27;Google&#x27;</span>, <span class="string">&#x27;Runoob&#x27;</span>, <span class="number">1997</span>, <span class="number">2000</span>)</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;tup1[0]: &quot;</span>, tup1[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+<h6 id="修改元组"><a href="#修改元组" class="headerlink" title="修改元组"></a>修改元组</h6><p>元组中的元素值是不允许修改的，但我们可以对元组进行连接组合：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">tup1 = (<span class="number">12</span>, <span class="number">34.56</span>)</span><br><span class="line">tup2 = (<span class="string">&#x27;abc&#x27;</span>, <span class="string">&#x27;xyz&#x27;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 创建一个新的元组</span></span><br><span class="line">tup3 = tup1 + tup2</span><br><span class="line"><span class="comment"># 不允许出现类似tup1[0] = 100的用法</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="删除元组"><a href="#删除元组" class="headerlink" title="删除元组"></a>删除元组</h6><p>元组中的元素值是不允许删除的，但我们可以使用del语句来删除整个元组：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tup = (<span class="string">&#x27;Google&#x27;</span>, <span class="string">&#x27;Runoob&#x27;</span>, <span class="number">1997</span>, <span class="number">2000</span>)</span><br><span class="line"><span class="keyword">del</span> tup</span><br></pre></td></tr></table></figure>
+
+<h6 id="元组运算符"><a href="#元组运算符" class="headerlink" title="元组运算符"></a>元组运算符</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">len(tuple)	+	+=	*	in</span><br></pre></td></tr></table></figure>
+
+<h6 id="元组索引，截取"><a href="#元组索引，截取" class="headerlink" title="元组索引，截取"></a>元组索引，截取</h6><p>同列表</p>
+<h6 id="元组内置函数"><a href="#元组内置函数" class="headerlink" title="元组内置函数"></a>元组内置函数</h6><table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">方法及描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left"><code>len(tuple)</code> 计算元组元素个数</td>
+<td align="left"><code>&gt;&gt;&gt; tuple1 = (&#39;Google&#39;, &#39;Runoob&#39;, &#39;Taobao&#39;) &gt;&gt;&gt; len(tuple1) 3 </code></td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left"><code>max(tuple)</code> 返回元组中元素最大值</td>
+<td align="left"><code>&gt;&gt;&gt; tuple2 = (&#39;5&#39;, &#39;4&#39;, &#39;8&#39;) &gt;&gt;&gt; max(tuple2) &#39;8&#39;  </code></td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left"><code>min(tuple)</code> 返回元组中元素最小值</td>
+<td align="left"><code>&gt;&gt;&gt; tuple2 = (&#39;5&#39;, &#39;4&#39;, &#39;8&#39;) &gt;&gt;&gt; min(tuple2) &#39;4&#39; &gt;&gt;&gt; </code></td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left"><code>tuple(iterable)</code> 将可迭代系列转换为元组</td>
+<td align="left"><code>&gt;&gt;&gt; list1= [&#39;Google&#39;, &#39;Taobao&#39;, &#39;Runoob&#39;, &#39;Baidu&#39;] &gt;&gt;&gt; tuple1=tuple(list1) &gt;&gt;&gt; tuple1 (&#39;Google&#39;, &#39;Taobao&#39;, &#39;Runoob&#39;, &#39;Baidu&#39;)</code></td>
+</tr>
+</tbody></table>
 <h5 id="Set（集合）"><a href="#Set（集合）" class="headerlink" title="Set（集合）"></a>Set（集合）</h5><ul>
 <li>一个或数个形态各异的大小整体组成的，构成集合的事物或对象称作元素或是成员</li>
 <li>基本功能是进行成员关系测试和删除重复元素</li>
@@ -669,11 +710,40 @@
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">sites = &#123;<span class="string">&#x27;Google&#x27;</span>, <span class="string">&#x27;Taobao&#x27;</span>, <span class="string">&#x27;Runoob&#x27;</span>, <span class="string">&#x27;Facebook&#x27;</span>, <span class="string">&#x27;Zhihu&#x27;</span>, <span class="string">&#x27;Baidu&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(sites)   <span class="comment"># 输出集合，重复的元素被自动去掉</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 成员测试</span></span><br><span class="line"><span class="keyword">if</span> <span class="string">&#x27;Runoob&#x27;</span> <span class="keyword">in</span> sites :</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Runoob 在集合中&#x27;</span>)</span><br><span class="line"><span class="keyword">else</span> :</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Runoob 不在集合中&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># set可以进行集合运算</span></span><br><span class="line">a = <span class="built_in">set</span>(<span class="string">&#x27;abracadabra&#x27;</span>)</span><br><span class="line">b = <span class="built_in">set</span>(<span class="string">&#x27;alacazam&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"><span class="built_in">print</span>(a - b)     <span class="comment"># a 和 b 的差集</span></span><br><span class="line"><span class="built_in">print</span>(a | b)     <span class="comment"># a 和 b 的并集</span></span><br><span class="line"><span class="built_in">print</span>(a &amp; b)     <span class="comment"># a 和 b 的交集</span></span><br><span class="line"><span class="built_in">print</span>(a ^ b)     <span class="comment"># a 和 b 中不同时存在的元素</span></span><br></pre></td></tr></table></figure>
 
+<h6 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a>添加元素</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s.add( x )		<span class="comment">#将元素 x 添加到集合 s 中，如果元素已存在，则不进行任何操作</span></span><br><span class="line">s.update( x )	<span class="comment">#也可以添加元素，且参数可以是列表，元组，字典等</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="移除元素"><a href="#移除元素" class="headerlink" title="移除元素"></a>移除元素</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s.remove( x )		<span class="comment">#将元素 x 从集合 s 中移除，如果元素不存在，则会发生错误</span></span><br><span class="line">s.discard( x )		<span class="comment">#移除集合中的元素，如果元素不存在，不会发生错误</span></span><br><span class="line">s.pop() 			<span class="comment">#随机删除集合中的一个元素</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="计算集合元素个数"><a href="#计算集合元素个数" class="headerlink" title="计算集合元素个数"></a>计算集合元素个数</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">len</span>(s)</span><br></pre></td></tr></table></figure>
+
+<h6 id="清空集合"><a href="#清空集合" class="headerlink" title="清空集合"></a>清空集合</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s.clear()</span><br></pre></td></tr></table></figure>
+
+<h6 id="判断元素是否在集合中存在"><a href="#判断元素是否在集合中存在" class="headerlink" title="判断元素是否在集合中存在"></a>判断元素是否在集合中存在</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x <span class="keyword">in</span> s</span><br></pre></td></tr></table></figure>
+
+<h6 id="集合内置方法"><a href="#集合内置方法" class="headerlink" title="集合内置方法"></a>集合内置方法</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">add()		<span class="comment">#为集合添加元素</span></span><br><span class="line">clear()		<span class="comment">#移除集合中的所有元素</span></span><br><span class="line">copy()		<span class="comment">#拷贝一个集合</span></span><br><span class="line">difference()	<span class="comment">#返回多个集合的差集</span></span><br><span class="line">difference_update()		<span class="comment">#移除集合中的元素，该元素在指定的集合也存在。</span></span><br><span class="line">discard()		<span class="comment">#删除集合中指定的元素</span></span><br><span class="line">intersection()		<span class="comment">#返回集合的交集</span></span><br><span class="line">intersection_update()		<span class="comment">#返回集合的交集</span></span><br><span class="line">isdisjoint()		<span class="comment">#判断两个集合是否包含相同的元素，如果没有返回 True，否则返回 False。</span></span><br><span class="line">issubset()			<span class="comment">#判断指定集合是否为该方法参数集合的子集。</span></span><br><span class="line">issuperset()		<span class="comment">#判断该方法的参数集合是否为指定集合的子集</span></span><br><span class="line">pop()		<span class="comment">#随机移除元素</span></span><br><span class="line">remove()	<span class="comment">#移除指定元素</span></span><br><span class="line">symmetric_difference()		<span class="comment">#返回两个集合中不重复的元素集合</span></span><br><span class="line">symmetric_difference_update()	</span><br><span class="line"><span class="comment">#移除当前集合中在另外一个指定集合相同的元素，并将另外一个指定集合中不同的元素插入到当前集合中</span></span><br><span class="line">union()			<span class="comment">#返回两个集合的并集</span></span><br><span class="line">update()		<span class="comment">#给集合添加元素</span></span><br></pre></td></tr></table></figure>
+
 <h5 id="Dictionary（字典）"><a href="#Dictionary（字典）" class="headerlink" title="Dictionary（字典）"></a>Dictionary（字典）</h5><ul>
 <li>列表是有序的对象集合，字典是无序的对象集合，两者之间的区别在于：字典当中的元素是通过键来存取的，而不是通过偏移存取</li>
 <li>字典是一种映射类型，字典用 <strong>{ }</strong> 标识，它是一个无序的 <strong>键(key) : 值(value)</strong> 的集合</li>
+<li>字典的每个键值 <strong>key&#x3D;&gt;value</strong> 对用冒号 <strong>:</strong> 分割，每个对之间用逗号(<strong>,</strong>)分割，整个字典包括在花括号 <strong>{}</strong> 中</li>
 <li>键(key)必须使用不可变类型</li>
 </ul>
+<h6 id="访问字典里的值"><a href="#访问字典里的值" class="headerlink" title="访问字典里的值"></a>访问字典里的值</h6><p>把相应的键放入到方括号中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tinydict = &#123;<span class="string">&#x27;Name&#x27;</span>: <span class="string">&#x27;Runoob&#x27;</span>, <span class="string">&#x27;Age&#x27;</span>: <span class="number">7</span>, <span class="string">&#x27;Class&#x27;</span>: <span class="string">&#x27;First&#x27;</span>&#125;</span><br><span class="line"> </span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;tinydict[&#x27;Name&#x27;]: &quot;</span>, tinydict[<span class="string">&#x27;Name&#x27;</span>])</span><br><span class="line"><span class="built_in">print</span> (<span class="string">&quot;tinydict[&#x27;Age&#x27;]: &quot;</span>, tinydict[<span class="string">&#x27;Age&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+<h6 id="修改字典"><a href="#修改字典" class="headerlink" title="修改字典"></a>修改字典</h6><p>增加新的键&#x2F;值对，修改或删除已有键&#x2F;值对：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tinydict = &#123;<span class="string">&#x27;Name&#x27;</span>: <span class="string">&#x27;Runoob&#x27;</span>, <span class="string">&#x27;Age&#x27;</span>: <span class="number">7</span>, <span class="string">&#x27;Class&#x27;</span>: <span class="string">&#x27;First&#x27;</span>&#125;</span><br><span class="line"> </span><br><span class="line">tinydict[<span class="string">&#x27;Age&#x27;</span>] = <span class="number">8</span>                <span class="comment"># 更新 Age</span></span><br><span class="line">tinydict[<span class="string">&#x27;School&#x27;</span>] = <span class="string">&quot;菜鸟教程&quot;</span>  	<span class="comment"># 添加信息</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="删除字典元素"><a href="#删除字典元素" class="headerlink" title="删除字典元素"></a>删除字典元素</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tinydict = &#123;<span class="string">&#x27;Name&#x27;</span>: <span class="string">&#x27;Runoob&#x27;</span>, <span class="string">&#x27;Age&#x27;</span>: <span class="number">7</span>, <span class="string">&#x27;Class&#x27;</span>: <span class="string">&#x27;First&#x27;</span>&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">del</span> tinydict[<span class="string">&#x27;Name&#x27;</span>] <span class="comment"># 删除键 &#x27;Name&#x27;</span></span><br><span class="line">tinydict.clear()     <span class="comment"># 清空字典</span></span><br><span class="line"><span class="keyword">del</span> tinydict         <span class="comment"># 删除字典</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="字典键特性"><a href="#字典键特性" class="headerlink" title="字典键特性"></a>字典键特性</h6><ul>
+<li>不允许同一个键出现两次。创建时如果同一个键被赋值两次，后一个值会被记住</li>
+<li>键必须不可变，所以可以用数字，字符串或元组充当，而用列表就不行</li>
+</ul>
+<h6 id="字典内置函数和方法"><a href="#字典内置函数和方法" class="headerlink" title="字典内置函数和方法"></a>字典内置函数和方法</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">len</span>(<span class="built_in">dict</span>)	<span class="comment">#计算字典元素个数，即键的总数</span></span><br><span class="line"><span class="built_in">str</span>(<span class="built_in">dict</span>)	<span class="comment">#输出字典，可以打印的字符串表示</span></span><br><span class="line"><span class="built_in">type</span>(variable)	<span class="comment">#返回输入的变量类型，如果变量是字典就返回字典类型</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dict</span>.clear()	<span class="comment">#删除字典内所有元素</span></span><br><span class="line"><span class="built_in">dict</span>.copy()		<span class="comment">#返回一个字典的浅复制</span></span><br><span class="line"><span class="built_in">dict</span>.fromkeys()		<span class="comment">#创建一个新字典，以序列seq中元素做字典的键，val为字典所有键对应的初始值</span></span><br><span class="line"><span class="built_in">dict</span>.get(key, default=<span class="literal">None</span>)		<span class="comment">#返回指定键的值，如果键不在字典中返回 default 设置的默认值</span></span><br><span class="line">key <span class="keyword">in</span> <span class="built_in">dict</span>		<span class="comment">#如果键在字典dict里返回true，否则返回false</span></span><br><span class="line"><span class="built_in">dict</span>.items()	<span class="comment">#以列表返回一个视图对象</span></span><br><span class="line"><span class="built_in">dict</span>.keys()		<span class="comment">#返回一个视图对象</span></span><br><span class="line"><span class="built_in">dict</span>.setdefault(key, default=<span class="literal">None</span>)		<span class="comment">#和get()类似, 但如果键不存在于字典中，将会添加键并将值设为default</span></span><br><span class="line"><span class="built_in">dict</span>.update(dict2)		<span class="comment">#把字典dict2的键/值对更新到dict里</span></span><br><span class="line"><span class="built_in">dict</span>.values()		<span class="comment">#返回一个视图对象</span></span><br><span class="line">pop(key[,default])		<span class="comment">#删除字典 key（键）所对应的值，返回被删除的值</span></span><br><span class="line">popitem()	<span class="comment">#返回并删除字典中的最后一对键和值</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="数据类型转换"><a href="#数据类型转换" class="headerlink" title="数据类型转换"></a>数据类型转换</h3><h5 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title="隐式类型转换"></a>隐式类型转换</h5><ul>
 <li>自动将一种数据类型转换为另一种数据类型</li>
 <li>较低数据类型（整数）就会转换为较高数据类型（浮点数）以避免数据丢失</li>
