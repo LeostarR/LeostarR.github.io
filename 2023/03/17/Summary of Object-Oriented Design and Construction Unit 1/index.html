@@ -1,0 +1,2490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Leostar">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+        
+        
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2023/03/17/summary of object-oriented design and construction unit 1/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="面向对象设计与构造第一单元博客总结介绍第一单元作业总的训练目标是对表达式结构进行建模，体会层次化的思想，三次作业为迭代开发。第一次作业是完成对多项式括号的展开，第二次作业新引入了三角函数(sin,cos)以及自定义函数(f(x),g(x,y),h(x,y,z))，第三次作业新增求导因子(dx(表达式))并允许函数定义时调用其他已定义过的函数。 点击此处可以参考我的代码：https:&#x2F;&#x2F;github">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Summary of Object-Oriented Design and Construction Unit 1">
+<meta property="og:url" content="http://example.com/2023/03/17/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%201/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="面向对象设计与构造第一单元博客总结介绍第一单元作业总的训练目标是对表达式结构进行建模，体会层次化的思想，三次作业为迭代开发。第一次作业是完成对多项式括号的展开，第二次作业新引入了三角函数(sin,cos)以及自定义函数(f(x),g(x,y),h(x,y,z))，第三次作业新增求导因子(dx(表达式))并允许函数定义时调用其他已定义过的函数。 点击此处可以参考我的代码：https:&#x2F;&#x2F;github">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeed81ddac507ccd3d7d8.png#pic_center">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeed01ddac507ccd3cc1e.png#pic_center">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeea81ddac507ccd382e8.png#pic_center">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeea81ddac507ccd38349.png#pic_center">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeeb91ddac507ccd3a935.png#pic_center">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeea81ddac507ccd382fe.png#pic_center">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeeb91ddac507ccd3a95c.png#pic_center">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeeb91ddac507ccd3a9a2.png#pic_center">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeeb41ddac507ccd39dc3.png#pic_center">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeec21ddac507ccd3b8ec.png#pic_center">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeec21ddac507ccd3b913.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeeb41ddac507ccd39d21.jpg#pic_center">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeea81ddac507ccd3838f.png#pic_center">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeea81ddac507ccd3831e.png#pic_center">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeeb91ddac507ccd3a9d7.png#pic_center">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeed01ddac507ccd3cc7d.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeed01ddac507ccd3cc2b.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeec21ddac507ccd3b9a6.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeec21ddac507ccd3b9f2.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeec21ddac507ccd3b943.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeeb41ddac507ccd39cef.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeeb91ddac507ccd3a8f4.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeecf1ddac507ccd3cb6a.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeecf1ddac507ccd3cb95.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eeeb41ddac507ccd39d81.jpg">
+<meta property="article:published_time" content="2023-03-17T12:56:47.000Z">
+<meta property="article:modified_time" content="2023-06-23T14:25:36.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Object-Oriented">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/648eeed81ddac507ccd3d7d8.png#pic_center">
+    
+    
+        <!-- Google tag (gtag.js) -->
+        <script src="https://www.googletagmanager.com/gtag/js?id=G-6083C17BGF"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-6083C17BGF');
+        </script>
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/award.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/award.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/award.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Summary of Object-Oriented Design and Construction Unit 1 -
+        
+        Leostar&#39;s Blog
+    </title>
+
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/fonts/Chillax/chillax.css">
+
+    <!--- Inject Part-->
+    
+
+    
+        <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/libs/anime.min.js"></script>
+    <h1 class="ml13">
+        Leostar&#39;s Blog
+    </h1>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+
+        anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [100,0],
+                translateZ: 0,
+                opacity: [0,1],
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i
+            }).add({
+            targets: '.ml13 .letter',
+            translateY: [0,-100],
+            opacity: [1,0],
+            easing: "easeInExpo",
+            duration: 1200,
+            delay: (el, i) => 100 + 30 * i
+        });
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            hidePreloaderAfterTimeout(1000); // Hide after 1000 milliseconds once the window has loaded
+        });
+
+        // Backup failsafe: Hide preloader after a maximum of 5000 milliseconds, regardless of the window load event
+        hidePreloaderAfterTimeout(5000);
+
+        function hidePreloaderAfterTimeout(delay) {
+            setTimeout(function () {
+                var preloader = document.querySelector('.preloader');
+                preloader.style.opacity = '0';
+                setTimeout(function () {
+                    preloader.style.display = 'none';
+                }, 200);
+            }, delay);
+        }
+    </script>
+</div>
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/assets/build/styles.css">
+    
+
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/fonts/fonts.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/fonts/Satoshi/satoshi.css">
+    <!--- Font Part-->
+    
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"5rem","h2":"4rem","h3":"2.8rem","h4":"2.5rem","h5":"2.2rem","h6":"2rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":true,"id":"G-6083C17BGF"}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Welcome!","subtitle":{"text":["There is a crack in everything, that's how the light gets in."],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/LeostarR","instagram":null,"zhihu":null,"twitter":null,"email":"leostar0328@outlook.com"},"qrs":null}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories/","icon":"fa-regular fa-folder"},"Tags":{"path":"/tags/","icon":"fa-regular fa-tags"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/LeostarR","Blog":"https://leostarr.github.io/","Album":"/masonry/"}},"Friends":{"path":"/links/","icon":"fa-solid fa-link"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/12/30 12:00:00"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.1.1"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/substack.svg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Leostar&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-regular fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-regular fa-tags fa-fw"></i>
+                                    TAGS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/LeostarR">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://leostarr.github.io/">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/masonry/">
+                                                    ALBUM
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/links/"
+                                        >
+                                    <i class="fa-solid fa-link fa-fw"></i>
+                                    FRIENDS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                TAGS
+                            </span>
+                            
+                                <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/LeostarR">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://leostarr.github.io/">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/masonry/">ALBUM</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/links/"
+                        >
+                            <span>
+                                FRIENDS
+                            </span>
+                            
+                                <i class="fa-solid fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                
+                
+                <img src="https://pic.imgdb.cn/item/648eeed81ddac507ccd3d7ac.jpg" alt="Summary of Object-Oriented Design and Construction Unit 1" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75"/>
+                
+                <div class="w-full flex items-center absolute bottom-0 justify-start">
+                    <h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-bold backdrop-blur-lg rounded-xl border border-border-color ">Summary of Object-Oriented Design and Construction Unit 1</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/android.svg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Leostar</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-03-17 20:56:47</span>
+        <span class="mobile">2023-03-17 20:56:47</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-06-23 22:25:36</span>
+            <span class="mobile">2023-06-23 22:25:36</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/computer-science/">computer science</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Object-Oriented/">Object-Oriented</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Java/">Java</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>4.4k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>18 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="面向对象设计与构造第一单元博客总结"><a href="#面向对象设计与构造第一单元博客总结" class="headerlink" title="面向对象设计与构造第一单元博客总结"></a>面向对象设计与构造第一单元博客总结</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>第一单元作业总的训练目标是对表达式结构进行建模，体会层次化的思想，三次作业为迭代开发。第一次作业是完成对多项式括号的展开，第二次作业新引入了三角函数(sin,cos)以及自定义函数(f(x),g(x,y),h(x,y,z))，第三次作业新增求导因子(dx(表达式))并允许函数定义时调用其他已定义过的函数。</p>
+<p>点击此处可以参考我的代码：<a class="link" target="_blank" rel="noopener" href="https://github.com/LeostarR/Object-oriented-Design-and-Construction">https://github.com/LeostarR/Object-oriented-Design-and-Construction <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="第一次作业总结"><a href="#第一次作业总结" class="headerlink" title="第一次作业总结"></a>第一次作业总结</h2><h3 id="设计与架构"><a href="#设计与架构" class="headerlink" title="设计与架构"></a>设计与架构</h3><p>我的总思路分为三步：</p>
+<ol>
+<li>预处理表达式</li>
+<li>解析表达式</li>
+<li>转化为字符串并打印</li>
+</ol>
+<h4 id="预处理表达式"><a href="#预处理表达式" class="headerlink" title="预处理表达式"></a>预处理表达式</h4><h5 id="PreStr"><a href="#PreStr" class="headerlink" title="PreStr"></a><code>PreStr</code></h5><p>预处理：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeed81ddac507ccd3d7d8.png#pic_center"></p>
+<ul>
+<li>去除所有连续的空白字符（用Java自带的方法<code>replaceAll</code>即可解决）</li>
+<li>通过一系列<code>replaceAll</code>使得字符串不含有连续的两个及以上的’+’和’-‘（例如”—-“应化为”+”，”+-“应化为”-“）</li>
+<li>将表示幂次的”**”替换为”^”，防止与乘号弄混，产生不必要的bug</li>
+</ul>
+<h4 id="解析表达式"><a href="#解析表达式" class="headerlink" title="解析表达式"></a>解析表达式</h4><h5 id="Lexer"><a href="#Lexer" class="headerlink" title="Lexer"></a><code>Lexer</code></h5><p>读取处理：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeed01ddac507ccd3cc1e.png#pic_center"></p>
+<ul>
+<li><code>read()</code>能够保证每次取出当前的操作数或者运算符</li>
+<li><code>next()</code>能够往后读一个操作数或者运算符</li>
+<li>由于数字长度的不确定，使用<code>getNumber()</code>能够取出当前数字</li>
+</ul>
+<h5 id="Ele"><a href="#Ele" class="headerlink" title="Ele"></a><code>Ele</code></h5><p>根据题目要求，我选择新建一个<code>Ele</code>类完成对基本元素的存储，每一个<code>Ele</code>应形如：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeea81ddac507ccd382e8.png#pic_center"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeea81ddac507ccd38349.png#pic_center"></p>
+<p><code>coe</code>存储每一个<code>Ele</code>的系数，<code>hashVar</code>通过<code>HashMap</code>存储变量及其对应幂次。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeeb91ddac507ccd3a935.png#pic_center"></p>
+<p>刚开始写<code>Ele</code>时只写了<code>setCoe()</code>,<code>getCoe()</code>,<code>setHashVar()</code>,<code>getHashVar()</code>四个方法用于设定值和取值，其他方法是在后续框架的整体搭建中书写的，因此放到后面讲解。</p>
+<h5 id="Expr"><a href="#Expr" class="headerlink" title="Expr"></a><code>Expr</code></h5><p>一连串的表达式形如：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeea81ddac507ccd382fe.png#pic_center"></p>
+<p>此处系数本身是可能带符号的，因此直接用加号相连。</p>
+<p>为了方便数据的调用，我选择<code>ArrayList</code>来存储多个<code>Ele</code>：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeeb91ddac507ccd3a95c.png#pic_center"></p>
+<p><code>Expr</code>方法中，<code>initExperList(ArrayList&lt;Ele&gt;)</code>,<code>initExpr(Ele)</code>用于初始化，<code>getExperlist()</code>用于取出该<code>ArrayList</code>，其他很多方法是在构建整体的过程中完成的，因此也放到后面。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeeb91ddac507ccd3a9a2.png#pic_center"></p>
+<h5 id="Parser"><a href="#Parser" class="headerlink" title="Parser"></a><code>Parser</code></h5><p>使用递归下降解析表达式：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeeb41ddac507ccd39dc3.png#pic_center"></p>
+<p>注：<code>dealEx(Expr)</code>是<code>parseExpr()</code>的一部分，分离出来是因为方法过长影响码风:）</p>
+<p>1.<code>parseExpr()</code>用于解析表达式，根据定义，表达式由加法和减法运算符连接若干项组成并且在第一项之前，可以带一个正号或者负号，表示第一个项的正负，因此考虑如下结构。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">parseExpr</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">if</span> (当前符号 == <span class="string">'+'</span> || 当前符号 == <span class="string">'-'</span>) { <span class="comment">//表达式的第一个项可以有符号（+，-）</span></span><br><span class="line">            parseTerm();</span><br><span class="line">            combTerm();</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            parseTerm();</span><br><span class="line">            combTerm();</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">while</span> (当前符号 == <span class="string">'+'</span> || 当前符号 == <span class="string">'-'</span>) {</span><br><span class="line">            parseTerm();</span><br><span class="line">            combTerm();</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> expr;</span><br><span class="line">    }</span><br></pre></td></tr></table></figure></div>
+
+<p>此处涉及到正负号的处理，因此不在方法中区分加减，而是新建合并的方法<code>Expr.combTerm(ArrayList&lt;Ele&gt; list, String s)</code>，<code>s</code>代表符号。若<code>s</code>为负号，就通过<code>Expr.reverseList(ArrayList&lt;Ele&gt; list)</code>取反，然后使用<code>addAll()</code>，考虑性能，我们需要化简，在<code>combTerm</code>之后使用<code>merge()</code>合并同类项。</p>
+<p>2.<code>parseTerm()</code>用于解析项，项由乘法运算符连接若干因子组成，总体架构与上文相似，只是要重新写一个乘法的方法，也就是<code>Expr.mulTerm(ArrayList&lt;Ele&gt;)</code>能够实现两个<code>ArrayList&lt;Ele&gt;</code>的相乘（实际上就是多个相加）。</p>
+<p>3.<code>parseFactor()</code>用于解析因子。由定义知，因子包括幂函数，常数因子和表达式因子。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">parseFactor</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">if</span> (符号 == <span class="string">'('</span>) { <span class="comment">//表达式因子，函数表达式（已在PreStr中套上了一层括号，因此也可以当成表达式因子处理）</span></span><br><span class="line">            parseExpr();</span><br><span class="line">            <span class="keyword">if</span> (下一个符号是<span class="string">'^'</span>) { <span class="comment">//下一个一定为指数</span></span><br><span class="line">                <span class="comment">//读入下一个整数n;</span></span><br><span class="line">                <span class="keyword">if</span> (n == <span class="number">0</span>) { <span class="comment">//考虑特殊情况</span></span><br><span class="line">                    <span class="comment">//置1;</span></span><br><span class="line">                } <span class="keyword">else</span> {</span><br><span class="line">                    <span class="comment">//重复的乘原表达式n-1次;</span></span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">return</span> expr;</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (符号 == <span class="string">'+'</span> || 符号 == <span class="string">'-'</span>) { <span class="comment">//不是第一个带符号的因子，则一定为有符号常数</span></span><br><span class="line">            <span class="comment">//读入常数n并结合当前符号;</span></span><br><span class="line">            <span class="keyword">return</span> expr;</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (符号为数字) { <span class="comment">//处理无符号整数</span></span><br><span class="line">           <span class="comment">// 读入常数n;</span></span><br><span class="line">            <span class="keyword">return</span> expr;</span><br><span class="line">        } <span class="keyword">else</span> { <span class="comment">//处理幂函数</span></span><br><span class="line">            <span class="keyword">return</span>  parsePow();</span><br><span class="line">        }</span><br><span class="line">    }</span><br></pre></td></tr></table></figure></div>
+
+<p>4.<code>parsePow()</code>同上文分支一样，用于解析幂函数，并返回一个<code>Expr</code>类。这里单独写是因为方法行数太多影响码风：)</p>
+<h4 id="转化为字符串并打印"><a href="#转化为字符串并打印" class="headerlink" title="转化为字符串并打印"></a>转化为字符串并打印</h4><p>这一点主要体现在<code>Expr</code>类中的<code>toString()</code>方法。总的思路是设置<code>StringBuilder</code>然后不断<code>append</code>。对<code>ArrayList</code>中的每一个<code>Ele</code>依次判断是否有’+’，是否为正负1，幂次是否为0，整体是否为0。（这一部分细节还挺多的需要特别注意）</p>
+<h3 id="基于度量的程序结构分析"><a href="#基于度量的程序结构分析" class="headerlink" title="基于度量的程序结构分析"></a>基于度量的程序结构分析</h3><h4 id="代码规模分析"><a href="#代码规模分析" class="headerlink" title="代码规模分析"></a>代码规模分析</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeec21ddac507ccd3b8ec.png#pic_center"></p>
+<p>核心代码在450行左右，<code>Expr</code>类行数最多，占到了175行，其次是119行的解析<code>Parser</code>类。</p>
+<h4 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h4><h5 id="方法复杂度"><a href="#方法复杂度" class="headerlink" title="方法复杂度"></a>方法复杂度</h5><table>
+<thead>
+<tr>
+<th align="left">Method</th>
+<th align="left">CogC</th>
+<th align="left">ev(G)</th>
+<th align="left">iv(G)</th>
+<th align="left">v(G)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Lexer.Lexer(String)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Lexer.getNumber()</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Lexer.next()</td>
+<td align="left">3</td>
+<td align="left">2</td>
+<td align="left">3</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">Lexer.read()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">MainClass.main(String[])</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.Parser(Lexer)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.dealEx(Expr)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.parseExpr()</td>
+<td align="left">5</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="left">Parser.parseFactor()</td>
+<td align="left">16</td>
+<td align="left">4</td>
+<td align="left">9</td>
+<td align="left">10</td>
+</tr>
+<tr>
+<td align="left">Parser.parsePow()</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Parser.parseTerm()</td>
+<td align="left">9</td>
+<td align="left">1</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">PreStr.pre(String)</td>
+<td align="left">6</td>
+<td align="left">1</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.Ele()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.canMerge(Ele)</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.compareTo(Object)</td>
+<td align="left">7</td>
+<td align="left">5</td>
+<td align="left">5</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.getCoe()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.getHashVar()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.initHashVar(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.isOne()</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">4</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.isZero()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.setCoe(BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.setHashVar(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.zero()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.combTerm(ArrayList, String)</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.getExprList()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.initExpr(Ele)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.initExprList(ArrayList)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.merge()</td>
+<td align="left">10</td>
+<td align="left">4</td>
+<td align="left">7</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.mulTerm(ArrayList)</td>
+<td align="left">3</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.reverse()</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.reverseList(ArrayList)</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.sort()</td>
+<td align="left">9</td>
+<td align="left">5</td>
+<td align="left">5</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.toString()</td>
+<td align="left">16</td>
+<td align="left">1</td>
+<td align="left">10</td>
+<td align="left">11</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.varStr(Ele)</td>
+<td align="left">21</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">16</td>
+</tr>
+<tr>
+<td align="left">Total</td>
+<td align="left">118</td>
+<td align="left">49</td>
+<td align="left">109</td>
+<td align="left">117</td>
+</tr>
+<tr>
+<td align="left">Average</td>
+<td align="left">3.47</td>
+<td align="left">1.44</td>
+<td align="left">3.21</td>
+<td align="left">3.44</td>
+</tr>
+</tbody></table>
+<h5 id="类复杂度"><a href="#类复杂度" class="headerlink" title="类复杂度"></a>类复杂度</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeec21ddac507ccd3b913.png"></p>
+<p>表中可以看出最复杂的三个方法：<code>Parser.parseFactor()</code>，<code>expr.Expr.toString()</code>和<code>expr.Expr.varStr(Ele)</code>。由于因子的可能类型较多，讨论情况较多，因此复杂度也较高。后两者都是转化为字符串的方法，由于情况种类较多，因此复杂度上升较显著。</p>
+<p>图中也能看到<code>Expr</code>类，<code>Ele</code>类和<code>Parser</code>类的复杂度较高，<code>Parser</code>类中分解的方法较多，<code>Expr</code>和<code>Ele</code>中计算合并之类的方法较多导致了这几个类的复杂度较高。</p>
+<h6 id="附：度量分析条目解释"><a href="#附：度量分析条目解释" class="headerlink" title="附：度量分析条目解释"></a>附：度量分析条目解释</h6><ul>
+<li>CogC：认知复杂度</li>
+<li>ev(G)：非抽象方法的基本复杂度，用以衡量一个方法的控制流结构缺陷，范围是 [1, v(G)]</li>
+<li>iv(G)：方法的设计复杂度，用以衡量方法控制流与其他方法之间的耦合程度，范围是 [1, v(G)]</li>
+<li>v(G)：非抽象方法的圈复杂度，用以衡量每个方法中不同执行路径的数量</li>
+<li>OC：类的非抽象方法圈复杂度，继承类不计入</li>
+<li>WMC：类的总圈复杂度</li>
+</ul>
+<h4 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeeb41ddac507ccd39d21.jpg#pic_center"></p>
+<p>每个类的设计考虑已在上文的设计与架构中说明，此处不再赘述。</p>
+<h2 id="第二次作业总结"><a href="#第二次作业总结" class="headerlink" title="第二次作业总结"></a>第二次作业总结</h2><h3 id="设计与架构-1"><a href="#设计与架构-1" class="headerlink" title="设计与架构"></a>设计与架构</h3><p>本次作业新增了这些要求：</p>
+<ul>
+<li>支持嵌套多层括号</li>
+<li>新增三角函数因子，三角函数括号内部包含任意因子</li>
+<li>新增自定义函数因子，但自定义函数的函数表达式中不会调用其他函数</li>
+</ul>
+<p>因此在第一次作业的基础上，需要完成这些工作：</p>
+<ol>
+<li>替换自定义函数</li>
+<li>引入新的数据结构能够存储三角因子</li>
+<li>增加或完善方法并完成三角函数的计算与化简</li>
+</ol>
+<h4 id="替换自定义函数"><a href="#替换自定义函数" class="headerlink" title="替换自定义函数"></a>替换自定义函数</h4><h5 id="DeFun"><a href="#DeFun" class="headerlink" title="DeFun"></a><code>DeFun</code></h5><p>仅仅实现替换，替换之后即可按照之前的递归下降实现表达式解析：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeea81ddac507ccd3838f.png#pic_center"></p>
+<ul>
+<li>根据’=’分割成左右两字符串，左边的可根据’,’找出形参，将形参和右边的表达式存入<code>HashMap</code></li>
+<li>在原表达式中通过<code>process()</code>替换所有的自定义函数</li>
+</ul>
+<h4 id="处理三角因子"><a href="#处理三角因子" class="headerlink" title="处理三角因子"></a>处理三角因子</h4><h5 id="Ele-1"><a href="#Ele-1" class="headerlink" title="Ele"></a><code>Ele</code></h5><p>本次作业每个<code>Ele</code>类型应形如：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeea81ddac507ccd3831e.png#pic_center"></p>
+<p>将三角因子括号内部的因子<code>toString</code>作为<code>key</code>，指数作为<code>value</code>再存入<code>HashMap</code>：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeeb91ddac507ccd3a9d7.png#pic_center"></p>
+<p>增加了处理三角因子的方法：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeed01ddac507ccd3cc7d.png"></p>
+<h5 id="Expr-1"><a href="#Expr-1" class="headerlink" title="Expr"></a><code>Expr</code></h5><p>加法和乘法只需在原有基础上添加三角因子的运算即可（加法乘法需要在<code>canMerge()</code>中添加条件)。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeed01ddac507ccd3cc2b.png"></p>
+<p>在<code>toString()</code>中加上打印三角因子的方法<code>triStr(Ele)</code>。</p>
+<h3 id="基于度量的程序结构分析-1"><a href="#基于度量的程序结构分析-1" class="headerlink" title="基于度量的程序结构分析"></a>基于度量的程序结构分析</h3><h4 id="代码规模分析-1"><a href="#代码规模分析-1" class="headerlink" title="代码规模分析"></a>代码规模分析</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeec21ddac507ccd3b9a6.png"></p>
+<p>核心代码在742行左右，<code>Expr</code>类行数最多，占到了259行，其次是150行的解析<code>Parser</code>类。</p>
+<h4 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a>复杂度分析</h4><h5 id="方法复杂度-1"><a href="#方法复杂度-1" class="headerlink" title="方法复杂度"></a>方法复杂度</h5><table>
+<thead>
+<tr>
+<th align="left">Method</th>
+<th align="left">CogC</th>
+<th align="left">ev(G)</th>
+<th align="left">iv(G)</th>
+<th align="left">v(G)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">DeFun.max(int, int)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">DeFun.process(String)</td>
+<td align="left">22</td>
+<td align="left">6</td>
+<td align="left">13</td>
+<td align="left">13</td>
+</tr>
+<tr>
+<td align="left">DeFun.readFun(String)</td>
+<td align="left">6</td>
+<td align="left">3</td>
+<td align="left">5</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">Lexer.Lexer(String)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Lexer.getNumber()</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Lexer.next()</td>
+<td align="left">5</td>
+<td align="left">2</td>
+<td align="left">3</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">Lexer.read()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">MainClass.main(String[])</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Parser.Parser(Lexer)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.dealEx(Expr)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.parseExpr()</td>
+<td align="left">5</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="left">Parser.parseFactor()</td>
+<td align="left">18</td>
+<td align="left">5</td>
+<td align="left">11</td>
+<td align="left">12</td>
+</tr>
+<tr>
+<td align="left">Parser.parsePow()</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Parser.parseTerm()</td>
+<td align="left">9</td>
+<td align="left">1</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">Parser.parseTri()</td>
+<td align="left">8</td>
+<td align="left">1</td>
+<td align="left">4</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">PreStr.pre(String)</td>
+<td align="left">6</td>
+<td align="left">1</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.Ele()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.canMerge(Ele)</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">4</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.compareTo(Object)</td>
+<td align="left">27</td>
+<td align="left">13</td>
+<td align="left">12</td>
+<td align="left">13</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.getCoe()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.getHashCos()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.getHashSin()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.getHashVar()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.initHashCos(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.initHashSin(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.initHashVar(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.isOne()</td>
+<td align="left">6</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">8</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.isZero()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.putHashCos(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.putHashSin(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.setCoe(BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.setHashCos(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.setHashSin(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.setHashVar(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.zero()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.combTerm(ArrayList, String)</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.getExprList()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.initExpr(Ele)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.initExprList(ArrayList)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.merge()</td>
+<td align="left">10</td>
+<td align="left">4</td>
+<td align="left">7</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.mulTerm(ArrayList)</td>
+<td align="left">3</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.reverse()</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.reverseList(ArrayList)</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.simplify()</td>
+<td align="left">4</td>
+<td align="left">3</td>
+<td align="left">4</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.sort()</td>
+<td align="left">32</td>
+<td align="left">13</td>
+<td align="left">12</td>
+<td align="left">13</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.toString()</td>
+<td align="left">16</td>
+<td align="left">1</td>
+<td align="left">10</td>
+<td align="left">11</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.triStr(Ele)</td>
+<td align="left">14</td>
+<td align="left">1</td>
+<td align="left">11</td>
+<td align="left">11</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.varStr(Ele)</td>
+<td align="left">21</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">16</td>
+</tr>
+<tr>
+<td align="left">expr.Term.getTermList()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Total</td>
+<td align="left">233</td>
+<td align="left">90</td>
+<td align="left">180</td>
+<td align="left">195</td>
+</tr>
+<tr>
+<td align="left">Average</td>
+<td align="left">4.75</td>
+<td align="left">1.83</td>
+<td align="left">3.67</td>
+<td align="left">3.97</td>
+</tr>
+</tbody></table>
+<h5 id="类复杂度-1"><a href="#类复杂度-1" class="headerlink" title="类复杂度"></a>类复杂度</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeec21ddac507ccd3b9f2.png"></p>
+<h4 id="UML类图-1"><a href="#UML类图-1" class="headerlink" title="UML类图"></a>UML类图</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeec21ddac507ccd3b943.jpg"></p>
+<p>每个类的设计考虑已在上文的设计与架构中说明，此处不再赘述。</p>
+<h2 id="第三次作业总结"><a href="#第三次作业总结" class="headerlink" title="第三次作业总结"></a>第三次作业总结</h2><h3 id="设计与架构-2"><a href="#设计与架构-2" class="headerlink" title="设计与架构"></a>设计与架构</h3><p>本次作业新增了这些要求：</p>
+<ul>
+<li>自定义函数定义时可以调用已经定义过的自定义函数</li>
+<li>新增求导因子</li>
+</ul>
+<p>因此，在第二次作业的基础上，需要完成这些工作：</p>
+<ol>
+<li>在<code>DeFun</code>类中完善方法使支持调用定义过的自定义函数并且包含求导因子</li>
+<li>在<code>Expr</code>类中新增求导的方法</li>
+</ol>
+<h4 id="完善替换自定义函数的方法"><a href="#完善替换自定义函数的方法" class="headerlink" title="完善替换自定义函数的方法"></a>完善替换自定义函数的方法</h4><h5 id="DeFun-1"><a href="#DeFun-1" class="headerlink" title="DeFun"></a><code>DeFun</code></h5><p>在同一个类中替换已经存在于HashMap中的自定义函数，然后替换求导因子（根据题目要求，需要在这里将求导因子化简并替换），因此我们直接复用之前的Parser类解析求导因子内部的表达式，并且用<code>toString()</code>替换原求导因子。</p>
+<p>下面是可能的示例：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (str.contains(<span class="string">"d"</span>)) { <span class="comment">//求导因子只出现一次</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">begin</span> <span class="operator">=</span> str.indexOf(<span class="string">"d"</span>);</span><br><span class="line">            <span class="comment">//subString = dx(表达式) | dy(表达式) | dz(表达式)，是求导因子</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">subString</span> <span class="operator">=</span> sim.substring(<span class="comment">/*将dx()或dy()或dz()的子串提取出来*/</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">derFact</span> <span class="operator">=</span> subString.substring(<span class="number">2</span>); <span class="comment">//derFact是需要求导的表达式</span></span><br><span class="line">            parser.parseExpr();<span class="comment">//预处理，解析，返回一个Expr类</span></span><br><span class="line">            expr.derExpr();<span class="comment">//括号内的表达式进行求导能够返回一个Expr类</span></span><br><span class="line">            str = str.replace(subString, <span class="string">"("</span> + expr + <span class="string">")"</span>); <span class="comment">//将整个求导因子剔除（替换）</span></span><br><span class="line">        }</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="增加求导的方法"><a href="#增加求导的方法" class="headerlink" title="增加求导的方法"></a>增加求导的方法</h4><h5 id="Ele-2"><a href="#Ele-2" class="headerlink" title="Ele"></a><code>Ele</code></h5><p>在<code>Ele</code>中增加方法支持判断该<code>Ele</code>是否包含该变量（’x’,’y’,’z’)，若不包含，则求导的结果为零，反之则可进行正常的求导。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeeb41ddac507ccd39cef.png"></p>
+<h5 id="Expr-2"><a href="#Expr-2" class="headerlink" title="Expr"></a><code>Expr</code></h5><p>增加支持求导的方法，<code>derExpr(char)</code>中对参数<code>char</code>作为自变量求导，分别对每一个<code>Ele</code>的变量部分，三角因子部分进行求导再合并。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeeb91ddac507ccd3a8f4.png"></p>
+<h3 id="基于度量的程序结构分析-2"><a href="#基于度量的程序结构分析-2" class="headerlink" title="基于度量的程序结构分析"></a>基于度量的程序结构分析</h3><h4 id="代码规模分析-2"><a href="#代码规模分析-2" class="headerlink" title="代码规模分析"></a>代码规模分析</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeecf1ddac507ccd3cb6a.png"></p>
+<p>核心代码在899行左右，<code>Expr</code>类行数最多，占到了370行，其次是173行的解析<code>Expr</code>类。</p>
+<h4 id="复杂度分析-2"><a href="#复杂度分析-2" class="headerlink" title="复杂度分析"></a>复杂度分析</h4><h5 id="方法复杂度-2"><a href="#方法复杂度-2" class="headerlink" title="方法复杂度"></a>方法复杂度</h5><table>
+<thead>
+<tr>
+<th align="left">Method</th>
+<th align="left">CogC</th>
+<th align="left">ev(G)</th>
+<th align="left">iv(G)</th>
+<th align="left">v(G)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">DeFun.findRi(int, String)</td>
+<td align="left">9</td>
+<td align="left">5</td>
+<td align="left">6</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">DeFun.max(int, int)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">DeFun.process(String)</td>
+<td align="left">10</td>
+<td align="left">1</td>
+<td align="left">8</td>
+<td align="left">8</td>
+</tr>
+<tr>
+<td align="left">DeFun.readFun(String)</td>
+<td align="left">7</td>
+<td align="left">3</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">Ele.Ele()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.canMerge(Ele)</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">4</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">Ele.compareTo(Object)</td>
+<td align="left">27</td>
+<td align="left">13</td>
+<td align="left">12</td>
+<td align="left">13</td>
+</tr>
+<tr>
+<td align="left">Ele.cosContain(String)</td>
+<td align="left">3</td>
+<td align="left">3</td>
+<td align="left">2</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Ele.getCoe()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.getHashCos()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.getHashSin()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.getHashVar()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.initHashCos(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.initHashSin(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.initHashVar(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.isOne()</td>
+<td align="left">6</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">8</td>
+</tr>
+<tr>
+<td align="left">Ele.isZero()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.putHashCos(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Ele.putHashSin(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Ele.setCoe(BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.setHashCos(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.setHashSin(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.setHashVar(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.sinContain(String)</td>
+<td align="left">3</td>
+<td align="left">3</td>
+<td align="left">2</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Ele.varContain(String)</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Ele.zero()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Expr.combTerm(ArrayList, String)</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Expr.derCos(int, String)</td>
+<td align="left">7</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="left">Expr.derExpr(char)</td>
+<td align="left">14</td>
+<td align="left">1</td>
+<td align="left">8</td>
+<td align="left">8</td>
+</tr>
+<tr>
+<td align="left">Expr.derSin(int, String)</td>
+<td align="left">7</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="left">Expr.derVar(int, String)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Expr.getExprList()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Expr.initExpr(Ele)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Expr.initExprList(ArrayList)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Expr.merge()</td>
+<td align="left">10</td>
+<td align="left">4</td>
+<td align="left">7</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">Expr.mulTerm(ArrayList)</td>
+<td align="left">3</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Expr.reverse()</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Expr.reverseList(ArrayList)</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Expr.simplify()</td>
+<td align="left">4</td>
+<td align="left">3</td>
+<td align="left">4</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">Expr.sort()</td>
+<td align="left">32</td>
+<td align="left">13</td>
+<td align="left">12</td>
+<td align="left">13</td>
+</tr>
+<tr>
+<td align="left">Expr.toString()</td>
+<td align="left">16</td>
+<td align="left">1</td>
+<td align="left">10</td>
+<td align="left">11</td>
+</tr>
+<tr>
+<td align="left">Expr.triStr(Ele)</td>
+<td align="left">22</td>
+<td align="left">1</td>
+<td align="left">13</td>
+<td align="left">13</td>
+</tr>
+<tr>
+<td align="left">Expr.varStr(Ele)</td>
+<td align="left">21</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">16</td>
+</tr>
+<tr>
+<td align="left">Lexer.Lexer(String)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Lexer.getNumber()</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Lexer.next()</td>
+<td align="left">6</td>
+<td align="left">2</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">Lexer.read()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">MainClass.main(String[])</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Parser.Parser(Lexer)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.dealEx(Expr)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.parseDer(char)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.parseExpr()</td>
+<td align="left">5</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="left">Parser.parseFactor()</td>
+<td align="left">20</td>
+<td align="left">6</td>
+<td align="left">14</td>
+<td align="left">15</td>
+</tr>
+<tr>
+<td align="left">Parser.parsePow()</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Parser.parseTerm()</td>
+<td align="left">9</td>
+<td align="left">1</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">Parser.parseTri()</td>
+<td align="left">8</td>
+<td align="left">1</td>
+<td align="left">4</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">PreStr.pre(String)</td>
+<td align="left">6</td>
+<td align="left">1</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">Total</td>
+<td align="left">277</td>
+<td align="left">102</td>
+<td align="left">214</td>
+<td align="left">230</td>
+</tr>
+<tr>
+<td align="left">Average</td>
+<td align="left">4.85</td>
+<td align="left">1.79</td>
+<td align="left">3.75</td>
+<td align="left">4.04</td>
+</tr>
+</tbody></table>
+<h5 id="类复杂度-2"><a href="#类复杂度-2" class="headerlink" title="类复杂度"></a>类复杂度</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeecf1ddac507ccd3cb95.png"></p>
+<p>图中也能看到<code>Expr</code>类，<code>Ele</code>类和<code>Parser</code>类的复杂度较高，Expr类中大量的化简、计算和求导方法使得该类复杂度很高。</p>
+<h4 id="UML类图-2"><a href="#UML类图-2" class="headerlink" title="UML类图"></a>UML类图</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eeeb41ddac507ccd39d81.jpg"></p>
+<p>每个类的设计考虑已在上文的设计与架构中说明，此处不再赘述。</p>
+<h2 id="bug分析"><a href="#bug分析" class="headerlink" title="bug分析"></a>bug分析</h2><h3 id="分析自己程序的bug"><a href="#分析自己程序的bug" class="headerlink" title="分析自己程序的bug"></a>分析自己程序的bug</h3><h5 id="第一次作业"><a href="#第一次作业" class="headerlink" title="第一次作业"></a>第一次作业</h5><ul>
+<li>一些特殊点的情况，例如：0^0+5^0+2*10^0，需要提前做好调试并在<code>toString()</code>中修改</li>
+</ul>
+<h5 id="第二次作业"><a href="#第二次作业" class="headerlink" title="第二次作业"></a>第二次作业</h5><ul>
+<li>替换自定义函数时根据逗号分割，因此在面对嵌套函数例如f(g(y,z),h(x,y),sin(x))中存在多于2个逗号的情况可能会出错，解决方案是每次循环找到最靠后的一个自定义函数（保证这个函数里异地没有嵌套的自定义）进行替换</li>
+<li>注意替换时索引的位置，例如f((((x,y,z))))可能会出现括号判断错误</li>
+<li>注意特殊和边界点，例如sin((0))^2,sin((0))^0,cos((0))^3</li>
+<li>幂次为0时应该直接读取整数而不是往后解析表达式（大概是脑子抽了才这样写，大部分类似的问题全都是这点引起的）</li>
+</ul>
+<h5 id="第三次作业"><a href="#第三次作业" class="headerlink" title="第三次作业"></a>第三次作业</h5><ul>
+<li>求导之后化简会出问题，例如dx(x*cos(x)**0)最后解析得到的Expr没有问题但是输出会出错，原因在于我判断cos部分含不含x是根据HashMap是否为空（第二次作业的遗留），但是在求导之后我没有进行相应的remove工作，导致输出错误</li>
+</ul>
+<h3 id="分析他人程序的bug"><a href="#分析他人程序的bug" class="headerlink" title="分析他人程序的bug"></a>分析他人程序的bug</h3><p>手动构造具有代表性的边界数据，拥有多层嵌套括号，同时包含特殊条件（结果为0，1，求导内部无自变量），例如：</p>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="title function_">f</span>(x,y)=(((<span class="title function_">sin</span>(<span class="title function_">cos</span>(x))-(+<span class="number">1</span>-<span class="title function_">sin</span>(<span class="title function_">cos</span>(y))))))</span><br><span class="line"><span class="title function_">f</span>((<span class="title function_">sin</span>(x)),(y**<span class="number">2</span>-<span class="number">0</span>**<span class="number">0</span>))+<span class="title function_">cos</span>(<span class="number">0</span>)**<span class="number">0</span>-<span class="title function_">sin</span>(<span class="number">0</span>)**<span class="number">0</span></span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="title function_">dx</span>(x*<span class="title function_">cos</span>(x)**<span class="number">0</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="心得体会"><a href="#心得体会" class="headerlink" title="心得体会"></a>心得体会</h2><p>第一单元作业主要是针对表达式括号展开和求导的三次迭代开发。从最开始的不理解git的作用，到现在渐渐认识到版本管理在工程中的重要性；从对IDEA的无所适从和屡次犯错，到逐渐领略到这款IDE功能的强大；从最开始的对Java感到陌生，到逐渐熟悉它的众多优良简便的方法、数据结构和其面向对象的思维。同时，三次作业对代码风格的要求使我进一步意识到码风的重要性并逐渐内在地提升了自己编程的码风。第一次作业由于只有整体的架构，在缺少对Java语法以及数据结构等知识的缺乏的情况下，完成得非常艰难。在第二次第三次的迭代开发中，任务量明显比第一次的从零开始要轻松一些，但是要特别特别注意类以及方法之间的耦合性，尽量不改变现有的方法，这样更容易发现代码的bug。最后，我认为可以多参考讨论区里同学们的设计思路，这对于我的架构设计有很大的帮助^_^ 感谢助教和同学们的热心帮助！</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Summary of Object-Oriented Design and Construction Unit 1</li>
+        <li><strong>Author:</strong> Leostar</li>
+        <li><strong>Created at
+                :</strong> 2023-03-17 20:56:47</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2023-06-23 22:25:36
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://leostarr.github.io/2023/03/17/Summary of Object-Oriented Design and Construction Unit 1/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Object-Oriented/">#Object-Oriented</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Java/">#Java</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2023/04/14/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%202/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Summary of Object-Oriented Design and Construction Unit 2</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2022/12/30/hello-world/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Hello World</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="//cdn.staticfile.org/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: 'a43f9849090fb9d92bec',
+                    clientSecret: '235d940cd2ac3877549f222332026920ac03281c',
+                    repo: 'Blog_Comment_Repo',
+                    owner: 'LeostarR',
+                    admin: ['LeostarR'],
+                    id: __gitalk__pathname,
+                    language: 'en',
+                    proxy: 'https://github.com/login/oauth/access_token'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Summary of Object-Oriented Design and Construction Unit 1</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%9E%84%E9%80%A0%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E5%8D%9A%E5%AE%A2%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">面向对象设计与构造第一单元博客总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93"><span class="nav-number">1.2.</span> <span class="nav-text">第一次作业总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%9E%B6%E6%9E%84"><span class="nav-number">1.2.1.</span> <span class="nav-text">设计与架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%84%E5%A4%84%E7%90%86%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">预处理表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#PreStr"><span class="nav-number">1.2.1.1.1.</span> <span class="nav-text">PreStr</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">解析表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Lexer"><span class="nav-number">1.2.1.2.1.</span> <span class="nav-text">Lexer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Ele"><span class="nav-number">1.2.1.2.2.</span> <span class="nav-text">Ele</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Expr"><span class="nav-number">1.2.1.2.3.</span> <span class="nav-text">Expr</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Parser"><span class="nav-number">1.2.1.2.4.</span> <span class="nav-text">Parser</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%AC%E5%8C%96%E4%B8%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B9%B6%E6%89%93%E5%8D%B0"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">转化为字符串并打印</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%BA%A6%E9%87%8F%E7%9A%84%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90"><span class="nav-number">1.2.2.</span> <span class="nav-text">基于度量的程序结构分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%A7%84%E6%A8%A1%E5%88%86%E6%9E%90"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">代码规模分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">1.2.2.2.1.</span> <span class="nav-text">方法复杂度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B1%BB%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">1.2.2.2.2.</span> <span class="nav-text">类复杂度</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%99%84%EF%BC%9A%E5%BA%A6%E9%87%8F%E5%88%86%E6%9E%90%E6%9D%A1%E7%9B%AE%E8%A7%A3%E9%87%8A"><span class="nav-number">1.2.2.2.2.1.</span> <span class="nav-text">附：度量分析条目解释</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UML%E7%B1%BB%E5%9B%BE"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">UML类图</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93"><span class="nav-number">1.3.</span> <span class="nav-text">第二次作业总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%9E%B6%E6%9E%84-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">设计与架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%BF%E6%8D%A2%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">替换自定义函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#DeFun"><span class="nav-number">1.3.1.1.1.</span> <span class="nav-text">DeFun</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E4%B8%89%E8%A7%92%E5%9B%A0%E5%AD%90"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">处理三角因子</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Ele-1"><span class="nav-number">1.3.1.2.1.</span> <span class="nav-text">Ele</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Expr-1"><span class="nav-number">1.3.1.2.2.</span> <span class="nav-text">Expr</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%BA%A6%E9%87%8F%E7%9A%84%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">基于度量的程序结构分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%A7%84%E6%A8%A1%E5%88%86%E6%9E%90-1"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">代码规模分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90-1"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%A4%8D%E6%9D%82%E5%BA%A6-1"><span class="nav-number">1.3.2.2.1.</span> <span class="nav-text">方法复杂度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B1%BB%E5%A4%8D%E6%9D%82%E5%BA%A6-1"><span class="nav-number">1.3.2.2.2.</span> <span class="nav-text">类复杂度</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UML%E7%B1%BB%E5%9B%BE-1"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">UML类图</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93"><span class="nav-number">1.4.</span> <span class="nav-text">第三次作业总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%9E%B6%E6%9E%84-2"><span class="nav-number">1.4.1.</span> <span class="nav-text">设计与架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%8C%E5%96%84%E6%9B%BF%E6%8D%A2%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">完善替换自定义函数的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#DeFun-1"><span class="nav-number">1.4.1.1.1.</span> <span class="nav-text">DeFun</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0%E6%B1%82%E5%AF%BC%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">增加求导的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Ele-2"><span class="nav-number">1.4.1.2.1.</span> <span class="nav-text">Ele</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Expr-2"><span class="nav-number">1.4.1.2.2.</span> <span class="nav-text">Expr</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%BA%A6%E9%87%8F%E7%9A%84%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90-2"><span class="nav-number">1.4.2.</span> <span class="nav-text">基于度量的程序结构分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%A7%84%E6%A8%A1%E5%88%86%E6%9E%90-2"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">代码规模分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90-2"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%A4%8D%E6%9D%82%E5%BA%A6-2"><span class="nav-number">1.4.2.2.1.</span> <span class="nav-text">方法复杂度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B1%BB%E5%A4%8D%E6%9D%82%E5%BA%A6-2"><span class="nav-number">1.4.2.2.2.</span> <span class="nav-text">类复杂度</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UML%E7%B1%BB%E5%9B%BE-2"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">UML类图</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bug%E5%88%86%E6%9E%90"><span class="nav-number">1.5.</span> <span class="nav-text">bug分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E8%87%AA%E5%B7%B1%E7%A8%8B%E5%BA%8F%E7%9A%84bug"><span class="nav-number">1.5.1.</span> <span class="nav-text">分析自己程序的bug</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A"><span class="nav-number">1.5.1.0.1.</span> <span class="nav-text">第一次作业</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%BD%9C%E4%B8%9A"><span class="nav-number">1.5.1.0.2.</span> <span class="nav-text">第二次作业</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AC%A1%E4%BD%9C%E4%B8%9A"><span class="nav-number">1.5.1.0.3.</span> <span class="nav-text">第三次作业</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E4%BB%96%E4%BA%BA%E7%A8%8B%E5%BA%8F%E7%9A%84bug"><span class="nav-number">1.5.2.</span> <span class="nav-text">分析他人程序的bug</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A"><span class="nav-number">1.6.</span> <span class="nav-text">心得体会</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Leostar</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        6 posts in total
+                    </span>
+                    
+                        <span>
+                            23.9k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.1</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/libs/Swup.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/libs/SwupSlideTheme.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/libs/SwupScriptsPlugin.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/libs/SwupProgressPlugin.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/libs/SwupScrollPlugin.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/libs/SwupPreloadPlugin.min.js"></script>
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+<script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/tools/imageViewer.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/utils.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/main.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/layouts/navbarShrink.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/tools/scrollTopBottom.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/tools/lightDarkSwitch.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/layouts/categoryList.js"></script>
+
+
+    <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/tools/localSearch.js"></script>
+
+
+
+    <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/tools/codeBlock.js"></script>
+
+
+
+    <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/tools/runtime.js"></script>
+    <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/libs/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/libs/Typed.min.js"></script>
+  <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/plugins/typed.js"></script>
+
+
+
+
+
+    <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/libs/minimasonry.min.js"></script>
+    <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/plugins/masonry.js"></script>
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/tools/tocToggle.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/layouts/toc.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/plugins/tabs.js"></script>
+    
+</div>
+
+
+</body>
+</html>

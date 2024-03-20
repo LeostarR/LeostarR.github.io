@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Leostar">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+        
+        
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2023/04/14/summary of object-oriented design and construction unit 2/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="面向对象设计与构造第二单元博客总结介绍第二单元作业的基本训练目标是模拟多线程实时电梯系统，三次作业为迭代开发。  第一次作业要求设计一个具有功能为上下行，开关门，以及模拟乘客进出的电梯系统，目标是让我们熟悉线程的创建、运行等基本操作，熟悉多线程程序的设计方法； 第二次作业新增加了模拟电梯系统扩建和日常维护时乘客的调度的功能，目标是让我们掌握线程安全知识并解决线程安全问题，同时在架构上围绕线程之间的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Summary of Object-Oriented Design and Construction Unit 2">
+<meta property="og:url" content="http://example.com/2023/04/14/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%202/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="面向对象设计与构造第二单元博客总结介绍第二单元作业的基本训练目标是模拟多线程实时电梯系统，三次作业为迭代开发。  第一次作业要求设计一个具有功能为上下行，开关门，以及模拟乘客进出的电梯系统，目标是让我们熟悉线程的创建、运行等基本操作，熟悉多线程程序的设计方法； 第二次作业新增加了模拟电梯系统扩建和日常维护时乘客的调度的功能，目标是让我们掌握线程安全知识并解决线程安全问题，同时在架构上围绕线程之间的">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eff681ddac507ccec5ffb.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eff5a1ddac507ccec46f8.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eff5a1ddac507ccec47c9.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eff5b1ddac507ccec498a.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eff681ddac507ccec604a.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eff5a1ddac507ccec4773.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eff601ddac507ccec5343.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eff591ddac507ccec467b.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eff6f1ddac507ccec6bfe.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eff681ddac507ccec6068.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eff671ddac507ccec5f6d.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eff671ddac507ccec5f30.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/648eff6f1ddac507ccec6c2d.png">
+<meta property="article:published_time" content="2023-04-14T03:00:39.000Z">
+<meta property="article:modified_time" content="2023-06-26T15:16:52.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Object-Oriented">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/648eff681ddac507ccec5ffb.png">
+    
+    
+        <!-- Google tag (gtag.js) -->
+        <script src="https://www.googletagmanager.com/gtag/js?id=G-6083C17BGF"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-6083C17BGF');
+        </script>
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/award.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/award.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/award.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Summary of Object-Oriented Design and Construction Unit 2 -
+        
+        Leostar&#39;s Blog
+    </title>
+
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/fonts/Chillax/chillax.css">
+
+    <!--- Inject Part-->
+    
+
+    
+        <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/libs/anime.min.js"></script>
+    <h1 class="ml13">
+        Leostar&#39;s Blog
+    </h1>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+
+        anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [100,0],
+                translateZ: 0,
+                opacity: [0,1],
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i
+            }).add({
+            targets: '.ml13 .letter',
+            translateY: [0,-100],
+            opacity: [1,0],
+            easing: "easeInExpo",
+            duration: 1200,
+            delay: (el, i) => 100 + 30 * i
+        });
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            hidePreloaderAfterTimeout(1000); // Hide after 1000 milliseconds once the window has loaded
+        });
+
+        // Backup failsafe: Hide preloader after a maximum of 5000 milliseconds, regardless of the window load event
+        hidePreloaderAfterTimeout(5000);
+
+        function hidePreloaderAfterTimeout(delay) {
+            setTimeout(function () {
+                var preloader = document.querySelector('.preloader');
+                preloader.style.opacity = '0';
+                setTimeout(function () {
+                    preloader.style.display = 'none';
+                }, 200);
+            }, delay);
+        }
+    </script>
+</div>
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/assets/build/styles.css">
+    
+
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/fonts/fonts.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/fonts/Satoshi/satoshi.css">
+    <!--- Font Part-->
+    
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"5rem","h2":"4rem","h3":"2.8rem","h4":"2.5rem","h5":"2.2rem","h6":"2rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":true,"id":"G-6083C17BGF"}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Welcome!","subtitle":{"text":["There is a crack in everything, that's how the light gets in."],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/LeostarR","instagram":null,"zhihu":null,"twitter":null,"email":"leostar0328@outlook.com"},"qrs":null}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories/","icon":"fa-regular fa-folder"},"Tags":{"path":"/tags/","icon":"fa-regular fa-tags"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/LeostarR","Blog":"https://leostarr.github.io/","Album":"/masonry/"}},"Friends":{"path":"/links/","icon":"fa-solid fa-link"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/12/30 12:00:00"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.1.1"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/substack.svg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                Leostar&#39;s Blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-regular fa-folder fa-fw"></i>
+                                    CATEGORIES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-regular fa-tags fa-fw"></i>
+                                    TAGS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/LeostarR">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://leostarr.github.io/">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/masonry/">
+                                                    ALBUM
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/links/"
+                                        >
+                                    <i class="fa-solid fa-link fa-fw"></i>
+                                    FRIENDS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                CATEGORIES
+                            </span>
+                            
+                                <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                TAGS
+                            </span>
+                            
+                                <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/LeostarR">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://leostarr.github.io/">BLOG</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/masonry/">ALBUM</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/links/"
+                        >
+                            <span>
+                                FRIENDS
+                            </span>
+                            
+                                <i class="fa-solid fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                
+                
+                <img src="https://pic.imgdb.cn/item/649587271ddac507ccf3e836.jpg" alt="Summary of Object-Oriented Design and Construction Unit 2" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75"/>
+                
+                <div class="w-full flex items-center absolute bottom-0 justify-start">
+                    <h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-bold backdrop-blur-lg rounded-xl border border-border-color ">Summary of Object-Oriented Design and Construction Unit 2</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/android.svg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Leostar</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-04-14 11:39</span>
+        <span class="mobile">2023-04-14 11:39</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-06-26 23:16:52</span>
+            <span class="mobile">2023-06-26 23:16:52</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/computer-science/">computer science</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Object-Oriented/">Object-Oriented</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Java/">Java</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>5.4k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>19 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="面向对象设计与构造第二单元博客总结"><a href="#面向对象设计与构造第二单元博客总结" class="headerlink" title="面向对象设计与构造第二单元博客总结"></a>面向对象设计与构造第二单元博客总结</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>第二单元作业的基本训练目标是模拟<strong>多线程实时电梯系统</strong>，三次作业为迭代开发。</p>
+<ul>
+<li>第一次作业要求设计一个具有功能为上下行，开关门，以及模拟乘客进出的电梯系统，目标是让我们熟悉线程的创建、运行等基本操作，熟悉多线程程序的设计方法；</li>
+<li>第二次作业新增加了模拟电梯系统扩建和日常维护时乘客的调度的功能，目标是让我们掌握线程安全知识并解决线程安全问题，同时在架构上围绕线程之间的协同设计层次架构；</li>
+<li>第三次作业新增电梯系统调度参数，具体来说是对每一层楼正处于开门状态的电梯数量加以限制，同时电梯不一定满足每层楼可达， 目标是让我们掌握线程之间的交互，强化线程之间的协同设计层次架构。</li>
+</ul>
+<p>点击此处可以参考我的代码：<a class="link" target="_blank" rel="noopener" href="https://github.com/LeostarR/Object-oriented-Design-and-Construction">https://github.com/LeostarR/Object-oriented-Design-and-Construction <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="第一次作业总结"><a href="#第一次作业总结" class="headerlink" title="第一次作业总结"></a>第一次作业总结</h2><h3 id="设计与架构"><a href="#设计与架构" class="headerlink" title="设计与架构"></a>设计与架构</h3><p>本次作业需要完成这些工作：</p>
+<ol>
+<li>设计一个<strong>队列</strong>类，用于进行乘客进入/移除，同时还需有判断是否为空/是否结束和设定结束等方法</li>
+<li>设计一个<strong>调度器</strong>类，作为总等候队列与电梯之间的桥梁，需要完成对乘客的分配工作</li>
+<li>设计一个<strong>电梯</strong>类，能够完成题目要求的任务</li>
+<li>在<code>Main</code>中启动调度器线程和电梯线程，并将输入（如果有）送给总等候队列，结束时将等候队列设定结束</li>
+</ol>
+<blockquote>
+<p>说明：本次作业课程组已经为我们提供了输入输出的接口，因此不再考虑解析输入的请求和格式化时间戳输出。</p>
+</blockquote>
+<h4 id="队列类"><a href="#队列类" class="headerlink" title="队列类"></a>队列类</h4><h5 id="PassengerQueue"><a href="#PassengerQueue" class="headerlink" title="PassengerQueue:"></a><code>PassengerQueue</code>:</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eff681ddac507ccec5ffb.png"></p>
+<p> <code>addPassenger(Passenger)</code>和<code>removePassenger(Passenger)</code>用于添加和移除乘客，<code>getOnePassenger()</code>用于分配乘客时按时间先后取出，<code>setEnd(boolean)</code>用于设定队列结束。其他方法用于返回该队列的一些属性，例如是否结束，是否为空以及队列所有乘客组成的集合(<code>ArrayList&lt;Passenger&gt;</code>)。</p>
+<h4 id="调度器类"><a href="#调度器类" class="headerlink" title="调度器类"></a><strong>调度器类</strong></h4><h5 id="Controller"><a href="#Controller" class="headerlink" title="Controller:"></a><code>Controller</code>:</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eff5a1ddac507ccec46f8.png"></p>
+<p>重写了<code>run()</code>方法将乘客分配。</p>
+<p>分配策略：采取均匀分配的策略。按照乘客到来的时间先后顺序将总等候队列中的乘客均匀分配给电梯的等候队列。（<del>所以性能不好<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.452ex;" xmlns="http://www.w3.org/2000/svg" width="1.357ex" height="2.149ex" role="img" focusable="false" viewBox="0 -750 600 950"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="merror" data-mjx-error="Missing superscript or subscript argument" title="Missing superscript or subscript argument"><rect data-background="true" width="600" height="950" y="-200"></rect><title>Missing superscript or subscript argument</title><g data-mml-node="mtext" style="font-family: serif;"><text data-variant="-explicitFont" transform="scale(1,-1)" font-size="884px">_</text></g></g></g></g></svg></mjx-container></del>)</p>
+<p>一个示例：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="keyword">if</span> (<span class="comment">/*结束条件*/</span>) {</span><br><span class="line">            <span class="comment">//将所有电梯等候队列设为结束//</span></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="type">Passenger</span> <span class="variable">passenger</span> <span class="operator">=</span> waitQueue.getOnePassenger()<span class="comment">//按时间顺序取出//;</span></span><br><span class="line">        <span class="keyword">if</span> (passenger == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        }</span><br><span class="line">        elevatorQueues.get(<span class="comment">/*index*/</span>).addPassenger(passenger);<span class="comment">//分配</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="电梯类："><a href="#电梯类：" class="headerlink" title="电梯类："></a>电梯类：</h4><h5 id="Elevator"><a href="#Elevator" class="headerlink" title="Elevator:"></a><code>Elevator</code>:</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eff5a1ddac507ccec47c9.png"></p>
+<p> 重写了<code>run()</code>方法使电梯运行，总的模式是这样的：根据等候队列中的顺序，确定主请求然后将主请求的乘客送到目的地。在这个过程中分为接主请求乘客和送主请求乘客两部分，这两个过程中在未超载（主请求计算在内）且运行方向相同的情况下可进行捎带。在每一个主请求到达的时候将电梯内部先到的乘客确定为主请求，继续运行直至电梯内部为空，再从等候队列中取出乘客。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> {</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="keyword">if</span> (<span class="comment">/*结束条件*/</span>) {</span><br><span class="line">		    <span class="keyword">return</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="type">Passenger</span> <span class="variable">passenger</span> <span class="operator">=</span> queue.getOnePassenger();<span class="comment">//queue(ArrayList&lt;Passenger&gt;)是该电梯的等候队列</span></span><br><span class="line">        <span class="keyword">if</span> (passenger == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">//分两步：</span></span><br><span class="line">        <span class="comment">//1.将最早的乘客起始点设为主请求，接人</span></span><br><span class="line">        <span class="built_in">this</span>.setTarget(passenger.getFromFloor());</span><br><span class="line">        forward(passenger);</span><br><span class="line">        <span class="comment">//2.将该乘客目的地设为主请求，送人</span></span><br><span class="line">        <span class="built_in">this</span>.setTarget(passenger.getToFloor());</span><br><span class="line">        forward(passenger);</span><br><span class="line">        <span class="keyword">while</span> (!<span class="built_in">this</span>.list.isEmpty()) {</span><br><span class="line">            <span class="comment">//将剩下的乘客逐一运送</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p><code>forward(Passenger p)</code>方法用于<strong>接</strong>或<strong>送</strong>乘客<code>p</code>，同时还需满足捎带：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">forward</span><span class="params">(Passenger p)</span> {</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">this</span>.nowFloor != <span class="built_in">this</span>.targetFloor) { <span class="comment">//捎带：方向一致，目标小于主目标</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="comment">/*捎带或中途下人条件是否成立*/</span>openOrNot()) {</span><br><span class="line">            <span class="comment">//开门、出人、进人、关门</span></span><br><span class="line">        }</span><br><span class="line">        <span class="built_in">this</span>.move();<span class="comment">//移动一层</span></span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//到达指定层</span></span><br><span class="line">    <span class="built_in">this</span>.open();</span><br><span class="line">    <span class="comment">//1.如果p在电梯内且到了目的地，先让p下电梯</span></span><br><span class="line">    <span class="comment">//2.如果捎带的乘客目的地也在此层，下电梯</span></span><br><span class="line">    <span class="comment">//3.如果p还没上电梯，先让p进电梯</span></span><br><span class="line">    <span class="comment">//4.根据剩余容量捎带此层满足条件的乘客</span></span><br><span class="line">    <span class="built_in">this</span>.close();</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p><code>in()</code>,<code>out()</code>,<code>open()</code>,<code>close()</code>,<code>arrive()</code>均需要输出指定内容，<code>addPassenger()</code>和<code>removePassenger()</code>是电梯内队列的增减乘客操作方法（这里的方法和前文的队列类不同，就是很简单的删减操作，因为每一个电梯内队列只会被当前电梯操作，无需考虑线程安全的问题），都很容易实现~</p>
+<h4 id="线程之间的交互和总运行流程"><a href="#线程之间的交互和总运行流程" class="headerlink" title="线程之间的交互和总运行流程"></a>线程之间的交互和总运行流程</h4><p>开始输入，官方接口接受输入，<code>Main</code>将每一个<code>Passenger</code>送到总等候队列<code>waitQueue</code>（相当于生产者消费者模型中的托盘），调度器是电梯和乘客之间的桥梁，按照某种方式将<code>waitQueue</code>中的乘客放入不同电梯的等候队列(注意不是电梯内部)。而此时电梯和等候队列的关系也正好对应了消费者和托盘的关系，不同的是，一个等候队列仅对应一个电梯，因此每个电梯只需考虑将自己的等候队列里乘客处理完毕，直至收到结束信号并且等候队列和电梯内均为空则结束线程。</p>
+<h4 id="同步块与锁"><a href="#同步块与锁" class="headerlink" title="同步块与锁"></a>同步块与锁</h4><p>和普通的程序不同，多线程编程中要注意线程安全的问题。例如，如果两个线程同时对一个对象进行写的操作，很有可能出现冲突和异常。因此要保证该对象每次只被一个线程访问，可以在所有可能被多个对象同时访问的成员方法加上synchronized关键字，在方法末尾调用<code>notifyAll()</code>唤醒其他线程。锁和同步块中处理语句之间的关系是，当一个线程进入同步块时，它会自动获取同步块所关联的锁对象，当它退出同步块时，它会自动释放锁对象，这样可以保证同步块中的处理语句不会被其他线程干扰。例如：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">removePassenger</span><span class="params">(Passenger p)</span> {</span><br><span class="line">    <span class="comment">//Your Method</span></span><br><span class="line">    notifyAll();</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eff5b1ddac507ccec498a.png"></p>
+<h4 id="bug分析"><a href="#bug分析" class="headerlink" title="bug分析"></a>bug分析</h4><p>本次作业的中测在<del>写调度器之前</del>频繁超时，加上调度器之后就没有bug了。</p>
+<p>强测和互测各出现了一个不能稳定复现的超时bug，大概率是高频发时会引发某些问题，导致乘客没进或没出以至于程序无法终止。检查代码的时候我发现在捎带乘客那一部分实际设定的电梯容量是5（@_@)，改正之后居然就能够解决了。</p>
+<h2 id="第二次作业总结"><a href="#第二次作业总结" class="headerlink" title="第二次作业总结"></a>第二次作业总结</h2><h3 id="设计与架构-1"><a href="#设计与架构-1" class="headerlink" title="设计与架构"></a>设计与架构</h3><p>在第一次作业基础上需要增加这些工作：</p>
+<ol>
+<li>将<strong>电梯</strong>类的属性变量添加到构造方法中以满足个性化添加电梯，并在具体实现中将常量替换为该电梯的属性</li>
+<li>在<strong>队列</strong>类中新增和<code>maintain</code>有关的方法和变量以满足维修的需求</li>
+<li>在<strong>电梯</strong>类的运行方法中新增判断是否<code>maintain</code>的方法以及处理措施的方法</li>
+<li>修改线程结束的条件(<code>waitQueue</code>的输入来源不止一个main了，还有维修的电梯)</li>
+</ol>
+<h4 id="队列类-1"><a href="#队列类-1" class="headerlink" title="队列类"></a>队列类</h4><h5 id="PassengerQueue-1"><a href="#PassengerQueue-1" class="headerlink" title="PassengerQueue:"></a><code>PassengerQueue</code>:</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eff681ddac507ccec604a.png"></p>
+<p>增加了<code>setMaintainSymbol(int)</code>， <code>isMaintained()</code>和<code>addMaintainList(ArrayList&lt;PersonRequest)</code>三个方法。其中<code>setMaintainSymbol(int)</code>和<code>isMaintained()</code>分别用于设定维修标志和判断维修标志,<code>addMaintainList()</code>将参数<code>ArrayList&lt;PersonRequest&gt; list</code>全部加入到此对象的<code>List</code>中，可以适应将与维修电梯相关人员加入到<code>waitQueue</code>的操作。</p>
+<h4 id="调度器类-1"><a href="#调度器类-1" class="headerlink" title="调度器类"></a>调度器类</h4><h5 id="Distribute"><a href="#Distribute" class="headerlink" title="Distribute:"></a><code>Distribute</code>:</h5><p><del>对的，不是打错了，是改名了</del></p>
+<p>由于电梯也能将<code>waitQueue</code>加入乘客，因此需要修改调度器的结束条件：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="keyword">if</span> (waitQueue.isEnd() &amp;&amp; waitQueue.isEmpty()) {</span><br><span class="line">            <span class="keyword">try</span> {</span><br><span class="line">                sleep(<span class="number">1000</span>);</span><br><span class="line">            } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (!waitQueue.isEmpty()) {</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">for</span> (PassengerQueue elevatorQueue : elevatorQueues) {</span><br><span class="line">                elevatorQueue.setEnd(<span class="literal">true</span>);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">//Your Method</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>对比一下之前的：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="keyword">if</span> (waitQueue.isEnd() &amp;&amp; waitQueue.isEmpty()) {</span><br><span class="line">            <span class="keyword">for</span> (PassengerQueue elevatorQueue : elevatorQueues) {</span><br><span class="line">                elevatorQueue.setEnd(<span class="literal">true</span>);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">//Your Method</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>其实仅仅时增加了中间一部分，因为考虑到maintain这个过程是需要时间的，如果仅仅在<code>waitQueue</code>为空时结束，那么一些收到maintain信号的电梯可能没来得及放出乘客，此时关闭调度器可能会使这些乘客无法参与分配从而永远到达不了目的地<del>_</del></p>
+<p>所以我在满足原结束条件的情况下使调度器休眠固定时间，这也是由于课程组要求两层<code>arrive</code>以内必须完成<code>maintain</code>的操作，因此这个时间不会太难控制。如果休眠之后仍满足该条件，则结束。</p>
+<p>第二次作业的调度策略与第一次作业的差别不大，此处不再赘述。</p>
+<h4 id="电梯类"><a href="#电梯类" class="headerlink" title="电梯类"></a>电梯类</h4><h5 id="Elevator-1"><a href="#Elevator-1" class="headerlink" title="Elevator:"></a><code>Elevator</code>:</h5><p>在第一次作业上新增了一个方法：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eff5a1ddac507ccec4773.png"></p>
+<p>用于处理维修请求，一个示例（删去了很多细节代码，仅供参考）：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">dealMaintain</span><span class="params">(PersonRequest p)</span> {</span><br><span class="line">    ArrayList&lt;PersonRequest&gt; arr = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(list);</span><br><span class="line">    <span class="keyword">if</span> (<span class="comment">/*p不在电梯中*/</span>) {</span><br><span class="line">       waitQueue.add(p);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">for</span> (PersonRequest person : arr) {</span><br><span class="line">        <span class="keyword">if</span> (<span class="comment">/*乘客未到达*/</span>) {</span><br><span class="line">            <span class="comment">//修改person的属性fromFloor为当前楼层</span></span><br><span class="line">            person.setFromFloor(nowFloor);</span><br><span class="line">            waitQueue.add(person);</span><br><span class="line">        }</span><br><span class="line">        <span class="built_in">this</span>.out(person);</span><br><span class="line">    }</span><br><span class="line">    waitQueue.addAll(<span class="built_in">this</span>.queue.getList());<span class="comment">//别忘了等候队列的可怜人:)</span></span><br><span class="line">    <span class="built_in">this</span>.maintainFlag = <span class="number">1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>同时在其他方法比如<code>forward()</code>和<code>run()</code>中增加新内容以适应维修的需求：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="built_in">this</span>.nowFloor != <span class="built_in">this</span>.targetFloor) { </span><br><span class="line">           <span class="comment">//需要在正常上下客之前判断maintain</span></span><br><span class="line">          <span class="keyword">if</span> (<span class="built_in">this</span>.queue.isMaintained()) {</span><br><span class="line">               <span class="built_in">this</span>.dealMaintain(p);</span><br><span class="line">               <span class="keyword">return</span>;</span><br><span class="line">           }</span><br><span class="line">           <span class="comment">//Originated Method</span></span><br><span class="line">       }   </span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> {</span><br><span class="line">       <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">           ......</span><br><span class="line">           <span class="keyword">if</span> (<span class="comment">/*维护条件*/</span>) {</span><br><span class="line">               <span class="comment">/*输出维护信号*/</span></span><br><span class="line">               <span class="keyword">return</span>;</span><br><span class="line">           }</span><br><span class="line">           ......</span><br><span class="line">           forward(passenger);</span><br><span class="line">              <span class="keyword">if</span> (<span class="built_in">this</span>.maintainFlag == <span class="number">1</span>) {</span><br><span class="line">               <span class="keyword">continue</span>;</span><br><span class="line">           }</span><br><span class="line">           <span class="keyword">while</span> (<span class="comment">/*电梯非空*/</span>) {</span><br><span class="line">               ......</span><br><span class="line">               forward(passenger);</span><br><span class="line">               <span class="keyword">if</span> (<span class="built_in">this</span>.maintainFlag == <span class="number">1</span>) {</span><br><span class="line">                   <span class="keyword">break</span>;</span><br><span class="line">               }</span><br><span class="line">           }</span><br><span class="line">       }</span><br></pre></td></tr></table></figure></div>
+
+<p>总体还是通过改变<code>maintainFlag</code>来实现的。</p>
+<h4 id="线程之间的交互和总运行流程-1"><a href="#线程之间的交互和总运行流程-1" class="headerlink" title="线程之间的交互和总运行流程"></a>线程之间的交互和总运行流程</h4><p>总体结构变化不大，与第一次作业的区别：</p>
+<ul>
+<li>调度器并不会在标准输入结束之后结束，而是还要确定所有维护电梯均被维护才能结束</li>
+<li>电梯线程可能会因为维护而提前结束，通过设定对应的等候队列的<code>maintainSymbol</code>，然后将其从<code>elevatorQueues</code>中<code>remove</code>可以切断调度器与之的联系，不会再给此电梯分配乘客，接着每个电梯根据是否收到此<code>maintainSymbol</code>来进行相应操作</li>
+</ul>
+<h4 id="同步块与锁-1"><a href="#同步块与锁-1" class="headerlink" title="同步块与锁"></a>同步块与锁</h4><p>和第一次作业区别不大。</p>
+<h4 id="UML类图-1"><a href="#UML类图-1" class="headerlink" title="UML类图"></a>UML类图</h4><p>第二次作业使用了官方的<code>PersonRequest</code>类，因此比第一次作业少一个类，区别不大。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eff601ddac507ccec5343.png"></p>
+<h4 id="bug分析-1"><a href="#bug分析-1" class="headerlink" title="bug分析"></a>bug分析</h4><p>本次作业应该是这个单元最折磨的一次了，因为我的代码出现了大面积CPU超时的问题，中测甚至提交了9次才通过:(</p>
+<p>那一次周六对着电脑看了一天都没看出来问题，看到晚上晚上几近崩溃。每一次提交得到的10个CPU超时真的很揪心……</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eff591ddac507ccec467b.png"></p>
+<p>求助了助教还有很多同学，最终发现了问题的所在：</p>
+<p>我一开始并没有让调度器在所有维修电梯完成且分配完成之后休眠，而是一直等到了所有乘客离开整个系统。</p>
+<blockquote>
+<p>程序的输入输出为<strong>实时交互</strong>，评测机可以做到在某个时间点投放一定量的输入</p>
+</blockquote>
+<p>也就是说输入结束的时间应该是最后一条指令实际被接受到的时刻附近。而正是这样，我觉得<code>setEnd</code>（我的理解偏差，这个时候我认为输入结束是指将数据复制到终端然后按下回车的时刻）之后调度器还必须等待最后一条指令，因为最后一条指令也可能会将<code>waitqueue</code>中添加乘客。所以就有了下面的大量无意义循环：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">Distribute.java:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">            ......</span><br><span class="line">            <span class="keyword">if</span> (waitQueue.isEnd()) {</span><br><span class="line">                <span class="keyword">for</span> (PassengerQueue elevatorQueue : elevatorQueues) {</span><br><span class="line">                    elevatorQueue.setEnd(<span class="literal">true</span>);</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (waitQueue.isEmpty() &amp;&amp; waitQueue.isEnd() &amp;&amp; table.isEmpty()) {</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            }</span><br><span class="line">            <span class="type">Passenger</span> <span class="variable">passenger</span> <span class="operator">=</span> waitQueue.getOnePassenger();<span class="comment">//每次出来的结果都是null</span></span><br><span class="line">            <span class="keyword">if</span> (passenger == <span class="literal">null</span>) {                          </span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            }</span><br><span class="line">            .....</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">PassengerQueue.java:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">synchronized</span> Passenger <span class="title function_">getOnePassenger</span><span class="params">()</span> { <span class="comment">//按时间先后取出(先来后到)</span></span><br><span class="line">            <span class="keyword">if</span> (queue.isEmpty() &amp;&amp; !<span class="built_in">this</span>.isEnd()) {</span><br><span class="line">                <span class="keyword">try</span> {</span><br><span class="line">                    wait();</span><br><span class="line">                } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (queue.isEmpty()) {</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">            }</span><br><span class="line">            ......</span><br><span class="line">    	}</span><br></pre></td></tr></table></figure></div>
+
+<p>已经将<code>waitQueue</code>设定<code>setEnd()</code>，每次在<code>getOnePassenger</code>中的第一个if会直接跳过，而此时<code>queue</code>又确实为空会返回<code>null</code>。但整个系统还有乘客（<code>!table.isEmpty</code>），这样会进入大量循环返回<code>null</code>然后不断<code>continue</code>，占用大量的<code>CPU</code>资源导致超时。解决方法很容易，只要能理解到输入结束的时间就很好改了，正确的结束方式已经在前文的第二次作业总结-&gt;调度器类中解释了。</p>
+<p>强测中出现了很多捎带的问题，发现漏掉了捎带的条件。</p>
+<h5 id="debug方法"><a href="#debug方法" class="headerlink" title="debug方法"></a>debug方法</h5><p>使用了很多检查CPU时间的工具，都没能起到实质性的作用，不如直接在循环里<code>print(something)</code>，如果某个方法打印输出的东西达到了几十万行，就很好定位了：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> {</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="comment">//System.out.println("**********distributeI");</span></span><br><span class="line">        <span class="keyword">if</span> (waitQueue.isEnd() &amp;&amp; waitQueue.isEmpty()) {</span><br><span class="line">            ......</span><br><span class="line">        }</span><br><span class="line">        ......</span><br><span class="line">        <span class="comment">//System.out.println("**********distributeO");</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>不断将两条语句向中间靠近，找到循环最多的一个分支，就很容易发现问题了。</p>
+<h2 id="第三次作业总结"><a href="#第三次作业总结" class="headerlink" title="第三次作业总结"></a>第三次作业总结</h2><h3 id="设计与架构-2"><a href="#设计与架构-2" class="headerlink" title="设计与架构"></a>设计与架构</h3><p>在第二次作业基础上，需要新增这些内容：</p>
+<ol>
+<li>对每层楼可开门的数量加以限制</li>
+<li>考虑到部分电梯的可达性，需要在分配乘客之前确定路径</li>
+</ol>
+<p>为了解决上述问题，我新增了一个<code>StateMap</code>类并提供诸多方法用于解决新的问题。</p>
+<h4 id="个性化需求类"><a href="#个性化需求类" class="headerlink" title="个性化需求类"></a>个性化需求类</h4><h5 id="StateMap"><a href="#StateMap" class="headerlink" title="StateMap:"></a><code>StateMap</code>:</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eff6f1ddac507ccec6bfe.png"></p>
+<p>对于限制开门数量的要求，可以这样实现：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eff681ddac507ccec6068.png"></p>
+<p><code>serviceMap</code>的<code>value</code>对应了每层楼服务中的电梯数量，<code>key</code>指示楼层，因此初始时每层楼服务数量都是0。</p>
+<p>开门时，直接调用<code>addService()</code>，由于<code>synchronized</code>的存在，每次只会有一个电梯访问该方法，若数量大于规定数量，则等待，直至该楼层服务中电梯数量小于规定数量，被唤醒，然后该楼层服务中电梯数量加1：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">addService</span><span class="params">(<span class="type">int</span> floor)</span> {</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">this</span>.serviceMap.get(floor) &gt;= <span class="number">4</span>) {</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            wait();</span><br><span class="line">        } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    serviceMap.put(floor, serviceMap.get(floor) + <span class="number">1</span>);</span><br><span class="line">    notifyAll();</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>关门则直接调用<code>removeService()</code>:</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">removeService</span><span class="params">(<span class="type">int</span> floor)</span> {</span><br><span class="line">    serviceMap.put(floor, serviceMap.get(floor) - <span class="number">1</span>);</span><br><span class="line">    notifyAll();</span><br><span class="line"> }</span><br></pre></td></tr></table></figure></div>
+
+<p>对于只接人的电梯数量则跟上述方法类似，只不过需要新增方法来判断该电梯是否为只接人的。</p>
+<p>为了解决路径问题，我定义了两个HashMap：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eff671ddac507ccec5f6d.png"></p>
+<p><code>accessMap</code>指示每个电梯可以直达的楼层，<code>pathMap</code>指示每层楼可以直达的楼层（类似于邻接矩阵）。</p>
+<p>通过<code>findPath(Passenger p)</code>方法返回一个<code>LinkedList&lt;Integer&gt;</code>类型的需求队列，队列头部是该乘客下一个目的地，队列尾部是乘客的最终目的地。</p>
+<h4 id="调度器类-2"><a href="#调度器类-2" class="headerlink" title="调度器类"></a>调度器类</h4><h5 id="Distribute："><a href="#Distribute：" class="headerlink" title="Distribute："></a><code>Distribute</code>：</h5><p>在调度的时候需要考虑乘客的当前需求楼层和所在楼层对于该电梯是可达的，在此基础上均匀分配：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">LinkedList&lt;Integer&gt; demand = stateMap.findPath(passenger);</span><br><span class="line">passenger.updateDemand(demand);</span><br><span class="line"><span class="keyword">do</span> {</span><br><span class="line">    i = (i + <span class="number">1</span>) % elevatorQueues.size();</span><br><span class="line">} <span class="keyword">while</span> (!(<span class="comment">/*乘客的当前需求楼层和所在楼层对于该电梯是可达的*/</span>));</span><br><span class="line">elevatorQueues.get(i).addPassenger(passenger);</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="电梯类-1"><a href="#电梯类-1" class="headerlink" title="电梯类"></a>电梯类</h4><h5 id="Elevetor"><a href="#Elevetor" class="headerlink" title="Elevetor:"></a><code>Elevetor</code>:</h5><p>需要在开门前，关门后对<code>stateMap</code>做处理，如果数量不满足条件则会<code>wait()</code>直至被唤醒：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="comment">/*判断只接人的方法*/</span>) {</span><br><span class="line">  	<span class="built_in">this</span>.stateMap.addOnly(nowFloor);</span><br><span class="line">}</span><br><span class="line"><span class="built_in">this</span>.stateMap.addService(nowFloor);</span><br><span class="line">open();</span><br></pre></td></tr></table></figure></div>
+
+<p>还需要把原来<code>passenger.getToFloor()</code>替换为<code>passenger.getDemand()</code>。因为现在乘客的总需求被拆分为多个子请求，我们在得到路径之后需要逐一处理子请求，<code>getDemand()</code>就是取出队列头部元素：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getDemand</span><span class="params">()</span> {</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.demand.getFirst();</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="线程之间的交互和总运行流程-2"><a href="#线程之间的交互和总运行流程-2" class="headerlink" title="线程之间的交互和总运行流程"></a>线程之间的交互和总运行流程</h4><p>总的结构区别不大，与第二次作业的区别：</p>
+<ul>
+<li>开关门时需要有额外的判断条件，新增<code>stateMap</code>类解决</li>
+<li>对于换乘，我们在每次乘客进入<code>waitQueue</code>时更新<code>demand</code>队列，每次取出头部元素作为当前主请求，每次下电梯时判断是否为终点，再选择是否重新进入<code>waitQueue</code></li>
+</ul>
+<h4 id="同步块与锁-2"><a href="#同步块与锁-2" class="headerlink" title="同步块与锁"></a>同步块与锁</h4><p>和第一次作业区别不大。仅在新类<code>stateMap</code>中对应的添加删除对应楼层元素的方法中使用了synchronized关键字。</p>
+<h4 id="UML类图-2"><a href="#UML类图-2" class="headerlink" title="UML类图"></a>UML类图</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eff671ddac507ccec5f30.png"></p>
+<h4 id="bug分析-2"><a href="#bug分析-2" class="headerlink" title="bug分析"></a>bug分析</h4><p>本次中测未测出bug，但是在使用评测机自行测试的时候发现了这样一个问题：即使设定了<code>addService</code>这样的方法但是还是会出现同一层服务电梯数量超过的情况，后来想清楚了：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//之前的方法:</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">addService</span><span class="params">(<span class="type">int</span> floor)</span> </span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.serviceMap.get(floor) &gt;= <span class="number">4</span>) {</span><br><span class="line">       <span class="comment">//Your Method(wait......)</span></span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//Your Method</span></span><br><span class="line">	notifyAll();</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>在这里要注意到<code>serviceMap</code>是一个<code>HashMap</code>类型，所有楼层的信息全部存储在这里。假如5楼开门的电梯已经达到最大数量，其他准备在5楼开门的电梯就会等待。但是要注意其他楼层的开关门操作也会改变该HashMap，但不一定改变此层楼对应的键值，这样5层不该开门的电梯有可能被错误地唤醒。修改方法很容易，把<code>if</code>改成<code>while</code>就行了，加一次判断即可。</p>
+<h5 id="debug方法-1"><a href="#debug方法-1" class="headerlink" title="debug方法"></a>debug方法</h5><p>先用评测机评测随机数据，如果出现错误，先根据错误信息定位错误区间，确定出问题的方法。</p>
+<p>强测出现了一个不能稳定复现的bug，在本地跑了好多遍都没有什么问题，官方给出的解释信息是real_time_limit_exceed，出现的异常信息：</p>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Exception</span> <span class="keyword">in</span> thread <span class="string">"Thread-6"</span> java.<span class="property">lang</span>.<span class="property">NullPointerException</span></span><br><span class="line">    at <span class="title class_">StateMap</span>.<span class="title function_">findPath</span>(<span class="title class_">StateMap</span>.<span class="property">java</span>:<span class="number">100</span>)</span><br><span class="line">    at <span class="title class_">Distribute</span>.<span class="title function_">run</span>(<span class="title class_">Distribute</span>.<span class="property">java</span>:<span class="number">32</span>)</span><br></pre></td></tr></table></figure></div>
+
+<p>检查了这个方法，不能够确定是否是没有加锁导致的。加锁之后，交上去，过了。但是在代码中只有一个线程能够访问此方法，所以很疑惑，感觉也不一定是线程安全的问题。</p>
+<h2 id="三次作业总结"><a href="#三次作业总结" class="headerlink" title="三次作业总结"></a>三次作业总结</h2><h4 id="UML协作图"><a href="#UML协作图" class="headerlink" title="UML协作图"></a>UML协作图</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648eff6f1ddac507ccec6c2d.png"></p>
+<h4 id="分析内容"><a href="#分析内容" class="headerlink" title="分析内容"></a>分析内容</h4><p>稳定的内容：其实也就是第一次作业的内容，运送乘客，电梯开关门上下行。调度器线程从<code>waitQueue</code>中把乘客送给电梯的等候队列，电梯线程从等候队列中接人，捎带，运送乘客。</p>
+<p>易变的内容：加入了维修需求之后，<code>waitQueue</code>接受的输入不止有标准输入了，还有电梯线程。自定义需求（容量，操作时间）使得电梯线程中的时间操作，输出操作需要做出相应更改。可达性需求出现后，调度器分配时要考虑乘客当前和需求楼层均可达，电梯开关门和捎带也必须考虑这两点。限制开门数量的需求出现后，在原来开关门的基础上需要额外增加条件。</p>
+<h2 id="心得体会"><a href="#心得体会" class="headerlink" title="心得体会"></a>心得体会</h2><h4 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h4><p>线程安全问题在多线程编程中非常重要。由于存在多个线程同时共享一个资源的情况，我们需要严格控制能够访问这一资源的数量。方法就是加锁。本次作业中我只使用了<code>synchronized</code>这一种锁<del>（其实也只会这一种）</del>，在每个方法之前加上synchronized关键字，在方法最末尾<code>notifyAll</code>唤醒其他可能正在等待访问此资源的线程。</p>
+<h4 id="层次化设计"><a href="#层次化设计" class="headerlink" title="层次化设计"></a>层次化设计</h4><p>本单元的作业进一步加深了我对层次化设计的理解。使用生产者消费者模式可以很容易地理解每一个类扮演的角色是什么。如果是生产者，那么这个类里完成所有分配商品（乘客）到传送带（<code>waitQueue</code>）的工作，如果是消费者，只需要完成取出商品的工作即可。这样每个类能够仅考虑自己的工作，一定程度上吻合了“高内聚，低耦合”的思想，同时层次更加清晰，易于理解<del>（更容易找bug）</del>。</p>
+<h4 id="一些感想"><a href="#一些感想" class="headerlink" title="一些感想"></a>一些感想</h4><p>本单元真的是收获颇丰的一单元，从对多线程的一无所知到能够编写出这样多功能的多线程协作电梯调度程序，已经是一件非常有成就感的事。在这个过程中，我主要有这样几点认识：</p>
+<ul>
+<li>寻找问题比解决问题重要得多。这是本单元第二次作业给我的教训。在没有真正发现问题之前修改一些自认为可能的bug，非常浪费时间浪费精力。<blockquote><p>The difficulty is not in finding a subject to talk about, but in discovering a subject that will reveal something in your own nature.</p>
+<footer><strong>Charles Dickens</strong><cite>David Copperfield</cite></footer></blockquote></li>
+<li>协作与合作的重要性。在这之前，每次的作业基本都是自己慢慢琢磨出来的。但是这单元的第二次作业我请教了大量的同学，问了很多的高年级同学，最终才发现了这个问题。没有这么多人的帮助我不可能完成这一次作业。</li>
+</ul>
+<p>感谢这么多同学的热心帮助^_^，希望在这条路上能够取得更大的收获。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Summary of Object-Oriented Design and Construction Unit 2</li>
+        <li><strong>Author:</strong> Leostar</li>
+        <li><strong>Created at
+                :</strong> 2023-04-14 11:00:39</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2023-06-26 23:16:52
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://leostarr.github.io/2023/04/14/Summary of Object-Oriented Design and Construction Unit 2/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Object-Oriented/">#Object-Oriented</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Java/">#Java</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2023/05/19/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%203/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Summary of Object-Oriented Design and Construction Unit 3</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2023/03/17/Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%201/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Summary of Object-Oriented Design and Construction Unit 1</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-swup-reload-script
+            src="//cdn.staticfile.org/gitalk/1.8.0/gitalk.min.js"></script>
+    <script data-swup-reload-script>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: 'a43f9849090fb9d92bec',
+                    clientSecret: '235d940cd2ac3877549f222332026920ac03281c',
+                    repo: 'Blog_Comment_Repo',
+                    owner: 'LeostarR',
+                    admin: ['LeostarR'],
+                    id: __gitalk__pathname,
+                    language: 'en',
+                    proxy: 'https://github.com/login/oauth/access_token'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Summary of Object-Oriented Design and Construction Unit 2</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%9E%84%E9%80%A0%E7%AC%AC%E4%BA%8C%E5%8D%95%E5%85%83%E5%8D%9A%E5%AE%A2%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">面向对象设计与构造第二单元博客总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93"><span class="nav-number">1.2.</span> <span class="nav-text">第一次作业总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%9E%B6%E6%9E%84"><span class="nav-number">1.2.1.</span> <span class="nav-text">设计与架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%9F%E5%88%97%E7%B1%BB"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">队列类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#PassengerQueue"><span class="nav-number">1.2.1.1.1.</span> <span class="nav-text">PassengerQueue:</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E5%99%A8%E7%B1%BB"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">调度器类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Controller"><span class="nav-number">1.2.1.2.1.</span> <span class="nav-text">Controller:</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%B5%E6%A2%AF%E7%B1%BB%EF%BC%9A"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">电梯类：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Elevator"><span class="nav-number">1.2.1.3.1.</span> <span class="nav-text">Elevator:</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BA%A4%E4%BA%92%E5%92%8C%E6%80%BB%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">线程之间的交互和总运行流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E5%9D%97%E4%B8%8E%E9%94%81"><span class="nav-number">1.2.1.5.</span> <span class="nav-text">同步块与锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UML%E7%B1%BB%E5%9B%BE"><span class="nav-number">1.2.1.6.</span> <span class="nav-text">UML类图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bug%E5%88%86%E6%9E%90"><span class="nav-number">1.2.1.7.</span> <span class="nav-text">bug分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93"><span class="nav-number">1.3.</span> <span class="nav-text">第二次作业总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%9E%B6%E6%9E%84-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">设计与架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%9F%E5%88%97%E7%B1%BB-1"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">队列类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#PassengerQueue-1"><span class="nav-number">1.3.1.1.1.</span> <span class="nav-text">PassengerQueue:</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E5%99%A8%E7%B1%BB-1"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">调度器类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Distribute"><span class="nav-number">1.3.1.2.1.</span> <span class="nav-text">Distribute:</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%B5%E6%A2%AF%E7%B1%BB"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">电梯类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Elevator-1"><span class="nav-number">1.3.1.3.1.</span> <span class="nav-text">Elevator:</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BA%A4%E4%BA%92%E5%92%8C%E6%80%BB%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B-1"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">线程之间的交互和总运行流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E5%9D%97%E4%B8%8E%E9%94%81-1"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">同步块与锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UML%E7%B1%BB%E5%9B%BE-1"><span class="nav-number">1.3.1.6.</span> <span class="nav-text">UML类图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bug%E5%88%86%E6%9E%90-1"><span class="nav-number">1.3.1.7.</span> <span class="nav-text">bug分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#debug%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.1.7.1.</span> <span class="nav-text">debug方法</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93"><span class="nav-number">1.4.</span> <span class="nav-text">第三次作业总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%9E%B6%E6%9E%84-2"><span class="nav-number">1.4.1.</span> <span class="nav-text">设计与架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AA%E6%80%A7%E5%8C%96%E9%9C%80%E6%B1%82%E7%B1%BB"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">个性化需求类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#StateMap"><span class="nav-number">1.4.1.1.1.</span> <span class="nav-text">StateMap:</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E5%99%A8%E7%B1%BB-2"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">调度器类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Distribute%EF%BC%9A"><span class="nav-number">1.4.1.2.1.</span> <span class="nav-text">Distribute：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%B5%E6%A2%AF%E7%B1%BB-1"><span class="nav-number">1.4.1.3.</span> <span class="nav-text">电梯类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Elevetor"><span class="nav-number">1.4.1.3.1.</span> <span class="nav-text">Elevetor:</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BA%A4%E4%BA%92%E5%92%8C%E6%80%BB%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B-2"><span class="nav-number">1.4.1.4.</span> <span class="nav-text">线程之间的交互和总运行流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E5%9D%97%E4%B8%8E%E9%94%81-2"><span class="nav-number">1.4.1.5.</span> <span class="nav-text">同步块与锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UML%E7%B1%BB%E5%9B%BE-2"><span class="nav-number">1.4.1.6.</span> <span class="nav-text">UML类图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bug%E5%88%86%E6%9E%90-2"><span class="nav-number">1.4.1.7.</span> <span class="nav-text">bug分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#debug%E6%96%B9%E6%B3%95-1"><span class="nav-number">1.4.1.7.1.</span> <span class="nav-text">debug方法</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">三次作业总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#UML%E5%8D%8F%E4%BD%9C%E5%9B%BE"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">UML协作图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E5%86%85%E5%AE%B9"><span class="nav-number">1.5.0.2.</span> <span class="nav-text">分析内容</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A"><span class="nav-number">1.6.</span> <span class="nav-text">心得体会</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8"><span class="nav-number">1.6.0.1.</span> <span class="nav-text">线程安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%82%E6%AC%A1%E5%8C%96%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.6.0.2.</span> <span class="nav-text">层次化设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E6%84%9F%E6%83%B3"><span class="nav-number">1.6.0.3.</span> <span class="nav-text">一些感想</span></a></li></ol></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Leostar</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        6 posts in total
+                    </span>
+                    
+                        <span>
+                            23.9k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.1</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/libs/Swup.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/libs/SwupSlideTheme.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/libs/SwupScriptsPlugin.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/libs/SwupProgressPlugin.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/libs/SwupScrollPlugin.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/libs/SwupPreloadPlugin.min.js"></script>
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+<script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/tools/imageViewer.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/utils.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/main.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/layouts/navbarShrink.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/tools/scrollTopBottom.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/tools/lightDarkSwitch.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/layouts/categoryList.js"></script>
+
+
+    <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/tools/localSearch.js"></script>
+
+
+
+    <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/tools/codeBlock.js"></script>
+
+
+
+    <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/tools/runtime.js"></script>
+    <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/libs/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/libs/Typed.min.js"></script>
+  <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/plugins/typed.js"></script>
+
+
+
+
+
+    <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/libs/minimasonry.min.js"></script>
+    <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/plugins/masonry.js"></script>
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/tools/tocToggle.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/layouts/toc.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.6.1/source/js/plugins/tabs.js"></script>
+    
+</div>
+
+
+</body>
+</html>
