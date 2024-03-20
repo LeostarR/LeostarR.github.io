@@ -2306,4 +2306,72 @@
         <tag>Java</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Reading and Questions about The Building Method of Modern Software Engineering</title>
+    <url>/2024/03/08/Reading%20and%20Questions%20about%20The%20Building%20Method%20Modern%20Software%20Engineering/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="left">项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">这个作业属于哪个课程</td>
+<td><a class="link" href="https://bbs.csdn.net/forums/buaa-ase2024">2024年北航敏捷软件工程 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></td>
+</tr>
+<tr>
+<td align="left">这个作业的要求在哪里</td>
+<td><a class="link" href="https://bbs.csdn.net/topics/618159304">个人作业：阅读和提问 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></td>
+</tr>
+<tr>
+<td align="left">我在这个课程的目标是</td>
+<td>学习并实践软件工程，提升自己的工程能力和团队协作能力</td>
+</tr>
+<tr>
+<td align="left">这个作业在哪个具体方面帮助我实现目标</td>
+<td>培养自己的思考能力，去形成自己分析问题、解决问题的思路</td>
+</tr>
+</tbody></table>
+<h4 id="阅读提问"><a href="#阅读提问" class="headerlink" title="阅读提问"></a>阅读提问</h4><h5 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h5><blockquote>
+<p>向进度落后的项目中增加人员，会让项目更加落后。	–《人月神话》</p>
+</blockquote>
+<p>我在书中第1.2.3节，第15页上方看到了这句话。在网上查找资料后我了解到，增加人员仍会使项目更加落后的原因是：</p>
+<ul>
+<li><strong>“关键时间”的浪费</strong>：新人对项目不了解，所以项目组需要抽调人员培训新人，这样不仅新人自己帮不上忙，还要浪费浪费项目组成员的关键时间</li>
+<li><strong>“沟通时间”的增加</strong>：新加的人员需要增加额外的沟通来消除彼此之间对项目的不同认识，<strong>一个团队内部的沟通方式总数=n*(n-1)/2</strong></li>
+<li><strong>“等待时间”的消耗</strong>：在实际项目中，总项目已经细分为分项目（一个人的工作量），分项目往往具有先后顺序，所以新加进来的人发挥不了作用，造成了等待时间的消耗</li>
+</ul>
+<p>我的问题是 如果现实中互联网企业发生了项目进度落后的情况（通常由于一些成员个人的原因），团队leader应该在不增加人员的情况下采取什么措施保证项目进度呢，这些措施是否有效呢？</p>
+<h5 id="问题2"><a href="#问题2" class="headerlink" title="问题2"></a>问题2</h5><blockquote>
+<p>结对编程中有两个角色：</p>
+<ol>
+<li>驾驶员（Driver）：控制键盘输入</li>
+<li>领航员（Navigator）：起到领航、提醒的作用</li>
+</ol>
+<p>这两个角色是可以互换的……</p>
+</blockquote>
+<p>我在书中4.5.1节，第79页上方看到了这一段话。我了解到在越野赛车中，驾驶员和领航员的身份往往不轻易互换，因为驾驶员的驾驶技术往往更胜一筹，而领航员的领航技术往往也是更强的。但是在实际的结对编程中，两人是不断变化角色的，因为结对编程是一个相互磨合的渐进过程，不论谁的资历等级更高抑或是设计编程的能力更强，双方都拥有平等的决策权力，所以这样的比喻（越野赛车的驾驶和领航员）我认为不妥当。</p>
+<h5 id="问题3"><a href="#问题3" class="headerlink" title="问题3"></a>问题3</h5><blockquote>
+<p>1969年代，程序员Melvin Conway就总结了一个康威规律：</p>
+<p>一个机构设计出来的系统，它的体系结构注定会沿用这个机构的内部交流模式。</p>
+</blockquote>
+<p>我在书中第5.2.10节，第95页上方看到了这一段话。这句话大概意思是说组织内部的工作和交流方式，会极大地影响系统的设计。但是这会带来一个问题，团队模式不会轻易改变，但是系统的架构或者模式可能会随着时间推移不断优化和完善，这样一来可能导致组织架构和系统架构的失配，从这个角度来看这个规律变得不正确了，这是否是一种悖论或者”陷阱“？</p>
+<h5 id="问题4"><a href="#问题4" class="headerlink" title="问题4"></a>问题4</h5><blockquote>
+<p>团队成员往往各抒己见，争执地不亦乐乎，但是最后谁也说服不了谁，还有一些人觉得无从下手，干脆不参加讨论。在这种情况下，可以考虑通过Wideband Delphi方法来做到快速沟通并达到意见的一致。</p>
+</blockquote>
+<p>我在书中8.6.2节，第171页上方看到这一段话。这一方法反映了生活中遇到的团队意见不一致的问题，并在后面给出了解决方法。我的问题是，Wideband Delphi方法确实一定程度上统一了所有人意见，但这些意见是否大概率是主持人自己的意见呢？作为一个moderator，他在主持讨论的时候会慢慢地说服我们他自己的意见，所以我对此抱有疑问，如果使用这个方法最终统一的意见大部分取决于主持人，就达不到讨论和统一意见的意义了。除此之外，我认为某些情况下人与人之间理解的差异还是很大的，这种情况该如何达到共识呢，或者如何界定共识的标准？</p>
+<h5 id="问题5"><a href="#问题5" class="headerlink" title="问题5"></a>问题5</h5><blockquote>
+<p>原则2</p>
+<p>软件工程师应以其客户和雇主利益最大化的方式做事，与公众利益保持一致。</p>
+</blockquote>
+<p>我在书中17.8节，第407页看到了这段话。这一部分主要在讲软件工程师的职业道德，我的疑问是某些情况下雇主和客户的利益可能与公众利益冲突，比如用户隐私相关的事务。在这种情况下，要如何平衡各方利益呢？</p>
+]]></content>
+      <categories>
+        <category>computer science</category>
+      </categories>
+      <tags>
+        <tag>Software engineering</tag>
+      </tags>
+  </entry>
 </search>
