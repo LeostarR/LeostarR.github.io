@@ -2309,35 +2309,36 @@
   <entry>
     <title>Compiling Design Docs</title>
     <url>/2023/12/25/6Compiling%20Design%20Docs/</url>
-    <content><![CDATA[<h2 id="参考编译器设计"><a href="#参考编译器设计" class="headerlink" title="参考编译器设计"></a>参考编译器设计</h2><p>参考：<code>pl0-compiler.doc</code></p>
-<h5 id="总体结构"><a href="#总体结构" class="headerlink" title="总体结构"></a>总体结构</h5><p>文档介绍了一个用Pascal语言编写的<code>pl0</code>语言的编译器，它包括四个主要部分：词法分析器、语法分析器、代码生成器和解释器。</p>
+    <content><![CDATA[<p>我的编译器源代码存放于<strong><a class="link" href="https://github.com/LeostarR/Compiling-Techniques">https://github.com/LeostarR/Compiling-Techniques <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></strong></p>
+<h2 id="参考编译器设计"><a href="#参考编译器设计" class="headerlink" title="参考编译器设计"></a>参考编译器设计</h2><p>参考：<code>pl0-compiler.doc</code></p>
+<h3 id="总体结构"><a href="#总体结构" class="headerlink" title="总体结构"></a>总体结构</h3><p>文档介绍了一个用Pascal语言编写的<code>pl0</code>语言的编译器，它包括四个主要部分：词法分析器、语法分析器、代码生成器和解释器。</p>
 <ul>
 <li><strong>词法分析器</strong>：它负责从源程序中读取字符，识别并返回单词符号，如标识符、保留字、运算符、界符等。</li>
 <li><strong>语法分析器</strong>：它负责根据<code>pl0</code>语言的语法规则，分析单词符号的组合，构造出抽象语法树，并检查语法错误。</li>
 <li><strong>代码生成器</strong>：它负责根据抽象语法树，生成一种中间代码，即指令序列，用于表示源程序的语义,存储在<code>code</code>数组中。</li>
 <li><strong>解释器</strong>：负责对中间代码进行解释执行，模拟一个抽象机器，使用<code>栈</code>来存储数据和控制信息。</li>
 </ul>
-<h5 id="接口设计"><a href="#接口设计" class="headerlink" title="接口设计"></a>接口设计</h5><ul>
+<h3 id="接口设计"><a href="#接口设计" class="headerlink" title="接口设计"></a>接口设计</h3><ul>
 <li>编译器的输入是一个文本文件，包含源程序的代码，文件名由用户输入。</li>
 <li>编译器的输出是一个文本文件，包含中间代码的列表，以及解释执行的结果，输出到标准输出流。如果发生错误，编译器还会在标准错误流输出错误信息。</li>
 </ul>
-<h5 id="文件组织"><a href="#文件组织" class="headerlink" title="文件组织"></a>文件组织</h5><p>编译器的源代码包含了所有的常量、类型、变量、函数和过程的定义。文件的主要结构如下：</p>
+<h3 id="文件组织"><a href="#文件组织" class="headerlink" title="文件组织"></a>文件组织</h3><p>编译器的源代码包含了所有的常量、类型、变量、函数和过程的定义。文件的主要结构如下：</p>
 <ul>
 <li>常量定义：定义了一些编译器需要用到的常量，如保留字的个数、标识符的最大长度、数字的最大位数、地址的最大值、嵌套层次的最大值、代码数组的大小等。</li>
 <li>类型定义：定义了一些编译器需要用到的类型，如符号的枚举类型、标识符的字符串类型、符号集合的集合类型、指令的记录类型、符号表的记录类型等。</li>
 <li>变量定义：定义了一些编译器需要用到的全局变量，如当前字符、当前符号、当前标识符、当前数字、字符计数、行长度、错误计数、代码索引、行缓冲区、指令数组、保留字数组、符号数组、助记符数组、声明开始符号集合、语句开始符号集合、因子开始符号集合、符号表等。</li>
 <li>函数和过程定义：定义了一些编译器需要用到的函数和过程，如错误处理函数、获取字符过程、获取符号过程、生成指令过程、测试符号过程、分程序过程、解释执行过程、主程序过程等。</li>
 </ul>
-<h2 id="编译器总体设计"><a href="#编译器总体设计" class="headerlink" title="编译器总体设计"></a>编译器总体设计</h2><h5 id="总体结构-1"><a href="#总体结构-1" class="headerlink" title="总体结构"></a>总体结构</h5><p>编译器总体结构包括词法分析器(<code>LexicalTools</code>)，语法分析器(<code>GrammaticalTools</code>)，符号表工具(<code>SymbolTools</code>)，中间代码生成器(<code>IRTools_llvm</code>)和目标代码生成器(<code>MIPSTools</code>)，以<code>LLVM</code>为中间代码生成<code>MIPS</code>目标代码</p>
+<h2 id="编译器总体设计"><a href="#编译器总体设计" class="headerlink" title="编译器总体设计"></a>编译器总体设计</h2><h3 id="总体结构-1"><a href="#总体结构-1" class="headerlink" title="总体结构"></a>总体结构</h3><p>编译器总体结构包括词法分析器(<code>LexicalTools</code>)，语法分析器(<code>GrammaticalTools</code>)，符号表工具(<code>SymbolTools</code>)，中间代码生成器(<code>IRTools_llvm</code>)和目标代码生成器(<code>MIPSTools</code>)，以<code>LLVM</code>为中间代码生成<code>MIPS</code>目标代码</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Mode          		   Length Name</span><br><span class="line">----                   ------ ----</span><br><span class="line">d-----       				  GrammaticalTools</span><br><span class="line">d-----       				  IRTools_llvm</span><br><span class="line">d-----       		  		  LexicalTools</span><br><span class="line">d-----       				  MIPSTools</span><br><span class="line">d-----       				  SymbolTools</span><br><span class="line">-a----       			 3191 Compiler.java</span><br></pre></td></tr></table></figure></div>
 
 
 
-<h5 id="接口设计-1"><a href="#接口设计-1" class="headerlink" title="接口设计"></a>接口设计</h5><ul>
+<h3 id="接口设计-1"><a href="#接口设计-1" class="headerlink" title="接口设计"></a>接口设计</h3><ul>
 <li>每个分析器都能返回这一阶段解析的内容，在顶层模块控制输出请求</li>
 <li><code>IRBuildFactory.java</code>提供了生成中间代码的接口</li>
 </ul>
-<h5 id="文件组织-1"><a href="#文件组织-1" class="headerlink" title="文件组织"></a>文件组织</h5><ul>
+<h3 id="文件组织-1"><a href="#文件组织-1" class="headerlink" title="文件组织"></a>文件组织</h3><ul>
 <li><p>顶层模块为<code>Compiler.java</code>，读入<code>testfile.txt</code>，然后进行词法语法分析，代码生成，控制输出等操作</p>
 </li>
 <li><p>词法分析器(<code>LexicalTools</code>)，<code>Lexer.java</code>用于分析单词，生成<code>ArrayList&lt;wordTuple&gt;</code>:</p>
@@ -2357,7 +2358,7 @@
 <li><p>目标代码生成器(<code>MIPSTools</code>)，<code>MipsInstructions</code>定义指令的抽象类，<code>Atom</code>定义指令的原子部分——立即数，寄存器和标签的抽象类，<code>Tools</code>定义<code>MIPS</code>语言的结构，最后使用<code>LLVMParser</code>对上面生成的<code>LLVM_Module</code>解析，生成<code>MIPS_Module</code>并输出目标代码：</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Mode                   Length Name</span><br><span class="line">----                   ------ ----</span><br><span class="line">d-----                        Atom</span><br><span class="line">d-----                        MipsInstructions</span><br><span class="line">d-----                        Tools</span><br><span class="line">-a----                  31282 LLVMParser.java</span><br></pre></td></tr></table></figure></div></li>
 </ul>
-<h2 id="词法分析设计"><a href="#词法分析设计" class="headerlink" title="词法分析设计"></a>词法分析设计</h2><h5 id="编码前的设计"><a href="#编码前的设计" class="headerlink" title="编码前的设计"></a><strong>编码前的设计</strong></h5><ul>
+<h2 id="词法分析设计"><a href="#词法分析设计" class="headerlink" title="词法分析设计"></a>词法分析设计</h2><h3 id="编码前的设计"><a href="#编码前的设计" class="headerlink" title="编码前的设计"></a><strong>编码前的设计</strong></h3><ul>
 <li><p>总的思路是将整个文件的内容视作一个超长字符串，将这个字符串识别出有效的信息（如标识符，关键字以及各种运算，操作符号等等）并保存，将无效信息（注释等）准确识别并丢弃</p>
 </li>
 <li><p>对需要的有效信息创建类，定义有用的字段，例如行号，类别码，名称，值（例如数字的值是int类型，而字符串的值是它本身String类型）：</p>
@@ -2385,7 +2386,7 @@
 <li><p>最后记录单词名，类型，行数等重要信息</p>
 </li>
 </ul>
-<h5 id="编码完成之后的修改"><a href="#编码完成之后的修改" class="headerlink" title="编码完成之后的修改"></a><strong>编码完成之后的修改</strong></h5><ul>
+<h3 id="编码完成之后的修改"><a href="#编码完成之后的修改" class="headerlink" title="编码完成之后的修改"></a><strong>编码完成之后的修改</strong></h3><ul>
 <li><p>重新定义枚举类<code>Lextype</code>表示单词类而不是简单的字符串，方便统一表示：</p>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Lextype wordType;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">getLexType</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.wordType.toString();</span><br><span class="line">}			</span><br></pre></td></tr></table></figure></div>
 
@@ -2399,7 +2400,7 @@
 <li><p>实际读取过程中采用<code>StringBuilder</code>类型更容易逐个添加字符</p>
 </li>
 </ul>
-<h2 id="语法分析设计"><a href="#语法分析设计" class="headerlink" title="语法分析设计"></a>语法分析设计</h2><h5 id="编码前的设计-1"><a href="#编码前的设计-1" class="headerlink" title="编码前的设计"></a>编码前的设计</h5><ul>
+<h2 id="语法分析设计"><a href="#语法分析设计" class="headerlink" title="语法分析设计"></a>语法分析设计</h2><h3 id="编码前的设计-1"><a href="#编码前的设计-1" class="headerlink" title="编码前的设计"></a>编码前的设计</h3><ul>
 <li><p>总任务是对所有单词进行语法分析并构建语法树，因此要对上一节词法分析得到的<code>ArrayList&lt;wordTuple&gt;</code>逐一分析</p>
 </li>
 <li><p>自定义语法树的节点类型，利用面向对象的继承性质，设置一个总的父类<code>MyTreeNode</code>，其余节点均继承此类，举例：</p>
@@ -2421,14 +2422,14 @@
 <li><p>所有语法成分解析完成后将会得到一颗完整的语法树，为之后的语义分析和代码生成做准备</p>
 </li>
 </ul>
-<h5 id="编码完成之后的修改-1"><a href="#编码完成之后的修改-1" class="headerlink" title="编码完成之后的修改"></a>编码完成之后的修改</h5><ul>
+<h3 id="编码完成之后的修改-1"><a href="#编码完成之后的修改-1" class="headerlink" title="编码完成之后的修改"></a>编码完成之后的修改</h3><ul>
 <li><p>和设计时差别不大，但是需要新建几个继承<code>NodeStmt</code>的子节点，例如：</p>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NodeStmtBr</span> <span class="keyword">extends</span> <span class="title class_">NodeStmt</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> wordTuple type;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NodeStmtBr</span><span class="params">(<span class="type">int</span> lineNum, wordTuple type)</span> {</span><br><span class="line">        <span class="built_in">super</span>(lineNum);</span><br><span class="line">        <span class="built_in">this</span>.type = type;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> wordTuple <span class="title function_">getType</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> type;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
 
 <p>表示<code>Stmt → 'break' ';' | 'continue' ';'</code>的情况，其他由<code>Stmt</code>推导的语法成分同理</p>
 </li>
 </ul>
-<h2 id="错误处理设计"><a href="#错误处理设计" class="headerlink" title="错误处理设计"></a>错误处理设计</h2><h5 id="编码前的设计-2"><a href="#编码前的设计-2" class="headerlink" title="编码前的设计"></a>编码前的设计</h5><ul>
+<h2 id="错误处理设计"><a href="#错误处理设计" class="headerlink" title="错误处理设计"></a>错误处理设计</h2><h3 id="编码前的设计-2"><a href="#编码前的设计-2" class="headerlink" title="编码前的设计"></a>编码前的设计</h3><ul>
 <li><p>a类错误在词法分析就可判断，当判断出字符串时，检查是否包含非法字符即可：</p>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">......</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (c == <span class="string">'"'</span>) {                  <span class="comment">//形式化字符串</span></span><br><span class="line">            <span class="keyword">while</span> (curPos &lt; source.length() &amp;&amp; source.charAt(curPos) != <span class="string">'"'</span>) {</span><br><span class="line">                c = source.charAt(curPos++);</span><br><span class="line">                sb.append(c);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (curPos &lt; source.length() &amp;&amp; source.charAt(curPos) == <span class="string">'"'</span>) {</span><br><span class="line">                c = source.charAt(curPos++);</span><br><span class="line">                sb.append(c);</span><br><span class="line">            }</span><br><span class="line">            token = <span class="keyword">new</span> <span class="title class_">String</span>(sb);</span><br><span class="line">            type = LexType.STRCON;</span><br><span class="line">            value = <span class="keyword">new</span> <span class="title class_">String</span>(sb);</span><br><span class="line">    <span class="comment">/************************************************/</span></span><br><span class="line">            <span class="built_in">this</span>.legitimate = <span class="built_in">this</span>.checkErrorA();	<span class="comment">//此处判断</span></span><br><span class="line">    <span class="comment">/************************************************/</span></span><br><span class="line">}</span><br><span class="line">......</span><br></pre></td></tr></table></figure></div>
 </li>
@@ -2448,7 +2449,7 @@
 <li><p>在进入循环体时，传入参数表示当前处于循环中，即可判断<code>m</code>类错误</p>
 </li>
 </ul>
-<h5 id="编码完成之后的修改-2"><a href="#编码完成之后的修改-2" class="headerlink" title="编码完成之后的修改"></a>编码完成之后的修改</h5><ul>
+<h3 id="编码完成之后的修改-2"><a href="#编码完成之后的修改-2" class="headerlink" title="编码完成之后的修改"></a>编码完成之后的修改</h3><ul>
 <li><p>在考虑重定义时既要考虑变量重定义也要考虑函数重定义，例如下面的例子是非法的：</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> fff = <span class="number">5</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">fff</span><span class="params">()</span> {</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
 
@@ -2458,7 +2459,7 @@
 <p>之前只对同类型进行检查，忽略了其他函数和变量不同类型的重定义</p>
 </li>
 </ul>
-<h2 id="代码生成设计"><a href="#代码生成设计" class="headerlink" title="代码生成设计"></a>代码生成设计</h2><h5 id="编码前的设计-3"><a href="#编码前的设计-3" class="headerlink" title="编码前的设计"></a>编码前的设计</h5><h6 id="中间代码生成IRTools-llvm"><a href="#中间代码生成IRTools-llvm" class="headerlink" title="中间代码生成IRTools_llvm"></a>中间代码生成<code>IRTools_llvm</code></h6><ul>
+<h2 id="代码生成设计"><a href="#代码生成设计" class="headerlink" title="代码生成设计"></a>代码生成设计</h2><h3 id="编码前的设计-3"><a href="#编码前的设计-3" class="headerlink" title="编码前的设计"></a>编码前的设计</h3><h4 id="中间代码生成IRTools-llvm"><a href="#中间代码生成IRTools-llvm" class="headerlink" title="中间代码生成IRTools_llvm"></a>中间代码生成<code>IRTools_llvm</code></h4><ul>
 <li><p><code>Type</code>:<code>Value</code>的各种类型，拿数组类型举例：</p>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TypeArray</span> <span class="keyword">extends</span> <span class="title class_">Type</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> numOfElement;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Type typeOfElement;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TypeArray</span><span class="params">(<span class="type">int</span> numOfElement, Type typeOfElement)</span> {    </span><br><span class="line">        <span class="comment">//numOfElement-&gt;数组一维空间的size，即多少个元素, typeOfElement-&gt;每一个元素的type（应相同）</span></span><br><span class="line">        <span class="built_in">this</span>.numOfElement = numOfElement;</span><br><span class="line">        <span class="built_in">this</span>.typeOfElement = typeOfElement;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getNumOfElement</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.numOfElement;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Type <span class="title function_">getTypeOfElement</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.typeOfElement;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getSpace</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.numOfElement * <span class="built_in">this</span>.typeOfElement.getSpace();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"["</span> + <span class="built_in">this</span>.numOfElement + <span class="string">" x "</span> + <span class="built_in">this</span>.typeOfElement.toString() + <span class="string">"]"</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
 
@@ -2485,7 +2486,7 @@
 <li><p><code>isCruit</code>指示是否为表达式，如果是，则需要通过<code>Icmp</code>指令将表达式转化为值：</p>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">this</span>.isCruit) {</span><br><span class="line">    ......</span><br><span class="line">	<span class="built_in">this</span>.curVal = </span><br><span class="line">        IRBuildFactory.buildBinIcmp(BinIcmpType.NE, <span class="built_in">this</span>.curVal, <span class="keyword">new</span> <span class="title class_">ConstInt</span>(<span class="number">32</span>, <span class="number">0</span>), <span class="built_in">this</span>.curBasicBlock);</span><br><span class="line">	<span class="built_in">this</span>.isCruit = <span class="literal">false</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div></li>
 </ul>
-<h6 id="目标代码生成MIPSTools"><a href="#目标代码生成MIPSTools" class="headerlink" title="目标代码生成MIPSTools"></a>目标代码生成<code>MIPSTools</code></h6><ul>
+<h4 id="目标代码生成MIPSTools"><a href="#目标代码生成MIPSTools" class="headerlink" title="目标代码生成MIPSTools"></a>目标代码生成<code>MIPSTools</code></h4><ul>
 <li><p><code>Atom</code>：指令的原子组成部分，包括寄存器，立即数还有跳转指令用到的标签，以寄存器为例：</p>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Reg</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> id;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Reg</span><span class="params">(<span class="type">int</span> id)</span> {</span><br><span class="line">        <span class="built_in">this</span>.id = id;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.id == <span class="number">0</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$zero"</span>;</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id == <span class="number">1</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$at"</span>;</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id &gt;= <span class="number">2</span> &amp;&amp; <span class="built_in">this</span>.id &lt;= <span class="number">3</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$v"</span> + (<span class="built_in">this</span>.id - <span class="number">2</span>);</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id &gt;= <span class="number">4</span> &amp;&amp; <span class="built_in">this</span>.id &lt;= <span class="number">7</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$a"</span> + (<span class="built_in">this</span>.id - <span class="number">4</span>);</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id &gt;= <span class="number">8</span> &amp;&amp; <span class="built_in">this</span>.id &lt;= <span class="number">15</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$t"</span> + (<span class="built_in">this</span>.id - <span class="number">8</span>);</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id &gt;=<span class="number">16</span> &amp;&amp; <span class="built_in">this</span>.id &lt;= <span class="number">23</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$s"</span> + (<span class="built_in">this</span>.id - <span class="number">16</span>);</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id &gt;= <span class="number">24</span> &amp;&amp; <span class="built_in">this</span>.id &lt;= <span class="number">25</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$t"</span> + (<span class="built_in">this</span>.id - <span class="number">24</span> + <span class="number">8</span>);</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id == <span class="number">28</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$gp"</span>;</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id == <span class="number">29</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$sp"</span>;</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id == <span class="number">30</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$fp"</span>;</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id == <span class="number">31</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$ra"</span>;</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">this</span>.toString();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"$"</span> + <span class="built_in">this</span>.id;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
 
@@ -2502,20 +2503,20 @@
 <li><p>使用<code>LLVMParser</code>解析得到的<code>LLVMModule</code>，全局变量可以直接存入<code>Module</code>然后输出即可，对于函数需要分析每一条指令，根据每一条指令属于LLVM指令的类型进行生成：</p>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (instruction <span class="keyword">instanceof</span> MemAlloca) {</span><br><span class="line">	......      </span><br><span class="line">} <span class="keyword">else</span> <span class="keyword">if</span> (instruction <span class="keyword">instanceof</span> MemGetelementptr) {</span><br><span class="line">	......</span><br><span class="line">}</span><br><span class="line">	......</span><br></pre></td></tr></table></figure></div></li>
 </ul>
-<h5 id="编码完成之后的修改-3"><a href="#编码完成之后的修改-3" class="headerlink" title="编码完成之后的修改"></a>编码完成之后的修改</h5><ul>
+<h3 id="编码完成之后的修改-3"><a href="#编码完成之后的修改-3" class="headerlink" title="编码完成之后的修改"></a>编码完成之后的修改</h3><ul>
 <li>增加<code>ZextTo</code>指令，如果不定义这条指令，生成的<code>llvm</code>中间代码会有问题，<code>i32</code>类型和<code>i1</code>类型不能通过<code>icmp</code>指令进行比较，因此在语义分析过程中处理<code>icmp</code>指令之前对<code>curVal</code>的<code>Type</code>进行判断</li>
 </ul>
-<h2 id="代码优化设计"><a href="#代码优化设计" class="headerlink" title="代码优化设计"></a>代码优化设计</h2><h5 id="编码前的设计-4"><a href="#编码前的设计-4" class="headerlink" title="编码前的设计"></a>编码前的设计</h5><h6 id="中端优化"><a href="#中端优化" class="headerlink" title="中端优化"></a>中端优化</h6><ul>
+<h2 id="代码优化设计"><a href="#代码优化设计" class="headerlink" title="代码优化设计"></a>代码优化设计</h2><h3 id="编码前的设计-4"><a href="#编码前的设计-4" class="headerlink" title="编码前的设计"></a>编码前的设计</h3><h4 id="中端优化"><a href="#中端优化" class="headerlink" title="中端优化"></a>中端优化</h4><ul>
 <li>删除无用函数，遍历<code>LLVM_Module</code>的所有函数，判断每一个函数的<code>userList</code>是否为空，（主要是<code>br</code>指令），若为空则删除并维护use-value的基本关系，遍历剩下的函数直到函数集合不发生变化</li>
 <li>删除无用基本快，不可到达的基本块应该删除，并维护use-value的基本关系</li>
 <li>合并基本块，从一个没有后继的基本块开始遍历，递归查找能到达这个的唯一基本块（如果不唯一应该停止查找）</li>
 <li>删除死代码</li>
 </ul>
-<h6 id="后端优化"><a href="#后端优化" class="headerlink" title="后端优化"></a>后端优化</h6><ul>
+<h4 id="后端优化"><a href="#后端优化" class="headerlink" title="后端优化"></a>后端优化</h4><ul>
 <li>乘除优化，乘法判端常数是否是2的整数次幂，转化为移位指令，除法将除法指令转化为乘法指令和移位指令</li>
 <li>基本块合并</li>
 </ul>
-<h5 id="编码完成之后的修改-4"><a href="#编码完成之后的修改-4" class="headerlink" title="编码完成之后的修改"></a>编码完成之后的修改</h5><p>删除函数的时候要对函数的每个基本快的每个指令进行use-value的维护</p>
+<h3 id="编码完成之后的修改-4"><a href="#编码完成之后的修改-4" class="headerlink" title="编码完成之后的修改"></a>编码完成之后的修改</h3><p>删除函数的时候要对函数的每个基本快的每个指令进行use-value的维护</p>
 ]]></content>
       <categories>
         <category>computer science</category>
