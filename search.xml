@@ -1221,122 +1221,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Summary of Object-Oriented Design and Construction Unit 3</title>
-    <url>/2023/05/19/3Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%203/</url>
-    <content><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>第三单元作业的训练目标是<strong>掌握JML规格的理解与实现</strong>，三次作业为迭代开发。</p>
-<p>需要完成的任务为实现简单社交关系的模拟和查询（第一次作业），实现社交关系模拟系统中的群组和消息功能（第二次作业）和实现社交关系系统中不同消息类型以及相关操作（第三次作业）。</p>
-<p>点击此处可以参考我的代码：<a class="link" href="https://github.com/LeostarR/Object-oriented-Design-and-Construction">https://github.com/LeostarR/Object-oriented-Design-and-Construction <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h2 id="第一次作业总结"><a href="#第一次作业总结" class="headerlink" title="第一次作业总结"></a>第一次作业总结</h2><h3 id="设计与架构"><a href="#设计与架构" class="headerlink" title="设计与架构"></a>设计与架构</h3><p>本次作业需要完成这些工作：</p>
-<ol>
-<li>根据官方接口和JML实现<code>MyPerson</code>类和<code>MyNetwork</code>类</li>
-<li>继承官方提供的各抽象异常类，实现四个异常类</li>
-<li>为<code>Network</code>类中的<code>query_triple_sum</code>方法书写OK测试</li>
-</ol>
-<h4 id="MyPerson"><a href="#MyPerson" class="headerlink" title="MyPerson"></a><code>MyPerson</code></h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06361ddac507ccf7bfb3.png"></p>
-<p> <code>id</code>, <code>name</code>, <code>age</code>, <code>acquaintance</code>和<code>value</code>是该类的五个属性，接口要求为其中三个属性提供访问方法。<code>isLinked</code>用于判断两者是否有社交关系，<code>queryValue</code>用于查询社交值（如果有），<code>addPerson</code>和<code>addValue</code>用于添加社交关系。由于社交关系是动态变化的，因此我在设计的时候将acquaintance和value两个属性都定义为了<code>ArrayList</code>的结构，便于实现动态管理。</p>
-<h4 id="MyNetwork"><a href="#MyNetwork" class="headerlink" title="MyNetwork"></a><code>MyNetwork</code></h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06191ddac507ccf78e43.png"></p>
-<p> <code>people</code>为按照接口要求实现的变量。<code>contains</code>方法判断社交网络中是否包含此人，<code>addPerson</code>和<code>addRelation</code>分别用于添加人和关系，<code>queryValue</code>用于查询两人之间的社交值（如果有），<code>isCircle</code>判断两人是否相连（通过与其他人的关系）。<code>queryBlockSum</code>用于查询最大连通分支的数目，<code>queryTripleSum</code>用于查询三元环的数目。<code>queryTripleSumOKTest</code>是一个对<code>queryTripleSum</code>方法进行OK测试的方法。</p>
-<h4 id="Exception："><a href="#Exception：" class="headerlink" title="Exception："></a>Exception：</h4><h5 id="MyEqualPersonIdException"><a href="#MyEqualPersonIdException" class="headerlink" title="MyEqualPersonIdException"></a><code>MyEqualPersonIdException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06101ddac507ccf77f58.png"></p>
-<h5 id="MyEqualRelationException"><a href="#MyEqualRelationException" class="headerlink" title="MyEqualRelationException"></a><code>MyEqualRelationException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06101ddac507ccf77f72.png"></p>
-<h5 id="MyPersonIdNotFoundException"><a href="#MyPersonIdNotFoundException" class="headerlink" title="MyPersonIdNotFoundException"></a><code>MyPersonIdNotFoundException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06361ddac507ccf7c016.png"></p>
-<h5 id="MyRelationNotFoundException"><a href="#MyRelationNotFoundException" class="headerlink" title="MyRelationNotFoundException"></a><code>MyRelationNotFoundException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06361ddac507ccf7c0f7.png"></p>
-<p> 四种异常类的实现方法大同小异：定义静态变量sum，每次throw时将sum加1，同时定义静态HashMap存储每个id发生的异常次数。</p>
-<h4 id="设计细节与bug分析"><a href="#设计细节与bug分析" class="headerlink" title="设计细节与bug分析"></a>设计细节与bug分析</h4><p> 如果完全按照JML的字面意思来实现的话，本次作业就是完完全全的照葫芦画瓢，没有任何难度。我们发现<code>isCircle</code>如果采用图遍历的方式每次调用时查找，CPU运行时间会大大增加，同样对于<code>queryTripleSum</code>。</p>
-<p>因此本次作业采用并查集来解决CPU运行时间过长的问题：定义<code>HashMap&lt;Integer, Integer&gt; symbol = new HashMap&lt;&gt;()</code>指示每个节点对应的并查集，初始（添加这个人）时该集合设定为自己。每次调用<code>isCircle</code>时会调用<code>find()</code>方法判断两者是否同属一个并查集。而<code>find()</code>方法会递归地寻找从这个点到根节点的所有节点，并将这些节点的并查集全部更新：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">find</span><span class="params">(<span class="type">int</span> key)</span> {</span><br><span class="line">    <span class="keyword">if</span> (<span class="comment">/*key的并查集不是自己*/</span>) {</span><br><span class="line">        symbol.put(key, find(symbol.get(key)));</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> <span class="comment">/*查找之后得到的并查集*/</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<p>而在每次<code>addRelation()</code>时，我们会调用<code>merge()</code>将两节点合并到同一个并查集中：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">merge</span><span class="params">(<span class="type">int</span> id1, <span class="type">int</span> id2)</span> {</span><br><span class="line">    <span class="type">int</span> <span class="variable">root1</span> <span class="operator">=</span> <span class="comment">/*id1的并查集*/</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">root2</span> <span class="operator">=</span> <span class="comment">/*id2的并查集*/</span>;</span><br><span class="line">    <span class="keyword">if</span> (root1 != root2) {</span><br><span class="line">        symbol.put(root1, root2);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<p>这样就完成了对<code>isCircle()</code>的优化。</p>
-<p> 同样对于<code>queryBlockSum</code>和<code>queryTripleSum</code>的方法也可以利用上述的方法：设定全局变量<code>globalQts</code>和<code>globalQbs</code>。每次<code>addPerson</code>时需要将连通分支数目加一，在<code>addRelation</code>中<code>merge</code>之前判断两人是否同属一个并查集，若不是，则将连通分支数目减一。而三元环的数目只需每次<code>addRelation</code>之后判断有多少个点同时与这两点相连即可。</p>
-<h4 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06061ddac507ccf76df8.png"></p>
-<h2 id="第二次作业总结"><a href="#第二次作业总结" class="headerlink" title="第二次作业总结"></a>第二次作业总结</h2><h3 id="设计与架构-1"><a href="#设计与架构-1" class="headerlink" title="设计与架构"></a>设计与架构</h3><p>在第一次作业基础上需要增加这些工作：</p>
-<ol>
-<li>按照官方接口的JML实现<code>Group</code>类和<code>Message</code>类，并完善<code>Network</code>类中的更多方法</li>
-<li>实现更多的异常类</li>
-<li>为<code>Network</code>类中的<code>modifyRelation</code>方法书写OK测试</li>
-</ol>
-<h4 id="MyGroup"><a href="#MyGroup" class="headerlink" title="MyGroup"></a><code>MyGroup</code></h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06111ddac507ccf77ff8.png"></p>
-<p> 此类用于模拟社交群组，<code>id</code>为组id，<code>people: ArrayList&lt;Person&gt;</code>为组中人的集合，<code>addPerson</code>和<code>delPerson</code>用于向组中加入和删除成员，<code>hasPerson</code>用于判断组中是否存在某个成员，<code>getValueSum</code>，<code>getAgeMean</code>，<code>getAgeVar</code>用于计算整个组和成员年龄相关的值，<code>getSize</code>返回成员总数。</p>
-<h4 id="MyMessage"><a href="#MyMessage" class="headerlink" title="MyMessage"></a><code>MyMessage</code></h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06111ddac507ccf78093.png"></p>
-<p> 此类定义了五个成员属性：<code>id</code>, <code>socialValue</code>, <code>type</code>, <code>person1</code>, <code>person2</code>, <code>group</code>，并分别配置了访问方法。</p>
-<h4 id="MyNetwork-1"><a href="#MyNetwork-1" class="headerlink" title="MyNetwork"></a><code>MyNetwork</code></h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f061a1ddac507ccf78f2b.png"></p>
-<p>相比第一次作业，此类新增了更多方法。<code>modifyRelation</code>用于调整两个人之间的关系，可以是改变社交值，也可以是删除关系，此外还需要为该方法编写OK测试方法。<code>addGroup</code>用于添加组，<code>addToGroup</code>用于将人添加到指定组中，<code>delFromGroup</code>则是将人从指定组中删去。<code>queryGroupValueSum</code>和<code>queryGroupAgeVar</code>用于返回组群中特定含义的数。<code>addMessage</code>，<code>getMessage</code>和<code>sendMessage</code>分别用于添加消息，接受消息和发送消息。<code>queryBestAcquaintance</code>用于查询对应id的有关系的人中社交值最高并且id更小的一个id。<code>queryCoupleSum</code>用于查询两个id互为对方的<code>BestAcquaintance</code>的对数。</p>
-<h4 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h4><h5 id="MyAcquaintanceNotFoundException"><a href="#MyAcquaintanceNotFoundException" class="headerlink" title="MyAcquaintanceNotFoundException"></a><code>MyAcquaintanceNotFoundException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06091ddac507ccf77296.png"></p>
-<h5 id="MyEqualGroupIdException"><a href="#MyEqualGroupIdException" class="headerlink" title="MyEqualGroupIdException"></a><code>MyEqualGroupIdException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f07361ddac507ccf970c9.png"></p>
-<h5 id="MyEqualMessageIdException"><a href="#MyEqualMessageIdException" class="headerlink" title="MyEqualMessageIdException"></a><code>MyEqualMessageIdException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f07361ddac507ccf970f7.png"></p>
-<h5 id="MyGroupIdNotFoundException"><a href="#MyGroupIdNotFoundException" class="headerlink" title="MyGroupIdNotFoundException"></a><code>MyGroupIdNotFoundException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06111ddac507ccf78015.png"></p>
-<h5 id="MyMessageIdNotFoundException"><a href="#MyMessageIdNotFoundException" class="headerlink" title="MyMessageIdNotFoundException"></a><code>MyMessageIdNotFoundException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06191ddac507ccf78dc1.png"></p>
-<p> 新的异常类和第一次作业设计相同，不再赘述。</p>
-<h4 id="设计细节与bug分析-1"><a href="#设计细节与bug分析-1" class="headerlink" title="设计细节与bug分析"></a>设计细节与bug分析</h4><p> 有了第一次作业的经验，我们知道，某些JML表面意思为做大量循环的方法要考虑直接循环的代价。所以可以考虑实现动态变化，在所有可能改变这个值的方法里修改这个值，在真正需要这个值的时候直接调用即可。例如<code>queryValueSum</code>，用于计算群组中所有的人和其他有关系的人的value之和，只有这些地方需要修改<code>valueSum</code>：<code>addRelation</code>之后，<code>modifyRelation</code>之后。</p>
-<p> 但对于<code>ageMean</code>和<code>ageVar</code>两个与群组人数相关的变量，每次增加人数都不能确定改变的大小，因此必须在改变人数之后进行计算，这里可以设置标记，若没有增加或删除人，则可以返回上一次的计算结果，以达到提高效率的目的。</p>
-<p> 对于<code>queryBestAcquaintance</code>，我们直接返回对应person中的一个变量，这个变量也是动态变化的。具体来说，每一次<code>addRelation</code>和<code>modifyRelation</code>时我们都要考虑这个变量，添加关系时，判断该<code>value</code>是否大于原<code>maxValue</code>，修改value时考虑是否会超过原<code>maxValue</code>，或者原value就是<code>maxValue</code>，以及删除关系时考虑最大值被删除等等（情况比较多，我在这里没有完全考虑清楚导致强测出现了很严重的bug）。</p>
-<p> <code>queryCoupleSum</code>实际上依赖于<code>queryBestAcquaintance</code>(所以这里也寄了)，由上文知道，<code>BestAcquaintance</code>只会在<code>addRelation</code>和<code>modifyRelation</code>之后发生变化，并且只会针对两个点，我们只需在此时新建一个方法，这个方法可以计算两个点涉及的<code>coupleSum</code>数目（最小为0，最大为2），在改变关系前后分别调用，再相减就能得到经过这次改变<code>CoupleSum</code>应该变化的大小。</p>
-<p> 同时，我们第一次作业中对于并查集的部分也因为增加了删边的新功能而必须修改。在这种情况下，我们必须保证每一次存入<code>HashMap</code>中的(id1-&gt;id2)按顺序排列，否则可能会出现因删边导致异常的情形。新增<code>disconnect</code>方法用于删除两节点的关系并且重新构造：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">disconnect</span><span class="params">(<span class="type">int</span> id1, <span class="type">int</span> id2)</span> {</span><br><span class="line">    <span class="type">int</span> <span class="variable">i1</span> <span class="operator">=</span> Integer.min(id1, id2);</span><br><span class="line">    <span class="type">int</span> <span class="variable">i2</span> <span class="operator">=</span> Integer.max(id1, id2);</span><br><span class="line">    pairs.remove(i1);</span><br><span class="line">    <span class="keyword">for</span> (HashMap.Entry&lt;Integer, Integer&gt; entry : symbol.entrySet()) {</span><br><span class="line">        entry.setValue(entry.getKey());</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">for</span> (HashMap.Entry&lt;Integer, Integer&gt; entry : pairs.entrySet()) {</span><br><span class="line">        merge(entry.getKey(), entry.getValue());</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<h4 id="UML类图-1"><a href="#UML类图-1" class="headerlink" title="UML类图"></a>UML类图</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06071ddac507ccf76e7b.png"></p>
-<h2 id="第三次作业总结"><a href="#第三次作业总结" class="headerlink" title="第三次作业总结"></a>第三次作业总结</h2><h3 id="设计与架构-2"><a href="#设计与架构-2" class="headerlink" title="设计与架构"></a>设计与架构</h3><p>在第二次作业基础上，需要新增这些内容：</p>
-<ol>
-<li>根据官方接口的JML实现<code>MyEmojiMessage</code>，<code>MyNoticeMessage</code>和<code>MyRedEnvelopeMessage</code>三个类，并完善<code>MyNetwork</code>类</li>
-<li>新增三个异常类</li>
-<li>对<code>deleteColdEmoji</code>编写OK测试方法</li>
-</ol>
-<h4 id="MyEmojiMessage"><a href="#MyEmojiMessage" class="headerlink" title="MyEmojiMessage"></a><code>MyEmojiMessage</code></h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f07361ddac507ccf97046.png"></p>
-<p>相比<code>MyMessage</code>类，新增了<code>emojiId</code>字段和对应的访问方法。</p>
-<h4 id="MyNoticeMessage"><a href="#MyNoticeMessage" class="headerlink" title="MyNoticeMessage"></a><code>MyNoticeMessage</code></h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f061a1ddac507ccf790af.png"></p>
-<p>相比<code>MyMessage</code>类，新增了<code>string</code>字段和对应的访问方法。</p>
-<h4 id="MyRedEnvelopeMessage"><a href="#MyRedEnvelopeMessage" class="headerlink" title="MyRedEnvelopeMessage"></a><code>MyRedEnvelopeMessage</code></h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06361ddac507ccf7c09c.png"></p>
-<p>相比<code>MyMessage</code>类，新增了<code>money</code>字段和对应的访问方法。</p>
-<h4 id="MyNetwork-2"><a href="#MyNetwork-2" class="headerlink" title="MyNetwork"></a><code>MyNetwork</code></h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f061a1ddac507ccf79047.png"></p>
-<p> 需要新实现的方法有<code>containsEmojiId()</code>(查找表情是否存在)，<code>storeEmojiId()</code>（添加表情）,<code>queryMoney()</code>（查询money字段）, <code>queryPopularity()</code>（查询popularity字段）, <code>deleteColdEmoji()</code>（删除heat值小于limit的表情）, <code>clearNotice()</code>(清除通知）,<code>queryLeatMoments()</code>（查找最短自环）。并要求对原<code>sendMessage</code>方法进行完善。</p>
-<h4 id="Exception-1"><a href="#Exception-1" class="headerlink" title="Exception"></a>Exception</h4><h5 id="MyEmojiIdNotFoundException"><a href="#MyEmojiIdNotFoundException" class="headerlink" title="MyEmojiIdNotFoundException"></a><code>MyEmojiIdNotFoundException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f07351ddac507ccf97012.png"></p>
-<h5 id="MyEqualEmojiIdException"><a href="#MyEqualEmojiIdException" class="headerlink" title="MyEqualEmojiIdException"></a><code>MyEqualEmojiIdException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f07361ddac507ccf97083.png"></p>
-<h5 id="MyPathNotFoundException"><a href="#MyPathNotFoundException" class="headerlink" title="MyPathNotFoundException"></a><code>MyPathNotFoundException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06361ddac507ccf7beb6.png"></p>
-<p>新的异常类与之前实现完全相同，不再赘述。</p>
-<h4 id="设计细节与bug分析-2"><a href="#设计细节与bug分析-2" class="headerlink" title="设计细节与bug分析"></a>设计细节与bug分析</h4><p> 第三次作业对算法的要求极高，在查找最小环的过程需要通过枚举非树边和<code>djikstra</code>算法结合查找每一个点的最小环，同时必须按照优先队列的方式枚举以达到减小循环次数的目的。</p>
-<p> 此外，笔者因为第一次作业的遗留问题在互测中被多次hack@_@（很奇怪居然前两次测试都没有测出来）。例如在将某个人的acquaintance为空时添加与自己本身的关系时，应该抛出异常的却没有抛出异常，再根据JML仔细查看发现了问题：判断<code>isLinked()</code>的方法前面一个括号包含了循环，后面的<code>id != person.getId()</code>并不包含在括号中。如果我把判断id和<code>person.getId()</code>放在循环中，但是此时person的acquaintance为空，因此不会进入循环也就不会返回<code>true</code>（以及第二次作业的<code>ageVar</code>和<code>ageMean</code>出现问题也是因为JML括号的识别问题）。</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06091ddac507ccf77255.png"></p>
-<h4 id="UML类图-2"><a href="#UML类图-2" class="headerlink" title="UML类图"></a>UML类图</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06091ddac507ccf77201.png"></p>
-<h2 id="测试过程"><a href="#测试过程" class="headerlink" title="测试过程"></a>测试过程</h2><h5 id="对黑箱测试、白箱测试的理解"><a href="#对黑箱测试、白箱测试的理解" class="headerlink" title="对黑箱测试、白箱测试的理解"></a>对黑箱测试、白箱测试的理解</h5><p>黑箱测试是基于软件的功能和需求进行测试，而不考虑内部的实现细节和结构。测试人员对软件系统进行测试时，只关注输入和输出之间的关系，测试软件的功能是否符合预期。黑箱测试的目标是发现系统的功能缺陷、界面错误、性能问题等，而不关注代码的具体实现。</p>
-<p>白箱测试是基于软件的内部结构和实现细节进行测试。测试人员具有对源代码的访问权限，可以深入了解软件的内部逻辑和数据流。白箱测试的目标是验证软件的内部逻辑是否正确、代码是否符合编码标准、是否存在潜在的错误和安全漏洞等。</p>
-<h5 id="对单元测试、功能测试、集成测试、压力测试、回归测试的理解"><a href="#对单元测试、功能测试、集成测试、压力测试、回归测试的理解" class="headerlink" title="对单元测试、功能测试、集成测试、压力测试、回归测试的理解"></a>对单元测试、功能测试、集成测试、压力测试、回归测试的理解</h5><ul>
-<li>单元测试是对软件中最小的可测试单元进行验证的过程。单元可以是函数、方法或类等独立的代码块。单元测试的目标是在尽可能独立的环境中对单元进行测试，以确保其功能的正确性。</li>
-<li>功能测试是对软件的功能进行验证的测试类型。它涉及对软件的各个功能模块和组件进行测试，以确认其是否按照需求规格说明书或用户期望的方式正常工作。功能测试通常以用户的角度来进行，通过模拟真实用户的操作来检查软件的功能是否符合预期。</li>
-<li>集成测试是在多个独立的软件模块或组件之间进行测试，以验证它们的协同工作和接口的正确性。集成测试的目标是发现模块之间的集成问题、接口错误、数据传递问题等。它可以确保各个模块在集成后能够正常工作，并且相互之间没有冲突或不一致。</li>
-<li>压力测试是对软件系统在正常或超出正常工作负载条件下进行测试的过程。其目的是评估系统的性能、稳定性和可靠性，以确定在负载增加的情况下系统的响应是否满足需求。压力测试通过模拟高并发、大数据量或异常负载情况来测试系统的极限情况。</li>
-<li>回归测试是在软件进行更改或修复后，重新执行既有的测试用例，以确保新的修改没有引入新的错误或破坏了原有的功能。回归测试的目标是验证软件在经过修改后仍然具有稳定性和兼容性，不会对现有功能产生负面影响。</li>
-</ul>
-<h5 id="数据构造策略"><a href="#数据构造策略" class="headerlink" title="数据构造策略"></a>数据构造策略</h5><ol>
-<li>正常值：选择符合程序预期输入的正常值作为测试数据。这些值应涵盖程序的各种功能和逻辑情况，包括边界值、典型值和一般情况。</li>
-<li>边界值：选择接近边界条件的测试数据。边界值通常是最有可能导致错误的情况，因此在测试过程中应特别关注这些值。例如，构造一个不存在长度大于等于3的自环，验证<code>queryLeastMoments</code>的正确性。</li>
-<li>随机值：使用随机生成的测试数据来测试程序。通过生成大量的随机数据来覆盖各种情况和可能的输入组合，利用评测机。</li>
-</ol>
-<h2 id="对OK测试的思考"><a href="#对OK测试的思考" class="headerlink" title="对OK测试的思考"></a>对OK测试的思考</h2><h5 id="OK测试的作用"><a href="#OK测试的作用" class="headerlink" title="OK测试的作用"></a>OK测试的作用</h5><ol>
-<li>OK测试可以帮助开发人员更好地理解需求规格，并在开发过程中发现规格中可能存在的问题或矛盾。通过对规格中的每个要求都进行OK测试，可以确保程序实现了所有规格要求，同时也能够提高开发人员对规格的理解和准确性。</li>
-<li>OK测试提供了一种客观、可验证的方法来检查代码实现是否符合规格要求。它能够帮助开发人员确保代码的正确性，并减少因为规格不清晰或错误而导致的问题。</li>
-<li>OK测试可以提高代码的可维护性。由于OK测试要求开发人员明确规格要求和实现的一致性，因此可以帮助减少代码中的冗余和不必要的复杂性，使得代码更易于理解和维护。</li>
-</ol>
-<h5 id="改进和建议"><a href="#改进和建议" class="headerlink" title="改进和建议"></a>改进和建议</h5><ol>
-<li>提高OK测试的覆盖率。为了发现更多的问题和缺陷，需要尽可能覆盖更多的规格要求。这可以通过增加测试用例、考虑不同的输入组合来实现。</li>
-<li>自动化测试。将OK测试自动化可以减少测试成本和人力成本，并提高测试效率和准确性。可以使用现有的自动化测试框架来实现。</li>
-</ol>
-<h2 id="学习体会"><a href="#学习体会" class="headerlink" title="学习体会"></a>学习体会</h2><h5 id="规格与实现分离"><a href="#规格与实现分离" class="headerlink" title="规格与实现分离"></a>规格与实现分离</h5><p> 规格与实现分离的目的是为了降低程序的复杂度，提高程序的可读性和可维护性。通过将规格描述与程序实现分离，可以使得程序的设计更加模块化、可重用，更容易理解和修改。此外，规格与实现分离还可以提高程序的测试效率和质量，因为规格描述可以作为测试用例的基础，而不必依赖于程序的具体实现。</p>
-<h5 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h5><ul>
-<li>从0到深入了解JML：JML是一种允许开发人员指定程序属性、前置条件、后置条件和不变量的语言。JML提供了一种结构化和规范的方法来定义程序的预期行为。学习JML使我能够编写更可靠和易于维护的代码。</li>
-<li>应用JML编写程序，整个单元通过迭代式开发，依赖于大量JML语言完成一个社交网络的模拟。回首整个单元不断发现问题，debug成功的过程，其实是一件很有成就感的事情。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>computer science</category>
-      </categories>
-      <tags>
-        <tag>Object-Oriented</tag>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Summary of Object-Oriented Design and Construction Unit 2</title>
     <url>/2023/04/14/2Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%202/</url>
     <content><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>第二单元作业的基本训练目标是模拟<strong>多线程实时电梯系统</strong>，三次作业为迭代开发。</p>
@@ -1500,6 +1384,122 @@
       </tags>
   </entry>
   <entry>
+    <title>Summary of Object-Oriented Design and Construction Unit 3</title>
+    <url>/2023/05/19/3Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%203/</url>
+    <content><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>第三单元作业的训练目标是<strong>掌握JML规格的理解与实现</strong>，三次作业为迭代开发。</p>
+<p>需要完成的任务为实现简单社交关系的模拟和查询（第一次作业），实现社交关系模拟系统中的群组和消息功能（第二次作业）和实现社交关系系统中不同消息类型以及相关操作（第三次作业）。</p>
+<p>点击此处可以参考我的代码：<a class="link" href="https://github.com/LeostarR/Object-oriented-Design-and-Construction">https://github.com/LeostarR/Object-oriented-Design-and-Construction <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="第一次作业总结"><a href="#第一次作业总结" class="headerlink" title="第一次作业总结"></a>第一次作业总结</h2><h3 id="设计与架构"><a href="#设计与架构" class="headerlink" title="设计与架构"></a>设计与架构</h3><p>本次作业需要完成这些工作：</p>
+<ol>
+<li>根据官方接口和JML实现<code>MyPerson</code>类和<code>MyNetwork</code>类</li>
+<li>继承官方提供的各抽象异常类，实现四个异常类</li>
+<li>为<code>Network</code>类中的<code>query_triple_sum</code>方法书写OK测试</li>
+</ol>
+<h4 id="MyPerson"><a href="#MyPerson" class="headerlink" title="MyPerson"></a><code>MyPerson</code></h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06361ddac507ccf7bfb3.png"></p>
+<p> <code>id</code>, <code>name</code>, <code>age</code>, <code>acquaintance</code>和<code>value</code>是该类的五个属性，接口要求为其中三个属性提供访问方法。<code>isLinked</code>用于判断两者是否有社交关系，<code>queryValue</code>用于查询社交值（如果有），<code>addPerson</code>和<code>addValue</code>用于添加社交关系。由于社交关系是动态变化的，因此我在设计的时候将acquaintance和value两个属性都定义为了<code>ArrayList</code>的结构，便于实现动态管理。</p>
+<h4 id="MyNetwork"><a href="#MyNetwork" class="headerlink" title="MyNetwork"></a><code>MyNetwork</code></h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06191ddac507ccf78e43.png"></p>
+<p> <code>people</code>为按照接口要求实现的变量。<code>contains</code>方法判断社交网络中是否包含此人，<code>addPerson</code>和<code>addRelation</code>分别用于添加人和关系，<code>queryValue</code>用于查询两人之间的社交值（如果有），<code>isCircle</code>判断两人是否相连（通过与其他人的关系）。<code>queryBlockSum</code>用于查询最大连通分支的数目，<code>queryTripleSum</code>用于查询三元环的数目。<code>queryTripleSumOKTest</code>是一个对<code>queryTripleSum</code>方法进行OK测试的方法。</p>
+<h4 id="Exception："><a href="#Exception：" class="headerlink" title="Exception："></a>Exception：</h4><h5 id="MyEqualPersonIdException"><a href="#MyEqualPersonIdException" class="headerlink" title="MyEqualPersonIdException"></a><code>MyEqualPersonIdException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06101ddac507ccf77f58.png"></p>
+<h5 id="MyEqualRelationException"><a href="#MyEqualRelationException" class="headerlink" title="MyEqualRelationException"></a><code>MyEqualRelationException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06101ddac507ccf77f72.png"></p>
+<h5 id="MyPersonIdNotFoundException"><a href="#MyPersonIdNotFoundException" class="headerlink" title="MyPersonIdNotFoundException"></a><code>MyPersonIdNotFoundException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06361ddac507ccf7c016.png"></p>
+<h5 id="MyRelationNotFoundException"><a href="#MyRelationNotFoundException" class="headerlink" title="MyRelationNotFoundException"></a><code>MyRelationNotFoundException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06361ddac507ccf7c0f7.png"></p>
+<p> 四种异常类的实现方法大同小异：定义静态变量sum，每次throw时将sum加1，同时定义静态HashMap存储每个id发生的异常次数。</p>
+<h4 id="设计细节与bug分析"><a href="#设计细节与bug分析" class="headerlink" title="设计细节与bug分析"></a>设计细节与bug分析</h4><p> 如果完全按照JML的字面意思来实现的话，本次作业就是完完全全的照葫芦画瓢，没有任何难度。我们发现<code>isCircle</code>如果采用图遍历的方式每次调用时查找，CPU运行时间会大大增加，同样对于<code>queryTripleSum</code>。</p>
+<p>因此本次作业采用并查集来解决CPU运行时间过长的问题：定义<code>HashMap&lt;Integer, Integer&gt; symbol = new HashMap&lt;&gt;()</code>指示每个节点对应的并查集，初始（添加这个人）时该集合设定为自己。每次调用<code>isCircle</code>时会调用<code>find()</code>方法判断两者是否同属一个并查集。而<code>find()</code>方法会递归地寻找从这个点到根节点的所有节点，并将这些节点的并查集全部更新：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">find</span><span class="params">(<span class="type">int</span> key)</span> {</span><br><span class="line">    <span class="keyword">if</span> (<span class="comment">/*key的并查集不是自己*/</span>) {</span><br><span class="line">        symbol.put(key, find(symbol.get(key)));</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> <span class="comment">/*查找之后得到的并查集*/</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>而在每次<code>addRelation()</code>时，我们会调用<code>merge()</code>将两节点合并到同一个并查集中：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">merge</span><span class="params">(<span class="type">int</span> id1, <span class="type">int</span> id2)</span> {</span><br><span class="line">    <span class="type">int</span> <span class="variable">root1</span> <span class="operator">=</span> <span class="comment">/*id1的并查集*/</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">root2</span> <span class="operator">=</span> <span class="comment">/*id2的并查集*/</span>;</span><br><span class="line">    <span class="keyword">if</span> (root1 != root2) {</span><br><span class="line">        symbol.put(root1, root2);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>这样就完成了对<code>isCircle()</code>的优化。</p>
+<p> 同样对于<code>queryBlockSum</code>和<code>queryTripleSum</code>的方法也可以利用上述的方法：设定全局变量<code>globalQts</code>和<code>globalQbs</code>。每次<code>addPerson</code>时需要将连通分支数目加一，在<code>addRelation</code>中<code>merge</code>之前判断两人是否同属一个并查集，若不是，则将连通分支数目减一。而三元环的数目只需每次<code>addRelation</code>之后判断有多少个点同时与这两点相连即可。</p>
+<h4 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06061ddac507ccf76df8.png"></p>
+<h2 id="第二次作业总结"><a href="#第二次作业总结" class="headerlink" title="第二次作业总结"></a>第二次作业总结</h2><h3 id="设计与架构-1"><a href="#设计与架构-1" class="headerlink" title="设计与架构"></a>设计与架构</h3><p>在第一次作业基础上需要增加这些工作：</p>
+<ol>
+<li>按照官方接口的JML实现<code>Group</code>类和<code>Message</code>类，并完善<code>Network</code>类中的更多方法</li>
+<li>实现更多的异常类</li>
+<li>为<code>Network</code>类中的<code>modifyRelation</code>方法书写OK测试</li>
+</ol>
+<h4 id="MyGroup"><a href="#MyGroup" class="headerlink" title="MyGroup"></a><code>MyGroup</code></h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06111ddac507ccf77ff8.png"></p>
+<p> 此类用于模拟社交群组，<code>id</code>为组id，<code>people: ArrayList&lt;Person&gt;</code>为组中人的集合，<code>addPerson</code>和<code>delPerson</code>用于向组中加入和删除成员，<code>hasPerson</code>用于判断组中是否存在某个成员，<code>getValueSum</code>，<code>getAgeMean</code>，<code>getAgeVar</code>用于计算整个组和成员年龄相关的值，<code>getSize</code>返回成员总数。</p>
+<h4 id="MyMessage"><a href="#MyMessage" class="headerlink" title="MyMessage"></a><code>MyMessage</code></h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06111ddac507ccf78093.png"></p>
+<p> 此类定义了五个成员属性：<code>id</code>, <code>socialValue</code>, <code>type</code>, <code>person1</code>, <code>person2</code>, <code>group</code>，并分别配置了访问方法。</p>
+<h4 id="MyNetwork-1"><a href="#MyNetwork-1" class="headerlink" title="MyNetwork"></a><code>MyNetwork</code></h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f061a1ddac507ccf78f2b.png"></p>
+<p>相比第一次作业，此类新增了更多方法。<code>modifyRelation</code>用于调整两个人之间的关系，可以是改变社交值，也可以是删除关系，此外还需要为该方法编写OK测试方法。<code>addGroup</code>用于添加组，<code>addToGroup</code>用于将人添加到指定组中，<code>delFromGroup</code>则是将人从指定组中删去。<code>queryGroupValueSum</code>和<code>queryGroupAgeVar</code>用于返回组群中特定含义的数。<code>addMessage</code>，<code>getMessage</code>和<code>sendMessage</code>分别用于添加消息，接受消息和发送消息。<code>queryBestAcquaintance</code>用于查询对应id的有关系的人中社交值最高并且id更小的一个id。<code>queryCoupleSum</code>用于查询两个id互为对方的<code>BestAcquaintance</code>的对数。</p>
+<h4 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h4><h5 id="MyAcquaintanceNotFoundException"><a href="#MyAcquaintanceNotFoundException" class="headerlink" title="MyAcquaintanceNotFoundException"></a><code>MyAcquaintanceNotFoundException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06091ddac507ccf77296.png"></p>
+<h5 id="MyEqualGroupIdException"><a href="#MyEqualGroupIdException" class="headerlink" title="MyEqualGroupIdException"></a><code>MyEqualGroupIdException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f07361ddac507ccf970c9.png"></p>
+<h5 id="MyEqualMessageIdException"><a href="#MyEqualMessageIdException" class="headerlink" title="MyEqualMessageIdException"></a><code>MyEqualMessageIdException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f07361ddac507ccf970f7.png"></p>
+<h5 id="MyGroupIdNotFoundException"><a href="#MyGroupIdNotFoundException" class="headerlink" title="MyGroupIdNotFoundException"></a><code>MyGroupIdNotFoundException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06111ddac507ccf78015.png"></p>
+<h5 id="MyMessageIdNotFoundException"><a href="#MyMessageIdNotFoundException" class="headerlink" title="MyMessageIdNotFoundException"></a><code>MyMessageIdNotFoundException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06191ddac507ccf78dc1.png"></p>
+<p> 新的异常类和第一次作业设计相同，不再赘述。</p>
+<h4 id="设计细节与bug分析-1"><a href="#设计细节与bug分析-1" class="headerlink" title="设计细节与bug分析"></a>设计细节与bug分析</h4><p> 有了第一次作业的经验，我们知道，某些JML表面意思为做大量循环的方法要考虑直接循环的代价。所以可以考虑实现动态变化，在所有可能改变这个值的方法里修改这个值，在真正需要这个值的时候直接调用即可。例如<code>queryValueSum</code>，用于计算群组中所有的人和其他有关系的人的value之和，只有这些地方需要修改<code>valueSum</code>：<code>addRelation</code>之后，<code>modifyRelation</code>之后。</p>
+<p> 但对于<code>ageMean</code>和<code>ageVar</code>两个与群组人数相关的变量，每次增加人数都不能确定改变的大小，因此必须在改变人数之后进行计算，这里可以设置标记，若没有增加或删除人，则可以返回上一次的计算结果，以达到提高效率的目的。</p>
+<p> 对于<code>queryBestAcquaintance</code>，我们直接返回对应person中的一个变量，这个变量也是动态变化的。具体来说，每一次<code>addRelation</code>和<code>modifyRelation</code>时我们都要考虑这个变量，添加关系时，判断该<code>value</code>是否大于原<code>maxValue</code>，修改value时考虑是否会超过原<code>maxValue</code>，或者原value就是<code>maxValue</code>，以及删除关系时考虑最大值被删除等等（情况比较多，我在这里没有完全考虑清楚导致强测出现了很严重的bug）。</p>
+<p> <code>queryCoupleSum</code>实际上依赖于<code>queryBestAcquaintance</code>(所以这里也寄了)，由上文知道，<code>BestAcquaintance</code>只会在<code>addRelation</code>和<code>modifyRelation</code>之后发生变化，并且只会针对两个点，我们只需在此时新建一个方法，这个方法可以计算两个点涉及的<code>coupleSum</code>数目（最小为0，最大为2），在改变关系前后分别调用，再相减就能得到经过这次改变<code>CoupleSum</code>应该变化的大小。</p>
+<p> 同时，我们第一次作业中对于并查集的部分也因为增加了删边的新功能而必须修改。在这种情况下，我们必须保证每一次存入<code>HashMap</code>中的(id1-&gt;id2)按顺序排列，否则可能会出现因删边导致异常的情形。新增<code>disconnect</code>方法用于删除两节点的关系并且重新构造：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">disconnect</span><span class="params">(<span class="type">int</span> id1, <span class="type">int</span> id2)</span> {</span><br><span class="line">    <span class="type">int</span> <span class="variable">i1</span> <span class="operator">=</span> Integer.min(id1, id2);</span><br><span class="line">    <span class="type">int</span> <span class="variable">i2</span> <span class="operator">=</span> Integer.max(id1, id2);</span><br><span class="line">    pairs.remove(i1);</span><br><span class="line">    <span class="keyword">for</span> (HashMap.Entry&lt;Integer, Integer&gt; entry : symbol.entrySet()) {</span><br><span class="line">        entry.setValue(entry.getKey());</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">for</span> (HashMap.Entry&lt;Integer, Integer&gt; entry : pairs.entrySet()) {</span><br><span class="line">        merge(entry.getKey(), entry.getValue());</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="UML类图-1"><a href="#UML类图-1" class="headerlink" title="UML类图"></a>UML类图</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06071ddac507ccf76e7b.png"></p>
+<h2 id="第三次作业总结"><a href="#第三次作业总结" class="headerlink" title="第三次作业总结"></a>第三次作业总结</h2><h3 id="设计与架构-2"><a href="#设计与架构-2" class="headerlink" title="设计与架构"></a>设计与架构</h3><p>在第二次作业基础上，需要新增这些内容：</p>
+<ol>
+<li>根据官方接口的JML实现<code>MyEmojiMessage</code>，<code>MyNoticeMessage</code>和<code>MyRedEnvelopeMessage</code>三个类，并完善<code>MyNetwork</code>类</li>
+<li>新增三个异常类</li>
+<li>对<code>deleteColdEmoji</code>编写OK测试方法</li>
+</ol>
+<h4 id="MyEmojiMessage"><a href="#MyEmojiMessage" class="headerlink" title="MyEmojiMessage"></a><code>MyEmojiMessage</code></h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f07361ddac507ccf97046.png"></p>
+<p>相比<code>MyMessage</code>类，新增了<code>emojiId</code>字段和对应的访问方法。</p>
+<h4 id="MyNoticeMessage"><a href="#MyNoticeMessage" class="headerlink" title="MyNoticeMessage"></a><code>MyNoticeMessage</code></h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f061a1ddac507ccf790af.png"></p>
+<p>相比<code>MyMessage</code>类，新增了<code>string</code>字段和对应的访问方法。</p>
+<h4 id="MyRedEnvelopeMessage"><a href="#MyRedEnvelopeMessage" class="headerlink" title="MyRedEnvelopeMessage"></a><code>MyRedEnvelopeMessage</code></h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06361ddac507ccf7c09c.png"></p>
+<p>相比<code>MyMessage</code>类，新增了<code>money</code>字段和对应的访问方法。</p>
+<h4 id="MyNetwork-2"><a href="#MyNetwork-2" class="headerlink" title="MyNetwork"></a><code>MyNetwork</code></h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f061a1ddac507ccf79047.png"></p>
+<p> 需要新实现的方法有<code>containsEmojiId()</code>(查找表情是否存在)，<code>storeEmojiId()</code>（添加表情）,<code>queryMoney()</code>（查询money字段）, <code>queryPopularity()</code>（查询popularity字段）, <code>deleteColdEmoji()</code>（删除heat值小于limit的表情）, <code>clearNotice()</code>(清除通知）,<code>queryLeatMoments()</code>（查找最短自环）。并要求对原<code>sendMessage</code>方法进行完善。</p>
+<h4 id="Exception-1"><a href="#Exception-1" class="headerlink" title="Exception"></a>Exception</h4><h5 id="MyEmojiIdNotFoundException"><a href="#MyEmojiIdNotFoundException" class="headerlink" title="MyEmojiIdNotFoundException"></a><code>MyEmojiIdNotFoundException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f07351ddac507ccf97012.png"></p>
+<h5 id="MyEqualEmojiIdException"><a href="#MyEqualEmojiIdException" class="headerlink" title="MyEqualEmojiIdException"></a><code>MyEqualEmojiIdException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f07361ddac507ccf97083.png"></p>
+<h5 id="MyPathNotFoundException"><a href="#MyPathNotFoundException" class="headerlink" title="MyPathNotFoundException"></a><code>MyPathNotFoundException</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06361ddac507ccf7beb6.png"></p>
+<p>新的异常类与之前实现完全相同，不再赘述。</p>
+<h4 id="设计细节与bug分析-2"><a href="#设计细节与bug分析-2" class="headerlink" title="设计细节与bug分析"></a>设计细节与bug分析</h4><p> 第三次作业对算法的要求极高，在查找最小环的过程需要通过枚举非树边和<code>djikstra</code>算法结合查找每一个点的最小环，同时必须按照优先队列的方式枚举以达到减小循环次数的目的。</p>
+<p> 此外，笔者因为第一次作业的遗留问题在互测中被多次hack@_@（很奇怪居然前两次测试都没有测出来）。例如在将某个人的acquaintance为空时添加与自己本身的关系时，应该抛出异常的却没有抛出异常，再根据JML仔细查看发现了问题：判断<code>isLinked()</code>的方法前面一个括号包含了循环，后面的<code>id != person.getId()</code>并不包含在括号中。如果我把判断id和<code>person.getId()</code>放在循环中，但是此时person的acquaintance为空，因此不会进入循环也就不会返回<code>true</code>（以及第二次作业的<code>ageVar</code>和<code>ageMean</code>出现问题也是因为JML括号的识别问题）。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06091ddac507ccf77255.png"></p>
+<h4 id="UML类图-2"><a href="#UML类图-2" class="headerlink" title="UML类图"></a>UML类图</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/648f06091ddac507ccf77201.png"></p>
+<h2 id="测试过程"><a href="#测试过程" class="headerlink" title="测试过程"></a>测试过程</h2><h5 id="对黑箱测试、白箱测试的理解"><a href="#对黑箱测试、白箱测试的理解" class="headerlink" title="对黑箱测试、白箱测试的理解"></a>对黑箱测试、白箱测试的理解</h5><p>黑箱测试是基于软件的功能和需求进行测试，而不考虑内部的实现细节和结构。测试人员对软件系统进行测试时，只关注输入和输出之间的关系，测试软件的功能是否符合预期。黑箱测试的目标是发现系统的功能缺陷、界面错误、性能问题等，而不关注代码的具体实现。</p>
+<p>白箱测试是基于软件的内部结构和实现细节进行测试。测试人员具有对源代码的访问权限，可以深入了解软件的内部逻辑和数据流。白箱测试的目标是验证软件的内部逻辑是否正确、代码是否符合编码标准、是否存在潜在的错误和安全漏洞等。</p>
+<h5 id="对单元测试、功能测试、集成测试、压力测试、回归测试的理解"><a href="#对单元测试、功能测试、集成测试、压力测试、回归测试的理解" class="headerlink" title="对单元测试、功能测试、集成测试、压力测试、回归测试的理解"></a>对单元测试、功能测试、集成测试、压力测试、回归测试的理解</h5><ul>
+<li>单元测试是对软件中最小的可测试单元进行验证的过程。单元可以是函数、方法或类等独立的代码块。单元测试的目标是在尽可能独立的环境中对单元进行测试，以确保其功能的正确性。</li>
+<li>功能测试是对软件的功能进行验证的测试类型。它涉及对软件的各个功能模块和组件进行测试，以确认其是否按照需求规格说明书或用户期望的方式正常工作。功能测试通常以用户的角度来进行，通过模拟真实用户的操作来检查软件的功能是否符合预期。</li>
+<li>集成测试是在多个独立的软件模块或组件之间进行测试，以验证它们的协同工作和接口的正确性。集成测试的目标是发现模块之间的集成问题、接口错误、数据传递问题等。它可以确保各个模块在集成后能够正常工作，并且相互之间没有冲突或不一致。</li>
+<li>压力测试是对软件系统在正常或超出正常工作负载条件下进行测试的过程。其目的是评估系统的性能、稳定性和可靠性，以确定在负载增加的情况下系统的响应是否满足需求。压力测试通过模拟高并发、大数据量或异常负载情况来测试系统的极限情况。</li>
+<li>回归测试是在软件进行更改或修复后，重新执行既有的测试用例，以确保新的修改没有引入新的错误或破坏了原有的功能。回归测试的目标是验证软件在经过修改后仍然具有稳定性和兼容性，不会对现有功能产生负面影响。</li>
+</ul>
+<h5 id="数据构造策略"><a href="#数据构造策略" class="headerlink" title="数据构造策略"></a>数据构造策略</h5><ol>
+<li>正常值：选择符合程序预期输入的正常值作为测试数据。这些值应涵盖程序的各种功能和逻辑情况，包括边界值、典型值和一般情况。</li>
+<li>边界值：选择接近边界条件的测试数据。边界值通常是最有可能导致错误的情况，因此在测试过程中应特别关注这些值。例如，构造一个不存在长度大于等于3的自环，验证<code>queryLeastMoments</code>的正确性。</li>
+<li>随机值：使用随机生成的测试数据来测试程序。通过生成大量的随机数据来覆盖各种情况和可能的输入组合，利用评测机。</li>
+</ol>
+<h2 id="对OK测试的思考"><a href="#对OK测试的思考" class="headerlink" title="对OK测试的思考"></a>对OK测试的思考</h2><h5 id="OK测试的作用"><a href="#OK测试的作用" class="headerlink" title="OK测试的作用"></a>OK测试的作用</h5><ol>
+<li>OK测试可以帮助开发人员更好地理解需求规格，并在开发过程中发现规格中可能存在的问题或矛盾。通过对规格中的每个要求都进行OK测试，可以确保程序实现了所有规格要求，同时也能够提高开发人员对规格的理解和准确性。</li>
+<li>OK测试提供了一种客观、可验证的方法来检查代码实现是否符合规格要求。它能够帮助开发人员确保代码的正确性，并减少因为规格不清晰或错误而导致的问题。</li>
+<li>OK测试可以提高代码的可维护性。由于OK测试要求开发人员明确规格要求和实现的一致性，因此可以帮助减少代码中的冗余和不必要的复杂性，使得代码更易于理解和维护。</li>
+</ol>
+<h5 id="改进和建议"><a href="#改进和建议" class="headerlink" title="改进和建议"></a>改进和建议</h5><ol>
+<li>提高OK测试的覆盖率。为了发现更多的问题和缺陷，需要尽可能覆盖更多的规格要求。这可以通过增加测试用例、考虑不同的输入组合来实现。</li>
+<li>自动化测试。将OK测试自动化可以减少测试成本和人力成本，并提高测试效率和准确性。可以使用现有的自动化测试框架来实现。</li>
+</ol>
+<h2 id="学习体会"><a href="#学习体会" class="headerlink" title="学习体会"></a>学习体会</h2><h5 id="规格与实现分离"><a href="#规格与实现分离" class="headerlink" title="规格与实现分离"></a>规格与实现分离</h5><p> 规格与实现分离的目的是为了降低程序的复杂度，提高程序的可读性和可维护性。通过将规格描述与程序实现分离，可以使得程序的设计更加模块化、可重用，更容易理解和修改。此外，规格与实现分离还可以提高程序的测试效率和质量，因为规格描述可以作为测试用例的基础，而不必依赖于程序的具体实现。</p>
+<h5 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h5><ul>
+<li>从0到深入了解JML：JML是一种允许开发人员指定程序属性、前置条件、后置条件和不变量的语言。JML提供了一种结构化和规范的方法来定义程序的预期行为。学习JML使我能够编写更可靠和易于维护的代码。</li>
+<li>应用JML编写程序，整个单元通过迭代式开发，依赖于大量JML语言完成一个社交网络的模拟。回首整个单元不断发现问题，debug成功的过程，其实是一件很有成就感的事情。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>computer science</category>
+      </categories>
+      <tags>
+        <tag>Object-Oriented</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Summary of Object-Oriented Design and Construction Unit 4</title>
     <url>/2023/06/18/4Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%204/</url>
     <content><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>第四单元作业主要任务是完成一个图书馆模拟系统，以训练对程序架构的设计和抽象能力。</p>
@@ -1568,226 +1568,6 @@
       <tags>
         <tag>Object-Oriented</tag>
         <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Compiling Design Docs</title>
-    <url>/2023/12/25/6Compiling%20Design%20Docs/</url>
-    <content><![CDATA[<p>我的编译器源代码存放于<strong><a class="link" href="https://github.com/LeostarR/Compiling-Techniques">https://github.com/LeostarR/Compiling-Techniques <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></strong></p>
-<h2 id="参考编译器设计"><a href="#参考编译器设计" class="headerlink" title="参考编译器设计"></a>参考编译器设计</h2><p>参考：<code>pl0-compiler.doc</code></p>
-<h3 id="总体结构"><a href="#总体结构" class="headerlink" title="总体结构"></a>总体结构</h3><p>文档介绍了一个用Pascal语言编写的<code>pl0</code>语言的编译器，它包括四个主要部分：词法分析器、语法分析器、代码生成器和解释器。</p>
-<ul>
-<li><strong>词法分析器</strong>：它负责从源程序中读取字符，识别并返回单词符号，如标识符、保留字、运算符、界符等。</li>
-<li><strong>语法分析器</strong>：它负责根据<code>pl0</code>语言的语法规则，分析单词符号的组合，构造出抽象语法树，并检查语法错误。</li>
-<li><strong>代码生成器</strong>：它负责根据抽象语法树，生成一种中间代码，即指令序列，用于表示源程序的语义,存储在<code>code</code>数组中。</li>
-<li><strong>解释器</strong>：负责对中间代码进行解释执行，模拟一个抽象机器，使用<code>栈</code>来存储数据和控制信息。</li>
-</ul>
-<h3 id="接口设计"><a href="#接口设计" class="headerlink" title="接口设计"></a>接口设计</h3><ul>
-<li>编译器的输入是一个文本文件，包含源程序的代码，文件名由用户输入。</li>
-<li>编译器的输出是一个文本文件，包含中间代码的列表，以及解释执行的结果，输出到标准输出流。如果发生错误，编译器还会在标准错误流输出错误信息。</li>
-</ul>
-<h3 id="文件组织"><a href="#文件组织" class="headerlink" title="文件组织"></a>文件组织</h3><p>编译器的源代码包含了所有的常量、类型、变量、函数和过程的定义。文件的主要结构如下：</p>
-<ul>
-<li>常量定义：定义了一些编译器需要用到的常量，如保留字的个数、标识符的最大长度、数字的最大位数、地址的最大值、嵌套层次的最大值、代码数组的大小等。</li>
-<li>类型定义：定义了一些编译器需要用到的类型，如符号的枚举类型、标识符的字符串类型、符号集合的集合类型、指令的记录类型、符号表的记录类型等。</li>
-<li>变量定义：定义了一些编译器需要用到的全局变量，如当前字符、当前符号、当前标识符、当前数字、字符计数、行长度、错误计数、代码索引、行缓冲区、指令数组、保留字数组、符号数组、助记符数组、声明开始符号集合、语句开始符号集合、因子开始符号集合、符号表等。</li>
-<li>函数和过程定义：定义了一些编译器需要用到的函数和过程，如错误处理函数、获取字符过程、获取符号过程、生成指令过程、测试符号过程、分程序过程、解释执行过程、主程序过程等。</li>
-</ul>
-<h2 id="编译器总体设计"><a href="#编译器总体设计" class="headerlink" title="编译器总体设计"></a>编译器总体设计</h2><h3 id="总体结构-1"><a href="#总体结构-1" class="headerlink" title="总体结构"></a>总体结构</h3><p>编译器总体结构包括词法分析器(<code>LexicalTools</code>)，语法分析器(<code>GrammaticalTools</code>)，符号表工具(<code>SymbolTools</code>)，中间代码生成器(<code>IRTools_llvm</code>)和目标代码生成器(<code>MIPSTools</code>)，以<code>LLVM</code>为中间代码生成<code>MIPS</code>目标代码</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Mode          		   Length Name</span><br><span class="line">----                   ------ ----</span><br><span class="line">d-----       				  GrammaticalTools</span><br><span class="line">d-----       				  IRTools_llvm</span><br><span class="line">d-----       		  		  LexicalTools</span><br><span class="line">d-----       				  MIPSTools</span><br><span class="line">d-----       				  SymbolTools</span><br><span class="line">-a----       			 3191 Compiler.java</span><br></pre></td></tr></table></figure></div>
-
-
-
-<h3 id="接口设计-1"><a href="#接口设计-1" class="headerlink" title="接口设计"></a>接口设计</h3><ul>
-<li>每个分析器都能返回这一阶段解析的内容，在顶层模块控制输出请求</li>
-<li><code>IRBuildFactory.java</code>提供了生成中间代码的接口</li>
-</ul>
-<h3 id="文件组织-1"><a href="#文件组织-1" class="headerlink" title="文件组织"></a>文件组织</h3><ul>
-<li><p>顶层模块为<code>Compiler.java</code>，读入<code>testfile.txt</code>，然后进行词法语法分析，代码生成，控制输出等操作</p>
-</li>
-<li><p>词法分析器(<code>LexicalTools</code>)，<code>Lexer.java</code>用于分析单词，生成<code>ArrayList&lt;wordTuple&gt;</code>:</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Mode                   Length Name</span><br><span class="line">----                   ------ ----</span><br><span class="line">-a----                  11639 Lexer.java</span><br><span class="line">-a----                    363 LexType.java</span><br><span class="line">-a----                   4681 wordTuple.java</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>语法分析器(<code>GrammaticalTools</code>)，<code>Parser.java</code>遍历单词，生成语法树：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Mode                   Length Name</span><br><span class="line">----                   ------ ----</span><br><span class="line">d-----                        GrammaticalTreeDef</span><br><span class="line">-a----                  60997 Parser.java</span><br></pre></td></tr></table></figure></div>
-
-<p><code>GrammaticalTreeDef</code>是定义的树节点集合</p>
-</li>
-<li><p>符号表工具(<code>SymbolTools</code>)定义了符号(<code>Symbol</code>),符号表(<code>SymbolTable</code>)以及枚举的变量类型(<code>IdentType</code>:普通变量，1/2维数组，函数)：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Mode                   Length Name</span><br><span class="line">----                   ------ ----</span><br><span class="line">-a----                    116 IdentType.java</span><br><span class="line">-a----                   1782 Symbol.java</span><br><span class="line">-a----                   2242 SymbolTable.java</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>中间代码生成器(<code>IRTools_llvm</code>)，<code>Type</code>定义了<code>Value</code>的类型，<code>Value</code>是所有编译过程中所有<code>object</code>的抽象类，<code>IRBuildFactory</code>提供对外接口方便生成指令，<code>Visitor.java</code>进行语义分析，构建<code>LLVM_Module</code>并生成中间代码：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Mode                   Length Name</span><br><span class="line">----                   ------ ----</span><br><span class="line">d-----                        Type</span><br><span class="line">d-----                        Value</span><br><span class="line">-a----                   7070 IRBuildFactory.java</span><br><span class="line">-a----                  60290 Visitor.java</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>目标代码生成器(<code>MIPSTools</code>)，<code>MipsInstructions</code>定义指令的抽象类，<code>Atom</code>定义指令的原子部分——立即数，寄存器和标签的抽象类，<code>Tools</code>定义<code>MIPS</code>语言的结构，最后使用<code>LLVMParser</code>对上面生成的<code>LLVM_Module</code>解析，生成<code>MIPS_Module</code>并输出目标代码：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Mode                   Length Name</span><br><span class="line">----                   ------ ----</span><br><span class="line">d-----                        Atom</span><br><span class="line">d-----                        MipsInstructions</span><br><span class="line">d-----                        Tools</span><br><span class="line">-a----                  31282 LLVMParser.java</span><br></pre></td></tr></table></figure></div></li>
-</ul>
-<h2 id="词法分析设计"><a href="#词法分析设计" class="headerlink" title="词法分析设计"></a>词法分析设计</h2><h3 id="编码前的设计"><a href="#编码前的设计" class="headerlink" title="编码前的设计"></a><strong>编码前的设计</strong></h3><ul>
-<li><p>总的思路是将整个文件的内容视作一个超长字符串，将这个字符串识别出有效的信息（如标识符，关键字以及各种运算，操作符号等等）并保存，将无效信息（注释等）准确识别并丢弃</p>
-</li>
-<li><p>对需要的有效信息创建类，定义有用的字段，例如行号，类别码，名称，值（例如数字的值是int类型，而字符串的值是它本身String类型）：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">wordTuple</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String wordName;    	<span class="comment">//单词名，原字符串</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String wordType;   	<span class="comment">//单词类，在枚举类中</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Object wordValue;   	<span class="comment">//单词值，可能是整数，也有可能是字符串</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> wordLine;       	<span class="comment">//所在行数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> wordColumn;     		<span class="comment">//所在列数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> legitimate; 		<span class="comment">//是否合法，用于输出错误信息</span></span><br><span class="line">    </span><br><span class="line">    ......</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<p>列数和合法信息在本次作业中尚未使用到</p>
-</li>
-<li><p>在词法解析中，成功解析的所有单词将存入一个<code>ArrayList&lt;wordTuple&gt;</code>中便于之后的语法分析和本次作业的输出环节</p>
-</li>
-<li><p>在具体的解析过程中</p>
-<ul>
-<li>设置<code>curPos</code>表示当前的读的位置，读取过程中及时更新位置和行数</li>
-<li>每读完一个单词要掠过所有的空格换行直到下一个有效字符</li>
-</ul>
-</li>
-<li><p>对于单词首字符</p>
-<ul>
-<li>如果是字母或下划线，考虑标识符和保留字</li>
-<li>如果是数字，考虑无符号整数</li>
-<li>如果是冒号，考虑形式化字符串</li>
-<li>其他有效符号，例如’+’,’*’,’&gt;’,”==”等所有出现在指导书中的单词类别符号</li>
-<li>特别注意区分’/‘和两种注释，’==’和’=’,’&gt;=’和’=’,’&amp;&amp;’和’&amp;’等等</li>
-</ul>
-</li>
-<li><p>最后记录单词名，类型，行数等重要信息</p>
-</li>
-</ul>
-<h3 id="编码完成之后的修改"><a href="#编码完成之后的修改" class="headerlink" title="编码完成之后的修改"></a><strong>编码完成之后的修改</strong></h3><ul>
-<li><p>重新定义枚举类<code>Lextype</code>表示单词类而不是简单的字符串，方便统一表示：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Lextype wordType;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">getLexType</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.wordType.toString();</span><br><span class="line">}			</span><br></pre></td></tr></table></figure></div>
-
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">LexType</span> {</span><br><span class="line">    IDENFR, INTCON, STRCON, MAINTK, CONSTTK,</span><br><span class="line">    INTTK, BREAKTK, CONTINUETK, IFTK, ELSETK,</span><br><span class="line">    NOT, AND, OR, FORTK, GETINTTK,</span><br><span class="line">    PRINTFTK, RETURNTK, PLUS, MINU, VOIDTK,</span><br><span class="line">    MULT, DIV, MOD, LSS, LEQ,</span><br><span class="line">    GRE, GEQ, EQL, NEQ,</span><br><span class="line">    ASSIGN, SEMICN, COMMA, LPARENT, RPARENT,</span><br><span class="line">    LBRACK, RBRACK, LBRACE, RBRACE</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-
-</li>
-<li><p>设置了两个集合分别存储所有的保留字和单一符号，读取中判断是否在这两个集合中就行了，例如：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">initReserveWords</span><span class="params">()</span> {</span><br><span class="line">        reserveWords.put(<span class="string">"main"</span>, LexType.MAINTK);</span><br><span class="line">        reserveWords.put(<span class="string">"const"</span>, LexType.CONSTTK);</span><br><span class="line">        reserveWords.put(<span class="string">"int"</span>, LexType.INTTK);</span><br><span class="line">        reserveWords.put(<span class="string">"break"</span>, LexType.BREAKTK);</span><br><span class="line">        reserveWords.put(<span class="string">"continue"</span>, LexType.CONTINUETK);</span><br><span class="line">        reserveWords.put(<span class="string">"if"</span>, LexType.IFTK);</span><br><span class="line">        reserveWords.put(<span class="string">"else"</span>, LexType.ELSETK);</span><br><span class="line">        reserveWords.put(<span class="string">"for"</span>, LexType.FORTK);</span><br><span class="line">        reserveWords.put(<span class="string">"getint"</span>, LexType.GETINTTK);</span><br><span class="line">        reserveWords.put(<span class="string">"printf"</span>, LexType.PRINTFTK);</span><br><span class="line">        reserveWords.put(<span class="string">"return"</span>, LexType.RETURNTK);</span><br><span class="line">        reserveWords.put(<span class="string">"void"</span>, LexType.VOIDTK);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">reserved</span><span class="params">(String s)</span> {</span><br><span class="line">    	<span class="keyword">return</span> <span class="built_in">this</span>.reserveWords.containsKey(s);</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>实际读取过程中采用<code>StringBuilder</code>类型更容易逐个添加字符</p>
-</li>
-</ul>
-<h2 id="语法分析设计"><a href="#语法分析设计" class="headerlink" title="语法分析设计"></a>语法分析设计</h2><h3 id="编码前的设计-1"><a href="#编码前的设计-1" class="headerlink" title="编码前的设计"></a>编码前的设计</h3><ul>
-<li><p>总任务是对所有单词进行语法分析并构建语法树，因此要对上一节词法分析得到的<code>ArrayList&lt;wordTuple&gt;</code>逐一分析</p>
-</li>
-<li><p>自定义语法树的节点类型，利用面向对象的继承性质，设置一个总的父类<code>MyTreeNode</code>，其余节点均继承此类，举例：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NodeBlock</span> <span class="keyword">extends</span> <span class="title class_">MyTreeNode</span>;</span><br></pre></td></tr></table></figure></div>
-
-<p>对文法每一个非终结符都做这样的操作，对于语法成分的子节点有多种情况的，可以建立多个构造方法覆盖所有的情况：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NodeAddExp</span> <span class="keyword">extends</span>  <span class="title class_">MyTreeNode</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> NodeMulExp mulExp1;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> NodeAddExp addExp;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> wordTuple operator;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> NodeMulExp mulExp2;</span><br><span class="line">    <span class="keyword">private</span> IdentType identType;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NodeAddExp</span><span class="params">(<span class="type">int</span> lineNum, NodeMulExp mulExp1)</span> {</span><br><span class="line">        <span class="built_in">super</span>(lineNum);</span><br><span class="line">        <span class="built_in">this</span>.mulExp1 = mulExp1;</span><br><span class="line">        <span class="built_in">this</span>.addExp = <span class="literal">null</span>;</span><br><span class="line">        <span class="built_in">this</span>.operator = <span class="literal">null</span>;</span><br><span class="line">        <span class="built_in">this</span>.mulExp2 = <span class="literal">null</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NodeAddExp</span><span class="params">(<span class="type">int</span> lineNum, NodeAddExp addExp, wordTuple operator, NodeMulExp mulExp2)</span> {</span><br><span class="line">        <span class="built_in">super</span>(lineNum);</span><br><span class="line">        <span class="built_in">this</span>.mulExp1 = <span class="literal">null</span>;</span><br><span class="line">        <span class="built_in">this</span>.addExp = addExp;</span><br><span class="line">        <span class="built_in">this</span>.operator = operator;</span><br><span class="line">        <span class="built_in">this</span>.mulExp2 = mulExp2;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    ......</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<p>对于文法<code>AddExp → MulExp | AddExp ('+' | '−') MulExp</code>，使用第一个构造方法的时候对应<code>AddExp → MulExp</code>，使用第二个构造方法的时候对应<code>AddExp → AddExp ('+' | '−') MulExp</code>，判断属于哪一种语法构造只需通过<code>getter()</code>判断特定子节点是否为<code>null</code>即可。</p>
-</li>
-<li><p>在<code>Parser</code>中采用递归下降完成整个语法分析的过程，由于给定的文法不算过于复杂，大部分<code>parse()</code>不需要回溯，根据<code>First(非终结符)</code>就能确定是何种语法成分:</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> NodeDecl <span class="title function_">parseDecl</span><span class="params">()</span> {  <span class="comment">//Decl → ConstDecl | VarDecl</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.isConstDecl()) {</span><br><span class="line">            <span class="type">NodeConstDecl</span> <span class="variable">constDecl</span> <span class="operator">=</span> <span class="built_in">this</span>.parseConstDecl();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">NodeDecl</span>(constDecl.getLineNum(), constDecl);</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            <span class="type">NodeVarDecl</span> <span class="variable">varDecl</span> <span class="operator">=</span> <span class="built_in">this</span>.parseVarDecl();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">NodeDecl</span>(varDecl.getLineNum(), varDecl);</span><br><span class="line">        }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<p>在解析<code>Stmt</code>的时候可能会遇到下面的情况，按照<code>LVal</code>和Exp解析都能成功解析出第一部分,这个时候需要回溯</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">//Exp <span class="string">';'</span>   LVal <span class="string">'='</span> Exp <span class="string">';'</span>    LVal <span class="string">'='</span> <span class="string">'getint'</span><span class="string">'('</span><span class="string">')'</span><span class="string">';'</span></span><br></pre></td></tr></table></figure></div>
-
-<p>按照<code>Exp</code>解析，若得到下一个符号是’=’则排除前一种情况，回溯，按照<code>LVal</code>解析。</p>
-</li>
-<li><p>所有语法成分解析完成后将会得到一颗完整的语法树，为之后的语义分析和代码生成做准备</p>
-</li>
-</ul>
-<h3 id="编码完成之后的修改-1"><a href="#编码完成之后的修改-1" class="headerlink" title="编码完成之后的修改"></a>编码完成之后的修改</h3><ul>
-<li><p>和设计时差别不大，但是需要新建几个继承<code>NodeStmt</code>的子节点，例如：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NodeStmtBr</span> <span class="keyword">extends</span> <span class="title class_">NodeStmt</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> wordTuple type;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NodeStmtBr</span><span class="params">(<span class="type">int</span> lineNum, wordTuple type)</span> {</span><br><span class="line">        <span class="built_in">super</span>(lineNum);</span><br><span class="line">        <span class="built_in">this</span>.type = type;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> wordTuple <span class="title function_">getType</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> type;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<p>表示<code>Stmt → 'break' ';' | 'continue' ';'</code>的情况，其他由<code>Stmt</code>推导的语法成分同理</p>
-</li>
-</ul>
-<h2 id="错误处理设计"><a href="#错误处理设计" class="headerlink" title="错误处理设计"></a>错误处理设计</h2><h3 id="编码前的设计-2"><a href="#编码前的设计-2" class="headerlink" title="编码前的设计"></a>编码前的设计</h3><ul>
-<li><p>a类错误在词法分析就可判断，当判断出字符串时，检查是否包含非法字符即可：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">......</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (c == <span class="string">'"'</span>) {                  <span class="comment">//形式化字符串</span></span><br><span class="line">            <span class="keyword">while</span> (curPos &lt; source.length() &amp;&amp; source.charAt(curPos) != <span class="string">'"'</span>) {</span><br><span class="line">                c = source.charAt(curPos++);</span><br><span class="line">                sb.append(c);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (curPos &lt; source.length() &amp;&amp; source.charAt(curPos) == <span class="string">'"'</span>) {</span><br><span class="line">                c = source.charAt(curPos++);</span><br><span class="line">                sb.append(c);</span><br><span class="line">            }</span><br><span class="line">            token = <span class="keyword">new</span> <span class="title class_">String</span>(sb);</span><br><span class="line">            type = LexType.STRCON;</span><br><span class="line">            value = <span class="keyword">new</span> <span class="title class_">String</span>(sb);</span><br><span class="line">    <span class="comment">/************************************************/</span></span><br><span class="line">            <span class="built_in">this</span>.legitimate = <span class="built_in">this</span>.checkErrorA();	<span class="comment">//此处判断</span></span><br><span class="line">    <span class="comment">/************************************************/</span></span><br><span class="line">}</span><br><span class="line">......</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>需要新建符号表处理<code>b-h</code>类错误，符号表的主要结构如下：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SymbolTable</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> fatherId;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Symbol symbol;    <span class="comment">//函数名，最外层函数的此值为null</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SymbolTable preTable;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ArrayList&lt;SymbolTable&gt; nextTables = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> HashMap&lt;String, Symbol&gt; varSets;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> HashMap&lt;String, Symbol&gt; funcSets;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<p>所有符号表存储在一个<code>ArrayList</code>中，<code>id</code>是符号表的索引，全局变量常量以及函数所在的符号表的<code>id</code>为0，<code>fatherId</code>是外层符号表的索引，<code>varSets</code>和<code>funcSets</code>存储当前作用域定义的变量和函数</p>
-</li>
-<li><p>在语法分析过程中定义和使用变量和函数(<code>ident</code>)之前查阅符号表即可判断<code>b,c</code>类错误：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">defNewVar</span><span class="params">(wordTuple ident, IdentType identType, <span class="type">boolean</span> isConst)</span> {</span><br><span class="line">        <span class="type">SymbolTable</span> <span class="variable">curTable</span> <span class="operator">=</span> <span class="built_in">this</span>.tables.get(<span class="built_in">this</span>.curIndex);</span><br><span class="line">        <span class="keyword">if</span> (curTable.containsVar(ident.getWordName()) || curTable.containsFunc(ident.getWordName())) {    </span><br><span class="line">            		<span class="comment">//重复定义，报错</span></span><br><span class="line">            <span class="built_in">this</span>.checkErrorB(ident.getWordLine());</span><br><span class="line">        } <span class="keyword">else</span> {    <span class="comment">//否则，填表</span></span><br><span class="line">            <span class="type">Symbol</span> <span class="variable">symbol</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Symbol</span>(<span class="built_in">this</span>.wordList.indexOf(ident), <span class="built_in">this</span>.curIndex, ident, identType, isConst);</span><br><span class="line">            curTable.addVar(ident.getWordName(), symbol);</span><br><span class="line">        }</span><br><span class="line">    }</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p><code>d,e,f,g</code>类错误一边解析一边完成即可，对于函数符号，根据参数信息可以判断类型正确性和参数个数正确性，根据返回类型判断<code>return</code>的正确性</p>
-</li>
-<li><p>符号缺失的错误都可以像这样判断：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="built_in">this</span>.token.isSemi()) {</span><br><span class="line">                System.out.println(token.getLexType() + <span class="string">" "</span> + token.getWordName());</span><br><span class="line">                <span class="built_in">this</span>.next();</span><br><span class="line"> } <span class="keyword">else</span> {    <span class="comment">//分号缺失</span></span><br><span class="line">                <span class="built_in">this</span>.checkErrorI(lineNum);</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>在进入循环体时，传入参数表示当前处于循环中，即可判断<code>m</code>类错误</p>
-</li>
-</ul>
-<h3 id="编码完成之后的修改-2"><a href="#编码完成之后的修改-2" class="headerlink" title="编码完成之后的修改"></a>编码完成之后的修改</h3><ul>
-<li><p>在考虑重定义时既要考虑变量重定义也要考虑函数重定义，例如下面的例子是非法的：</p>
-<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> fff = <span class="number">5</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">fff</span><span class="params">()</span> {</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<p>所以必须检查两个<code>HashMap</code>：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (curTable.containsVar(ident.getWordName()) || curTable.containsFunc(ident.getWordName())) {   </span><br><span class="line">    		<span class="comment">//重复定义，报错</span></span><br><span class="line">            <span class="built_in">this</span>.checkErrorB(ident.getWordLine());</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<p>之前只对同类型进行检查，忽略了其他函数和变量不同类型的重定义</p>
-</li>
-</ul>
-<h2 id="代码生成设计"><a href="#代码生成设计" class="headerlink" title="代码生成设计"></a>代码生成设计</h2><h3 id="编码前的设计-3"><a href="#编码前的设计-3" class="headerlink" title="编码前的设计"></a>编码前的设计</h3><h4 id="中间代码生成IRTools-llvm"><a href="#中间代码生成IRTools-llvm" class="headerlink" title="中间代码生成IRTools_llvm"></a>中间代码生成<code>IRTools_llvm</code></h4><ul>
-<li><p><code>Type</code>:<code>Value</code>的各种类型，拿数组类型举例：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TypeArray</span> <span class="keyword">extends</span> <span class="title class_">Type</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> numOfElement;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Type typeOfElement;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TypeArray</span><span class="params">(<span class="type">int</span> numOfElement, Type typeOfElement)</span> {    </span><br><span class="line">        <span class="comment">//numOfElement-&gt;数组一维空间的size，即多少个元素, typeOfElement-&gt;每一个元素的type（应相同）</span></span><br><span class="line">        <span class="built_in">this</span>.numOfElement = numOfElement;</span><br><span class="line">        <span class="built_in">this</span>.typeOfElement = typeOfElement;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getNumOfElement</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.numOfElement;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Type <span class="title function_">getTypeOfElement</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.typeOfElement;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getSpace</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.numOfElement * <span class="built_in">this</span>.typeOfElement.getSpace();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"["</span> + <span class="built_in">this</span>.numOfElement + <span class="string">" x "</span> + <span class="built_in">this</span>.typeOfElement.toString() + <span class="string">"]"</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<p>它可以指示这个数组Value的维数（如果是二维，那么<code>typeOfElement</code>也是’<code>TypeArray</code>‘类型的，除此之外还重写<code>toString()</code>方法，方便输出指令</p>
-</li>
-<li><p><code>Value</code>:万物皆Value，不论是顶层的<code>LLVM_Module</code>，还是基本块<code>BasicBlock</code>，还是函数<code>Function</code>都是<code>Value</code>，因此让他们全部继承抽象类<code>Value.java</code>，而<code>User</code>一般指指令，但同时指令也是一种<code>Value</code>，因此它也要继承<code>Value</code>，<code>Value</code>和<code>User</code>类似于一条边的两个节点，关系通过<code>Use</code>维护：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> <span class="keyword">extends</span> <span class="title class_">Value</span> {</span><br><span class="line">    <span class="keyword">protected</span> ArrayList&lt;Value&gt; operands = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">User</span><span class="params">(String name, Type type, Value parent)</span> {</span><br><span class="line">        <span class="built_in">super</span>(name, type, parent);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addValue</span><span class="params">(Value value)</span> {</span><br><span class="line">        <span class="built_in">this</span>.operands.add(value);</span><br><span class="line">        <span class="type">Use</span> <span class="variable">use</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Use</span>(<span class="built_in">this</span>, value, operands.indexOf(value));</span><br><span class="line">        value.addUse(use);</span><br><span class="line">    }</span><br><span class="line">    ......</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<p>以<code>BasicBlock</code>为例：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BasicBlock</span> <span class="keyword">extends</span> <span class="title class_">Value</span> <span class="keyword">implements</span> <span class="title class_">Comparable</span>&lt;BasicBlock&gt; {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ArrayList&lt;Instruction&gt; instructions = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BasicBlock</span><span class="params">(String name, Value parent)</span> {</span><br><span class="line">        <span class="built_in">super</span>(name, <span class="keyword">new</span> <span class="title class_">TypeLabel</span>(), parent);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addInstruction</span><span class="params">(Instruction instruction)</span> {</span><br><span class="line">        <span class="built_in">this</span>.instructions.add(instruction);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ArrayList&lt;Instruction&gt; <span class="title function_">getInstructions</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.instructions;</span><br><span class="line">    }</span><br><span class="line">    ......</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<p>以二进制运算And指令为例：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BinAnd</span> <span class="keyword">extends</span> <span class="title class_">InstructonOfBinary</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BinAnd</span><span class="params">(String name, Value v1, Value v2, BasicBlock parent)</span> {</span><br><span class="line">        <span class="built_in">super</span>(name, <span class="keyword">new</span> <span class="title class_">TypeInt</span>(<span class="number">32</span>), parent);</span><br><span class="line">        <span class="built_in">this</span>.addValue(v1);</span><br><span class="line">        <span class="built_in">this</span>.addValue(v2);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.getName() +</span><br><span class="line">                <span class="string">" = and "</span> +</span><br><span class="line">                <span class="built_in">this</span>.getType() +</span><br><span class="line">                <span class="string">" "</span> +</span><br><span class="line">                <span class="built_in">this</span>.getValue(<span class="number">0</span>).getName() +</span><br><span class="line">                <span class="string">", "</span>  +</span><br><span class="line">                <span class="built_in">this</span>.getValue(<span class="number">1</span>).getName();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p><code>Visitor</code>接收语法分析得到的语法树根节点<code>(NodeCompUnit) compUnit</code>，向下递归进行语义分析，举例：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">visitNodeDecl</span><span class="params">(NodeDecl decl)</span> {                         <span class="comment">//声明 Decl → ConstDecl | VarDecl</span></span><br><span class="line">        <span class="type">NodeConstDecl</span> <span class="variable">constDecl</span> <span class="operator">=</span> decl.getConstDecl();</span><br><span class="line">        <span class="type">NodeVarDecl</span> <span class="variable">varDecl</span> <span class="operator">=</span> decl.getVarDecl();</span><br><span class="line">        <span class="keyword">if</span> (varDecl == <span class="literal">null</span>) {</span><br><span class="line">            <span class="built_in">this</span>.visitConstDecl(constDecl);</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            <span class="built_in">this</span>.visitNodeVarDecl(varDecl);</span><br><span class="line">        }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<p>分析过程中，借用全局变量curVal和curInt等值传递属性，生成LLVM指令：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">visitNodeConstDef</span><span class="params">(NodeConstDef constDef)</span> {             </span><br><span class="line">    	<span class="comment">//常数定义 ConstDef → Ident { '[' ConstExp ']' } '=' ConstInitVal</span></span><br><span class="line">        <span class="type">wordTuple</span> <span class="variable">ident</span> <span class="operator">=</span> constDef.getIdent();</span><br><span class="line">        ArrayList&lt;NodeConstExp&gt; constExps = constDef.getConstExps();</span><br><span class="line">        <span class="type">NodeConstInitVal</span> <span class="variable">constInitVal</span> <span class="operator">=</span> constDef.getConstInitVal();</span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> ident.getWordName();</span><br><span class="line">        <span class="keyword">if</span> (constExps.isEmpty()) {          <span class="comment">//0维数组（常数）</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">this</span>.symbolIndex == <span class="number">0</span>) {    <span class="comment">//全局</span></span><br><span class="line">                <span class="built_in">this</span>.isInit = <span class="literal">true</span>;</span><br><span class="line">                <span class="built_in">this</span>.visitNodeConstInitVal(constInitVal);</span><br><span class="line">                <span class="built_in">this</span>.isInit = <span class="literal">false</span>;</span><br><span class="line">                <span class="type">GlobalVar</span> <span class="variable">globalVar</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GlobalVar</span>(name, <span class="literal">true</span>, (Const) <span class="built_in">this</span>.curVal);</span><br><span class="line">                <span class="built_in">this</span>.storeVal(name, globalVar);</span><br><span class="line">                Module.getInstance().addGlobalVar(globalVar);</span><br><span class="line">            }</span><br><span class="line">            ......</span><br><span class="line">        }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>短路求值，对形如<code>if (A || B) {...} else {...}</code> 的语句当A为真时不能执行B而是直接跳转到A的语句块，因此 设置两个全局块<code>curIfBlock</code>和<code>cueElseBlock</code>，在递归向下解析时传递参数<code>flag</code>指示是否需要更改<code>cueElseBlock</code>的值，如果当前在解析A则需要更改<code>curElseBlock</code>为新建的基本块（描述B），如果当前在解析B则无需修改<code>cueElseBlock</code>:</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.visitNodeLOrExp(nodelOrExp, <span class="literal">false</span>);</span><br><span class="line"><span class="keyword">if</span> (flag) {</span><br><span class="line">	<span class="built_in">this</span>.visitNodeLAndExp(lAndExp2, <span class="literal">true</span>);</span><br><span class="line">} <span class="keyword">else</span> {</span><br><span class="line">	<span class="type">BasicBlock</span> <span class="variable">nextBlock</span> <span class="operator">=</span> IRBuildFactory.buildBasicBlock(<span class="built_in">this</span>.curFunction);</span><br><span class="line">	<span class="built_in">this</span>.curElseBlock = nextBlock;</span><br><span class="line">	<span class="built_in">this</span>.visitNodeLAndExp(lAndExp2, <span class="literal">true</span>);</span><br><span class="line">	<span class="built_in">this</span>.curBasicBlock = nextBlock;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p><code>isCruit</code>指示是否为表达式，如果是，则需要通过<code>Icmp</code>指令将表达式转化为值：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">this</span>.isCruit) {</span><br><span class="line">    ......</span><br><span class="line">	<span class="built_in">this</span>.curVal = </span><br><span class="line">        IRBuildFactory.buildBinIcmp(BinIcmpType.NE, <span class="built_in">this</span>.curVal, <span class="keyword">new</span> <span class="title class_">ConstInt</span>(<span class="number">32</span>, <span class="number">0</span>), <span class="built_in">this</span>.curBasicBlock);</span><br><span class="line">	<span class="built_in">this</span>.isCruit = <span class="literal">false</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div></li>
-</ul>
-<h4 id="目标代码生成MIPSTools"><a href="#目标代码生成MIPSTools" class="headerlink" title="目标代码生成MIPSTools"></a>目标代码生成<code>MIPSTools</code></h4><ul>
-<li><p><code>Atom</code>：指令的原子组成部分，包括寄存器，立即数还有跳转指令用到的标签，以寄存器为例：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Reg</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> id;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Reg</span><span class="params">(<span class="type">int</span> id)</span> {</span><br><span class="line">        <span class="built_in">this</span>.id = id;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.id == <span class="number">0</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$zero"</span>;</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id == <span class="number">1</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$at"</span>;</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id &gt;= <span class="number">2</span> &amp;&amp; <span class="built_in">this</span>.id &lt;= <span class="number">3</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$v"</span> + (<span class="built_in">this</span>.id - <span class="number">2</span>);</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id &gt;= <span class="number">4</span> &amp;&amp; <span class="built_in">this</span>.id &lt;= <span class="number">7</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$a"</span> + (<span class="built_in">this</span>.id - <span class="number">4</span>);</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id &gt;= <span class="number">8</span> &amp;&amp; <span class="built_in">this</span>.id &lt;= <span class="number">15</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$t"</span> + (<span class="built_in">this</span>.id - <span class="number">8</span>);</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id &gt;=<span class="number">16</span> &amp;&amp; <span class="built_in">this</span>.id &lt;= <span class="number">23</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$s"</span> + (<span class="built_in">this</span>.id - <span class="number">16</span>);</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id &gt;= <span class="number">24</span> &amp;&amp; <span class="built_in">this</span>.id &lt;= <span class="number">25</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$t"</span> + (<span class="built_in">this</span>.id - <span class="number">24</span> + <span class="number">8</span>);</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id == <span class="number">28</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$gp"</span>;</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id == <span class="number">29</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$sp"</span>;</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id == <span class="number">30</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$fp"</span>;</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id == <span class="number">31</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$ra"</span>;</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">this</span>.toString();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"$"</span> + <span class="built_in">this</span>.id;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<p>只提供了返回寄存器名字的方法</p>
-</li>
-<li><p><code>MipsInstructions</code>：各种<code>MIPS</code>指令的抽象类，包括二进制运算指令，跳转指令，存取指令以及其他简化指令等:</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BinaryPure</span> <span class="keyword">extends</span> <span class="title class_">MIPSInstruction</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> BinaryPureType opType;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Reg rd;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Reg rs;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Reg rt;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BinaryPure</span><span class="params">(BinaryPureType opType, Reg rd, Reg rs, Reg rt)</span> {</span><br><span class="line">        <span class="built_in">this</span>.opType = opType;</span><br><span class="line">        <span class="built_in">this</span>.rd = rd;</span><br><span class="line">        <span class="built_in">this</span>.rs = rs;</span><br><span class="line">        <span class="built_in">this</span>.rt = rt;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> opType.toString() + <span class="string">" "</span> + rd.getName() + <span class="string">", "</span> + rs.getName() + <span class="string">", "</span> + rt.getName();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">BinaryPureType</span> {</span><br><span class="line">    addu,</span><br><span class="line">    subu,</span><br><span class="line">    and,</span><br><span class="line">    or;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.toString();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p><code>Tools</code>完成对MIPS代码的抽象化，包括模块<code>Module</code>，全局变量<code>GlobalVar</code>，代码块<code>Block</code>以及函数<code>Function</code>:</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MIPSBlock</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String blockName;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> BasicBlock basicBlock;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> MIPSFunction mipsFunction;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ArrayList&lt;MIPSInstruction&gt; Instructions = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MIPSBlock</span><span class="params">(String blockName, BasicBlock basicBlock, MIPSFunction mipsFunction)</span> {</span><br><span class="line">        <span class="built_in">this</span>.blockName = blockName;</span><br><span class="line">        <span class="built_in">this</span>.basicBlock = basicBlock;</span><br><span class="line">        <span class="built_in">this</span>.mipsFunction = mipsFunction;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addInstruction</span><span class="params">(MIPSInstruction instruction)</span> {</span><br><span class="line">        <span class="built_in">this</span>.Instructions.add(instruction);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getBlockName</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.blockName;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> BasicBlock <span class="title function_">getBasicBlock</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.basicBlock;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> MIPSFunction <span class="title function_">getParentMipsFunction</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.mipsFunction;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>使用<code>LLVMParser</code>解析得到的<code>LLVMModule</code>，全局变量可以直接存入<code>Module</code>然后输出即可，对于函数需要分析每一条指令，根据每一条指令属于LLVM指令的类型进行生成：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (instruction <span class="keyword">instanceof</span> MemAlloca) {</span><br><span class="line">	......      </span><br><span class="line">} <span class="keyword">else</span> <span class="keyword">if</span> (instruction <span class="keyword">instanceof</span> MemGetelementptr) {</span><br><span class="line">	......</span><br><span class="line">}</span><br><span class="line">	......</span><br></pre></td></tr></table></figure></div></li>
-</ul>
-<h3 id="编码完成之后的修改-3"><a href="#编码完成之后的修改-3" class="headerlink" title="编码完成之后的修改"></a>编码完成之后的修改</h3><ul>
-<li>增加<code>ZextTo</code>指令，如果不定义这条指令，生成的<code>llvm</code>中间代码会有问题，<code>i32</code>类型和<code>i1</code>类型不能通过<code>icmp</code>指令进行比较，因此在语义分析过程中处理<code>icmp</code>指令之前对<code>curVal</code>的<code>Type</code>进行判断</li>
-</ul>
-<h2 id="代码优化设计"><a href="#代码优化设计" class="headerlink" title="代码优化设计"></a>代码优化设计</h2><h3 id="编码前的设计-4"><a href="#编码前的设计-4" class="headerlink" title="编码前的设计"></a>编码前的设计</h3><h4 id="中端优化"><a href="#中端优化" class="headerlink" title="中端优化"></a>中端优化</h4><ul>
-<li>删除无用函数，遍历<code>LLVM_Module</code>的所有函数，判断每一个函数的<code>userList</code>是否为空，（主要是<code>br</code>指令），若为空则删除并维护use-value的基本关系，遍历剩下的函数直到函数集合不发生变化</li>
-<li>删除无用基本快，不可到达的基本块应该删除，并维护use-value的基本关系</li>
-<li>合并基本块，从一个没有后继的基本块开始遍历，递归查找能到达这个的唯一基本块（如果不唯一应该停止查找）</li>
-<li>删除死代码</li>
-</ul>
-<h4 id="后端优化"><a href="#后端优化" class="headerlink" title="后端优化"></a>后端优化</h4><ul>
-<li>乘除优化，乘法判端常数是否是2的整数次幂，转化为移位指令，除法将除法指令转化为乘法指令和移位指令</li>
-<li>基本块合并</li>
-</ul>
-<h3 id="编码完成之后的修改-4"><a href="#编码完成之后的修改-4" class="headerlink" title="编码完成之后的修改"></a>编码完成之后的修改</h3><p>删除函数的时候要对函数的每个基本快的每个指令进行use-value的维护</p>
-]]></content>
-      <categories>
-        <category>computer science</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>compile technology</tag>
       </tags>
   </entry>
   <entry>
@@ -2527,71 +2307,223 @@
       </tags>
   </entry>
   <entry>
-    <title>Reading and Questions about The Building Method of Modern Software Engineering</title>
-    <url>/2024/03/08/7Reading%20and%20Questions%20about%20The%20Building%20Method%20Modern%20Software%20Engineering/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="left">项目</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">这个作业属于哪个课程</td>
-<td><a class="link" href="https://bbs.csdn.net/forums/buaa-ase2024">2024年北航敏捷软件工程 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></td>
-</tr>
-<tr>
-<td align="left">这个作业的要求在哪里</td>
-<td><a class="link" href="https://bbs.csdn.net/topics/618159304">个人作业：阅读和提问 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></td>
-</tr>
-<tr>
-<td align="left">我在这个课程的目标是</td>
-<td>学习并实践软件工程，提升自己的工程能力和团队协作能力</td>
-</tr>
-<tr>
-<td align="left">这个作业在哪个具体方面帮助我实现目标</td>
-<td>培养自己的思考能力，去形成自己分析问题、解决问题的思路</td>
-</tr>
-</tbody></table>
-<h4 id="阅读提问"><a href="#阅读提问" class="headerlink" title="阅读提问"></a>阅读提问</h4><h5 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h5><blockquote>
-<p>向进度落后的项目中增加人员，会让项目更加落后。	–《人月神话》</p>
-</blockquote>
-<p>我在书中第1.2.3节，第15页上方看到了这句话。在网上查找资料后我了解到，增加人员仍会使项目更加落后的原因是：</p>
+    <title>Compiling Design Docs</title>
+    <url>/2023/12/25/6Compiling%20Design%20Docs/</url>
+    <content><![CDATA[<p>我的编译器源代码存放于<strong><a class="link" href="https://github.com/LeostarR/Compiling-Techniques">https://github.com/LeostarR/Compiling-Techniques <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></strong></p>
+<h2 id="参考编译器设计"><a href="#参考编译器设计" class="headerlink" title="参考编译器设计"></a>参考编译器设计</h2><p>参考：<code>pl0-compiler.doc</code></p>
+<h3 id="总体结构"><a href="#总体结构" class="headerlink" title="总体结构"></a>总体结构</h3><p>文档介绍了一个用Pascal语言编写的<code>pl0</code>语言的编译器，它包括四个主要部分：词法分析器、语法分析器、代码生成器和解释器。</p>
 <ul>
-<li><strong>“关键时间”的浪费</strong>：新人对项目不了解，所以项目组需要抽调人员培训新人，这样不仅新人自己帮不上忙，还要浪费浪费项目组成员的关键时间</li>
-<li><strong>“沟通时间”的增加</strong>：新加的人员需要增加额外的沟通来消除彼此之间对项目的不同认识，<strong>一个团队内部的沟通方式总数=n*(n-1)/2</strong></li>
-<li><strong>“等待时间”的消耗</strong>：在实际项目中，总项目已经细分为分项目（一个人的工作量），分项目往往具有先后顺序，所以新加进来的人发挥不了作用，造成了等待时间的消耗</li>
+<li><strong>词法分析器</strong>：它负责从源程序中读取字符，识别并返回单词符号，如标识符、保留字、运算符、界符等。</li>
+<li><strong>语法分析器</strong>：它负责根据<code>pl0</code>语言的语法规则，分析单词符号的组合，构造出抽象语法树，并检查语法错误。</li>
+<li><strong>代码生成器</strong>：它负责根据抽象语法树，生成一种中间代码，即指令序列，用于表示源程序的语义,存储在<code>code</code>数组中。</li>
+<li><strong>解释器</strong>：负责对中间代码进行解释执行，模拟一个抽象机器，使用<code>栈</code>来存储数据和控制信息。</li>
 </ul>
-<p>我的问题是 如果现实中互联网企业发生了项目进度落后的情况（通常由于一些成员个人的原因），团队leader应该在不增加人员的情况下采取什么措施保证项目进度呢，这些措施是否有效呢？</p>
-<h5 id="问题2"><a href="#问题2" class="headerlink" title="问题2"></a>问题2</h5><blockquote>
-<p>结对编程中有两个角色：</p>
-<ol>
-<li>驾驶员（Driver）：控制键盘输入</li>
-<li>领航员（Navigator）：起到领航、提醒的作用</li>
-</ol>
-<p>这两个角色是可以互换的……</p>
-</blockquote>
-<p>我在书中4.5.1节，第79页上方看到了这一段话。我了解到在越野赛车中，驾驶员和领航员的身份往往不轻易互换，因为驾驶员的驾驶技术往往更胜一筹，而领航员的领航技术往往也是更强的。但是在实际的结对编程中，两人是不断变化角色的，因为结对编程是一个相互磨合的渐进过程，不论谁的资历等级更高抑或是设计编程的能力更强，双方都拥有平等的决策权力，所以这样的比喻（越野赛车的驾驶和领航员）我认为不妥当。</p>
-<h5 id="问题3"><a href="#问题3" class="headerlink" title="问题3"></a>问题3</h5><blockquote>
-<p>1969年代，程序员Melvin Conway就总结了一个康威规律：</p>
-<p>一个机构设计出来的系统，它的体系结构注定会沿用这个机构的内部交流模式。</p>
-</blockquote>
-<p>我在书中第5.2.10节，第95页上方看到了这一段话。这句话大概意思是说组织内部的工作和交流方式，会极大地影响系统的设计。但是这会带来一个问题，团队模式不会轻易改变，但是系统的架构或者模式可能会随着时间推移不断优化和完善，这样一来可能导致组织架构和系统架构的失配，从这个角度来看这个规律变得不正确了，这是否是一种悖论或者”陷阱“？</p>
-<h5 id="问题4"><a href="#问题4" class="headerlink" title="问题4"></a>问题4</h5><blockquote>
-<p>团队成员往往各抒己见，争执地不亦乐乎，但是最后谁也说服不了谁，还有一些人觉得无从下手，干脆不参加讨论。在这种情况下，可以考虑通过Wideband Delphi方法来做到快速沟通并达到意见的一致。</p>
-</blockquote>
-<p>我在书中8.6.2节，第171页上方看到这一段话。这一方法反映了生活中遇到的团队意见不一致的问题，并在后面给出了解决方法。我的问题是，Wideband Delphi方法确实一定程度上统一了所有人意见，但这些意见是否大概率是主持人自己的意见呢？作为一个moderator，他在主持讨论的时候会慢慢地说服我们他自己的意见，所以我对此抱有疑问，如果使用这个方法最终统一的意见大部分取决于主持人，就达不到讨论和统一意见的意义了。除此之外，我认为某些情况下人与人之间理解的差异还是很大的，这种情况该如何达到共识呢，或者如何界定共识的标准？</p>
-<h5 id="问题5"><a href="#问题5" class="headerlink" title="问题5"></a>问题5</h5><blockquote>
-<p>原则2</p>
-<p>软件工程师应以其客户和雇主利益最大化的方式做事，与公众利益保持一致。</p>
-</blockquote>
-<p>我在书中17.8节，第407页看到了这段话。这一部分主要在讲软件工程师的职业道德，我的疑问是某些情况下雇主和客户的利益可能与公众利益冲突，比如用户隐私相关的事务。在这种情况下，要如何平衡各方利益呢？</p>
+<h3 id="接口设计"><a href="#接口设计" class="headerlink" title="接口设计"></a>接口设计</h3><ul>
+<li>编译器的输入是一个文本文件，包含源程序的代码，文件名由用户输入。</li>
+<li>编译器的输出是一个文本文件，包含中间代码的列表，以及解释执行的结果，输出到标准输出流。如果发生错误，编译器还会在标准错误流输出错误信息。</li>
+</ul>
+<h3 id="文件组织"><a href="#文件组织" class="headerlink" title="文件组织"></a>文件组织</h3><p>编译器的源代码包含了所有的常量、类型、变量、函数和过程的定义。文件的主要结构如下：</p>
+<ul>
+<li>常量定义：定义了一些编译器需要用到的常量，如保留字的个数、标识符的最大长度、数字的最大位数、地址的最大值、嵌套层次的最大值、代码数组的大小等。</li>
+<li>类型定义：定义了一些编译器需要用到的类型，如符号的枚举类型、标识符的字符串类型、符号集合的集合类型、指令的记录类型、符号表的记录类型等。</li>
+<li>变量定义：定义了一些编译器需要用到的全局变量，如当前字符、当前符号、当前标识符、当前数字、字符计数、行长度、错误计数、代码索引、行缓冲区、指令数组、保留字数组、符号数组、助记符数组、声明开始符号集合、语句开始符号集合、因子开始符号集合、符号表等。</li>
+<li>函数和过程定义：定义了一些编译器需要用到的函数和过程，如错误处理函数、获取字符过程、获取符号过程、生成指令过程、测试符号过程、分程序过程、解释执行过程、主程序过程等。</li>
+</ul>
+<h2 id="编译器总体设计"><a href="#编译器总体设计" class="headerlink" title="编译器总体设计"></a>编译器总体设计</h2><h3 id="总体结构-1"><a href="#总体结构-1" class="headerlink" title="总体结构"></a>总体结构</h3><p>编译器总体结构包括词法分析器(<code>LexicalTools</code>)，语法分析器(<code>GrammaticalTools</code>)，符号表工具(<code>SymbolTools</code>)，中间代码生成器(<code>IRTools_llvm</code>)和目标代码生成器(<code>MIPSTools</code>)，以<code>LLVM</code>为中间代码生成<code>MIPS</code>目标代码</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Mode          		   Length Name</span><br><span class="line">----                   ------ ----</span><br><span class="line">d-----       				  GrammaticalTools</span><br><span class="line">d-----       				  IRTools_llvm</span><br><span class="line">d-----       		  		  LexicalTools</span><br><span class="line">d-----       				  MIPSTools</span><br><span class="line">d-----       				  SymbolTools</span><br><span class="line">-a----       			 3191 Compiler.java</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="接口设计-1"><a href="#接口设计-1" class="headerlink" title="接口设计"></a>接口设计</h3><ul>
+<li>每个分析器都能返回这一阶段解析的内容，在顶层模块控制输出请求</li>
+<li><code>IRBuildFactory.java</code>提供了生成中间代码的接口</li>
+</ul>
+<h3 id="文件组织-1"><a href="#文件组织-1" class="headerlink" title="文件组织"></a>文件组织</h3><ul>
+<li><p>顶层模块为<code>Compiler.java</code>，读入<code>testfile.txt</code>，然后进行词法语法分析，代码生成，控制输出等操作</p>
+</li>
+<li><p>词法分析器(<code>LexicalTools</code>)，<code>Lexer.java</code>用于分析单词，生成<code>ArrayList&lt;wordTuple&gt;</code>:</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Mode                   Length Name</span><br><span class="line">----                   ------ ----</span><br><span class="line">-a----                  11639 Lexer.java</span><br><span class="line">-a----                    363 LexType.java</span><br><span class="line">-a----                   4681 wordTuple.java</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>语法分析器(<code>GrammaticalTools</code>)，<code>Parser.java</code>遍历单词，生成语法树：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Mode                   Length Name</span><br><span class="line">----                   ------ ----</span><br><span class="line">d-----                        GrammaticalTreeDef</span><br><span class="line">-a----                  60997 Parser.java</span><br></pre></td></tr></table></figure></div>
+
+<p><code>GrammaticalTreeDef</code>是定义的树节点集合</p>
+</li>
+<li><p>符号表工具(<code>SymbolTools</code>)定义了符号(<code>Symbol</code>),符号表(<code>SymbolTable</code>)以及枚举的变量类型(<code>IdentType</code>:普通变量，1/2维数组，函数)：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Mode                   Length Name</span><br><span class="line">----                   ------ ----</span><br><span class="line">-a----                    116 IdentType.java</span><br><span class="line">-a----                   1782 Symbol.java</span><br><span class="line">-a----                   2242 SymbolTable.java</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>中间代码生成器(<code>IRTools_llvm</code>)，<code>Type</code>定义了<code>Value</code>的类型，<code>Value</code>是所有编译过程中所有<code>object</code>的抽象类，<code>IRBuildFactory</code>提供对外接口方便生成指令，<code>Visitor.java</code>进行语义分析，构建<code>LLVM_Module</code>并生成中间代码：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Mode                   Length Name</span><br><span class="line">----                   ------ ----</span><br><span class="line">d-----                        Type</span><br><span class="line">d-----                        Value</span><br><span class="line">-a----                   7070 IRBuildFactory.java</span><br><span class="line">-a----                  60290 Visitor.java</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>目标代码生成器(<code>MIPSTools</code>)，<code>MipsInstructions</code>定义指令的抽象类，<code>Atom</code>定义指令的原子部分——立即数，寄存器和标签的抽象类，<code>Tools</code>定义<code>MIPS</code>语言的结构，最后使用<code>LLVMParser</code>对上面生成的<code>LLVM_Module</code>解析，生成<code>MIPS_Module</code>并输出目标代码：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Mode                   Length Name</span><br><span class="line">----                   ------ ----</span><br><span class="line">d-----                        Atom</span><br><span class="line">d-----                        MipsInstructions</span><br><span class="line">d-----                        Tools</span><br><span class="line">-a----                  31282 LLVMParser.java</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h2 id="词法分析设计"><a href="#词法分析设计" class="headerlink" title="词法分析设计"></a>词法分析设计</h2><h3 id="编码前的设计"><a href="#编码前的设计" class="headerlink" title="编码前的设计"></a><strong>编码前的设计</strong></h3><ul>
+<li><p>总的思路是将整个文件的内容视作一个超长字符串，将这个字符串识别出有效的信息（如标识符，关键字以及各种运算，操作符号等等）并保存，将无效信息（注释等）准确识别并丢弃</p>
+</li>
+<li><p>对需要的有效信息创建类，定义有用的字段，例如行号，类别码，名称，值（例如数字的值是int类型，而字符串的值是它本身String类型）：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">wordTuple</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String wordName;    	<span class="comment">//单词名，原字符串</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String wordType;   	<span class="comment">//单词类，在枚举类中</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Object wordValue;   	<span class="comment">//单词值，可能是整数，也有可能是字符串</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> wordLine;       	<span class="comment">//所在行数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> wordColumn;     		<span class="comment">//所在列数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> legitimate; 		<span class="comment">//是否合法，用于输出错误信息</span></span><br><span class="line">    </span><br><span class="line">    ......</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>列数和合法信息在本次作业中尚未使用到</p>
+</li>
+<li><p>在词法解析中，成功解析的所有单词将存入一个<code>ArrayList&lt;wordTuple&gt;</code>中便于之后的语法分析和本次作业的输出环节</p>
+</li>
+<li><p>在具体的解析过程中</p>
+<ul>
+<li>设置<code>curPos</code>表示当前的读的位置，读取过程中及时更新位置和行数</li>
+<li>每读完一个单词要掠过所有的空格换行直到下一个有效字符</li>
+</ul>
+</li>
+<li><p>对于单词首字符</p>
+<ul>
+<li>如果是字母或下划线，考虑标识符和保留字</li>
+<li>如果是数字，考虑无符号整数</li>
+<li>如果是冒号，考虑形式化字符串</li>
+<li>其他有效符号，例如’+’,’*’,’&gt;’,”==”等所有出现在指导书中的单词类别符号</li>
+<li>特别注意区分’/‘和两种注释，’==’和’=’,’&gt;=’和’=’,’&amp;&amp;’和’&amp;’等等</li>
+</ul>
+</li>
+<li><p>最后记录单词名，类型，行数等重要信息</p>
+</li>
+</ul>
+<h3 id="编码完成之后的修改"><a href="#编码完成之后的修改" class="headerlink" title="编码完成之后的修改"></a><strong>编码完成之后的修改</strong></h3><ul>
+<li><p>重新定义枚举类<code>Lextype</code>表示单词类而不是简单的字符串，方便统一表示：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Lextype wordType;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">getLexType</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.wordType.toString();</span><br><span class="line">}			</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">LexType</span> {</span><br><span class="line">    IDENFR, INTCON, STRCON, MAINTK, CONSTTK,</span><br><span class="line">    INTTK, BREAKTK, CONTINUETK, IFTK, ELSETK,</span><br><span class="line">    NOT, AND, OR, FORTK, GETINTTK,</span><br><span class="line">    PRINTFTK, RETURNTK, PLUS, MINU, VOIDTK,</span><br><span class="line">    MULT, DIV, MOD, LSS, LEQ,</span><br><span class="line">    GRE, GEQ, EQL, NEQ,</span><br><span class="line">    ASSIGN, SEMICN, COMMA, LPARENT, RPARENT,</span><br><span class="line">    LBRACK, RBRACK, LBRACE, RBRACE</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+
+</li>
+<li><p>设置了两个集合分别存储所有的保留字和单一符号，读取中判断是否在这两个集合中就行了，例如：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">initReserveWords</span><span class="params">()</span> {</span><br><span class="line">        reserveWords.put(<span class="string">"main"</span>, LexType.MAINTK);</span><br><span class="line">        reserveWords.put(<span class="string">"const"</span>, LexType.CONSTTK);</span><br><span class="line">        reserveWords.put(<span class="string">"int"</span>, LexType.INTTK);</span><br><span class="line">        reserveWords.put(<span class="string">"break"</span>, LexType.BREAKTK);</span><br><span class="line">        reserveWords.put(<span class="string">"continue"</span>, LexType.CONTINUETK);</span><br><span class="line">        reserveWords.put(<span class="string">"if"</span>, LexType.IFTK);</span><br><span class="line">        reserveWords.put(<span class="string">"else"</span>, LexType.ELSETK);</span><br><span class="line">        reserveWords.put(<span class="string">"for"</span>, LexType.FORTK);</span><br><span class="line">        reserveWords.put(<span class="string">"getint"</span>, LexType.GETINTTK);</span><br><span class="line">        reserveWords.put(<span class="string">"printf"</span>, LexType.PRINTFTK);</span><br><span class="line">        reserveWords.put(<span class="string">"return"</span>, LexType.RETURNTK);</span><br><span class="line">        reserveWords.put(<span class="string">"void"</span>, LexType.VOIDTK);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">reserved</span><span class="params">(String s)</span> {</span><br><span class="line">    	<span class="keyword">return</span> <span class="built_in">this</span>.reserveWords.containsKey(s);</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>实际读取过程中采用<code>StringBuilder</code>类型更容易逐个添加字符</p>
+</li>
+</ul>
+<h2 id="语法分析设计"><a href="#语法分析设计" class="headerlink" title="语法分析设计"></a>语法分析设计</h2><h3 id="编码前的设计-1"><a href="#编码前的设计-1" class="headerlink" title="编码前的设计"></a>编码前的设计</h3><ul>
+<li><p>总任务是对所有单词进行语法分析并构建语法树，因此要对上一节词法分析得到的<code>ArrayList&lt;wordTuple&gt;</code>逐一分析</p>
+</li>
+<li><p>自定义语法树的节点类型，利用面向对象的继承性质，设置一个总的父类<code>MyTreeNode</code>，其余节点均继承此类，举例：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NodeBlock</span> <span class="keyword">extends</span> <span class="title class_">MyTreeNode</span>;</span><br></pre></td></tr></table></figure></div>
+
+<p>对文法每一个非终结符都做这样的操作，对于语法成分的子节点有多种情况的，可以建立多个构造方法覆盖所有的情况：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NodeAddExp</span> <span class="keyword">extends</span>  <span class="title class_">MyTreeNode</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> NodeMulExp mulExp1;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> NodeAddExp addExp;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> wordTuple operator;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> NodeMulExp mulExp2;</span><br><span class="line">    <span class="keyword">private</span> IdentType identType;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NodeAddExp</span><span class="params">(<span class="type">int</span> lineNum, NodeMulExp mulExp1)</span> {</span><br><span class="line">        <span class="built_in">super</span>(lineNum);</span><br><span class="line">        <span class="built_in">this</span>.mulExp1 = mulExp1;</span><br><span class="line">        <span class="built_in">this</span>.addExp = <span class="literal">null</span>;</span><br><span class="line">        <span class="built_in">this</span>.operator = <span class="literal">null</span>;</span><br><span class="line">        <span class="built_in">this</span>.mulExp2 = <span class="literal">null</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NodeAddExp</span><span class="params">(<span class="type">int</span> lineNum, NodeAddExp addExp, wordTuple operator, NodeMulExp mulExp2)</span> {</span><br><span class="line">        <span class="built_in">super</span>(lineNum);</span><br><span class="line">        <span class="built_in">this</span>.mulExp1 = <span class="literal">null</span>;</span><br><span class="line">        <span class="built_in">this</span>.addExp = addExp;</span><br><span class="line">        <span class="built_in">this</span>.operator = operator;</span><br><span class="line">        <span class="built_in">this</span>.mulExp2 = mulExp2;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    ......</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>对于文法<code>AddExp → MulExp | AddExp ('+' | '−') MulExp</code>，使用第一个构造方法的时候对应<code>AddExp → MulExp</code>，使用第二个构造方法的时候对应<code>AddExp → AddExp ('+' | '−') MulExp</code>，判断属于哪一种语法构造只需通过<code>getter()</code>判断特定子节点是否为<code>null</code>即可。</p>
+</li>
+<li><p>在<code>Parser</code>中采用递归下降完成整个语法分析的过程，由于给定的文法不算过于复杂，大部分<code>parse()</code>不需要回溯，根据<code>First(非终结符)</code>就能确定是何种语法成分:</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> NodeDecl <span class="title function_">parseDecl</span><span class="params">()</span> {  <span class="comment">//Decl → ConstDecl | VarDecl</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.isConstDecl()) {</span><br><span class="line">            <span class="type">NodeConstDecl</span> <span class="variable">constDecl</span> <span class="operator">=</span> <span class="built_in">this</span>.parseConstDecl();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">NodeDecl</span>(constDecl.getLineNum(), constDecl);</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            <span class="type">NodeVarDecl</span> <span class="variable">varDecl</span> <span class="operator">=</span> <span class="built_in">this</span>.parseVarDecl();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">NodeDecl</span>(varDecl.getLineNum(), varDecl);</span><br><span class="line">        }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>在解析<code>Stmt</code>的时候可能会遇到下面的情况，按照<code>LVal</code>和Exp解析都能成功解析出第一部分,这个时候需要回溯</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">//Exp <span class="string">';'</span>   LVal <span class="string">'='</span> Exp <span class="string">';'</span>    LVal <span class="string">'='</span> <span class="string">'getint'</span><span class="string">'('</span><span class="string">')'</span><span class="string">';'</span></span><br></pre></td></tr></table></figure></div>
+
+<p>按照<code>Exp</code>解析，若得到下一个符号是’=’则排除前一种情况，回溯，按照<code>LVal</code>解析。</p>
+</li>
+<li><p>所有语法成分解析完成后将会得到一颗完整的语法树，为之后的语义分析和代码生成做准备</p>
+</li>
+</ul>
+<h3 id="编码完成之后的修改-1"><a href="#编码完成之后的修改-1" class="headerlink" title="编码完成之后的修改"></a>编码完成之后的修改</h3><ul>
+<li><p>和设计时差别不大，但是需要新建几个继承<code>NodeStmt</code>的子节点，例如：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NodeStmtBr</span> <span class="keyword">extends</span> <span class="title class_">NodeStmt</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> wordTuple type;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NodeStmtBr</span><span class="params">(<span class="type">int</span> lineNum, wordTuple type)</span> {</span><br><span class="line">        <span class="built_in">super</span>(lineNum);</span><br><span class="line">        <span class="built_in">this</span>.type = type;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> wordTuple <span class="title function_">getType</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> type;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>表示<code>Stmt → 'break' ';' | 'continue' ';'</code>的情况，其他由<code>Stmt</code>推导的语法成分同理</p>
+</li>
+</ul>
+<h2 id="错误处理设计"><a href="#错误处理设计" class="headerlink" title="错误处理设计"></a>错误处理设计</h2><h3 id="编码前的设计-2"><a href="#编码前的设计-2" class="headerlink" title="编码前的设计"></a>编码前的设计</h3><ul>
+<li><p>a类错误在词法分析就可判断，当判断出字符串时，检查是否包含非法字符即可：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">......</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (c == <span class="string">'"'</span>) {                  <span class="comment">//形式化字符串</span></span><br><span class="line">            <span class="keyword">while</span> (curPos &lt; source.length() &amp;&amp; source.charAt(curPos) != <span class="string">'"'</span>) {</span><br><span class="line">                c = source.charAt(curPos++);</span><br><span class="line">                sb.append(c);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (curPos &lt; source.length() &amp;&amp; source.charAt(curPos) == <span class="string">'"'</span>) {</span><br><span class="line">                c = source.charAt(curPos++);</span><br><span class="line">                sb.append(c);</span><br><span class="line">            }</span><br><span class="line">            token = <span class="keyword">new</span> <span class="title class_">String</span>(sb);</span><br><span class="line">            type = LexType.STRCON;</span><br><span class="line">            value = <span class="keyword">new</span> <span class="title class_">String</span>(sb);</span><br><span class="line">    <span class="comment">/************************************************/</span></span><br><span class="line">            <span class="built_in">this</span>.legitimate = <span class="built_in">this</span>.checkErrorA();	<span class="comment">//此处判断</span></span><br><span class="line">    <span class="comment">/************************************************/</span></span><br><span class="line">}</span><br><span class="line">......</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>需要新建符号表处理<code>b-h</code>类错误，符号表的主要结构如下：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SymbolTable</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> fatherId;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Symbol symbol;    <span class="comment">//函数名，最外层函数的此值为null</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SymbolTable preTable;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ArrayList&lt;SymbolTable&gt; nextTables = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> HashMap&lt;String, Symbol&gt; varSets;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> HashMap&lt;String, Symbol&gt; funcSets;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>所有符号表存储在一个<code>ArrayList</code>中，<code>id</code>是符号表的索引，全局变量常量以及函数所在的符号表的<code>id</code>为0，<code>fatherId</code>是外层符号表的索引，<code>varSets</code>和<code>funcSets</code>存储当前作用域定义的变量和函数</p>
+</li>
+<li><p>在语法分析过程中定义和使用变量和函数(<code>ident</code>)之前查阅符号表即可判断<code>b,c</code>类错误：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">defNewVar</span><span class="params">(wordTuple ident, IdentType identType, <span class="type">boolean</span> isConst)</span> {</span><br><span class="line">        <span class="type">SymbolTable</span> <span class="variable">curTable</span> <span class="operator">=</span> <span class="built_in">this</span>.tables.get(<span class="built_in">this</span>.curIndex);</span><br><span class="line">        <span class="keyword">if</span> (curTable.containsVar(ident.getWordName()) || curTable.containsFunc(ident.getWordName())) {    </span><br><span class="line">            		<span class="comment">//重复定义，报错</span></span><br><span class="line">            <span class="built_in">this</span>.checkErrorB(ident.getWordLine());</span><br><span class="line">        } <span class="keyword">else</span> {    <span class="comment">//否则，填表</span></span><br><span class="line">            <span class="type">Symbol</span> <span class="variable">symbol</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Symbol</span>(<span class="built_in">this</span>.wordList.indexOf(ident), <span class="built_in">this</span>.curIndex, ident, identType, isConst);</span><br><span class="line">            curTable.addVar(ident.getWordName(), symbol);</span><br><span class="line">        }</span><br><span class="line">    }</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><code>d,e,f,g</code>类错误一边解析一边完成即可，对于函数符号，根据参数信息可以判断类型正确性和参数个数正确性，根据返回类型判断<code>return</code>的正确性</p>
+</li>
+<li><p>符号缺失的错误都可以像这样判断：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="built_in">this</span>.token.isSemi()) {</span><br><span class="line">                System.out.println(token.getLexType() + <span class="string">" "</span> + token.getWordName());</span><br><span class="line">                <span class="built_in">this</span>.next();</span><br><span class="line"> } <span class="keyword">else</span> {    <span class="comment">//分号缺失</span></span><br><span class="line">                <span class="built_in">this</span>.checkErrorI(lineNum);</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>在进入循环体时，传入参数表示当前处于循环中，即可判断<code>m</code>类错误</p>
+</li>
+</ul>
+<h3 id="编码完成之后的修改-2"><a href="#编码完成之后的修改-2" class="headerlink" title="编码完成之后的修改"></a>编码完成之后的修改</h3><ul>
+<li><p>在考虑重定义时既要考虑变量重定义也要考虑函数重定义，例如下面的例子是非法的：</p>
+<div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> fff = <span class="number">5</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">fff</span><span class="params">()</span> {</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>所以必须检查两个<code>HashMap</code>：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (curTable.containsVar(ident.getWordName()) || curTable.containsFunc(ident.getWordName())) {   </span><br><span class="line">    		<span class="comment">//重复定义，报错</span></span><br><span class="line">            <span class="built_in">this</span>.checkErrorB(ident.getWordLine());</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>之前只对同类型进行检查，忽略了其他函数和变量不同类型的重定义</p>
+</li>
+</ul>
+<h2 id="代码生成设计"><a href="#代码生成设计" class="headerlink" title="代码生成设计"></a>代码生成设计</h2><h3 id="编码前的设计-3"><a href="#编码前的设计-3" class="headerlink" title="编码前的设计"></a>编码前的设计</h3><h4 id="中间代码生成IRTools-llvm"><a href="#中间代码生成IRTools-llvm" class="headerlink" title="中间代码生成IRTools_llvm"></a>中间代码生成<code>IRTools_llvm</code></h4><ul>
+<li><p><code>Type</code>:<code>Value</code>的各种类型，拿数组类型举例：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TypeArray</span> <span class="keyword">extends</span> <span class="title class_">Type</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> numOfElement;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Type typeOfElement;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TypeArray</span><span class="params">(<span class="type">int</span> numOfElement, Type typeOfElement)</span> {    </span><br><span class="line">        <span class="comment">//numOfElement-&gt;数组一维空间的size，即多少个元素, typeOfElement-&gt;每一个元素的type（应相同）</span></span><br><span class="line">        <span class="built_in">this</span>.numOfElement = numOfElement;</span><br><span class="line">        <span class="built_in">this</span>.typeOfElement = typeOfElement;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getNumOfElement</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.numOfElement;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Type <span class="title function_">getTypeOfElement</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.typeOfElement;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getSpace</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.numOfElement * <span class="built_in">this</span>.typeOfElement.getSpace();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"["</span> + <span class="built_in">this</span>.numOfElement + <span class="string">" x "</span> + <span class="built_in">this</span>.typeOfElement.toString() + <span class="string">"]"</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>它可以指示这个数组Value的维数（如果是二维，那么<code>typeOfElement</code>也是’<code>TypeArray</code>‘类型的，除此之外还重写<code>toString()</code>方法，方便输出指令</p>
+</li>
+<li><p><code>Value</code>:万物皆Value，不论是顶层的<code>LLVM_Module</code>，还是基本块<code>BasicBlock</code>，还是函数<code>Function</code>都是<code>Value</code>，因此让他们全部继承抽象类<code>Value.java</code>，而<code>User</code>一般指指令，但同时指令也是一种<code>Value</code>，因此它也要继承<code>Value</code>，<code>Value</code>和<code>User</code>类似于一条边的两个节点，关系通过<code>Use</code>维护：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> <span class="keyword">extends</span> <span class="title class_">Value</span> {</span><br><span class="line">    <span class="keyword">protected</span> ArrayList&lt;Value&gt; operands = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">User</span><span class="params">(String name, Type type, Value parent)</span> {</span><br><span class="line">        <span class="built_in">super</span>(name, type, parent);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addValue</span><span class="params">(Value value)</span> {</span><br><span class="line">        <span class="built_in">this</span>.operands.add(value);</span><br><span class="line">        <span class="type">Use</span> <span class="variable">use</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Use</span>(<span class="built_in">this</span>, value, operands.indexOf(value));</span><br><span class="line">        value.addUse(use);</span><br><span class="line">    }</span><br><span class="line">    ......</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>以<code>BasicBlock</code>为例：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BasicBlock</span> <span class="keyword">extends</span> <span class="title class_">Value</span> <span class="keyword">implements</span> <span class="title class_">Comparable</span>&lt;BasicBlock&gt; {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ArrayList&lt;Instruction&gt; instructions = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BasicBlock</span><span class="params">(String name, Value parent)</span> {</span><br><span class="line">        <span class="built_in">super</span>(name, <span class="keyword">new</span> <span class="title class_">TypeLabel</span>(), parent);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addInstruction</span><span class="params">(Instruction instruction)</span> {</span><br><span class="line">        <span class="built_in">this</span>.instructions.add(instruction);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ArrayList&lt;Instruction&gt; <span class="title function_">getInstructions</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.instructions;</span><br><span class="line">    }</span><br><span class="line">    ......</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>以二进制运算And指令为例：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BinAnd</span> <span class="keyword">extends</span> <span class="title class_">InstructonOfBinary</span> {</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BinAnd</span><span class="params">(String name, Value v1, Value v2, BasicBlock parent)</span> {</span><br><span class="line">        <span class="built_in">super</span>(name, <span class="keyword">new</span> <span class="title class_">TypeInt</span>(<span class="number">32</span>), parent);</span><br><span class="line">        <span class="built_in">this</span>.addValue(v1);</span><br><span class="line">        <span class="built_in">this</span>.addValue(v2);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.getName() +</span><br><span class="line">                <span class="string">" = and "</span> +</span><br><span class="line">                <span class="built_in">this</span>.getType() +</span><br><span class="line">                <span class="string">" "</span> +</span><br><span class="line">                <span class="built_in">this</span>.getValue(<span class="number">0</span>).getName() +</span><br><span class="line">                <span class="string">", "</span>  +</span><br><span class="line">                <span class="built_in">this</span>.getValue(<span class="number">1</span>).getName();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><code>Visitor</code>接收语法分析得到的语法树根节点<code>(NodeCompUnit) compUnit</code>，向下递归进行语义分析，举例：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">visitNodeDecl</span><span class="params">(NodeDecl decl)</span> {                         <span class="comment">//声明 Decl → ConstDecl | VarDecl</span></span><br><span class="line">        <span class="type">NodeConstDecl</span> <span class="variable">constDecl</span> <span class="operator">=</span> decl.getConstDecl();</span><br><span class="line">        <span class="type">NodeVarDecl</span> <span class="variable">varDecl</span> <span class="operator">=</span> decl.getVarDecl();</span><br><span class="line">        <span class="keyword">if</span> (varDecl == <span class="literal">null</span>) {</span><br><span class="line">            <span class="built_in">this</span>.visitConstDecl(constDecl);</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            <span class="built_in">this</span>.visitNodeVarDecl(varDecl);</span><br><span class="line">        }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>分析过程中，借用全局变量curVal和curInt等值传递属性，生成LLVM指令：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">visitNodeConstDef</span><span class="params">(NodeConstDef constDef)</span> {             </span><br><span class="line">    	<span class="comment">//常数定义 ConstDef → Ident { '[' ConstExp ']' } '=' ConstInitVal</span></span><br><span class="line">        <span class="type">wordTuple</span> <span class="variable">ident</span> <span class="operator">=</span> constDef.getIdent();</span><br><span class="line">        ArrayList&lt;NodeConstExp&gt; constExps = constDef.getConstExps();</span><br><span class="line">        <span class="type">NodeConstInitVal</span> <span class="variable">constInitVal</span> <span class="operator">=</span> constDef.getConstInitVal();</span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> ident.getWordName();</span><br><span class="line">        <span class="keyword">if</span> (constExps.isEmpty()) {          <span class="comment">//0维数组（常数）</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">this</span>.symbolIndex == <span class="number">0</span>) {    <span class="comment">//全局</span></span><br><span class="line">                <span class="built_in">this</span>.isInit = <span class="literal">true</span>;</span><br><span class="line">                <span class="built_in">this</span>.visitNodeConstInitVal(constInitVal);</span><br><span class="line">                <span class="built_in">this</span>.isInit = <span class="literal">false</span>;</span><br><span class="line">                <span class="type">GlobalVar</span> <span class="variable">globalVar</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GlobalVar</span>(name, <span class="literal">true</span>, (Const) <span class="built_in">this</span>.curVal);</span><br><span class="line">                <span class="built_in">this</span>.storeVal(name, globalVar);</span><br><span class="line">                Module.getInstance().addGlobalVar(globalVar);</span><br><span class="line">            }</span><br><span class="line">            ......</span><br><span class="line">        }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>短路求值，对形如<code>if (A || B) {...} else {...}</code> 的语句当A为真时不能执行B而是直接跳转到A的语句块，因此 设置两个全局块<code>curIfBlock</code>和<code>cueElseBlock</code>，在递归向下解析时传递参数<code>flag</code>指示是否需要更改<code>cueElseBlock</code>的值，如果当前在解析A则需要更改<code>curElseBlock</code>为新建的基本块（描述B），如果当前在解析B则无需修改<code>cueElseBlock</code>:</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.visitNodeLOrExp(nodelOrExp, <span class="literal">false</span>);</span><br><span class="line"><span class="keyword">if</span> (flag) {</span><br><span class="line">	<span class="built_in">this</span>.visitNodeLAndExp(lAndExp2, <span class="literal">true</span>);</span><br><span class="line">} <span class="keyword">else</span> {</span><br><span class="line">	<span class="type">BasicBlock</span> <span class="variable">nextBlock</span> <span class="operator">=</span> IRBuildFactory.buildBasicBlock(<span class="built_in">this</span>.curFunction);</span><br><span class="line">	<span class="built_in">this</span>.curElseBlock = nextBlock;</span><br><span class="line">	<span class="built_in">this</span>.visitNodeLAndExp(lAndExp2, <span class="literal">true</span>);</span><br><span class="line">	<span class="built_in">this</span>.curBasicBlock = nextBlock;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><code>isCruit</code>指示是否为表达式，如果是，则需要通过<code>Icmp</code>指令将表达式转化为值：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">this</span>.isCruit) {</span><br><span class="line">    ......</span><br><span class="line">	<span class="built_in">this</span>.curVal = </span><br><span class="line">        IRBuildFactory.buildBinIcmp(BinIcmpType.NE, <span class="built_in">this</span>.curVal, <span class="keyword">new</span> <span class="title class_">ConstInt</span>(<span class="number">32</span>, <span class="number">0</span>), <span class="built_in">this</span>.curBasicBlock);</span><br><span class="line">	<span class="built_in">this</span>.isCruit = <span class="literal">false</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h4 id="目标代码生成MIPSTools"><a href="#目标代码生成MIPSTools" class="headerlink" title="目标代码生成MIPSTools"></a>目标代码生成<code>MIPSTools</code></h4><ul>
+<li><p><code>Atom</code>：指令的原子组成部分，包括寄存器，立即数还有跳转指令用到的标签，以寄存器为例：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Reg</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> id;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Reg</span><span class="params">(<span class="type">int</span> id)</span> {</span><br><span class="line">        <span class="built_in">this</span>.id = id;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.id == <span class="number">0</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$zero"</span>;</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id == <span class="number">1</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$at"</span>;</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id &gt;= <span class="number">2</span> &amp;&amp; <span class="built_in">this</span>.id &lt;= <span class="number">3</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$v"</span> + (<span class="built_in">this</span>.id - <span class="number">2</span>);</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id &gt;= <span class="number">4</span> &amp;&amp; <span class="built_in">this</span>.id &lt;= <span class="number">7</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$a"</span> + (<span class="built_in">this</span>.id - <span class="number">4</span>);</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id &gt;= <span class="number">8</span> &amp;&amp; <span class="built_in">this</span>.id &lt;= <span class="number">15</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$t"</span> + (<span class="built_in">this</span>.id - <span class="number">8</span>);</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id &gt;=<span class="number">16</span> &amp;&amp; <span class="built_in">this</span>.id &lt;= <span class="number">23</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$s"</span> + (<span class="built_in">this</span>.id - <span class="number">16</span>);</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id &gt;= <span class="number">24</span> &amp;&amp; <span class="built_in">this</span>.id &lt;= <span class="number">25</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$t"</span> + (<span class="built_in">this</span>.id - <span class="number">24</span> + <span class="number">8</span>);</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id == <span class="number">28</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$gp"</span>;</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id == <span class="number">29</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$sp"</span>;</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id == <span class="number">30</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$fp"</span>;</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.id == <span class="number">31</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$ra"</span>;</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">this</span>.toString();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"$"</span> + <span class="built_in">this</span>.id;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>只提供了返回寄存器名字的方法</p>
+</li>
+<li><p><code>MipsInstructions</code>：各种<code>MIPS</code>指令的抽象类，包括二进制运算指令，跳转指令，存取指令以及其他简化指令等:</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BinaryPure</span> <span class="keyword">extends</span> <span class="title class_">MIPSInstruction</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> BinaryPureType opType;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Reg rd;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Reg rs;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Reg rt;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BinaryPure</span><span class="params">(BinaryPureType opType, Reg rd, Reg rs, Reg rt)</span> {</span><br><span class="line">        <span class="built_in">this</span>.opType = opType;</span><br><span class="line">        <span class="built_in">this</span>.rd = rd;</span><br><span class="line">        <span class="built_in">this</span>.rs = rs;</span><br><span class="line">        <span class="built_in">this</span>.rt = rt;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> opType.toString() + <span class="string">" "</span> + rd.getName() + <span class="string">", "</span> + rs.getName() + <span class="string">", "</span> + rt.getName();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">BinaryPureType</span> {</span><br><span class="line">    addu,</span><br><span class="line">    subu,</span><br><span class="line">    and,</span><br><span class="line">    or;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.toString();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><code>Tools</code>完成对MIPS代码的抽象化，包括模块<code>Module</code>，全局变量<code>GlobalVar</code>，代码块<code>Block</code>以及函数<code>Function</code>:</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MIPSBlock</span> {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String blockName;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> BasicBlock basicBlock;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> MIPSFunction mipsFunction;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ArrayList&lt;MIPSInstruction&gt; Instructions = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MIPSBlock</span><span class="params">(String blockName, BasicBlock basicBlock, MIPSFunction mipsFunction)</span> {</span><br><span class="line">        <span class="built_in">this</span>.blockName = blockName;</span><br><span class="line">        <span class="built_in">this</span>.basicBlock = basicBlock;</span><br><span class="line">        <span class="built_in">this</span>.mipsFunction = mipsFunction;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addInstruction</span><span class="params">(MIPSInstruction instruction)</span> {</span><br><span class="line">        <span class="built_in">this</span>.Instructions.add(instruction);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getBlockName</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.blockName;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> BasicBlock <span class="title function_">getBasicBlock</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.basicBlock;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> MIPSFunction <span class="title function_">getParentMipsFunction</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.mipsFunction;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>使用<code>LLVMParser</code>解析得到的<code>LLVMModule</code>，全局变量可以直接存入<code>Module</code>然后输出即可，对于函数需要分析每一条指令，根据每一条指令属于LLVM指令的类型进行生成：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (instruction <span class="keyword">instanceof</span> MemAlloca) {</span><br><span class="line">	......      </span><br><span class="line">} <span class="keyword">else</span> <span class="keyword">if</span> (instruction <span class="keyword">instanceof</span> MemGetelementptr) {</span><br><span class="line">	......</span><br><span class="line">}</span><br><span class="line">	......</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h3 id="编码完成之后的修改-3"><a href="#编码完成之后的修改-3" class="headerlink" title="编码完成之后的修改"></a>编码完成之后的修改</h3><ul>
+<li>增加<code>ZextTo</code>指令，如果不定义这条指令，生成的<code>llvm</code>中间代码会有问题，<code>i32</code>类型和<code>i1</code>类型不能通过<code>icmp</code>指令进行比较，因此在语义分析过程中处理<code>icmp</code>指令之前对<code>curVal</code>的<code>Type</code>进行判断</li>
+</ul>
+<h2 id="代码优化设计"><a href="#代码优化设计" class="headerlink" title="代码优化设计"></a>代码优化设计</h2><h3 id="编码前的设计-4"><a href="#编码前的设计-4" class="headerlink" title="编码前的设计"></a>编码前的设计</h3><h4 id="中端优化"><a href="#中端优化" class="headerlink" title="中端优化"></a>中端优化</h4><ul>
+<li>删除无用函数，遍历<code>LLVM_Module</code>的所有函数，判断每一个函数的<code>userList</code>是否为空，（主要是<code>br</code>指令），若为空则删除并维护use-value的基本关系，遍历剩下的函数直到函数集合不发生变化</li>
+<li>删除无用基本快，不可到达的基本块应该删除，并维护use-value的基本关系</li>
+<li>合并基本块，从一个没有后继的基本块开始遍历，递归查找能到达这个的唯一基本块（如果不唯一应该停止查找）</li>
+<li>删除死代码</li>
+</ul>
+<h4 id="后端优化"><a href="#后端优化" class="headerlink" title="后端优化"></a>后端优化</h4><ul>
+<li>乘除优化，乘法判端常数是否是2的整数次幂，转化为移位指令，除法将除法指令转化为乘法指令和移位指令</li>
+<li>基本块合并</li>
+</ul>
+<h3 id="编码完成之后的修改-4"><a href="#编码完成之后的修改-4" class="headerlink" title="编码完成之后的修改"></a>编码完成之后的修改</h3><p>删除函数的时候要对函数的每个基本快的每个指令进行use-value的维护</p>
 ]]></content>
       <categories>
         <category>computer science</category>
       </categories>
       <tags>
-        <tag>software engineering</tag>
+        <tag>Java</tag>
+        <tag>compile technology</tag>
       </tags>
   </entry>
   <entry>
@@ -2896,6 +2828,74 @@
 </ol>
 </li>
 </ol>
+]]></content>
+      <categories>
+        <category>computer science</category>
+      </categories>
+      <tags>
+        <tag>software engineering</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Reading and Questions about The Building Method of Modern Software Engineering</title>
+    <url>/2024/03/08/7Reading%20and%20Questions%20about%20The%20Building%20Method%20Modern%20Software%20Engineering/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="left">项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">这个作业属于哪个课程</td>
+<td><a class="link" href="https://bbs.csdn.net/forums/buaa-ase2024">2024年北航敏捷软件工程 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></td>
+</tr>
+<tr>
+<td align="left">这个作业的要求在哪里</td>
+<td><a class="link" href="https://bbs.csdn.net/topics/618159304">个人作业：阅读和提问 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></td>
+</tr>
+<tr>
+<td align="left">我在这个课程的目标是</td>
+<td>学习并实践软件工程，提升自己的工程能力和团队协作能力</td>
+</tr>
+<tr>
+<td align="left">这个作业在哪个具体方面帮助我实现目标</td>
+<td>培养自己的思考能力，去形成自己分析问题、解决问题的思路</td>
+</tr>
+</tbody></table>
+<h4 id="阅读提问"><a href="#阅读提问" class="headerlink" title="阅读提问"></a>阅读提问</h4><h5 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h5><blockquote>
+<p>向进度落后的项目中增加人员，会让项目更加落后。	–《人月神话》</p>
+</blockquote>
+<p>我在书中第1.2.3节，第15页上方看到了这句话。在网上查找资料后我了解到，增加人员仍会使项目更加落后的原因是：</p>
+<ul>
+<li><strong>“关键时间”的浪费</strong>：新人对项目不了解，所以项目组需要抽调人员培训新人，这样不仅新人自己帮不上忙，还要浪费浪费项目组成员的关键时间</li>
+<li><strong>“沟通时间”的增加</strong>：新加的人员需要增加额外的沟通来消除彼此之间对项目的不同认识，<strong>一个团队内部的沟通方式总数=n*(n-1)/2</strong></li>
+<li><strong>“等待时间”的消耗</strong>：在实际项目中，总项目已经细分为分项目（一个人的工作量），分项目往往具有先后顺序，所以新加进来的人发挥不了作用，造成了等待时间的消耗</li>
+</ul>
+<p>我的问题是 如果现实中互联网企业发生了项目进度落后的情况（通常由于一些成员个人的原因），团队leader应该在不增加人员的情况下采取什么措施保证项目进度呢，这些措施是否有效呢？</p>
+<h5 id="问题2"><a href="#问题2" class="headerlink" title="问题2"></a>问题2</h5><blockquote>
+<p>结对编程中有两个角色：</p>
+<ol>
+<li>驾驶员（Driver）：控制键盘输入</li>
+<li>领航员（Navigator）：起到领航、提醒的作用</li>
+</ol>
+<p>这两个角色是可以互换的……</p>
+</blockquote>
+<p>我在书中4.5.1节，第79页上方看到了这一段话。我了解到在越野赛车中，驾驶员和领航员的身份往往不轻易互换，因为驾驶员的驾驶技术往往更胜一筹，而领航员的领航技术往往也是更强的。但是在实际的结对编程中，两人是不断变化角色的，因为结对编程是一个相互磨合的渐进过程，不论谁的资历等级更高抑或是设计编程的能力更强，双方都拥有平等的决策权力，所以这样的比喻（越野赛车的驾驶和领航员）我认为不妥当。</p>
+<h5 id="问题3"><a href="#问题3" class="headerlink" title="问题3"></a>问题3</h5><blockquote>
+<p>1969年代，程序员Melvin Conway就总结了一个康威规律：</p>
+<p>一个机构设计出来的系统，它的体系结构注定会沿用这个机构的内部交流模式。</p>
+</blockquote>
+<p>我在书中第5.2.10节，第95页上方看到了这一段话。这句话大概意思是说组织内部的工作和交流方式，会极大地影响系统的设计。但是这会带来一个问题，团队模式不会轻易改变，但是系统的架构或者模式可能会随着时间推移不断优化和完善，这样一来可能导致组织架构和系统架构的失配，从这个角度来看这个规律变得不正确了，这是否是一种悖论或者”陷阱“？</p>
+<h5 id="问题4"><a href="#问题4" class="headerlink" title="问题4"></a>问题4</h5><blockquote>
+<p>团队成员往往各抒己见，争执地不亦乐乎，但是最后谁也说服不了谁，还有一些人觉得无从下手，干脆不参加讨论。在这种情况下，可以考虑通过Wideband Delphi方法来做到快速沟通并达到意见的一致。</p>
+</blockquote>
+<p>我在书中8.6.2节，第171页上方看到这一段话。这一方法反映了生活中遇到的团队意见不一致的问题，并在后面给出了解决方法。我的问题是，Wideband Delphi方法确实一定程度上统一了所有人意见，但这些意见是否大概率是主持人自己的意见呢？作为一个moderator，他在主持讨论的时候会慢慢地说服我们他自己的意见，所以我对此抱有疑问，如果使用这个方法最终统一的意见大部分取决于主持人，就达不到讨论和统一意见的意义了。除此之外，我认为某些情况下人与人之间理解的差异还是很大的，这种情况该如何达到共识呢，或者如何界定共识的标准？</p>
+<h5 id="问题5"><a href="#问题5" class="headerlink" title="问题5"></a>问题5</h5><blockquote>
+<p>原则2</p>
+<p>软件工程师应以其客户和雇主利益最大化的方式做事，与公众利益保持一致。</p>
+</blockquote>
+<p>我在书中17.8节，第407页看到了这段话。这一部分主要在讲软件工程师的职业道德，我的疑问是某些情况下雇主和客户的利益可能与公众利益冲突，比如用户隐私相关的事务。在这种情况下，要如何平衡各方利益呢？</p>
 ]]></content>
       <categories>
         <category>computer science</category>
