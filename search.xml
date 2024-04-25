@@ -2904,4 +2904,106 @@
         <tag>software engineering</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Pytorch notes</title>
+    <url>/2024/04/25/9Pytorch%20notes/</url>
+    <content><![CDATA[<h2 id="用PyTorch实现MNIST手写数字识别"><a href="#用PyTorch实现MNIST手写数字识别" class="headerlink" title="用PyTorch实现MNIST手写数字识别"></a>用PyTorch实现MNIST手写数字识别</h2><blockquote>
+<p>PyTorch is an optimized tensor library for deep learning using GPUs and CPUs.</p>
+</blockquote>
+<h4 id="导入模块"><a href="#导入模块" class="headerlink" title="导入模块"></a>导入模块</h4><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 导入PyTorch库</span></span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="comment"># torchvision是PyTorch的一个子模块，提供了一些常用的数据集、模型架构和图像转换工具</span></span><br><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"><span class="comment"># 导入DataLoader类，用于加载数据集并生成批次数据</span></span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line"><span class="comment"># 导入PyTorch的神经网络模块(neural network)，其中包含了构建神经网络所需的各种层和功能</span></span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="comment"># 导入PyTorch的函数模块，其中包含了一些常用的神经网络操作函数，如激活函数、损失函数等</span></span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"><span class="comment"># 导入PyTorch的优化器模块，用于配置和执行优化算法来更新神经网络的参数</span></span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"><span class="comment"># 导入matplotlib库的pyplot模块，用于绘制图表</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h4 id="参数设置"><a href="#参数设置" class="headerlink" title="参数设置"></a>参数设置</h4><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 遍历整个训练数据集的次数</span></span><br><span class="line">n_epochs = <span class="number">3</span></span><br><span class="line"><span class="comment"># 训练时每个批次的样本数</span></span><br><span class="line">batch_size_train = <span class="number">64</span></span><br><span class="line"><span class="comment"># 测试时每个批次的样本数</span></span><br><span class="line">batch_size_test = <span class="number">1000</span></span><br><span class="line"><span class="comment"># 学习率，是优化器在更新参数时使用的步长</span></span><br><span class="line">learning_rate = <span class="number">0.01</span></span><br><span class="line"><span class="comment"># 动量参数，用于优化器的动量更新</span></span><br><span class="line">momentum = <span class="number">0.5</span></span><br><span class="line"><span class="comment"># 每隔多少个批次打印一次训练日志</span></span><br><span class="line">log_interval = <span class="number">10</span></span><br><span class="line"><span class="comment"># 定义和设置随机种子</span></span><br><span class="line">random_seed = <span class="number">1</span></span><br><span class="line">torch.manual_seed(random_seed)</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>learning_rate</code>：学习率，是优化算法中的一个关键超参数，它决定了模型参数在每次迭代中更新的幅度大小。学习率越大，参数更新的步长就越大，模型可能更快地收敛到局部最优解，但也可能导致不稳定性或者错过全局最优解；学习率越小，参数更新的步长就越小，模型收敛速度可能较慢，但可能更容易得到更精确的结果</li>
+<li><code>momentum</code>：在优化算法中，动量参数指定了每次参数更新时，上一步更新的动量对当前更新的影响程度。0.5意思是在每次参数更新时，当前梯度的贡献占50%，而上一步更新的动量占50%</li>
+<li><code>torch.manual_seed(random_seed)</code>设置随机种子，可以使得每次程序运行时生成的随机数序列是一致的，从而使得程序的运行结果可复现。每次运行时都会得到相同的结果，而不会受到随机性的影响，这对于调试和结果验证非常有用</li>
+</ul>
+<h4 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h4><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">train_loader = torch.utils.data.DataLoader(</span><br><span class="line">    torchvision.datasets.MNIST(<span class="string">'./data/'</span>, train=<span class="literal">True</span>, download=<span class="literal">True</span>,</span><br><span class="line">                               transform=torchvision.transforms.Compose([</span><br><span class="line">                                   torchvision.transforms.ToTensor(),</span><br><span class="line">                                   torchvision.transforms.Normalize(</span><br><span class="line">                                       (<span class="number">0.1307</span>,), (<span class="number">0.3081</span>,))</span><br><span class="line">                               ])),</span><br><span class="line">    batch_size=batch_size_train, shuffle=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">test_loader = torch.utils.data.DataLoader(</span><br><span class="line">    torchvision.datasets.MNIST(<span class="string">'./data/'</span>, train=<span class="literal">False</span>, download=<span class="literal">True</span>,</span><br><span class="line">                               transform=torchvision.transforms.Compose([</span><br><span class="line">                                   torchvision.transforms.ToTensor(),</span><br><span class="line">                                   torchvision.transforms.Normalize(</span><br><span class="line">                                       (<span class="number">0.1307</span>,), (<span class="number">0.3081</span>,))</span><br><span class="line">                               ])),</span><br><span class="line">    batch_size=batch_size_test, shuffle=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p><code>download</code>：为<code>True</code>表示如果数据集不存在，则从网络下载</p>
+</li>
+<li><p><code>transform=...</code>定义了一系列的数据转换操作，并将它们组合成一个转换管道（transformation pipeline），以便对图像数据进行预处理和标准化：</p>
+<ul>
+<li><code>torchvision.transforms.ToTensor()</code>：图像数据转换为PyTorch张量（tensor），同时将像素值缩放到 [0, 1] 的范围内</li>
+<li><code>torchvision.transforms.Normalize((0.1307,), (0.3081,))</code>：对图像数据进行标准化，即将每个通道的像素值减去均值（0.1307）并除以标准差（0.3081），以使得图像数据的分布接近标准正态分布</li>
+</ul>
+</li>
+<li><p><code>shuffle</code>：为<code>True</code>表示打乱数据</p>
+</li>
+</ul>
+<h5 id="观察测试数据"><a href="#观察测试数据" class="headerlink" title="观察测试数据"></a>观察测试数据</h5><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">examples = <span class="built_in">enumerate</span>(test_loader)</span><br><span class="line">batch_idx, (example_data, example_targets) = <span class="built_in">next</span>(examples)</span><br><span class="line"><span class="built_in">print</span>(example_targets)</span><br><span class="line"><span class="built_in">print</span>(example_data.shape)</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">// 图片实际对应的数字标签</span><br><span class="line">tensor([3, 9, 4, 9, 9, 0, 8, 3, 1, 2, 3, 9, 1, 3, 6, 6, 4, 4, 9, 7, 3, 7, 6, 3,</span><br><span class="line">         ......</span><br><span class="line">        5, 7, 2, 0, 0, 2, 3, 1, 1, 5, 8, 5, 3, 9, 7, 6])</span><br><span class="line">// 一批测试数据是一个形状张量，是1000个例子的28x28像素的灰度</span><br><span class="line">torch.Size([1000, 1, 28, 28])</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h4 id="构建网络"><a href="#构建网络" class="headerlink" title="构建网络"></a>构建网络</h4><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Net</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>(Net, self).__init__()</span><br><span class="line">        self.conv1 = nn.Conv2d(<span class="number">1</span>, <span class="number">10</span>, kernel_size=<span class="number">5</span>)</span><br><span class="line">        self.conv2 = nn.Conv2d(<span class="number">10</span>, <span class="number">20</span>, kernel_size=<span class="number">5</span>)</span><br><span class="line">        self.conv2_drop = nn.Dropout2d()</span><br><span class="line">        self.fc1 = nn.Linear(<span class="number">320</span>, <span class="number">50</span>)</span><br><span class="line">        self.fc2 = nn.Linear(<span class="number">50</span>, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        x = F.relu(F.max_pool2d(self.conv1(x), <span class="number">2</span>))</span><br><span class="line">        x = F.relu(F.max_pool2d(self.conv2_drop(self.conv2(x)), <span class="number">2</span>))</span><br><span class="line">        x = x.view(-<span class="number">1</span>, <span class="number">320</span>)</span><br><span class="line">        x = F.relu(self.fc1(x))</span><br><span class="line">        x = F.dropout(x, training=self.training)</span><br><span class="line">        x = self.fc2(x)</span><br><span class="line">        <span class="keyword">return</span> F.log_softmax(x, dim=<span class="number">1</span>)</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>self.conv1 = nn.Conv2d(1, 10, kernel_size=5)</code>表示第一个卷积层，输入通道为1（灰度图像），输出通道为10，卷积核大小为5x5</li>
+<li><code>self.conv2_drop = nn.Dropout2d()</code>表示二维的dropout层，用于在训练过程中随机地将输入张量的部分元素设置为0，以减少过拟合</li>
+<li><code>self.fc1 = nn.Linear(320, 50)</code>：全连接层1，输入大小为320，输出大小为50</li>
+<li><code>forward(self, x)</code>：神经网络的前向传播函数，用于定义输入数据在网络中的流动和计算过程<ul>
+<li><code>F.relu(F.max_pool2d(self.conv1(x), 2))</code>：将输入 <code>x</code> 传入第一个卷积层 <code>self.conv1</code> 中进行卷积操作，然后应用 ReLU 激活函数，并通过最大池化操作缩小特征图的尺寸</li>
+<li><code>x = x.view(-1, 320)</code>: 将特征图展平为一维向量，以便输入到全连接层 <code>self.fc1</code>，-1 表示将剩余维度自动调整为使得展平后的大小为320</li>
+<li><code>x = F.relu(self.fc1(x))</code>：将展平后的特征向量<code>x</code>传入全连接层<code>self.fc1</code>中，并应用<code>ReLU</code>激活函数，将卷积层提取的特征映射到一个较低维度的空间</li>
+<li><code>x = F.dropout(x, training=self.training)</code>应用 dropout 操作，随机地将部分神经元的输出设置为0，以减少过拟合。<code>training=self.training</code>参数表示只在训练模式下应用 dropout，而在测试模式下不应用</li>
+<li><code>x = self.fc2(x)</code>将经过 dropout 操作的特征向量 <code>x</code> 传入全连接层 <code>self.fc2</code> 中，得到最终的分类结果</li>
+<li><code>return F.log_softmax(x, dim=1)</code>对全连接层 <code>self.fc2</code> 的输出进行 <code>log_softmax</code> 操作，以得到预测的类别概率分布</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>最大池化</strong>是一种常用的池化操作，用于在卷积神经网络中对特征图进行下采样。它的作用是通过保留特征图中每个区域的最大值来减小特征图的空间大小，从而减少计算量并提取最显著的特征。</p>
+<p>池化层每次在一个池化窗口上计算输出，然后根据步幅移动池化窗口。下图是目前最常用的池化层，步幅为2，池化窗口为2×2的二维最大池化层。每隔2个元素从图像划分出2×2的区块，然后对每个区块中的4个数取最大值。这将会减少75%的数据量。</p>
+</blockquote>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 初始化网络和优化器</span></span><br><span class="line">network = Net()</span><br><span class="line">optimizer = optim.SGD(network.parameters(), lr=learning_rate, momentum=momentum)</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h4><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">train_losses = []</span><br><span class="line">train_counter = []</span><br><span class="line">test_losses = []</span><br><span class="line">test_counter = [i * <span class="built_in">len</span>(train_loader.dataset) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n_epochs + <span class="number">1</span>)]</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>train_losses</code>：记录训练过程中的损失值</li>
+<li><code>train_counter</code>：用于记录训练过程中的批次数</li>
+<li><code>test_losses</code>：用于记录测试过程中的损失值</li>
+<li><code>test_counter</code>：在训练了 0、1、2、…、n_epochs 个 epoch 后进行测试的样本数</li>
+</ul>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">epoch</span>):</span><br><span class="line">    network.train()</span><br><span class="line">    <span class="keyword">for</span> batch_idx, (data, target) <span class="keyword">in</span> <span class="built_in">enumerate</span>(train_loader):</span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line">        output = network(data)</span><br><span class="line">        loss = F.nll_loss(output, target)</span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step()</span><br><span class="line">        <span class="keyword">if</span> batch_idx % log_interval == <span class="number">0</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">'Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'</span></span><br><span class="line">                  .<span class="built_in">format</span>(epoch, batch_idx * <span class="built_in">len</span>(data),<span class="built_in">len</span>(train_loader.dataset), </span><br><span class="line">                          <span class="number">100.</span> * batch_idx / <span class="built_in">len</span>(train_loader),loss.item()))</span><br><span class="line">            train_losses.append(loss.item())</span><br><span class="line">            train_counter.append((batch_idx * <span class="number">64</span>) + ((epoch - <span class="number">1</span>) * <span class="built_in">len</span>(train_loader.dataset)))</span><br><span class="line">            torch.save(network.state_dict(), <span class="string">'./model.pth'</span>)</span><br><span class="line">            torch.save(optimizer.state_dict(), <span class="string">'./optimizer.pth'</span>)</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>network.train()</code>: 将神经网络模型设置为训练模式</li>
+<li><code>optimizer.zero_grad()</code>: 清零优化器的梯度缓存。每次迭代中，梯度都会累积，所以在每个批次开始时需要将梯度清零</li>
+<li><code>loss = F.nll_loss(output, target)</code>：计算模型预测结果 <code>output</code> 与真实标签 <code>target</code> 之间的损失。在这里，采用的损失函数是负对数似然损失<code>(Negative Log Likelihood，NLL)</code>。这个损失函数通常用于多类别分类任务，并且在模型最后一层没有应用 softmax 激活函数的情况下使用</li>
+<li><code>loss.backward()</code>：反向传播损失，计算参数的梯度。这一步将计算出损失函数对网络中所有参数的梯度</li>
+<li><code>optimizer.step()</code>：根据计算出的梯度更新模型的参数。这一步是优化器的核心步骤，它会根据梯度更新模型参数，使得损失函数尽可能减小</li>
+<li><code>train_losses.append(loss.item())</code>：将当前批次的损失值记录到 <code>train_losses</code> 列表中</li>
+<li><code>(batch_idx * 64) + ((epoch - 1) * len(train_loader.dataset))</code>记录当前批次的索引，这个索引表示当前已经处理的样本数</li>
+</ul>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>():</span><br><span class="line">    network.<span class="built_in">eval</span>()</span><br><span class="line">    test_loss = <span class="number">0</span></span><br><span class="line">    correct = <span class="number">0</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        <span class="keyword">for</span> data, target <span class="keyword">in</span> test_loader:</span><br><span class="line">            output = network(data)</span><br><span class="line">            test_loss += F.nll_loss(output, target, reduction=<span class="string">'sum'</span>).item()</span><br><span class="line">            pred = output.data.<span class="built_in">max</span>(<span class="number">1</span>, keepdim=<span class="literal">True</span>)[<span class="number">1</span>]</span><br><span class="line">            correct += pred.eq(target.data.view_as(pred)).<span class="built_in">sum</span>()</span><br><span class="line">    test_loss /= <span class="built_in">len</span>(test_loader.dataset)</span><br><span class="line">    test_losses.append(test_loss)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'\nTest set: Avg. loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'</span>.<span class="built_in">format</span>(</span><br><span class="line">        test_loss, correct, <span class="built_in">len</span>(test_loader.dataset),</span><br><span class="line">        <span class="number">100.</span> * correct / <span class="built_in">len</span>(test_loader.dataset)))</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>network.eval()</code>：将神经网络模型设置为评估模式，这一步是为了确保在测试过程中不会应用训练过程中的一些特定于训练的操作，例如 dropout 和批量归一化。在评估模式下，模型的行为会略有不同，以便更准确地评估模型在测试数据上的性能</li>
+<li><code>with torch.no_grad()</code>表示在该代码块中计算的梯度不会被保存，从而节省内存并加快计算速度</li>
+<li><code>test_loss += F.nll_loss(output, target, reduction='sum').item()</code>：计算模型对当前批次测试数据的损失，并累积到 <code>test_loss</code> 中，这里采用的损失函数是负对数似然损失（Negative Log Likelihood，NLL）</li>
+<li><code>pred = output.data.max(1, keepdim=True)[1]</code>：从模型的输出中获取预测类别</li>
+<li><code>correct += pred.eq(target.data.view_as(pred)).sum()</code>：统计模型在当前批次上预测正确的样本数量</li>
+<li><code>test_loss /= len(test_loader.dataset)</code>：计算平均测试损失</li>
+</ul>
+<p>训练结果如图</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/662a5eb90ea9cb1403f6898a.png"></p>
+<h4 id="检查点的持续训练"><a href="#检查点的持续训练" class="headerlink" title="检查点的持续训练"></a>检查点的持续训练</h4><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 初始化一组新的网络和优化器</span></span><br><span class="line">continued_network = Net()</span><br><span class="line">continued_optimizer = optim.SGD(network.parameters(), lr=learning_rate, momentum=momentum)</span><br><span class="line"><span class="comment"># 加载网络的内部状态，并在最后一次保存它们时优化它们</span></span><br><span class="line">network_state_dict = torch.load(<span class="string">'model.pth'</span>)</span><br><span class="line">continued_network.load_state_dict(network_state_dict)</span><br><span class="line">optimizer_state_dict = torch.load(<span class="string">'optimizer.pth'</span>)</span><br><span class="line">continued_optimizer.load_state_dict(optimizer_state_dict)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>, <span class="number">9</span>):</span><br><span class="line">    test_counter.append(i * <span class="built_in">len</span>(train_loader.dataset))</span><br><span class="line">    train(i)</span><br><span class="line">    dtest()</span><br></pre></td></tr></table></figure></div>
+
+<p>新增几轮训练之后的测试结果：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/662a5eb90ea9cb1403f689e3.png"></p>
+]]></content>
+      <categories>
+        <category>computer science</category>
+      </categories>
+      <tags>
+        <tag>Pytorch</tag>
+      </tags>
+  </entry>
 </search>
