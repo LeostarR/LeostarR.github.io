@@ -17,7 +17,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2024/04/25/9pytorch notes/"/>
+    <link rel="canonical" href="http://example.com/2024/04/25/9pytorch-notes/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -25,7 +25,7 @@
         <meta name="description" content="使用PyTorch实现MNIST手写数字识别的笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pytorch notes">
-<meta property="og:url" content="http://example.com/2024/04/25/9PyTorch%20notes/index.html">
+<meta property="og:url" content="http://example.com/2024/04/25/9PyTorch-notes/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="使用PyTorch实现MNIST手写数字识别的笔记">
 <meta property="og:locale" content="en_US">
@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://pic1.zhimg.com/v2-294159b043a917ea622e1794b4857a34_b.webp">
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-d40e48b85e19b2d16c86eee901870755_720w.webp">
 <meta property="article:published_time" content="2024-04-25T08:22:01.000Z">
-<meta property="article:modified_time" content="2024-05-09T06:32:19.147Z">
+<meta property="article:modified_time" content="2024-05-09T06:55:26.401Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Pytorch">
 <meta name="twitter:card" content="summary">
@@ -790,8 +790,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-05-09 14:32:19</span>
-            <span class="mobile">2024-05-09 14:32:19</span>
+            <span class="desktop">2024-05-09 14:55:26</span>
+            <span class="mobile">2024-05-09 14:55:26</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -905,6 +905,8 @@ mjx-container[display="true"] + br {
 </ul>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 初始化网络和优化器</span></span><br><span class="line">network = Net()</span><br><span class="line">optimizer = optim.SGD(network.parameters(), lr=learning_rate, momentum=momentum)</span><br></pre></td></tr></table></figure></div>
 
+
+
 <h4 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h4><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">train_losses = []</span><br><span class="line">train_counter = []</span><br><span class="line">test_losses = []</span><br><span class="line">test_counter = [i * <span class="built_in">len</span>(train_loader.dataset) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n_epochs + <span class="number">1</span>)]</span><br></pre></td></tr></table></figure></div>
 
 <ul>
@@ -944,7 +946,7 @@ mjx-container[display="true"] + br {
 <p><strong>卷积</strong>（Convolution)：</p>
 <p>​	从一个小小的权重矩阵，也就是卷积核（kernel）开始，让它逐步（从左至右，从上至下）在二维输入数据上“扫描”。卷积核“滑动”的同时，计算权重矩阵和扫描所得的数据矩阵的乘积（注意这里是两个矩阵对应数据相乘再把所有结果相加，不是矩阵乘法！！！），然后把结果汇总成一个输出像素。</p>
 </blockquote>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://pic1.zhimg.com/v2-6428cf505ac1e9e1cf462e1ec8fe9a68_b.webp" alt="gif"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic1.zhimg.com/v2-6428cf505ac1e9e1cf462e1ec8fe9a68_b.webp"></p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic3.zhimg.com/v2-705305fee5a050575544c64067405fce_b.webp"></p>
 <blockquote>
 <p><strong>填充</strong>（Padding）：</p>
@@ -1006,11 +1008,11 @@ mjx-container[display="true"] + br {
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-05-09 14:32:19
+                    :</strong> 2024-05-09 14:55:26
             </li>
         
         <li>
-            <strong>Link:</strong> https://leostarr.github.io/2024/04/25/9PyTorch notes/
+            <strong>Link:</strong> https://leostarr.github.io/2024/04/25/9PyTorch-notes/
         </li>
         <li>
             <strong>

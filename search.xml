@@ -2906,7 +2906,7 @@
   </entry>
   <entry>
     <title>Pytorch notes</title>
-    <url>/2024/04/25/9PyTorch%20notes/</url>
+    <url>/2024/04/25/9PyTorch-notes/</url>
     <content><![CDATA[<h2 id="用PyTorch实现MNIST手写数字识别"><a href="#用PyTorch实现MNIST手写数字识别" class="headerlink" title="用PyTorch实现MNIST手写数字识别"></a>用PyTorch实现MNIST手写数字识别</h2><blockquote>
 <p>PyTorch is an optimized tensor library for deep learning using GPUs and CPUs.</p>
 </blockquote>
@@ -2959,6 +2959,8 @@
 </ul>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 初始化网络和优化器</span></span><br><span class="line">network = Net()</span><br><span class="line">optimizer = optim.SGD(network.parameters(), lr=learning_rate, momentum=momentum)</span><br></pre></td></tr></table></figure></div>
 
+
+
 <h4 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h4><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">train_losses = []</span><br><span class="line">train_counter = []</span><br><span class="line">test_losses = []</span><br><span class="line">test_counter = [i * <span class="built_in">len</span>(train_loader.dataset) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n_epochs + <span class="number">1</span>)]</span><br></pre></td></tr></table></figure></div>
 
 <ul>
@@ -2998,7 +3000,7 @@
 <p><strong>卷积</strong>（Convolution)：</p>
 <p>​	从一个小小的权重矩阵，也就是卷积核（kernel）开始，让它逐步（从左至右，从上至下）在二维输入数据上“扫描”。卷积核“滑动”的同时，计算权重矩阵和扫描所得的数据矩阵的乘积（注意这里是两个矩阵对应数据相乘再把所有结果相加，不是矩阵乘法！！！），然后把结果汇总成一个输出像素。</p>
 </blockquote>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://pic1.zhimg.com/v2-6428cf505ac1e9e1cf462e1ec8fe9a68_b.webp" alt="gif"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic1.zhimg.com/v2-6428cf505ac1e9e1cf462e1ec8fe9a68_b.webp"></p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic3.zhimg.com/v2-705305fee5a050575544c64067405fce_b.webp"></p>
 <blockquote>
 <p><strong>填充</strong>（Padding）：</p>
