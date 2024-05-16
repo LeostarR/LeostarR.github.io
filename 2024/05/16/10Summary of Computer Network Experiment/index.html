@@ -29,6 +29,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="计算机网络实验笔记">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6645efcbd9c307b7e9bb889b.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/6645a4a5d9c307b7e940dad9.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/66447db10ea9cb1403cf7d5e.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/6645a3dad9c307b7e93f8c31.png">
@@ -37,12 +38,15 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/6645c45cd9c307b7e97cd232.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/6645ce4ed9c307b7e98f1fcb.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/6645d4aad9c307b7e99679b9.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6646014fd9c307b7e9ce8839.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/66460180d9c307b7e9ced643.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/66460229d9c307b7e9cfb598.png">
 <meta property="article:published_time" content="2024-05-16T09:54:20.000Z">
-<meta property="article:modified_time" content="2024-05-16T09:56:19.503Z">
+<meta property="article:modified_time" content="2024-05-16T13:58:43.782Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="computer network">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pic.imgdb.cn/item/6645a4a5d9c307b7e940dad9.png">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/6645efcbd9c307b7e9bb889b.png">
     
     
         <!-- Google tag (gtag.js) -->
@@ -791,8 +795,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-05-16 17:56:19</span>
-            <span class="mobile">2024-05-16 17:56:19</span>
+            <span class="desktop">2024-05-16 21:58:43</span>
+            <span class="mobile">2024-05-16 21:58:43</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -830,12 +834,12 @@ mjx-container[display="true"] + br {
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.8k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>11 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>12 Mins</span>
         </span>
     
     
@@ -859,7 +863,10 @@ mjx-container[display="true"] + br {
 <li><p>网络实验室PC机的虚拟网卡可能会产生不良影响，建议开机后首先将所有虚拟网卡禁用。</p>
 </li>
 <li><p>网络实验室的路由器和交换机的出厂配置可能会产生不良影响，例如路由器出厂设置中默认配置了interface vlan 1（ip address 192.168.0.1 ），建议首先将这个IP地址undo，以免这个地址自动参与router id 选举，影响ospf或bgp协议的正常工作</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[S1]inter vlan 1</span><br><span class="line">[s1-vlan-interface1]undo ip address</span><br></pre></td></tr></table></figure></div></li>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[S1]inter vlan 1</span><br><span class="line">[s1-vlan-interface1]undo ip address</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>多使用“？”命令获取帮助</p>
+</li>
 </ol>
 <h3 id="实验一-网络实验入门"><a href="#实验一-网络实验入门" class="headerlink" title="实验一 网络实验入门"></a>实验一 网络实验入门</h3><h4 id="清空-重启"><a href="#清空-重启" class="headerlink" title="清空/重启"></a>清空/重启</h4><p>实验之前先清空配置，并重启路由器/交换机</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;H3C&gt;reset saved-configuration	#删除保存配置，选择yes</span><br><span class="line">&lt;H3C&gt;reboot					    #重启设备，第一个选择no，第二个选择yes</span><br></pre></td></tr></table></figure></div>
@@ -873,7 +880,11 @@ mjx-container[display="true"] + br {
 <h4 id="交换机基本配置"><a href="#交换机基本配置" class="headerlink" title="交换机基本配置"></a>交换机基本配置</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[H3C]interface ethernet 1/0/1					#进入指定以太网端口</span><br><span class="line">[H3C-Ethernet 1/0/1]shutdown					#关闭端口</span><br><span class="line">[H3C-Ethernet 1/0/1]undo shutdown				#启动端口</span><br><span class="line">[H3C-Ethernet 1/0/1]port link-type access		#设置端口为access端口</span><br><span class="line">[H3C-Ethernet 1/0/1]port link-type trunk		#设置端口为trunk端口</span><br><span class="line">[H3C-Ethernet 1/0/1]port link-type hybrid		#设置端口为hybrid端口</span><br><span class="line">[H3C-Ethernet 1/0/1]undo port link-type			#恢复端口的链路类型为默认的access</span><br></pre></td></tr></table></figure></div>
 
 <h4 id="基于地址转换的组网实验"><a href="#基于地址转换的组网实验" class="headerlink" title="基于地址转换的组网实验"></a>基于地址转换的组网实验</h4><p>​	<code>Network Address Translation/NAT</code>，是地址转换技术，它可以将多个内部专用IP地址映射为少数几个甚至一个公网IP地址，用来减少公网IP地址的使用。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#配置外出规则，编号2001</span><br><span class="line">[R1]acl basic 2001											#老版本命令是acl number 2001</span><br><span class="line">[R1]rule permit source 10.0.0.0 0.0.0.255 					#定义了允许ip源地址为10.0.0.0/24的外出数据包</span><br><span class="line">[R1]rule deny source any</span><br><span class="line"></span><br><span class="line">#配置地址池，编号1</span><br><span class="line">[R1]nat address-group 1</span><br><span class="line">[R1 address-group 1-]address 192.168.5.105 192.168.5.109  	#定义了一个包含5个公网地址（5-9）的地址池，地址池名称为1</span><br><span class="line"></span><br><span class="line">#在端口中应用规则和地址池</span><br><span class="line">[R1]interface e 0/1											#进入出口端口</span><br><span class="line">[R1-Ethernet 0/1]nat outbound 2001 address-group 1			#在出口e 0/1启动地址转换</span><br><span class="line"></span><br><span class="line">#记得添加静态路由，下一跳地址填地址池中地址的网关例如192.168.5.105就填192.168.5.1</span><br><span class="line">[R1]ip route-static 0.0.0.0 0.0.0.0 192.168.5.1 			#在路由表添加静态路由</span><br></pre></td></tr></table></figure></div>
+<p>​	当请求报文转发到出口NAT路由器时，NAT路由器首先会查看公网地址池，然后在地址转换表中插入一条记录，分别是转换前的源地址、源端口号和转换后的源地址、源端口号。NAT路由器会按照转换后的地址和端口号重新封装报文，目的地址和端口不变。</p>
+<p>​	当应答报文转发到出口NAT路由器时，同样将目的地址和端口转换成内网本地地址和端口，重新封装后转发。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6645efcbd9c307b7e9bb889b.png"></p>
+<p>​	注意这里0/1端口要配置ip地址。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#配置外出规则(access control list, acl)，编号2001</span><br><span class="line">[R1]acl basic 2001											#老版本命令是acl number 2001</span><br><span class="line">[R1]rule permit source 10.0.0.0 0.0.0.255 					#定义了允许ip源地址为10.0.0.0/24的外出数据包</span><br><span class="line">															#注意用网络地址和反掩码</span><br><span class="line">[R1]rule deny source any</span><br><span class="line"></span><br><span class="line">#配置地址池，编号1</span><br><span class="line">[R1]nat address-group 1</span><br><span class="line">[R1 address-group-1]address 192.168.5.105 192.168.5.109  	#定义了一个包含5个公网地址（5-9）的地址池，地址池名称为1</span><br><span class="line"></span><br><span class="line">#在端口中应用规则和地址池</span><br><span class="line">[R1]interface e 0/1											#进入出口端口</span><br><span class="line">[R1-Ethernet 0/1]nat outbound 2001 address-group 1			#在出口e 0/1启动地址转换</span><br><span class="line"></span><br><span class="line">#记得添加静态路由，下一跳地址填地址池中地址的网关例如192.168.5.105就填192.168.5.1</span><br><span class="line">[R1]ip route-static 0.0.0.0 0.0.0.0 192.168.5.1 			#在路由表添加静态路由</span><br></pre></td></tr></table></figure></div>
 
 <h3 id="实验二-数据链路层实验"><a href="#实验二-数据链路层实验" class="headerlink" title="实验二 数据链路层实验"></a>实验二 数据链路层实验</h3><h4 id="基本配置命令"><a href="#基本配置命令" class="headerlink" title="基本配置命令"></a>基本配置命令</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6645a4a5d9c307b7e940dad9.png"></p>
 <h4 id="端口聚合"><a href="#端口聚合" class="headerlink" title="端口聚合"></a>端口聚合</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[H3C]display mac-address								#查看交换机的mac地址表</span><br><span class="line">[H3C]sysname s1</span><br><span class="line">[s1]stp disable											#撤销生成树协议的配置</span><br><span class="line">[s1]interface bridge-aggregation 1						#定义聚合组</span><br><span class="line">[s1-bridge-aggregation 1]link-aggregation mode dynamic</span><br><span class="line">[s1]interface Ethernet 1/0/1</span><br><span class="line">[s1-Ethernet 1/0/1]port link-aggregation group 1		#将物理端口加入聚合组中</span><br><span class="line">[s1]interface Ethernet 1/0/2</span><br><span class="line">[s1-Ethernet 1/0/2]port link-aggregation group 1</span><br></pre></td></tr></table></figure></div>
@@ -913,15 +924,19 @@ mjx-container[display="true"] + br {
 <li>验证方A根据本端的用户数据库（或Radius服务器）查看是否有此用户，口令是否正确。如正确则会给对端发送ACK报文，通告对端已被允许进入下一阶段协商;否则发送NAK报文，通告对端验证失败</li>
 </ol>
 <p>​	通常，验证失败并不会直接将链路关闭。只有当验证失败的次数达到一定值时,才会关闭链路，以防止因误传、网络干扰等造成不必要的LCP重新协商过程。<br>​	PAP的特点是在网络上以明文的方式传递用户名及口令，如在传输过程中被截获，便有可能对网络安全造成极大的威胁。因此，它适用于对网络安全要求相对较低的环境。</p>
-<h3 id="实验三-网络层实验"><a href="#实验三-网络层实验" class="headerlink" title="实验三 网络层实验"></a>实验三 网络层实验</h3><h4 id="ARP协议"><a href="#ARP协议" class="headerlink" title="ARP协议"></a>ARP协议</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6645ce4ed9c307b7e98f1fcb.png"></p>
+<h3 id="实验三-网络层实验"><a href="#实验三-网络层实验" class="headerlink" title="实验三 网络层实验"></a>实验三 网络层实验</h3><h4 id="ARP分析"><a href="#ARP分析" class="headerlink" title="ARP分析"></a>ARP分析</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6645ce4ed9c307b7e98f1fcb.png"></p>
 <p>​	ARP协议，即地址解析协议，用于将IP地址解析成硬件地址。在每台使用ARP的主机中,都保留了一个专用的内存区(称为缓存)，存放最近的IP地址与硬件地址的对应关系。一旦收到ARP应答，主机将获得的地址和硬件地址的对应关系存到缓存中。当发送报文时,首先去缓存中查找相应的项,如果找到相应项，便将报文直接发送出去;如果找不到，再利用ARP进行解析。ARP缓存信息在一定时间内有效，过期不更新就会被删除。</p>
 <p>​	同一网段的主机进行通信时，如果ARP缓存中找不到硬件地址，则源主机直接发送ARP请求报文，目的主机对此请求做应答即可。</p>
 <p>​	不同网段的主机进行通信时，源主机会将arp报文发送给它的默认网关（这也是两个组网实验得到的arp报文中target IP address的区别），默认网关再根据报文的目的IP地址进行转发。</p>
 <h5 id="配置VLAN的IP地址"><a href="#配置VLAN的IP地址" class="headerlink" title="配置VLAN的IP地址"></a>配置VLAN的IP地址</h5><p>不是给某个端口配！是给这个vlan配置ip地址！请注意区别，要使用<code>inter vlan id</code>的命令</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[s1]vlan 2</span><br><span class="line">[s1-vlan2]port e 1/0/1</span><br><span class="line">[s1-vlan2]inter vlan 2</span><br><span class="line">[s1-vlan interface2]ip address 192.168.1.10 255.255.255.0</span><br><span class="line">#S2交换机的配置类似</span><br></pre></td></tr></table></figure></div>
 
-<h4 id="ICMP协议"><a href="#ICMP协议" class="headerlink" title="ICMP协议"></a>ICMP协议</h4><p>ICMP报文可以分为ICMP差错报文和ICMP询问报文两种。</p>
+<h4 id="ICMP分析"><a href="#ICMP分析" class="headerlink" title="ICMP分析"></a>ICMP分析</h4><p>ICMP报文可以分为ICMP差错报文和ICMP询问报文两种。具体类型和对应的值如下表。</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6645d4aad9c307b7e99679b9.png"></p>
+<h4 id="IP分析"><a href="#IP分析" class="headerlink" title="IP分析"></a>IP分析</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6646014fd9c307b7e9ce8839.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66460180d9c307b7e9ced643.png"></p>
+<h4 id="VLAN间通信"><a href="#VLAN间通信" class="headerlink" title="VLAN间通信"></a>VLAN间通信</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66460229d9c307b7e9cfb598.png"></p>
+<p>好好弄清楚vlan之间怎么通信的，注意端口性质。</p>
 
         </div>
 
@@ -936,7 +951,7 @@ mjx-container[display="true"] + br {
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-05-16 17:56:19
+                    :</strong> 2024-05-16 21:58:43
             </li>
         
         <li>
@@ -1056,7 +1071,7 @@ mjx-container[display="true"] + br {
     <div class="post-toc">
         <div class="toc-title">On this page</div>
         <div class="page-title">Summary of Computer Network Experiment</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">计算机网络实验总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E4%B8%80-%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C%E5%85%A5%E9%97%A8"><span class="nav-number">1.1.</span> <span class="nav-text">实验一 网络实验入门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%85%E7%A9%BA-%E9%87%8D%E5%90%AF"><span class="nav-number">1.1.1.</span> <span class="nav-text">清空&#x2F;重启</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE"><span class="nav-number">1.1.2.</span> <span class="nav-text">视图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.3.</span> <span class="nav-text">网络配置基本命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.4.</span> <span class="nav-text">路由器基本配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.5.</span> <span class="nav-text">交换机基本配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E7%9A%84%E7%BB%84%E7%BD%91%E5%AE%9E%E9%AA%8C"><span class="nav-number">1.1.6.</span> <span class="nav-text">基于地址转换的组网实验</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E4%BA%8C-%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%E5%AE%9E%E9%AA%8C"><span class="nav-number">1.2.</span> <span class="nav-text">实验二 数据链路层实验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%91%BD%E4%BB%A4"><span class="nav-number">1.2.1.</span> <span class="nav-text">基本配置命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AB%AF%E5%8F%A3%E8%81%9A%E5%90%88"><span class="nav-number">1.2.2.</span> <span class="nav-text">端口聚合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-%E5%88%A0%E9%99%A4VLAN%EF%BC%8C%E5%90%91VLAN%E4%B8%AD%E6%B7%BB%E5%8A%A0%E7%AB%AF%E5%8F%A3"><span class="nav-number">1.2.3.</span> <span class="nav-text">创建&#x2F;删除VLAN，向VLAN中添加端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.2.4.</span> <span class="nav-text">指定端口类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E5%AE%9AVLAN%E7%AB%AF%E5%8F%A3%E5%8F%AF%E9%80%9A%E8%BF%87%E7%9A%84%E6%95%B0%E6%8D%AE%E5%B8%A7"><span class="nav-number">1.2.5.</span> <span class="nav-text">指定VLAN端口可通过的数据帧</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%BF%E5%9F%9F%E7%BD%91%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.2.6.</span> <span class="nav-text">广域网数据链路层协议</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEPPP%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">配置PPP协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEPAP"><span class="nav-number">1.2.6.2.</span> <span class="nav-text">配置PAP</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E4%B8%89-%E7%BD%91%E7%BB%9C%E5%B1%82%E5%AE%9E%E9%AA%8C"><span class="nav-number">1.3.</span> <span class="nav-text">实验三 网络层实验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ARP%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.3.1.</span> <span class="nav-text">ARP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEVLAN%E7%9A%84IP%E5%9C%B0%E5%9D%80"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">配置VLAN的IP地址</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ICMP%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.3.2.</span> <span class="nav-text">ICMP协议</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">计算机网络实验总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E4%B8%80-%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C%E5%85%A5%E9%97%A8"><span class="nav-number">1.1.</span> <span class="nav-text">实验一 网络实验入门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%85%E7%A9%BA-%E9%87%8D%E5%90%AF"><span class="nav-number">1.1.1.</span> <span class="nav-text">清空&#x2F;重启</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE"><span class="nav-number">1.1.2.</span> <span class="nav-text">视图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.3.</span> <span class="nav-text">网络配置基本命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.4.</span> <span class="nav-text">路由器基本配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.5.</span> <span class="nav-text">交换机基本配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E7%9A%84%E7%BB%84%E7%BD%91%E5%AE%9E%E9%AA%8C"><span class="nav-number">1.1.6.</span> <span class="nav-text">基于地址转换的组网实验</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E4%BA%8C-%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%E5%AE%9E%E9%AA%8C"><span class="nav-number">1.2.</span> <span class="nav-text">实验二 数据链路层实验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%91%BD%E4%BB%A4"><span class="nav-number">1.2.1.</span> <span class="nav-text">基本配置命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AB%AF%E5%8F%A3%E8%81%9A%E5%90%88"><span class="nav-number">1.2.2.</span> <span class="nav-text">端口聚合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-%E5%88%A0%E9%99%A4VLAN%EF%BC%8C%E5%90%91VLAN%E4%B8%AD%E6%B7%BB%E5%8A%A0%E7%AB%AF%E5%8F%A3"><span class="nav-number">1.2.3.</span> <span class="nav-text">创建&#x2F;删除VLAN，向VLAN中添加端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.2.4.</span> <span class="nav-text">指定端口类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E5%AE%9AVLAN%E7%AB%AF%E5%8F%A3%E5%8F%AF%E9%80%9A%E8%BF%87%E7%9A%84%E6%95%B0%E6%8D%AE%E5%B8%A7"><span class="nav-number">1.2.5.</span> <span class="nav-text">指定VLAN端口可通过的数据帧</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%BF%E5%9F%9F%E7%BD%91%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.2.6.</span> <span class="nav-text">广域网数据链路层协议</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEPPP%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">配置PPP协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEPAP"><span class="nav-number">1.2.6.2.</span> <span class="nav-text">配置PAP</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E4%B8%89-%E7%BD%91%E7%BB%9C%E5%B1%82%E5%AE%9E%E9%AA%8C"><span class="nav-number">1.3.</span> <span class="nav-text">实验三 网络层实验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ARP%E5%88%86%E6%9E%90"><span class="nav-number">1.3.1.</span> <span class="nav-text">ARP分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEVLAN%E7%9A%84IP%E5%9C%B0%E5%9D%80"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">配置VLAN的IP地址</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ICMP%E5%88%86%E6%9E%90"><span class="nav-number">1.3.2.</span> <span class="nav-text">ICMP分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IP%E5%88%86%E6%9E%90"><span class="nav-number">1.3.3.</span> <span class="nav-text">IP分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VLAN%E9%97%B4%E9%80%9A%E4%BF%A1"><span class="nav-number">1.3.4.</span> <span class="nav-text">VLAN间通信</span></a></li></ol></li></ol></li></ol>
 
     </div>
 </div>
@@ -1093,7 +1108,7 @@ mjx-container[display="true"] + br {
                     </span>
                     
                         <span>
-                            41.5k words in total
+                            41.7k words in total
                         </span>
                     
                 </p>
