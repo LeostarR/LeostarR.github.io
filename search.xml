@@ -3074,4 +3074,83 @@
         <tag>Pytorch</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Summary of Computer Network Experiment</title>
+    <url>/2024/05/16/10Summary%20of%20Computer%20Network%20Experiment/</url>
+    <content><![CDATA[<h2 id="计算机网络实验总结"><a href="#计算机网络实验总结" class="headerlink" title="计算机网络实验总结"></a>计算机网络实验总结</h2><p>写在前面：</p>
+<ol>
+<li><p>网络实验室PC机的虚拟网卡可能会产生不良影响，建议开机后首先将所有虚拟网卡禁用。</p>
+</li>
+<li><p>网络实验室的路由器和交换机的出厂配置可能会产生不良影响，例如路由器出厂设置中默认配置了interface vlan 1（ip address 192.168.0.1 ），建议首先将这个IP地址undo，以免这个地址自动参与router id 选举，影响ospf或bgp协议的正常工作</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[S1]inter vlan 1</span><br><span class="line">[s1-vlan-interface1]undo ip address</span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<h3 id="实验一-网络实验入门"><a href="#实验一-网络实验入门" class="headerlink" title="实验一 网络实验入门"></a>实验一 网络实验入门</h3><h4 id="清空-重启"><a href="#清空-重启" class="headerlink" title="清空/重启"></a>清空/重启</h4><p>实验之前先清空配置，并重启路由器/交换机</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;H3C&gt;reset saved-configuration	#删除保存配置，选择yes</span><br><span class="line">&lt;H3C&gt;reboot					    #重启设备，第一个选择no，第二个选择yes</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">#上面的代码左侧&lt;H3C&gt;表示这是用户视图</span><br><span class="line">&lt;H3C&gt;sys							#可进入系统视图（完整命令是system-view)，左侧变为[H3C]</span><br><span class="line">[H3C]interface ethernet 1/0/1 		#进入以太网端口1/0/1，要根据设备的实际端口写命令，可以通过dis cu命令查看端口信息</span><br><span class="line">[H3C-interface e 1/0/1]quit			#退出当前视图</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="网络配置基本命令"><a href="#网络配置基本命令" class="headerlink" title="网络配置基本命令"></a>网络配置基本命令</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;H3C&gt;dis cu								#完整命令为display current-configuration，显示系统当前配置</span><br><span class="line">&lt;H3C&gt;display version					#显示系统软件的版本</span><br><span class="line">[H3C]display interface ethernet 1/0/1	#显示具体端口的信息和状态</span><br><span class="line">[H3C]display ?							#命令行帮助</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="路由器基本配置"><a href="#路由器基本配置" class="headerlink" title="路由器基本配置"></a>路由器基本配置</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[H3C]sysname R1								#重命名为R1</span><br><span class="line">[R1]interface ethernet 0/0 					#进入0/0以太网端口</span><br><span class="line">[R1-Ethernet 0/0]ip address 192.168.0.1 24	#配置端口的ip地址，子网掩码</span><br><span class="line">											#或者使用ip address 192.168.0.1 255.255.255.0，效果相同</span><br><span class="line">[R1-Ethernet 0/0]undo ip address				#取消ip地址</span><br><span class="line">[R1-Ethernet 0/0]shutdown					#关闭端口</span><br><span class="line">[R1-Ethernet 0/0]undo shutdown				#启动端口</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="交换机基本配置"><a href="#交换机基本配置" class="headerlink" title="交换机基本配置"></a>交换机基本配置</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[H3C]interface ethernet 1/0/1					#进入指定以太网端口</span><br><span class="line">[H3C-Ethernet 1/0/1]shutdown					#关闭端口</span><br><span class="line">[H3C-Ethernet 1/0/1]undo shutdown				#启动端口</span><br><span class="line">[H3C-Ethernet 1/0/1]port link-type access		#设置端口为access端口</span><br><span class="line">[H3C-Ethernet 1/0/1]port link-type trunk		#设置端口为trunk端口</span><br><span class="line">[H3C-Ethernet 1/0/1]port link-type hybrid		#设置端口为hybrid端口</span><br><span class="line">[H3C-Ethernet 1/0/1]undo port link-type			#恢复端口的链路类型为默认的access</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="基于地址转换的组网实验"><a href="#基于地址转换的组网实验" class="headerlink" title="基于地址转换的组网实验"></a>基于地址转换的组网实验</h4><p>​	<code>Network Address Translation/NAT</code>，是地址转换技术，它可以将多个内部专用IP地址映射为少数几个甚至一个公网IP地址，用来减少公网IP地址的使用。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">#配置外出规则，编号2001</span><br><span class="line">[R1]acl basic 2001											#老版本命令是acl number 2001</span><br><span class="line">[R1]rule permit source 10.0.0.0 0.0.0.255 					#定义了允许ip源地址为10.0.0.0/24的外出数据包</span><br><span class="line">[R1]rule deny source any</span><br><span class="line"></span><br><span class="line">#配置地址池，编号1</span><br><span class="line">[R1]nat address-group 1</span><br><span class="line">[R1 address-group 1-]address 192.168.5.105 192.168.5.109  	#定义了一个包含5个公网地址（5-9）的地址池，地址池名称为1</span><br><span class="line"></span><br><span class="line">#在端口中应用规则和地址池</span><br><span class="line">[R1]interface e 0/1											#进入出口端口</span><br><span class="line">[R1-Ethernet 0/1]nat outbound 2001 address-group 1			#在出口e 0/1启动地址转换</span><br><span class="line"></span><br><span class="line">#记得添加静态路由，下一跳地址填地址池中地址的网关例如192.168.5.105就填192.168.5.1</span><br><span class="line">[R1]ip route-static 0.0.0.0 0.0.0.0 192.168.5.1 			#在路由表添加静态路由</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="实验二-数据链路层实验"><a href="#实验二-数据链路层实验" class="headerlink" title="实验二 数据链路层实验"></a>实验二 数据链路层实验</h3><h4 id="基本配置命令"><a href="#基本配置命令" class="headerlink" title="基本配置命令"></a>基本配置命令</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6645a4a5d9c307b7e940dad9.png"></p>
+<h4 id="端口聚合"><a href="#端口聚合" class="headerlink" title="端口聚合"></a>端口聚合</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[H3C]display mac-address								#查看交换机的mac地址表</span><br><span class="line">[H3C]sysname s1</span><br><span class="line">[s1]stp disable											#撤销生成树协议的配置</span><br><span class="line">[s1]interface bridge-aggregation 1						#定义聚合组</span><br><span class="line">[s1-bridge-aggregation 1]link-aggregation mode dynamic</span><br><span class="line">[s1]interface Ethernet 1/0/1</span><br><span class="line">[s1-Ethernet 1/0/1]port link-aggregation group 1		#将物理端口加入聚合组中</span><br><span class="line">[s1]interface Ethernet 1/0/2</span><br><span class="line">[s1-Ethernet 1/0/2]port link-aggregation group 1</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="创建-删除VLAN，向VLAN中添加端口"><a href="#创建-删除VLAN，向VLAN中添加端口" class="headerlink" title="创建/删除VLAN，向VLAN中添加端口"></a>创建/删除VLAN，向VLAN中添加端口</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[H3C]vlan 2 		#创建vlan 2，2可以替换为其他vlan id，执行后会变为[h3c-vlan2]</span><br><span class="line">[H3C]undo vlan 2 	#删除vlan 2，2可以替换为其他vlan id</span><br><span class="line">[h3c-vlan2]port e 1/0/1 to e 1/0/3 </span><br><span class="line">#进入vlan后，使用port ... to ...将某一范围内的端口添加到该VLAN，使用的是基于端口的VLAN划分。</span><br><span class="line">#需要注意的是，e是Ethernet的缩写，线下网络实验室应当使用g</span><br><span class="line">[h3c-vlan2]undo port e 1/0/1 to e 1/0/2 // 将e 1/0/1 to e 1/0/3从VLAN2中删除</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="指定端口类型"><a href="#指定端口类型" class="headerlink" title="指定端口类型"></a>指定端口类型</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[H3C-Ethernet 1/0/1]port link-type access		#设置端口为access端口</span><br><span class="line">[H3C-Ethernet 1/0/1]port link-type trunk		#设置端口为trunk端口</span><br><span class="line">[H3C-Ethernet 1/0/1]port link-type hybrid		#设置端口为hybrid端口</span><br><span class="line">[H3C-Ethernet 1/0/1]undo port link-type  		#取消端口类型设置</span><br></pre></td></tr></table></figure></div>
+
+<p>​	根据端口对VLAN数据帧的处理方式,可以将交换机的端口分为Access、Trunk和Hybrid类（默认情况为Access类）：</p>
+<ul>
+<li>Access端口一般是指那些连接<strong>不支持VLAN技术</strong>的终端设备的端口，这些端口接收到的数据帧都<strong>不包含VLAN标签</strong>，而向外发送数据帧时，必须保证数据帧中<strong>也不包含VLAN标签</strong>。一般接主机或路由器。</li>
+<li>Trunk端口一般是指那些连接<strong>支持VLAN技术</strong>的网络设备(如交换机)的端口，这些端口接收到的数据帧一般<strong>都包含 VLAN标签</strong>（数据帧VLAN ID和端口默认VLAN ID相同除外），而向外发送数据帧时，必须保证接收端能够区分不同VLAN的数据帧，故常常需要<strong>添加VLAN标签</strong>（数据帧VLAN ID和端口默认VLAN ID相同除外）。一般用于交换机之间的连接。</li>
+<li>Hybrid 端口属于 Access和Trunk的<strong>混合模式</strong>，工作在 Hybrid 模式下的端口<strong>可以属于多个VLAN</strong>，可以接收和发送多个VLAN的报文，可以用于交换机之间连接，也可以用于连接用户的计算机。</li>
+</ul>
+<p>​	Hybrid端口和Trunk端口的不同之处在于Hybrid端口允许多个VLAN的报文不带标签，而Trunk端口只允许默认VLAN的报文不带标签。</p>
+<h4 id="指定VLAN端口可通过的数据帧"><a href="#指定VLAN端口可通过的数据帧" class="headerlink" title="指定VLAN端口可通过的数据帧"></a>指定VLAN端口可通过的数据帧</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[H3C-Ethernet 1/0/1]port trunk permit vlan 2 to 3         #允许通过2和3的数据帧，ensp中将perimit换为allow-pass</span><br><span class="line">[H3C-Ethernet 1/0/1]undo port trunk permit vlan 2 to 3	  </span><br><span class="line">[H3C]display vlan 3										  #查看交换机上vlan3的配置</span><br></pre></td></tr></table></figure></div>
+
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66447db10ea9cb1403cf7d5e.png"></p>
+<p>​	将E1/0/13端口设置为trunk，并允许vlan 2 3的数据帧通过。这样的操作使得不同交换机中相同vlan的主机可以相互联通，原因是trunk端口中非默认端口允许携带tag，并设置了E1/0/13时允许vlan2和vlan3的数据通过。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6645a3dad9c307b7e93f8c31.png"></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[H3C-Ethernet 1/0/13]undo port link-type</span><br><span class="line">[H3C-Ethernet 1/0/13]port link-type hybrid</span><br><span class="line">[H3C-Ethernet 1/0/13]port hybrid pvid vlan 1</span><br><span class="line">[H3C-Ethernet 1/0/13]port hybrid vlan 2 tagged</span><br><span class="line">[H3C-Ethernet 1/0/13]port hybrid vlan 3 untagged</span><br></pre></td></tr></table></figure></div>
+
+<p>​	此时PCA能ping通PCC，但是PCB不能ping通PCD，原因是s1和s2中1/0/13端口均设置了vlan2为tagged，vlan3为untagged。因此来自vlan2的报文进入s2时会携带自己的vlan tag，因此能顺利转发给有相同vlan id的端口，而vlan 3则不行。</p>
+<h4 id="广域网数据链路层协议"><a href="#广域网数据链路层协议" class="headerlink" title="广域网数据链路层协议"></a>广域网数据链路层协议</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6645c4ced9c307b7e97d9ff7.png"></p>
+<h5 id="配置PPP协议"><a href="#配置PPP协议" class="headerlink" title="配置PPP协议"></a>配置PPP协议</h5><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[R1]interface Serial 1/0</span><br><span class="line">[R1-Serial1/0]link-protocol ppp		#配置PPP</span><br><span class="line">#配置完成之后需要重新启动接口使其生效</span><br><span class="line">[R1-Serial1/0]shutdown</span><br><span class="line">[R1-Serial1/0]undo shutdown</span><br><span class="line">[R1-Serial2/0]shutdown				#关闭另一个端口防止其他信息干扰</span><br><span class="line">#R2配置与上述命令类似</span><br><span class="line">&lt;R1&gt;debugging ppp all</span><br><span class="line">&lt;R1&gt;terminal debugging</span><br></pre></td></tr></table></figure></div>
+
+<p>根据调试信息画流程图如下：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6645bde4d9c307b7e970a339.png"></p>
+<h5 id="配置PAP"><a href="#配置PAP" class="headerlink" title="配置PAP"></a>配置PAP</h5><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">#路由器[R1]的配置</span><br><span class="line">[R1]local-user RTB class network							#配置用户对应列表</span><br><span class="line">[R1-luser-network-RTB]service-type ppp						#配置服务类型</span><br><span class="line">[R1-luser-network-RTB]password simple aaa					#配置用户对应密码</span><br><span class="line">[R1]inter Serial 1/0</span><br><span class="line">[R1-Serial1/0]ppp authentication pap						#授权PAP验证</span><br><span class="line"></span><br><span class="line">#路由器[R2]的配置</span><br><span class="line">[R2]interface serial 0/0                                             </span><br><span class="line">[R2-serial0/0]ppp pap local-user RTB password simple aaa	#配置pap用户名和密码</span><br></pre></td></tr></table></figure></div>
+
+<p>根据调试信息画出流程图：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6645c45cd9c307b7e97cd232.png"></p>
+<p>解释PAP：</p>
+<p>​	PAP（Password AuthenticationProtocol，密码认证协议）是一种很简单的认证协议，分两步进行，验证过程从客户端发起，密码<strong>明文</strong>传输。PAP协议仅在连接建立阶段进行，在数据传输阶段不进行PAP 认证。</p>
+<ol>
+<li>A与B之间通过PPP互联，,A设置为验证方，B为被验证方，当B拨通A后，B会将用户名(一般设置为路由器的名字)与口令一起发给A</li>
+<li>验证方A根据本端的用户数据库（或Radius服务器）查看是否有此用户，口令是否正确。如正确则会给对端发送ACK报文，通告对端已被允许进入下一阶段协商;否则发送NAK报文，通告对端验证失败</li>
+</ol>
+<p>​	通常，验证失败并不会直接将链路关闭。只有当验证失败的次数达到一定值时,才会关闭链路，以防止因误传、网络干扰等造成不必要的LCP重新协商过程。<br>​	PAP的特点是在网络上以明文的方式传递用户名及口令，如在传输过程中被截获，便有可能对网络安全造成极大的威胁。因此，它适用于对网络安全要求相对较低的环境。</p>
+<h3 id="实验三-网络层实验"><a href="#实验三-网络层实验" class="headerlink" title="实验三 网络层实验"></a>实验三 网络层实验</h3><h4 id="ARP协议"><a href="#ARP协议" class="headerlink" title="ARP协议"></a>ARP协议</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6645ce4ed9c307b7e98f1fcb.png"></p>
+<p>​	ARP协议，即地址解析协议，用于将IP地址解析成硬件地址。在每台使用ARP的主机中,都保留了一个专用的内存区(称为缓存)，存放最近的IP地址与硬件地址的对应关系。一旦收到ARP应答，主机将获得的地址和硬件地址的对应关系存到缓存中。当发送报文时,首先去缓存中查找相应的项,如果找到相应项，便将报文直接发送出去;如果找不到，再利用ARP进行解析。ARP缓存信息在一定时间内有效，过期不更新就会被删除。</p>
+<p>​	同一网段的主机进行通信时，如果ARP缓存中找不到硬件地址，则源主机直接发送ARP请求报文，目的主机对此请求做应答即可。</p>
+<p>​	不同网段的主机进行通信时，源主机会将arp报文发送给它的默认网关（这也是两个组网实验得到的arp报文中target IP address的区别），默认网关再根据报文的目的IP地址进行转发。</p>
+<h5 id="配置VLAN的IP地址"><a href="#配置VLAN的IP地址" class="headerlink" title="配置VLAN的IP地址"></a>配置VLAN的IP地址</h5><p>不是给某个端口配！是给这个vlan配置ip地址！请注意区别，要使用<code>inter vlan id</code>的命令</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[s1]vlan 2</span><br><span class="line">[s1-vlan2]port e 1/0/1</span><br><span class="line">[s1-vlan2]inter vlan 2</span><br><span class="line">[s1-vlan interface2]ip address 192.168.1.10 255.255.255.0</span><br><span class="line">#S2交换机的配置类似</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="ICMP协议"><a href="#ICMP协议" class="headerlink" title="ICMP协议"></a>ICMP协议</h4><p>ICMP报文可以分为ICMP差错报文和ICMP询问报文两种。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6645d4aad9c307b7e99679b9.png"></p>
+]]></content>
+      <categories>
+        <category>computer science</category>
+      </categories>
+      <tags>
+        <tag>computer network</tag>
+      </tags>
+  </entry>
 </search>
