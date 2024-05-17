@@ -3172,6 +3172,36 @@
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6646d146d9c307b7e9ba4f53.png"></p>
 <h5 id="显示调试信息"><a href="#显示调试信息" class="headerlink" title="显示调试信息"></a>显示调试信息</h5><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;R1&gt;debugging ospf event</span><br><span class="line">&lt;R1&gt;terminal debugging</span><br></pre></td></tr></table></figure></div>
 
+<h4 id="DR和BDR的选举过程"><a href="#DR和BDR的选举过程" class="headerlink" title="DR和BDR的选举过程"></a>DR和BDR的选举过程</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6647080ad9c307b7e9f7f93b.png"></p>
+<p>​	DR和BDR一旦选举完成，除非他们发生故障，否则不会更换，即使后来的路由器priority更高。这样可以避免DR的频繁更迭，以及由此带来的路由器之间邻接关系重新建立和链路状态信息重新同步等问题。有利于网络的稳定和减少对网络带宽的占用。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/664708ccd9c307b7e9f8b38d.png"></p>
+<h4 id="区域划分以及LSA的种类"><a href="#区域划分以及LSA的种类" class="headerlink" title="区域划分以及LSA的种类"></a>区域划分以及LSA的种类</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66470f1cd9c307b7e9018a38.png"></p>
+<p>​	区域内部仍然使用第一类和第二类LSA描述区域内部的网络，并仅限于内部传播。但是区域边界路由器ABR收到这些信息之后，会据此对该区域内的路由生成一种新的第三类LSA，并将其传播到相邻的区域。第三类LSA主要对区域内的路由信息进行描述，比如网段、子网掩码、度量值等。和第一类第二类相比大大减少了路由信息描述的数据量。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66471412d9c307b7e907b0e6.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66471629d9c307b7e90a382a.png"></p>
+<p>​	注意ABR要配置两个区域，其他命令无变化。</p>
+<h4 id="引入静态路由"><a href="#引入静态路由" class="headerlink" title="引入静态路由"></a>引入静态路由</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[R1]ip route-static 4.4.4.0 255.255.255.0 192.168.1.1 </span><br><span class="line">#在R1上配置指向S1Loopback接口网段的静态路由，字段分别为 目的网络地址 子网掩码 下一跳</span><br><span class="line">[R1-ospf]import-route static						#将此静态路由引入到OSPF中</span><br><span class="line">[S1]ip route-static 0.0.0.0 0.0.0.0 192.168.1.2		#配置返回路由</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="路由器的类型"><a href="#路由器的类型" class="headerlink" title="路由器的类型"></a>路由器的类型</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66471186d9c307b7e904cc54.png"></p>
+<h4 id="第一类LSA（Router-LSA）的分析"><a href="#第一类LSA（Router-LSA）的分析" class="headerlink" title="第一类LSA（Router LSA）的分析"></a>第一类LSA（Router LSA）的分析</h4><p>显示第一类LSA信息的命令：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[R1]display ospf lsdb router</span><br></pre></td></tr></table></figure></div>
+
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/664704bad9c307b7e9f49945.png"></p>
+<h4 id="第二类LSA（Network-LSA）的分析"><a href="#第二类LSA（Network-LSA）的分析" class="headerlink" title="第二类LSA（Network LSA）的分析"></a>第二类LSA（Network LSA）的分析</h4><p>显示第二类LSA信息的命令：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[R1]display ospf lsdb network</span><br></pre></td></tr></table></figure></div>
+
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66470514d9c307b7e9f4f21e.png"></p>
+<h4 id="第三类LSA（Summary-Network-LSA）的分析"><a href="#第三类LSA（Summary-Network-LSA）的分析" class="headerlink" title="第三类LSA（Summary Network LSA）的分析"></a>第三类LSA（Summary Network LSA）的分析</h4><p>显示第三类LSA信息的命令：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[R1]display ospf lsdb summary</span><br></pre></td></tr></table></figure></div>
+
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66471dbcd9c307b7e913d7d8.png"></p>
+<h4 id="第四类（ASBR-Summary-LSA）和第五类（AS-External-LSA）分析"><a href="#第四类（ASBR-Summary-LSA）和第五类（AS-External-LSA）分析" class="headerlink" title="第四类（ASBR-Summary-LSA）和第五类（AS-External-LSA）分析"></a>第四类（ASBR-Summary-LSA）和第五类（AS-External-LSA）分析</h4><p>显示第四类LSA信息的命令：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[R1]display ospf lsdb asbr</span><br></pre></td></tr></table></figure></div>
+
+<p>显示第五类LSA信息的命令：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[R1]display ospf lsdb ase</span><br></pre></td></tr></table></figure></div>
+
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/664722f3d9c307b7e919ac91.png"></p>
 ]]></content>
       <categories>
         <category>computer science</category>
