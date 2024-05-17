@@ -3156,6 +3156,22 @@
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66460180d9c307b7e9ced643.png"></p>
 <h4 id="VLAN间通信"><a href="#VLAN间通信" class="headerlink" title="VLAN间通信"></a>VLAN间通信</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66460229d9c307b7e9cfb598.png"></p>
 <p>好好弄清楚vlan之间怎么通信的，注意端口性质。</p>
+<h3 id="OSPF实验"><a href="#OSPF实验" class="headerlink" title="OSPF实验"></a>OSPF实验</h3><p>​	OSPF是开放路径最短优先（open shortest path first）的缩写，核心思想是每一台路由器将其周边的链路状态（接口的直连网段，相连的路由器等信息）描述出来，发送给相邻的路由器。经过一段时间的链路状态信息交互，每台路由器都保存了一个链路状态数据库，该数据库是针对整个网络完整的链路状态描述。</p>
+<p>​	OSPF协议是一种内部网关协议，其应用范围为一个自治系统内部。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6646c61bd9c307b7e9adb229.png"></p>
+<h4 id="OSPF基本配置"><a href="#OSPF基本配置" class="headerlink" title="OSPF基本配置"></a>OSPF基本配置</h4><h5 id="OSPF相关命令"><a href="#OSPF相关命令" class="headerlink" title="OSPF相关命令"></a>OSPF相关命令</h5><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">reset ospf all process（用户视图） 	#重新启动OSPF进程</span><br><span class="line">display ospf peer				  	#显示OSPF邻居信息</span><br><span class="line">display ospf brief					#显示OSPF概要信息</span><br><span class="line">display ospf routing				#显示OSPF路由表的信息</span><br></pre></td></tr></table></figure></div>
+
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6646c768d9c307b7e9aede38.png"></p>
+<h5 id="配置Router-ID"><a href="#配置Router-ID" class="headerlink" title="配置Router ID"></a>配置Router ID</h5><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;R1&gt;system-view</span><br><span class="line">[R1]router id 1.1.1.1			#配置路由器的ID</span><br><span class="line">[R1]undo router id				#取消路由器的ID号</span><br></pre></td></tr></table></figure></div>
+
+<h5 id="配置回环地址"><a href="#配置回环地址" class="headerlink" title="配置回环地址"></a>配置回环地址</h5><p>​	Loopback是一种纯软件性质的虚拟接口，Loopback接口一旦被创建，将一直保持Up状态，直到被删除。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[R1]interface loopback 1</span><br><span class="line">[R1-LoopBack1]ip address 1.1.1.1 32</span><br></pre></td></tr></table></figure></div>
+
+<h5 id="启动OSPF"><a href="#启动OSPF" class="headerlink" title="启动OSPF"></a>启动OSPF</h5><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[R1]ospf											#启动OSPF路由进程</span><br><span class="line">[R1-ospf-1]area 0									#创建区域0，undo area area-id可删除</span><br><span class="line">[R1-ospf-1-area-0.0.0.0]network 1.1.1.0 0.0.0.255	#在接口Loop1上启动ospf并指定所属区域</span><br><span class="line">[R1-ospf-1-area-0.0.0.0]network 168.1.1.0 0.0.0.255	#在E0上启动OSPF并指定所属区域</span><br><span class="line">#R2命令类似，注意使用网络地址和反掩码</span><br></pre></td></tr></table></figure></div>
+
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6646d146d9c307b7e9ba4f53.png"></p>
+<h5 id="显示调试信息"><a href="#显示调试信息" class="headerlink" title="显示调试信息"></a>显示调试信息</h5><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;R1&gt;debugging ospf event</span><br><span class="line">&lt;R1&gt;terminal debugging</span><br></pre></td></tr></table></figure></div>
+
 ]]></content>
       <categories>
         <category>computer science</category>
