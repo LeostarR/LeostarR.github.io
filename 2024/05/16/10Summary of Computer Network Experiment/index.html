@@ -56,8 +56,10 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/664722f3d9c307b7e919ac91.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/66472a14d9c307b7e921b738.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/66472a32d9c307b7e921daed.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/66481dbfd9c307b7e9321572.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6648208cd9c307b7e934fa34.png">
 <meta property="article:published_time" content="2024-05-16T09:54:20.000Z">
-<meta property="article:modified_time" content="2024-05-17T10:05:03.335Z">
+<meta property="article:modified_time" content="2024-05-18T03:39:12.267Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="computer network">
 <meta name="twitter:card" content="summary">
@@ -810,8 +812,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-05-17 18:05:03</span>
-            <span class="mobile">2024-05-17 18:05:03</span>
+            <span class="desktop">2024-05-18 11:39:12</span>
+            <span class="mobile">2024-05-18 11:39:12</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -849,7 +851,7 @@ mjx-container[display="true"] + br {
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>4k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>4.1k Words</span>
         </span>
     
     
@@ -985,6 +987,7 @@ mjx-container[display="true"] + br {
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[R1]display ospf lsdb router</span><br></pre></td></tr></table></figure></div>
 
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/664704bad9c307b7e9f49945.png"></p>
+<p>type字段：transnet表示为广播或NBMA类型</p>
 <h4 id="第二类LSA（Network-LSA）的分析"><a href="#第二类LSA（Network-LSA）的分析" class="headerlink" title="第二类LSA（Network LSA）的分析"></a>第二类LSA（Network LSA）的分析</h4><p>显示第二类LSA信息的命令：</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[R1]display ospf lsdb network</span><br></pre></td></tr></table></figure></div>
 
@@ -1002,6 +1005,13 @@ mjx-container[display="true"] + br {
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/664722f3d9c307b7e919ac91.png"></p>
 <h4 id="OSPF协议路由的计算过程"><a href="#OSPF协议路由的计算过程" class="headerlink" title="OSPF协议路由的计算过程"></a>OSPF协议路由的计算过程</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66472a14d9c307b7e921b738.png"></p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66472a32d9c307b7e921daed.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66481dbfd9c307b7e9321572.png"></p>
+<p>​	注意TranseNet，StubNet，P-2-P的区别</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6648208cd9c307b7e934fa34.png"></p>
+<p>​	请注意下一跳的内容是具体地址，路径填写路由器号。如填表，最左侧一栏要覆盖所有路由器交换机（本机除外）以及TransNet和StubNet，写清楚具体网络地址。</p>
+<p>​	用traceroute命令可以验证最短路径树。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[R1]tarcert 10.1.1.2</span><br></pre></td></tr></table></figure></div>
+
 
         </div>
 
@@ -1016,7 +1026,7 @@ mjx-container[display="true"] + br {
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-05-17 18:05:03
+                    :</strong> 2024-05-18 11:39:12
             </li>
         
         <li>
@@ -1173,7 +1183,7 @@ mjx-container[display="true"] + br {
                     </span>
                     
                         <span>
-                            42.7k words in total
+                            42.8k words in total
                         </span>
                     
                 </p>
