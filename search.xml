@@ -3081,7 +3081,7 @@
 <ol>
 <li>网络实验室PC机的虚拟网卡可能会产生不良影响，建议开机后首先将所有虚拟网卡禁用。</li>
 <li>网络实验室的路由器和交换机的出厂配置可能会产生不良影响，例如路由器出厂设置中默认配置了interface vlan 1（ip address 192.168.0.1 ），建议首先将这个IP地址undo，以免这个地址自动参与router id 选举，影响ospf或bgp协议的正常工作</li>
-<li><img lazyload="" src="/images/loading.svg" data-src="https://i.postimg.cc/x1Z6f8wV/image.png"></li>
+<li><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6648758bd9c307b7e99cbe8b.png"></li>
 <li>多使用“？”命令获取帮助</li>
 </ol>
 <h3 id="实验一-网络实验入门"><a href="#实验一-网络实验入门" class="headerlink" title="实验一 网络实验入门"></a>实验一 网络实验入门</h3><h4 id="清空-重启"><a href="#清空-重启" class="headerlink" title="清空/重启"></a>清空/重启</h4><p>实验之前先清空配置，并重启路由器/交换机</p>
@@ -3239,7 +3239,20 @@
 <li><p>将两台PC通过直连引入ospf：</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[S1]import-route direct</span><br></pre></td></tr></table></figure></div></li>
 </ul>
-<p>ospf动态计算路由，选择cost最小的path，网络全连接时选择S1-R1-S2-loop1；R1-S1断开时，选择S1-R2-S2-loop1；R2-S2断开时，选择S1-R2-R1-S2-loop1</p>
+<p>​	ospf动态计算路由，选择cost最小的path，网络全连接时选择S1-R1-S2-loop1；R1-S1断开时，选择S1-R2-S2-loop1；R2-S2断开时，选择S1-R2-R1-S2-loop1</p>
+<h3 id="BGP实验"><a href="#BGP实验" class="headerlink" title="BGP实验"></a>BGP实验</h3><p>​	一种自治系统间的动态路由协议，它的基本功能是在 自治系统间自动交换无环路的路由信息，通过交换带有AS号序列属性的路径可达信息，来构造自治区域的拓扑图，从而消除路由环路并实施用户配置的路由策略。</p>
+<p>​	BGP运行在一个特定的路由器上，系统初启时通过发送整个BGP路由表交换路由信息，之后为了更新路由表只交换<strong>更新报文（Update Message）</strong>。系统运行过程中通过接受和发送<strong>KEEP ALIVE</strong>报文来检测相互之间的连接是否正常。</p>
+<p>​	通过BGP交换路由信息的两个路由器互为邻居。发送BGP报文的路由器成为BGP<strong>发言人（Speaker）</strong>，与它交换路由信息的其他BGP发言人成为<strong>对等体（Peer）</strong>，若干相关的对等体可以构成<strong>对等体组（Group）</strong>。</p>
+<p>​	BGP的路由通告原则如下:</p>
+<ol>
+<li>到达同一目的网络存在多条路径时,BCPSpeaker只选用最优的</li>
+<li>BGPSpeaker只把自己使用的路由通告给对等体</li>
+<li>BGPSpeaker从EBGP获得的路由会向它所有BCP对等体通告(包括EBGP和IBGP)</li>
+<li>BGPSpeaker从IBGP获得的路由不向它的IBGP对等体通告</li>
+<li>BGPSpeaker从IBGP获得的路由是否通告给它的EBCP对等体要根据IGP和BGP同步的情况来决定</li>
+<li>连接一建立，BGPSpeaker将把自己所有BGP路由通告给新对等体</li>
+</ol>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/664876b4d9c307b7e99dc3b1.png"></p>
 ]]></content>
       <categories>
         <category>computer science</category>
