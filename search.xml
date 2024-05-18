@@ -3079,13 +3079,10 @@
     <url>/2024/05/16/10Summary%20of%20Computer%20Network%20Experiment/</url>
     <content><![CDATA[<h2 id="计算机网络实验总结"><a href="#计算机网络实验总结" class="headerlink" title="计算机网络实验总结"></a>计算机网络实验总结</h2><p>写在前面：</p>
 <ol>
-<li><p>网络实验室PC机的虚拟网卡可能会产生不良影响，建议开机后首先将所有虚拟网卡禁用。</p>
-</li>
-<li><p>网络实验室的路由器和交换机的出厂配置可能会产生不良影响，例如路由器出厂设置中默认配置了interface vlan 1（ip address 192.168.0.1 ），建议首先将这个IP地址undo，以免这个地址自动参与router id 选举，影响ospf或bgp协议的正常工作</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[S1]inter vlan 1</span><br><span class="line">[s1-vlan-interface1]undo ip address</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>多使用“？”命令获取帮助</p>
-</li>
+<li>网络实验室PC机的虚拟网卡可能会产生不良影响，建议开机后首先将所有虚拟网卡禁用。</li>
+<li>网络实验室的路由器和交换机的出厂配置可能会产生不良影响，例如路由器出厂设置中默认配置了interface vlan 1（ip address 192.168.0.1 ），建议首先将这个IP地址undo，以免这个地址自动参与router id 选举，影响ospf或bgp协议的正常工作</li>
+<li><img lazyload="" src="/images/loading.svg" data-src="https://i.postimg.cc/x1Z6f8wV/image.png"></li>
+<li>多使用“？”命令获取帮助</li>
 </ol>
 <h3 id="实验一-网络实验入门"><a href="#实验一-网络实验入门" class="headerlink" title="实验一 网络实验入门"></a>实验一 网络实验入门</h3><h4 id="清空-重启"><a href="#清空-重启" class="headerlink" title="清空/重启"></a>清空/重启</h4><p>实验之前先清空配置，并重启路由器/交换机</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;H3C&gt;reset saved-configuration	#删除保存配置，选择yes</span><br><span class="line">&lt;H3C&gt;reboot					    #重启设备，第一个选择no，第二个选择yes</span><br></pre></td></tr></table></figure></div>
@@ -3094,7 +3091,7 @@
 
 <h4 id="网络配置基本命令"><a href="#网络配置基本命令" class="headerlink" title="网络配置基本命令"></a>网络配置基本命令</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;H3C&gt;dis cu								#完整命令为display current-configuration，显示系统当前配置</span><br><span class="line">&lt;H3C&gt;display version					#显示系统软件的版本</span><br><span class="line">[H3C]display interface ethernet 1/0/1	#显示具体端口的信息和状态</span><br><span class="line">[H3C]display ?							#命令行帮助</span><br></pre></td></tr></table></figure></div>
 
-<h4 id="路由器基本配置"><a href="#路由器基本配置" class="headerlink" title="路由器基本配置"></a>路由器基本配置</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[H3C]sysname R1								#重命名为R1</span><br><span class="line">[R1]interface ethernet 0/0 					#进入0/0以太网端口</span><br><span class="line">[R1-Ethernet 0/0]ip address 192.168.0.1 24	#配置端口的ip地址，子网掩码</span><br><span class="line">											#或者使用ip address 192.168.0.1 255.255.255.0，效果相同</span><br><span class="line">[R1-Ethernet 0/0]undo ip address				#取消ip地址</span><br><span class="line">[R1-Ethernet 0/0]shutdown					#关闭端口</span><br><span class="line">[R1-Ethernet 0/0]undo shutdown				#启动端口</span><br></pre></td></tr></table></figure></div>
+<h4 id="路由器基本配置"><a href="#路由器基本配置" class="headerlink" title="路由器基本配置"></a>路由器基本配置</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[H3C]sysname R1								#重命名为R1</span><br><span class="line">[R1]interface ethernet 0/0 					#进入0/0以太网端口</span><br><span class="line">[R1-Ethernet 0/0]ip address 192.168.0.1 24	#配置端口的ip地址，子网掩码</span><br><span class="line">											#或者使用ip address 192.168.0.1 255.255.255.0，效果相同</span><br><span class="line">[R1-Ethernet 0/0]undo ip address			#取消ip地址</span><br><span class="line">[R1-Ethernet 0/0]shutdown					#关闭端口</span><br><span class="line">[R1-Ethernet 0/0]undo shutdown				#启动端口</span><br></pre></td></tr></table></figure></div>
 
 <h4 id="交换机基本配置"><a href="#交换机基本配置" class="headerlink" title="交换机基本配置"></a>交换机基本配置</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[H3C]interface ethernet 1/0/1					#进入指定以太网端口</span><br><span class="line">[H3C-Ethernet 1/0/1]shutdown					#关闭端口</span><br><span class="line">[H3C-Ethernet 1/0/1]undo shutdown				#启动端口</span><br><span class="line">[H3C-Ethernet 1/0/1]port link-type access		#设置端口为access端口</span><br><span class="line">[H3C-Ethernet 1/0/1]port link-type trunk		#设置端口为trunk端口</span><br><span class="line">[H3C-Ethernet 1/0/1]port link-type hybrid		#设置端口为hybrid端口</span><br><span class="line">[H3C-Ethernet 1/0/1]undo port link-type			#恢复端口的链路类型为默认的access</span><br></pre></td></tr></table></figure></div>
 
@@ -3214,6 +3211,35 @@
 <p>​	用traceroute命令可以验证最短路径树。</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[R1]tarcert 10.1.1.2</span><br></pre></td></tr></table></figure></div>
 
+<h4 id="设计性实验1"><a href="#设计性实验1" class="headerlink" title="设计性实验1"></a>设计性实验1</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/664855b8d9c307b7e976bb0a.png"></p>
+<p>如何使全网互通？这里有三种方式：</p>
+<ol>
+<li><p>将PC所在网段引入OSPF路由：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[s1]ospf</span><br><span class="line">[s1-ospf-1]area 1</span><br><span class="line">[s1-ospf-1-area-0.0.0.1]import-route direct</span><br><span class="line">[s2]ospf</span><br><span class="line">[s2-ospf-1]area 2</span><br><span class="line">[s2-ospf-1-area-0.0.0.2]import-route direct</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>在ASBR所在区域的ABR上配置到ASE的静态路由并引入OSPF:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[r1]ip route-static 192.168.5.0 255.255.255.2 192.168.3.2</span><br><span class="line">[r1]ospf</span><br><span class="line">[r1-ospf-1]import-route static</span><br><span class="line">[r2]ip route-static 192.168.6.0 255.255.255.2 192.168.4.2</span><br><span class="line">[r2]ospf</span><br><span class="line">[r2]import-route static</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>在每台交换机/路由器上配置到PC1/PC2的静态路由，命令类似。</p>
+</li>
+</ol>
+<h4 id="设计性实验2"><a href="#设计性实验2" class="headerlink" title="设计性实验2"></a>设计性实验2</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/66485a79d9c307b7e97c1907.png"></p>
+<p>使全网互通的方式：</p>
+<p>要同时提供给ospf从R1或R2到211.100.2.0网段的路由</p>
+<ul>
+<li><p>首先将R1注入一条202.112.2.2的静态路由，并通过静态路由和直连引入ospf</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[R1]ip route-static 211.100.2.0 255.255.255.0 202.112.1.2</span><br><span class="line">[R1]ospf</span><br><span class="line">[R1-ospf-1]import-route static</span><br><span class="line">[R1-ospf-1]import-route direct</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>R2也需要引入一条到211.100.2.1的静态路由：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[R2]ip route-static 211.100.2.0 255.255.255.0 202.112.2.2</span><br><span class="line">[R2]ospf</span><br><span class="line">[R2-ospf-1]import-route static</span><br><span class="line">[R2-ospf-1]import-route direct</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>对于回环地址，设置返回地址：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[S2]ip route-static 0.0.0.0 0.0.0.0 202.112.1.2 pre 50</span><br><span class="line">[S2]ip route-static 0.0.0.0 0.0.0.0 202.112.2.2 pre 60</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>将两台PC通过直连引入ospf：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[S1]import-route direct</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<p>ospf动态计算路由，选择cost最小的path，网络全连接时选择S1-R1-S2-loop1；R1-S1断开时，选择S1-R2-S2-loop1；R2-S2断开时，选择S1-R2-R1-S2-loop1</p>
 ]]></content>
       <categories>
         <category>computer science</category>
