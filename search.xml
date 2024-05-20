@@ -3277,11 +3277,18 @@
 <h4 id="基于Route-Policy的路由过滤"><a href="#基于Route-Policy的路由过滤" class="headerlink" title="基于Route Policy的路由过滤"></a>基于Route Policy的路由过滤</h4><p>使S1不向外通告6.0.0.0/8的路由信息，并且向外通告的其他路由信息的cost值都为888</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[S1]acl number 2001</span><br><span class="line">[S1-acl-basic-2001]rule 1 deny source 6.0.0.0 0.255.255.255</span><br><span class="line">[S1-acl-basic-2001]rule 2 perimit source any</span><br><span class="line">[S1]route-policy deny6 permit node 10</span><br><span class="line">[S1-route-policy]if-match acl 2001</span><br><span class="line">[S1-route-policy]apply cost 888</span><br><span class="line">[S1]bgp 300</span><br><span class="line">[S1-bgp]peer 1.1.1.1 route-policy deny6 export</span><br></pre></td></tr></table></figure></div>
 
-<h4 id="BGP的同步机制"><a href="#BGP的同步机制" class="headerlink" title="BGP的同步机制"></a>BGP的同步机制</h4><h4 id="BGP设计性实验2"><a href="#BGP设计性实验2" class="headerlink" title="BGP设计性实验2"></a>BGP设计性实验2</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6649bcf6d9c307b7e91b0efe.png"></p>
+<h4 id="BGP设计性实验2"><a href="#BGP设计性实验2" class="headerlink" title="BGP设计性实验2"></a>BGP设计性实验2</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6649bcf6d9c307b7e91b0efe.png"></p>
 <p>使S1不向R1通告AS300内部的路由信息：</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[S1]ip as-path-acl deny 1 \b300$</span><br><span class="line">[S1]ip as-path-acl permit 1 ^$			#允许匹配本地路由</span><br><span class="line">[S1]ip as-path-acl permit 1 400$</span><br><span class="line">[S1]bgp 200</span><br><span class="line">[S1-bgp]peer 11.2.1.1 as-path-acl 1 export</span><br></pre></td></tr></table></figure></div>
 
 <h4 id="BGP设计性实验3"><a href="#BGP设计性实验3" class="headerlink" title="BGP设计性实验3"></a>BGP设计性实验3</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6649bf87d9c307b7e91ea305.png"></p>
+<ol>
+<li><p>配置local-preference属性，实现S2到18.0.0.0/8的路由，优先选择S2-&gt;R2-&gt;R1;配置local pref，选大，默认100，出口 ；S1配10即可</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[S1]bgp 200</span><br><span class="line">[S1-bgp]default local-preference 10</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>配置Med属性，实现R1到19.0.0.0/8的路由选择R1-&gt;S1-&gt;S2;配置med，选小，默认0，入口；R2配10即可</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[R2]bgp 100</span><br><span class="line">[R2-bgp]default med 10</span><br></pre></td></tr></table></figure></div></li>
+</ol>
 ]]></content>
       <categories>
         <category>computer science</category>
