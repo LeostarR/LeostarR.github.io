@@ -3289,6 +3289,9 @@
 <li><p>配置Med属性，实现R1到19.0.0.0/8的路由选择R1-&gt;S1-&gt;S2;配置med，选小，默认0，入口；R2配10即可</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[R2]bgp 100</span><br><span class="line">[R2-bgp]default med 10</span><br></pre></td></tr></table></figure></div></li>
 </ol>
+<h3 id="TCP传输层实验"><a href="#TCP传输层实验" class="headerlink" title="TCP传输层实验"></a>TCP传输层实验</h3><p>​	在Linux系统进行试验，配置没什么好说的，注重分析。使用linux虚拟机，请注意不要与主机的IP地址冲突，请禁用主机上相关的虚拟网卡。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/664b0e4bd9c307b7e9ad40a8.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/664b2116d9c307b7e9c97862.png"></p>
 ]]></content>
       <categories>
         <category>computer science</category>
