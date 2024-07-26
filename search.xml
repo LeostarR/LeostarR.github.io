@@ -2992,11 +2992,11 @@
 <li><code>test_loss /= len(test_loader.dataset)</code>：计算平均测试损失</li>
 </ul>
 <p>训练结果如图</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/662a5eb90ea9cb1403f6898a.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66a32187fcada11d3714dee0.png"></p>
 <h4 id="检查点的持续训练"><a href="#检查点的持续训练" class="headerlink" title="检查点的持续训练"></a>检查点的持续训练</h4><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 初始化一组新的网络和优化器</span></span><br><span class="line">continued_network = Net()</span><br><span class="line">continued_optimizer = optim.SGD(network.parameters(), lr=learning_rate, momentum=momentum)</span><br><span class="line"><span class="comment"># 加载网络的内部状态，并在最后一次保存它们时优化它们</span></span><br><span class="line">network_state_dict = torch.load(<span class="string">'model.pth'</span>)</span><br><span class="line">continued_network.load_state_dict(network_state_dict)</span><br><span class="line">optimizer_state_dict = torch.load(<span class="string">'optimizer.pth'</span>)</span><br><span class="line">continued_optimizer.load_state_dict(optimizer_state_dict)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>, <span class="number">9</span>):</span><br><span class="line">    test_counter.append(i * <span class="built_in">len</span>(train_loader.dataset))</span><br><span class="line">    train(i)</span><br><span class="line">    dtest()</span><br></pre></td></tr></table></figure></div>
 
 <p>新增几轮训练之后的测试结果：</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/662a5eb90ea9cb1403f689e3.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66a32187fcada11d3714dee3.png"></p>
 <h3 id="术语概念解释"><a href="#术语概念解释" class="headerlink" title="术语概念解释"></a>术语概念解释</h3><blockquote>
 <p><strong>卷积</strong>（Convolution)：</p>
 <p>​	从一个小小的权重矩阵，也就是卷积核（kernel）开始，让它逐步（从左至右，从上至下）在二维输入数据上“扫描”。卷积核“滑动”的同时，计算权重矩阵和扫描所得的数据矩阵的乘积（注意这里是两个矩阵对应数据相乘再把所有结果相加，不是矩阵乘法！！！），然后把结果汇总成一个输出像素。</p>
@@ -3081,7 +3081,7 @@
 <ol>
 <li>网络实验室PC机的虚拟网卡可能会产生不良影响，建议开机后首先将所有虚拟网卡禁用。</li>
 <li>网络实验室的路由器和交换机的出厂配置可能会产生不良影响，例如路由器出厂设置中默认配置了interface vlan 1（ip address 192.168.0.1 ），建议首先将这个IP地址undo，以免这个地址自动参与router id 选举，影响ospf或bgp协议的正常工作</li>
-<li><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6648758bd9c307b7e99cbe8b.png"></li>
+<li><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6648758bd9c307b7e99cbe8b.png"> </li>
 <li>多使用“？”命令获取帮助</li>
 </ol>
 <h3 id="实验一-网络实验入门"><a href="#实验一-网络实验入门" class="headerlink" title="实验一 网络实验入门"></a>实验一 网络实验入门</h3><h4 id="清空-重启"><a href="#清空-重启" class="headerlink" title="清空/重启"></a>清空/重启</h4><p>实验之前先清空配置，并重启路由器/交换机</p>
@@ -3168,7 +3168,7 @@
 
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.imgdb.cn/item/6646d146d9c307b7e9ba4f53.png"></p>
 <h5 id="显示调试信息"><a href="#显示调试信息" class="headerlink" title="显示调试信息"></a>显示调试信息</h5><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;R1&gt;debugging ospf event</span><br><span class="line">&lt;R1&gt;terminal debugging</span><br></pre></td></tr></table></figure></div>
-<h5 id="引入静态路由"><a href="#引入静态路由" class="headerlink" title="引入静态路由"></a>引入静态路由</h5><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[R1]ip route-static 4.4.4.0 255.255.255.0 192.168.1.1 </span><br><span class="line">#在R1上配置指向S1Loopback接口网段的静态路由，字段分别为 目的网络地址 子网掩码 下一跳</span><br><span class="line">[R1-ospf]import-route static						#将此静态路由引入到OSPF中</span><br><span class="line">[S1]ip route-static 0.0.0.0 0.0.0.0 192.168.1.2		#配置返回路由</span><br></pre></td></tr></table></figure></div>
+<h5 id="引入静态路由"><a href="#引入静态路由" class="headerlink" title="引入静态路由"></a>引入静态路由</h5><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">[R1]ip route-static 4.4.4.0 255.255.255.0 192.168.1.1 </span><br><span class="line">#在R1上配置指向S1 Loopback接口网段的静态路由，字段分别为 目的网络地址 子网掩码 下一跳</span><br><span class="line">[R1-ospf]import-route static						#将此静态路由引入到OSPF中</span><br><span class="line">[S1]ip route-static 0.0.0.0 0.0.0.0 192.168.1.2		#配置返回路由</span><br></pre></td></tr></table></figure></div>
 
 <h5 id="配置cost"><a href="#配置cost" class="headerlink" title="配置cost"></a>配置cost</h5><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">#vlan端口：</span><br><span class="line">[S1]inter vlan 3</span><br><span class="line">[S1-Vlan-interface3]ospf cost 100</span><br><span class="line">[S1-Vlan-interface3]inter vlan 2</span><br><span class="line">[S1-Vlan-interface2]ospf cost 500</span><br><span class="line">#普通端口：</span><br><span class="line">[R1]inter e0/0</span><br><span class="line">[R1-Ethernet0/0]ospf cost 100</span><br><span class="line">[R1-Ethernet0/0]inter s 0/0</span><br><span class="line">[R1-Serial0/0]ospf cost 500</span><br></pre></td></tr></table></figure></div>
 
