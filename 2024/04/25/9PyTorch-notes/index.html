@@ -22,12 +22,12 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="机器学习入门">
+        <meta name="description" content="PyTorch笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pytorch notes">
 <meta property="og:url" content="http://example.com/2024/04/25/9PyTorch-notes/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="机器学习入门">
+<meta property="og:description" content="PyTorch笔记">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.postimg.cc/7ZgsnGtc/Pytorch-1.png">
 <meta property="og:image" content="https://pic.superbed.cc/item/66a32187fcada11d3714dee0.png">
@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://pic1.zhimg.com/v2-294159b043a917ea622e1794b4857a34_b.webp">
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-d40e48b85e19b2d16c86eee901870755_720w.webp">
 <meta property="article:published_time" content="2024-04-25T08:22:01.000Z">
-<meta property="article:modified_time" content="2024-07-26T04:14:35.823Z">
+<meta property="article:modified_time" content="2024-07-31T09:33:27.397Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Pytorch">
 <meta name="twitter:card" content="summary">
@@ -791,8 +791,8 @@ mjx-container[display="true"] + br {
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-07-26 12:14:35</span>
-            <span class="mobile">2024-07-26 12:14:35</span>
+            <span class="desktop">2024-07-31 17:33:27</span>
+            <span class="mobile">2024-07-31 17:33:27</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -830,12 +830,12 @@ mjx-container[display="true"] + br {
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3.6k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>4.3k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>14 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>17 Mins</span>
         </span>
     
     
@@ -854,7 +854,7 @@ mjx-container[display="true"] + br {
 
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h2 id="用PyTorch实现MNIST手写数字识别"><a href="#用PyTorch实现MNIST手写数字识别" class="headerlink" title="用PyTorch实现MNIST手写数字识别"></a>用PyTorch实现MNIST手写数字识别</h2><blockquote>
+            <h2 id="入门任务：用PyTorch实现MNIST手写数字识别"><a href="#入门任务：用PyTorch实现MNIST手写数字识别" class="headerlink" title="入门任务：用PyTorch实现MNIST手写数字识别"></a>入门任务：用PyTorch实现MNIST手写数字识别</h2><blockquote>
 <p>PyTorch is an optimized tensor library for deep learning using GPUs and CPUs.</p>
 </blockquote>
 <p><a target="_blank" rel="noopener" href="https://postimg.cc/PC5Qtxjz"><img lazyload="" src="/images/loading.svg" data-src="https://i.postimg.cc/7ZgsnGtc/Pytorch-1.png" alt="Pytorch-1.png"></a></p>
@@ -1013,6 +1013,49 @@ mjx-container[display="true"] + br {
 <p><strong>最大池化</strong>是一种常用的池化操作，用于在卷积神经网络中对特征图进行下采样。它的作用是通过保留特征图中每个区域的最大值来减小特征图的空间大小，从而减少计算量并提取最显著的特征。</p>
 <p>池化层每次在一个池化窗口上计算输出，然后根据步幅移动池化窗口。下图是目前最常用的池化层，步幅为2，池化窗口为2×2的二维最大池化层。每隔2个元素从图像划分出2×2的区块，然后对每个区块中的4个数取最大值。这将会减少75%的数据量。</p>
 </blockquote>
+<h2 id="Quick-facts-of-PyTorch"><a href="#Quick-facts-of-PyTorch" class="headerlink" title="Quick facts of PyTorch"></a>Quick facts of PyTorch</h2><h4 id="torch-nn-Linear"><a href="#torch-nn-Linear" class="headerlink" title="torch.nn.Linear"></a>torch.nn.Linear</h4><p><code>torch.nn.Linear</code> 是PyTorch中的一个模块，用于实现全连接层（也称为线性层）。它接受一个输入向量并将其映射到输出向量，通过学习权重矩阵和可选的偏置向量来完成这一过程。</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.nn.Linear(in_features, out_features, bias=<span class="literal">True</span>, device=<span class="literal">None</span>, dtype=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><strong>in_features</strong>: 输入向量的特征数量。</li>
+<li><strong>out_features</strong>: 输出向量的特征数量。</li>
+<li><strong>bias</strong>: 如果设置为 <code>True</code>，则添加一个偏置项（默认为 <code>True</code>）。</li>
+<li><strong>device</strong>: 指定权重和偏置所在的设备（例如 ‘cpu’ 或 ‘cuda’），如果未指定，则使用默认的设备。</li>
+<li><strong>dtype</strong>: 指定权重和偏置的数据类型，如果未指定，则使用默认的数据类型。</li>
+</ul>
+<h4 id="torch-nn-Softmax"><a href="#torch-nn-Softmax" class="headerlink" title="torch.nn.Softmax"></a>torch.nn.Softmax</h4><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.nn.Softmax(dim=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure></div>
+
+<p>将一组值转换成概率分布，其中每个值代表各个类别的概率。Softmax 函数的输出是一个概率向量，所有元素之和为 1。维度参数 <code>dim</code>，该参数指定应用 Softmax 函数的维度</p>
+<h4 id="torch-bmm"><a href="#torch-bmm" class="headerlink" title="torch.bmm"></a>torch.bmm</h4><p>用于执行批量矩阵乘法</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.bmm(<span class="built_in">input</span>, mat2, *, out=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><strong>input</strong>: 第一个三维张量，形状为 <code>(batch_size, m, k)</code>。</li>
+<li><strong>mat2</strong>: 第二个三维张量，形状为 <code>(batch_size, k, n)</code>。</li>
+<li><strong>out</strong>: 可选参数，用于存储结果的输出张量。</li>
+</ul>
+<p>返回一个三维张量，形状为 <code>(batch_size, m, n)</code>，其中每个 <code>(m, n)</code> 矩阵是对应批次中的两个输入矩阵的<strong>乘积</strong></p>
+<h4 id="forward"><a href="#forward" class="headerlink" title="forward"></a>forward</h4><p><code>forward</code>函数是定义神经网络模型的核心部分。它是<code>torch.nn.Module</code>子类中的一个方法，用于定义数据通过模型的前向传播过程。当您创建一个自定义的神经网络模型时，通常需要继承<code>torch.nn.Module</code>类，并实现<code>forward</code>方法。</p>
+<p><code>forward</code>函数的作用</p>
+<ul>
+<li><strong>定义前向传播逻辑</strong>：<ul>
+<li><code>forward</code>函数定义了输入数据如何流经网络中的各个层，包括线性变换、卷积、激活函数等。</li>
+<li>这个函数决定了模型架构。</li>
+</ul>
+</li>
+<li><strong>自动计算梯度</strong>：<ul>
+<li>PyTorch通过跟踪<code>forward</code>函数中的操作来构建计算图，从而能够自动计算梯度。</li>
+<li>当调用<code>backward</code>方法时，计算图会被用来反向传播误差，并更新权重。</li>
+</ul>
+</li>
+</ul>
+<h4 id="torch-nn-functional-dropout"><a href="#torch-nn-functional-dropout" class="headerlink" title="torch.nn.functional.dropout"></a>torch.nn.functional.dropout</h4><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.nn.functional.dropout(<span class="built_in">input</span>, p=<span class="number">0.5</span>, training=<span class="literal">True</span>, inplace=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure></div>
+
+<p>以 p 的概率随机将输入中的一些元素清零，这是一种正则化技术，有助于防止过拟合</p>
+<h4 id="torch-Tensor-view"><a href="#torch-Tensor-view" class="headerlink" title="torch.Tensor.view"></a>torch.Tensor.view</h4><p>返回与原张量具有相同数据但形状不同的新张量</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = torch.randn(<span class="number">4</span>, <span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x.size()</span><br><span class="line">torch.Size([<span class="number">4</span>, <span class="number">4</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y = x.view(<span class="number">16</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y.size()</span><br><span class="line">torch.Size([<span class="number">16</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>z = x.view(-<span class="number">1</span>, <span class="number">8</span>)  <span class="comment"># the size -1 is inferred from other dimensions</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>z.size()</span><br><span class="line">torch.Size([<span class="number">2</span>, <span class="number">8</span>])</span><br></pre></td></tr></table></figure></div>
+
+<p>如果某一输入为 -1 ，则表示当前值根据其他维度的值计算，例如上面代码中的<code>z = x.view(-1, 8)</code></p>
 
         </div>
 
@@ -1027,7 +1070,7 @@ mjx-container[display="true"] + br {
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-07-26 12:14:35
+                    :</strong> 2024-07-31 17:33:27
             </li>
         
         <li>
@@ -1162,7 +1205,7 @@ mjx-container[display="true"] + br {
     <div class="post-toc">
         <div class="toc-title">On this page</div>
         <div class="page-title">Pytorch notes</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8PyTorch%E5%AE%9E%E7%8E%B0MNIST%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">用PyTorch实现MNIST手写数字识别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9D%97"><span class="nav-number">1.0.1.</span> <span class="nav-text">导入模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.0.2.</span> <span class="nav-text">参数设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">1.0.3.</span> <span class="nav-text">数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%82%E5%AF%9F%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">观察测试数据</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E7%BD%91%E7%BB%9C"><span class="nav-number">1.0.4.</span> <span class="nav-text">构建网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83"><span class="nav-number">1.0.5.</span> <span class="nav-text">模型训练</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E7%82%B9%E7%9A%84%E6%8C%81%E7%BB%AD%E8%AE%AD%E7%BB%83"><span class="nav-number">1.0.6.</span> <span class="nav-text">检查点的持续训练</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AF%E8%AF%AD%E6%A6%82%E5%BF%B5%E8%A7%A3%E9%87%8A"><span class="nav-number">1.1.</span> <span class="nav-text">术语概念解释</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A5%E9%97%A8%E4%BB%BB%E5%8A%A1%EF%BC%9A%E7%94%A8PyTorch%E5%AE%9E%E7%8E%B0MNIST%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">入门任务：用PyTorch实现MNIST手写数字识别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9D%97"><span class="nav-number">1.0.1.</span> <span class="nav-text">导入模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.0.2.</span> <span class="nav-text">参数设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">1.0.3.</span> <span class="nav-text">数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%82%E5%AF%9F%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">观察测试数据</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E7%BD%91%E7%BB%9C"><span class="nav-number">1.0.4.</span> <span class="nav-text">构建网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83"><span class="nav-number">1.0.5.</span> <span class="nav-text">模型训练</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E7%82%B9%E7%9A%84%E6%8C%81%E7%BB%AD%E8%AE%AD%E7%BB%83"><span class="nav-number">1.0.6.</span> <span class="nav-text">检查点的持续训练</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AF%E8%AF%AD%E6%A6%82%E5%BF%B5%E8%A7%A3%E9%87%8A"><span class="nav-number">1.1.</span> <span class="nav-text">术语概念解释</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-facts-of-PyTorch"><span class="nav-number">2.</span> <span class="nav-text">Quick facts of PyTorch</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#torch-nn-Linear"><span class="nav-number">2.0.1.</span> <span class="nav-text">torch.nn.Linear</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#torch-nn-Softmax"><span class="nav-number">2.0.2.</span> <span class="nav-text">torch.nn.Softmax</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#torch-bmm"><span class="nav-number">2.0.3.</span> <span class="nav-text">torch.bmm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#forward"><span class="nav-number">2.0.4.</span> <span class="nav-text">forward</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#torch-nn-functional-dropout"><span class="nav-number">2.0.5.</span> <span class="nav-text">torch.nn.functional.dropout</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#torch-Tensor-view"><span class="nav-number">2.0.6.</span> <span class="nav-text">torch.Tensor.view</span></a></li></ol></li></ol></li></ol>
 
     </div>
 </div>
@@ -1199,7 +1242,7 @@ mjx-container[display="true"] + br {
                     </span>
                     
                         <span>
-                            44.5k words in total
+                            45.2k words in total
                         </span>
                     
                 </p>
