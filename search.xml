@@ -4012,7 +4012,90 @@
   <entry>
     <title>Compiling Design Docs</title>
     <url>/2023/12/25/6Compiling%20Design%20Docs/</url>
-    <content><![CDATA[<p>我的编译器源代码存放于<strong><a class="link" href="https://github.com/LeostarR/Compiling-Techniques">https://github.com/LeostarR/Compiling-Techniques <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></strong></p>
+    <content><![CDATA[<p>You can refer to this <a class="link" href="https://github.com/LeostarR/Compiling-Techniques">Github Repository <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<h1 id="Compiler-Project"><a href="#Compiler-Project" class="headerlink" title="Compiler Project"></a>Compiler Project</h1><p>This project implements a compiler for a custom programming language, following the principles of lexical analysis, syntax analysis, intermediate code generation (LLVM), and target code generation (MIPS). The compiler processes source code, checks for syntax errors, and generates both intermediate and target code. It also includes error handling and various optimization techniques.</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>The compiler project is designed to take source code written in a custom programming language and translate it into MIPS assembly code. The project involves the design and implementation of several core components, including:</p>
+<ul>
+<li><strong>Lexical Analyzer (Tokenizer)</strong>: Identifies tokens such as keywords, operators, and variables.</li>
+<li><strong>Syntax Analyzer (Parser)</strong>: Analyzes the tokenized input and constructs an abstract syntax tree (AST).</li>
+<li><strong>Intermediate Code Generator</strong>: Generates LLVM intermediate code that represents the logical operations of the source code.</li>
+<li><strong>Target Code Generator</strong>: Translates the LLVM intermediate code into MIPS assembly language.</li>
+</ul>
+<p>This project adheres to a set of defined grammar and error handling rules.</p>
+<h2 id="Project-Overview"><a href="#Project-Overview" class="headerlink" title="Project Overview"></a>Project Overview</h2><h3 id="Key-Components"><a href="#Key-Components" class="headerlink" title="Key Components"></a>Key Components</h3><ol>
+<li><strong>Lexical Analysis</strong>: The lexical analyzer reads the source code and produces tokens representing the basic syntactic elements. Invalid characters or patterns are flagged as lexical errors.</li>
+<li><strong>Syntax Analysis</strong>: The syntax analyzer constructs an Abstract Syntax Tree (AST) by parsing the token stream according to the predefined grammar rules. Syntax errors are detected and reported.</li>
+<li><strong>Code Generation</strong>: After successful parsing, the intermediate code is generated in LLVM format. The intermediate code is then translated into target MIPS assembly code.</li>
+<li><strong>Error Handling</strong>: The compiler includes mechanisms for handling syntax and lexical errors, with detailed error messages and recovery strategies.</li>
+</ol>
+<h3 id="Compiler-Workflow"><a href="#Compiler-Workflow" class="headerlink" title="Compiler Workflow"></a>Compiler Workflow</h3><ul>
+<li><p><strong>Input</strong>: The compiler takes a source code file (<code>testfile.txt</code>) as input.</p>
+</li>
+<li><p>Output</p>
+<p>: The output consists of:</p>
+<ul>
+<li><code>llvm_ir.txt</code>: LLVM intermediate code.</li>
+<li><code>mips.txt</code>: MIPS assembly code.</li>
+<li><code>error.txt</code>: Error messages, if any.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Key-Features"><a href="#Key-Features" class="headerlink" title="Key Features"></a>Key Features</h3><ul>
+<li><strong>Lexical Analysis</strong>: Identifies keywords, operators, and variables.</li>
+<li><strong>Syntax Analysis</strong>: Builds a syntax tree based on the language grammar.</li>
+<li><strong>LLVM Intermediate Code Generation</strong>: Generates an intermediate representation of the code.</li>
+<li><strong>MIPS Code Generation</strong>: Produces executable MIPS assembly code.</li>
+</ul>
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><ol>
+<li><p>Clone the repository:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone git@github.com:LeostarR/Compiling-Techniques.git</span><br><span class="line">cd Compiling-Techniques</span><br></pre></td></tr></table></figure></div>
+
+
+</li>
+<li><p>Make sure you have Java installed (JDK 8 or higher is recommended). You can check the installation by running:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure></div>
+
+
+</li>
+<li><p>Compile the source files using the following command:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">javac -d bin src/*.java</span><br></pre></td></tr></table></figure></div>
+
+
+</li>
+<li><p>After compilation, run the compiler:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">java -cp bin Compiler</span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><ol>
+<li><p>Place your source code in the <code>testfile.txt</code> file. Ensure the content adheres to the grammar described in <code>./requirements for compliers.pdf</code>. If there are syntax errors, they must be handled as described in <code>./requirements for error processing.pdf</code>.</p>
+</li>
+<li><p>Launch the IDE and run the <code>Compiler.java</code> class located in <code>./src/</code>.</p>
+</li>
+<li><p>If the source code has no errors, the compiler will generate two output files:</p>
+<ul>
+<li><code>llvm_ir.txt</code>: Contains LLVM intermediate code.</li>
+<li><code>mips.txt</code>: Contains MIPS assembly code.</li>
+</ul>
+<p>In case of syntax errors, the error messages will be output to <code>error.txt</code>.</p>
+</li>
+</ol>
+<h2 id="Project-Structure"><a href="#Project-Structure" class="headerlink" title="Project Structure"></a>Project Structure</h2><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Compiling-Techniques/</span><br><span class="line">│</span><br><span class="line">├── src/                   # Source code files</span><br><span class="line">│   ├── Compiler.java      # Main entry point for the compiler</span><br><span class="line">│   ├── LexicalTools/      # Lexical analysis components</span><br><span class="line">│   ├── GrammaticalTools/  # Syntax analysis components</span><br><span class="line">│   ├── SymbolTools/       # Symbol table and error handling components</span><br><span class="line">│   ├── IRTools_llvm/      # LLVM intermediate code generation</span><br><span class="line">│   └── MIPSTools/         # MIPS assembly code generation</span><br><span class="line">├── data/                  # Input and output files</span><br><span class="line">│   ├── testfile.txt       # Input source code file</span><br><span class="line">│   ├── llvm_ir.txt        # LLVM intermediate code output</span><br><span class="line">│   ├── mips.txt           # MIPS assembly code output</span><br><span class="line">│   └── error.txt          # Error messages</span><br><span class="line">└── README.md              # Project documentation</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h2 id="Contributions"><a href="#Contributions" class="headerlink" title="Contributions"></a>Contributions</h2><p>This project is open to contributions. To contribute, follow these steps:</p>
+<ol>
+<li>Fork the repository.</li>
+<li>Create a new branch for your changes.</li>
+<li>Submit a pull request with a detailed description of your changes.</li>
+</ol>
+<h2 id="Licenses"><a href="#Licenses" class="headerlink" title="Licenses"></a>Licenses</h2><p>This project is licensed under the MIT License.</p>
+<h2 id="Acknowledgements"><a href="#Acknowledgements" class="headerlink" title="Acknowledgements"></a>Acknowledgements</h2><ul>
+<li>The compiler design is based on the principles of <strong>PL0-Compiler</strong>.</li>
+<li>Thanks to the contributors and educators who helped with the development and testing of the compiler.</li>
+<li>Special thanks to the professors who provided the grammar and error handling guidelines in <code>./requirements for compliers.pdf</code> and <code>./requirements for error processing.pdf</code>.</li>
+</ul>
+<hr>
+<p>我的编译器源代码存放于<strong><a class="link" href="https://github.com/LeostarR/Compiling-Techniques">https://github.com/LeostarR/Compiling-Techniques <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></strong></p>
 <h2 id="参考编译器设计"><a href="#参考编译器设计" class="headerlink" title="参考编译器设计"></a>参考编译器设计</h2><p>参考：<code>pl0-compiler.doc</code></p>
 <h3 id="总体结构"><a href="#总体结构" class="headerlink" title="总体结构"></a>总体结构</h3><p>文档介绍了一个用Pascal语言编写的<code>pl0</code>语言的编译器，它包括四个主要部分：词法分析器、语法分析器、代码生成器和解释器。</p>
 <ul>
