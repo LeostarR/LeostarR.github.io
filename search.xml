@@ -21,7 +21,170 @@
   <entry>
     <title>Summary of Object-Oriented Design and Construction Unit 2</title>
     <url>/2023/04/14/2Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%202/</url>
-    <content><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>第二单元作业的基本训练目标是模拟<strong>多线程实时电梯系统</strong>，三次作业为迭代开发。</p>
+    <content><![CDATA[<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>The basic training objective of the second unit assignment is to simulate a <strong>multi-threaded real-time elevator system</strong>, with three assignments for iterative development.</p>
+<ul>
+<li>The first assignment requires designing an elevator system with functions such as moving up and down, opening and closing doors, and simulating passenger entry and exit. The goal is to familiarize us with thread creation, operation, and the design methods of multi-threaded programs.</li>
+<li>The second assignment adds new features for scheduling passengers during elevator system expansion and daily maintenance. The aim is to master thread safety knowledge and solve thread safety issues while designing a hierarchical architecture around thread collaboration.</li>
+<li>The third assignment introduces scheduling parameters for the elevator system, specifically limiting the number of elevators that can be in an open state on each floor at any given time, and acknowledging that not all elevators may reach every floor. The goal is to master interaction between threads and reinforce the design of collaborative hierarchies among threads.</li>
+</ul>
+<p>You can refer to my code here: <a class="link" href="https://github.com/LeostarR/Object-oriented-Design-and-Construction">GitHub Repository <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h3 id="Summary-of-First-Assignment"><a href="#Summary-of-First-Assignment" class="headerlink" title="Summary of First Assignment"></a>Summary of First Assignment</h3><h4 id="Design-and-Architecture"><a href="#Design-and-Architecture" class="headerlink" title="Design and Architecture"></a>Design and Architecture</h4><p>This assignment required completing the following tasks:</p>
+<ol>
+<li>Design a <strong>Queue</strong> class for adding/removing passengers, along with methods to check if it’s empty or finished, and to set its end status.</li>
+<li>Design a <strong>Controller</strong> class as a bridge between the main waiting queue and elevators, responsible for passenger allocation.</li>
+<li>Design an <strong>Elevator</strong> class capable of performing the required tasks.</li>
+<li>In <code>Main</code>, start the controller thread and elevator threads, send input (if any) to the main waiting queue, and set the queue to end when finished.</li>
+</ol>
+<blockquote>
+<p>Note: The course team has already provided interfaces for input and output, so parsing input requests and formatting timestamp outputs are not considered.</p>
+</blockquote>
+<h4 id="Queue-Class"><a href="#Queue-Class" class="headerlink" title="Queue Class"></a>Queue Class</h4><h5 id="PassengerQueue"><a href="#PassengerQueue" class="headerlink" title="PassengerQueue:"></a><code>PassengerQueue</code>:</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab4496fcada11d3763b4c2.png" alt="Queue Class Diagram"></p>
+<p><code>addPassenger(Passenger)</code> and <code>removePassenger(Passenger)</code> are used for adding and removing passengers, <code>getOnePassenger()</code> retrieves passengers in order of arrival, <code>setEnd(boolean)</code> sets the queue’s end status. Other methods return attributes of the queue, such as whether it has ended, whether it’s empty, and a collection (<code>ArrayList&lt;Passenger&gt;</code>) of all passengers.</p>
+<h4 id="Controller-Class"><a href="#Controller-Class" class="headerlink" title="Controller Class"></a>Controller Class</h4><h5 id="Controller"><a href="#Controller" class="headerlink" title="Controller:"></a><code>Controller</code>:</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab452ffcada11d3763c8b6.png" alt="Controller Class Diagram"></p>
+<p>The <code>run()</code> method was overridden to allocate passengers.</p>
+<p>Allocation Strategy: A uniform distribution strategy was adopted. Passengers from the main waiting queue were evenly distributed to the waiting queues of elevators based on their arrival time. </p>
+<p>Example:</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">    <span class="keyword">if</span> (<span class="comment">/*end condition*/</span>) {</span><br><span class="line">        <span class="comment">// Set all elevator waiting queues to end//</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="type">Passenger</span> <span class="variable">passenger</span> <span class="operator">=</span> waitQueue.getOnePassenger();<span class="comment">//Retrieve in order of arrival//;</span></span><br><span class="line">    <span class="keyword">if</span> (passenger == <span class="literal">null</span>) {</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">    }</span><br><span class="line">    elevatorQueues.get(<span class="comment">/*index*/</span>).addPassenger(passenger);<span class="comment">//Allocate</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="Elevator-Class"><a href="#Elevator-Class" class="headerlink" title="Elevator Class:"></a>Elevator Class:</h4><h5 id="Elevator"><a href="#Elevator" class="headerlink" title="Elevator:"></a><code>Elevator</code>:</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab4549fcada11d3763c9b2.png" alt="Elevator Class Diagram"></p>
+<p>The <code>run()</code> method was overridden to operate the elevator. The general pattern is to determine the main request based on the order in the waiting queue and deliver the main request passenger to their destination. This process is divided into two parts: picking up the main request passenger and delivering them. During these processes, if the elevator is not overloaded (including the main request) and moving in the same direction, it can carry additional passengers. When each main request arrives, the earliest passenger inside the elevator becomes the main request, and continues until the elevator is empty, then fetches more passengers from the waiting queue.</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> {</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="keyword">if</span> (<span class="comment">/*end condition*/</span>) {</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="type">Passenger</span> <span class="variable">passenger</span> <span class="operator">=</span> queue.getOnePassenger();<span class="comment">//queue(ArrayList&lt;Passenger&gt;) is this elevator's waiting queue</span></span><br><span class="line">        <span class="keyword">if</span> (passenger == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// Two steps:</span></span><br><span class="line">        <span class="comment">// 1. Set the earliest passenger's starting point as the main request, pick up</span></span><br><span class="line">        <span class="built_in">this</span>.setTarget(passenger.getFromFloor());</span><br><span class="line">        forward(passenger);</span><br><span class="line">        <span class="comment">// 2. Set the passenger's destination as the main request, drop off</span></span><br><span class="line">        <span class="built_in">this</span>.setTarget(passenger.getToFloor());</span><br><span class="line">        forward(passenger);</span><br><span class="line">        <span class="keyword">while</span> (!<span class="built_in">this</span>.list.isEmpty()) {</span><br><span class="line">            <span class="comment">// Deliver remaining passengers one by one</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>The <code>forward(Passenger p)</code> method is used for picking up or dropping off passenger <code>p</code>, while also allowing for piggybacking under certain conditions:</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">forward</span><span class="params">(Passenger p)</span> {</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">this</span>.nowFloor != <span class="built_in">this</span>.targetFloor) { <span class="comment">//Piggyback: same direction, target less than main target</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="comment">/*piggyback or intermediate disembarkation conditions are met*/</span>openOrNot()) {</span><br><span class="line">            <span class="comment">// Open door, disembark, embark, close door</span></span><br><span class="line">        }</span><br><span class="line">        <span class="built_in">this</span>.move();<span class="comment">//Move one floor</span></span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// Reach the designated floor</span></span><br><span class="line">    <span class="built_in">this</span>.open();</span><br><span class="line">    <span class="comment">// 1. If p is inside the elevator and has arrived at the destination, let p disembark first</span></span><br><span class="line">    <span class="comment">// 2. If piggyback passengers' destinations are also on this floor, disembark</span></span><br><span class="line">    <span class="comment">// 3. If p hasn't boarded the elevator yet, let p board first</span></span><br><span class="line">    <span class="comment">// 4. Based on remaining capacity, piggyback passengers who meet the conditions on this floor</span></span><br><span class="line">    <span class="built_in">this</span>.close();</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>Methods like <code>in()</code>, <code>out()</code>, <code>open()</code>, <code>close()</code>, and <code>arrive()</code> require specific outputs, while <code>addPassenger()</code> and <code>removePassenger()</code> manage the addition and removal of passengers within the elevator queue (these methods differ from those in the previous queue class because each elevator’s internal queue is only operated by the current elevator, so thread safety is not an issue), which are relatively straightforward to implement.</p>
+<h4 id="Interaction-Between-Threads-and-Overall-Workflow"><a href="#Interaction-Between-Threads-and-Overall-Workflow" class="headerlink" title="Interaction Between Threads and Overall Workflow"></a>Interaction Between Threads and Overall Workflow</h4><p>Starting with input, the official interface accepts input, and <code>Main</code> sends each <code>Passenger</code> to the main waiting queue <code>waitQueue</code> (equivalent to the tray in the producer-consumer model). The controller acts as a bridge between elevators and passengers, allocating passengers from <code>waitQueue</code> to different elevator waiting queues according to a certain method. At this point, the relationship between elevators and waiting queues corresponds to consumers and trays, except that one waiting queue corresponds to only one elevator. Therefore, each elevator only needs to ensure that all passengers in its waiting queue are processed until it receives an end signal and both the waiting queue and the elevator are empty, at which point the thread ends.</p>
+<h4 id="Synchronized-Blocks-and-Locks"><a href="#Synchronized-Blocks-and-Locks" class="headerlink" title="Synchronized Blocks and Locks"></a>Synchronized Blocks and Locks</h4><p>Unlike ordinary programs, multithreaded programming must pay attention to thread safety issues. For example, if two threads simultaneously perform write operations on an object, conflicts and exceptions are likely to occur. To ensure that the object is accessed by only one thread at a time, the <code>synchronized</code> keyword can be added to all member methods that might be accessed by multiple objects, and <code>notifyAll()</code> can be called at the end of the method to wake up other threads. When a thread enters a synchronized block, it automatically acquires the lock object associated with the synchronized block, and when it exits the synchronized block, it automatically releases the lock object, ensuring that the processing statements within the synchronized block are not interfered with by other threads. For instance:</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">removePassenger</span><span class="params">(Passenger p)</span> {</span><br><span class="line">    <span class="comment">//Your Method</span></span><br><span class="line">    notifyAll();</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="UML-Class-Diagram"><a href="#UML-Class-Diagram" class="headerlink" title="UML Class Diagram"></a>UML Class Diagram</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab4564fcada11d3763cb0b.png" alt="UML Class Diagram"></p>
+<h4 id="Bug-Analysis"><a href="#Bug-Analysis" class="headerlink" title="Bug Analysis"></a>Bug Analysis</h4><p>During the mid-term test <del>before writing the controller</del> frequent timeouts occurred, but after adding the controller, there were no bugs.</p>
+<p>In the strong test and mutual test, there was an unstable bug that could not be reliably reproduced, which was most likely caused by high-frequency issuance leading to certain problems, resulting in passengers not entering or exiting, causing the program to fail to terminate. Upon checking the code, I found that the actual elevator capacity set for piggybacking passengers was 5 (@_@), correcting this solved the problem.</p>
+<h2 id="Summary-of-Second-Assignment"><a href="#Summary-of-Second-Assignment" class="headerlink" title="Summary of Second Assignment"></a>Summary of Second Assignment</h2><h3 id="Design-and-Architecture-1"><a href="#Design-and-Architecture-1" class="headerlink" title="Design and Architecture"></a>Design and Architecture</h3><p>Based on the first assignment, the following work needed to be added:</p>
+<ol>
+<li>Add attribute variables of the <strong>Elevator</strong> class to the constructor to support personalized addition of elevators, replacing constants with the properties of the elevator in the implementation.</li>
+<li>Add methods and variables related to <code>maintain</code> in the <strong>Queue</strong> class to meet maintenance needs.</li>
+<li>Add methods in the <strong>Elevator</strong> class’s running method to judge whether <code>maintain</code> is true and handle measures accordingly.</li>
+<li>Modify the condition for thread termination (<code>waitQueue</code> now has sources other than <code>main</code>, including elevators under maintenance).</li>
+</ol>
+<h4 id="Queue-Class-1"><a href="#Queue-Class-1" class="headerlink" title="Queue Class"></a>Queue Class</h4><h5 id="PassengerQueue-1"><a href="#PassengerQueue-1" class="headerlink" title="PassengerQueue:"></a><code>PassengerQueue</code>:</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab457ffcada11d3763cc5f.png" alt="Queue Class Diagram"></p>
+<p>Added <code>setMaintainSymbol(int)</code>, <code>isMaintained()</code>, and <code>addMaintainList(ArrayList&lt;PersonRequest&gt;)</code>. <code>setMaintainSymbol(int)</code> and <code>isMaintained()</code> are used to set and check the maintenance flag, while <code>addMaintainList()</code> adds all elements of parameter <code>ArrayList&lt;PersonRequest&gt; list</code> to the <code>List</code> of this object, adapting to the operation of adding personnel related to maintenance elevators to <code>waitQueue</code>.</p>
+<h4 id="Controller-Class-1"><a href="#Controller-Class-1" class="headerlink" title="Controller Class"></a>Controller Class</h4><h5 id="Distribute"><a href="#Distribute" class="headerlink" title="Distribute:"></a><code>Distribute</code>:</h5><p><del>Yes, it’s renamed</del></p>
+<p>Since elevators can also add passengers to <code>waitQueue</code>, the termination condition of the controller needs to be modified:</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">    <span class="keyword">if</span> (waitQueue.isEnd() &amp;&amp; waitQueue.isEmpty()) {</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            sleep(<span class="number">1000</span>);</span><br><span class="line">        } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (!waitQueue.isEmpty()) {</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">for</span> (PassengerQueue elevatorQueue : elevatorQueues) {</span><br><span class="line">            elevatorQueue.setEnd(<span class="literal">true</span>);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//Your Method</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>Compared to the previous version:</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">    <span class="keyword">if</span> (waitQueue.isEnd() &amp;&amp; waitQueue.isEmpty()) {</span><br><span class="line">        <span class="keyword">for</span> (PassengerQueue elevatorQueue : elevatorQueues) {</span><br><span class="line">            elevatorQueue.setEnd(<span class="literal">true</span>);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//Your Method</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>Actually, only the middle part was added, considering that the process of <code>maintain</code> takes time. If the controller ends simply when <code>waitQueue</code> is empty, some elevators receiving <code>maintain</code> signals may not have enough time to release passengers, which could result in these passengers being unable to participate in allocation and never reaching their destination <del>_</del></p>
+<p>So after satisfying the original termination condition, the controller sleeps for a fixed period. Since the course group requires that <code>maintain</code> operations must be completed within two floors of <code>arrive</code>, this time is not difficult to control. If it still satisfies the condition after sleeping, then it ends.</p>
+<p>The dispatching strategy of the second assignment did not differ much from the first, so it will not be repeated here.</p>
+<h4 id="Elevator-Class-1"><a href="#Elevator-Class-1" class="headerlink" title="Elevator Class"></a>Elevator Class</h4><h5 id="Elevator-1"><a href="#Elevator-1" class="headerlink" title="Elevator:"></a><code>Elevator</code>:</h5><p>A new method was added on top of the first assignment:</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab459ffcada11d3763ce23.png" alt="Elevator Class Diagram"></p>
+<p>Used to handle maintenance requests, an example (many details deleted, for reference only):</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">dealMaintain</span><span class="params">(PersonRequest p)</span> {</span><br><span class="line">    ArrayList&lt;PersonRequest&gt; arr = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(list);</span><br><span class="line">    <span class="keyword">if</span> (<span class="comment">/*p is not in the elevator*/</span>) {</span><br><span class="line">       waitQueue.add(p);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">for</span> (PersonRequest person : arr) {</span><br><span class="line">        <span class="keyword">if</span> (<span class="comment">/*passenger has not arrived*/</span>) {</span><br><span class="line">            <span class="comment">// Change person's property fromFloor to the current floor</span></span><br><span class="line">            person.setFromFloor(nowFloor);</span><br><span class="line">            waitQueue.add(person);</span><br><span class="line">        }</span><br><span class="line">        <span class="built_in">this</span>.out(person);</span><br><span class="line">    }</span><br><span class="line">    waitQueue.addAll(<span class="built_in">this</span>.queue.getList());<span class="comment">//Don't forget the poor people in the waiting queue :)</span></span><br><span class="line">    <span class="built_in">this</span>.maintainFlag = <span class="number">1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>Also, new content was added in other methods like <code>forward()</code> and <code>run()</code> to adapt to maintenance needs:</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="built_in">this</span>.nowFloor != <span class="built_in">this</span>.targetFloor) { </span><br><span class="line">           <span class="comment">// Need to judge maintain before normal boarding and alighting</span></span><br><span class="line">          <span class="keyword">if</span> (<span class="built_in">this</span>.queue.isMaintained()) {</span><br><span class="line">               <span class="built_in">this</span>.dealMaintain(p);</span><br><span class="line">               <span class="keyword">return</span>;</span><br><span class="line">           }</span><br><span class="line">           <span class="comment">// Original method</span></span><br><span class="line">       }   </span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> {</span><br><span class="line">       <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">           ......</span><br><span class="line">           <span class="keyword">if</span> (<span class="comment">/*maintenance condition*/</span>) {</span><br><span class="line">               <span class="comment">/*Output maintenance signal*/</span></span><br><span class="line">               <span class="keyword">return</span>;</span><br><span class="line">           }</span><br><span class="line">           ......</span><br><span class="line">           forward(passenger);</span><br><span class="line">              <span class="keyword">if</span> (<span class="built_in">this</span>.maintainFlag == <span class="number">1</span>) {</span><br><span class="line">               <span class="keyword">continue</span>;</span><br><span class="line">           }</span><br><span class="line">           <span class="keyword">while</span> (<span class="comment">/*elevator is not empty*/</span>) {</span><br><span class="line">               ......</span><br><span class="line">               forward(passenger);</span><br><span class="line">               <span class="keyword">if</span> (<span class="built_in">this</span>.maintainFlag == <span class="number">1</span>) {</span><br><span class="line">                   <span class="keyword">break</span>;</span><br><span class="line">               }</span><br><span class="line">           }</span><br><span class="line">       }</span><br></pre></td></tr></table></figure></div>
+
+<p>Overall, it is implemented through changing <code>maintainFlag</code>.</p>
+<h4 id="Interaction-Between-Threads-and-Overall-Workflow-1"><a href="#Interaction-Between-Threads-and-Overall-Workflow-1" class="headerlink" title="Interaction Between Threads and Overall Workflow"></a>Interaction Between Threads and Overall Workflow</h4><p>The overall structure has not changed much compared to the first assignment. Differences include:</p>
+<ul>
+<li>The controller does not end immediately after standard input ends but waits until all maintenance elevators have been serviced.</li>
+<li>Elevator threads may end prematurely due to maintenance, by setting the <code>maintainSymbol</code> of the corresponding waiting queue, cutting off the connection between the controller and it, and then each elevator performs corresponding operations based on whether it received this <code>maintainSymbol</code>.</li>
+</ul>
+<h4 id="Synchronized-Blocks-and-Locks-1"><a href="#Synchronized-Blocks-and-Locks-1" class="headerlink" title="Synchronized Blocks and Locks"></a>Synchronized Blocks and Locks</h4><p>There are no significant differences from the first assignment.</p>
+<h4 id="UML-Class-Diagram-1"><a href="#UML-Class-Diagram-1" class="headerlink" title="UML Class Diagram"></a>UML Class Diagram</h4><p>The second assignment used the official <code>PersonRequest</code> class, so it has one less class than the first assignment, with little difference.</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab45b7fcada11d3763cff6.png" alt="UML Class Diagram"></p>
+<h4 id="Bug-Analysis-1"><a href="#Bug-Analysis-1" class="headerlink" title="Bug Analysis"></a>Bug Analysis</h4><p>This assignment was probably the most challenging of the unit, as my code had widespread CPU timeout issues, passing the mid-term test only after 9 submissions :(</p>
+<p>On that Saturday, I spent the whole day in front of the computer without finding the problem, almost breaking down by night. Each submission resulted in 10 CPU timeouts, which was very distressing…</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab45d2fcada11d3763d135.png" alt="Bug Image"></p>
+<p>I sought help from teaching assistants and many classmates, and finally found the root cause of the problem:</p>
+<p>At first, I did not make the controller sleep after all maintenance elevators completed and were allocated. Instead, I waited until all passengers left the entire system.</p>
+<blockquote>
+<p>Program input and output are <strong>real-time interactive</strong>, and the evaluation machine can achieve sending a certain amount of input at a certain time point.</p>
+</blockquote>
+<p>That is, the end time of input should be near the moment when the last instruction is actually accepted. However, at that time, I misunderstood <code>setEnd</code> (my understanding deviation, thinking that the end of input refers to copying data to the terminal and pressing enter). After <code>setEnd</code>, the controller still had to wait for the last instruction because the last instruction might add passengers to <code>waitqueue</code>. So there was a large number of meaningless loops:</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">Distribute.java:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">            ......</span><br><span class="line">            <span class="keyword">if</span> (waitQueue.isEnd()) {</span><br><span class="line">                <span class="keyword">for</span> (PassengerQueue elevatorQueue : elevatorQueues) {</span><br><span class="line">                    elevatorQueue.setEnd(<span class="literal">true</span>);</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (waitQueue.isEmpty() &amp;&amp; waitQueue.isEnd() &amp;&amp; table.isEmpty()) {</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            }</span><br><span class="line">            <span class="type">Passenger</span> <span class="variable">passenger</span> <span class="operator">=</span> waitQueue.getOnePassenger();<span class="comment">//Each result returned is null</span></span><br><span class="line">            <span class="keyword">if</span> (passenger == <span class="literal">null</span>) {                          </span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            }</span><br><span class="line">            .....</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">PassengerQueue.java:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">synchronized</span> Passenger <span class="title function_">getOnePassenger</span><span class="params">()</span> { <span class="comment">//Retrieve in order of arrival (first come, first served)</span></span><br><span class="line">            <span class="keyword">if</span> (queue.isEmpty() &amp;&amp; !<span class="built_in">this</span>.isEnd()) {</span><br><span class="line">                <span class="keyword">try</span> {</span><br><span class="line">                    wait();</span><br><span class="line">                } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (queue.isEmpty()) {</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">            }</span><br><span class="line">            ......</span><br><span class="line">    	}</span><br></pre></td></tr></table></figure></div>
+
+<p>After setting <code>waitQueue</code> to <code>setEnd()</code>, the first <code>if</code> in <code>getOnePassenger</code> would be directly skipped each time, and since <code>queue</code> was indeed empty, it would return <code>null</code>. But the entire system still had passengers (<code>!table.isEmpty</code>), thus entering a large number of loops returning <code>null</code> and constantly <code>continue</code>, occupying a lot of <code>CPU</code> resources leading to timeouts. The solution is easy once you understand the timing of input ending, and the correct termination method has already been explained in the previous section of the summary of the second assignment -&gt; Controller Class.</p>
+<p>There were many piggybacking issues in the strong test, and I found that the piggybacking conditions were missing.</p>
+<h5 id="Debugging-Methods"><a href="#Debugging-Methods" class="headerlink" title="Debugging Methods"></a>Debugging Methods</h5><p>I used many tools to check CPU time, but none of them were substantially helpful. Printing something inside the loop is better; if the output of a method reaches hundreds of thousands of lines, it’s easy to locate the problem:</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> {</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="comment">//System.out.println("**********distributeI");</span></span><br><span class="line">        <span class="keyword">if</span> (waitQueue.isEnd() &amp;&amp; waitQueue.isEmpty()) {</span><br><span class="line">            ......</span><br><span class="line">        }</span><br><span class="line">        ......</span><br><span class="line">        <span class="comment">//System.out.println("**********distributeO");</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>By continuously bringing the two statements closer together, finding the branch with the most loops makes it easy to find the problem.</p>
+<h3 id="Third-Assignment-Summary"><a href="#Third-Assignment-Summary" class="headerlink" title="Third Assignment Summary"></a>Third Assignment Summary</h3><h4 id="Design-and-Architecture-2"><a href="#Design-and-Architecture-2" class="headerlink" title="Design and Architecture"></a>Design and Architecture</h4><p>Building upon the second assignment, the following new requirements were added:</p>
+<ol>
+<li>Limit the number of elevators that can open their doors on each floor.</li>
+<li>Consider the accessibility of some elevators, requiring path determination before passenger allocation.</li>
+</ol>
+<p>To address these issues, I introduced a new <code>StateMap</code> class with various methods to solve the new problems.</p>
+<h4 id="Customized-Requirement-Class"><a href="#Customized-Requirement-Class" class="headerlink" title="Customized Requirement Class"></a>Customized Requirement Class</h4><h5 id="StateMap"><a href="#StateMap" class="headerlink" title="StateMap"></a><code>StateMap</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab45effcada11d3763d272.png" alt="StateMap Diagram"></p>
+<p>For implementing the door opening limit, the solution is as follows:</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab4606fcada11d3763d395.png" alt="Service Map Diagram"></p>
+<p>The <code>value</code> in <code>serviceMap</code> corresponds to the number of elevators serving each floor, with the <code>key</code> indicating the floor level. Initially, the service count for each floor is set to 0.</p>
+<p>When an elevator opens its doors, it calls <code>addService()</code>. Due to the <code>synchronized</code> keyword, only one elevator can access this method at a time. If the number exceeds the specified limit, the thread waits until the number of serving elevators on that floor falls below the limit, then increments the count:</p>
+<p>java</p>
+<p>深色版本</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">public synchronized void addService(int floor) {</span><br><span class="line">    while (this.serviceMap.get(floor) &gt;= 4) {</span><br><span class="line">        try {</span><br><span class="line">            wait();</span><br><span class="line">        } catch (InterruptedException e) {</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    serviceMap.put(floor, serviceMap.get(floor) + 1);</span><br><span class="line">    notifyAll();</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>Closing the door involves calling <code>removeService()</code>:</p>
+<p>java</p>
+<p>深色版本</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">public synchronized void removeService(int floor) {</span><br><span class="line">    serviceMap.put(floor, serviceMap.get(floor) - 1);</span><br><span class="line">    notifyAll();</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>For elevators that only pick up passengers, similar methods are implemented but require additional checks to determine if an elevator is designated for pickup only.</p>
+<p>To resolve pathfinding issues, two <code>HashMap</code>s were defined:</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab4620fcada11d3763d4b8.png" alt="Maps Diagram"></p>
+<ul>
+<li><code>accessMap</code> indicates which floors each elevator can reach directly.</li>
+<li><code>pathMap</code> indicates which floors can be reached directly from each floor (similar to an adjacency matrix).</li>
+</ul>
+<p>A <code>findPath(Passenger p)</code> method returns a <code>LinkedList&lt;Integer&gt;</code> type demand queue, where the head is the passenger’s next destination, and the tail is their final destination.</p>
+<h4 id="Distributor-Class"><a href="#Distributor-Class" class="headerlink" title="Distributor Class"></a>Distributor Class</h4><h5 id="Distribute-1"><a href="#Distribute-1" class="headerlink" title="Distribute:"></a><code>Distribute</code>:</h5><p>During scheduling, the current demand floor and location floor of passengers must be reachable by the elevator, upon which they are evenly distributed:</p>
+<p>java</p>
+<p>深色版本</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">LinkedList&lt;Integer&gt; demand = stateMap.findPath(passenger);</span><br><span class="line">passenger.updateDemand(demand);</span><br><span class="line">do {</span><br><span class="line">    i = (i + 1) % elevatorQueues.size();</span><br><span class="line">} while (!(/*the current demand floor and location floor of the passenger are reachable by the elevator*/));</span><br><span class="line">elevatorQueues.get(i).addPassenger(passenger);</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="Elevator-Class-2"><a href="#Elevator-Class-2" class="headerlink" title="Elevator Class"></a>Elevator Class</h4><h5 id="Elevetor"><a href="#Elevetor" class="headerlink" title="Elevetor:"></a><code>Elevetor</code>:</h5><p>Before opening and after closing the doors, the <code>stateMap</code> needs processing, and threads will <code>wait()</code> if conditions are not met until they are awakened:</p>
+<p>java</p>
+<p>深色版本</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">if (/*method to check if it's a pickup-only elevator*/) {</span><br><span class="line">  	this.stateMap.addOnly(nowFloor);</span><br><span class="line">}</span><br><span class="line">this.stateMap.addService(nowFloor);</span><br><span class="line">open();</span><br></pre></td></tr></table></figure></div>
+
+<p>Additionally, <code>passenger.getToFloor()</code> was replaced with <code>passenger.getDemand()</code>. Since passenger demands are now broken into multiple sub-requests, we handle them sequentially after obtaining the path, with <code>getDemand()</code> fetching the head element of the queue:</p>
+<p>java</p>
+<p>深色版本</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">public int getDemand() {</span><br><span class="line">    return this.demand.getFirst();</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="Thread-Interaction-and-Overall-Workflow"><a href="#Thread-Interaction-and-Overall-Workflow" class="headerlink" title="Thread Interaction and Overall Workflow"></a>Thread Interaction and Overall Workflow</h4><p>The overall structure remains largely unchanged from the second assignment, with differences including:</p>
+<ul>
+<li>Additional conditional checks when opening/closing doors, addressed by the new <code>stateMap</code> class.</li>
+<li>For transfers, the <code>demand</code> queue is updated whenever passengers enter the <code>waitQueue</code>, taking the head element as the current main request, and determining whether to re-enter the <code>waitQueue</code> based on whether the destination has been reached.</li>
+</ul>
+<h4 id="Synchronization-Blocks-and-Locks"><a href="#Synchronization-Blocks-and-Locks" class="headerlink" title="Synchronization Blocks and Locks"></a>Synchronization Blocks and Locks</h4><p>Similar to the first assignment, with synchronized keywords added to methods in the new <code>stateMap</code> class for adding/removing elements corresponding to floor entries.</p>
+<h4 id="UML-Class-Diagram-2"><a href="#UML-Class-Diagram-2" class="headerlink" title="UML Class Diagram"></a>UML Class Diagram</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab4640fcada11d3763d622.png" alt="UML Class Diagram"></p>
+<h4 id="Bug-Analysis-2"><a href="#Bug-Analysis-2" class="headerlink" title="Bug Analysis"></a>Bug Analysis</h4><p>No bugs were detected during mid-term testing, but self-testing using the evaluation machine revealed an issue: even with the <code>addService</code> method, the number of serving elevators on the same floor could still exceed the limit. The fix involved changing the <code>if</code> statement to a <code>while</code> loop to ensure proper handling.</p>
+<h5 id="Debugging-Methods-1"><a href="#Debugging-Methods-1" class="headerlink" title="Debugging Methods"></a>Debugging Methods</h5><p>Testing with random data using the evaluation machine helps identify problematic areas. If errors occur, error messages guide pinpointing the faulty section and identifying problematic methods.</p>
+<p>An unstable bug appeared during strong testing, running fine locally but resulting in real_time_limit_exceed on the official test environment, throwing a <code>NullPointerException</code>:</p>
+<p>javascript</p>
+<p>深色版本</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Exception in thread "Thread-6" java.lang.NullPointerException</span><br><span class="line">    at StateMap.findPath(StateMap.java:100)</span><br><span class="line">    at Distribute.run(Distribute.java:32)</span><br></pre></td></tr></table></figure></div>
+
+<p>After checking the method, it was uncertain whether the issue stemmed from a lack of locking. Adding locks resolved the issue, though only one thread accessed the method, suggesting the problem might not have been thread safety related.</p>
+<h2 id="Summary-of-Three-Assignments"><a href="#Summary-of-Three-Assignments" class="headerlink" title="Summary of Three Assignments"></a>Summary of Three Assignments</h2><h4 id="UML-Collaboration-Diagram"><a href="#UML-Collaboration-Diagram" class="headerlink" title="UML Collaboration Diagram"></a>UML Collaboration Diagram</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab465dfcada11d3763d758.png" alt="UML Collaboration Diagram"></p>
+<h4 id="Analysis-Content"><a href="#Analysis-Content" class="headerlink" title="Analysis Content"></a>Analysis Content</h4><p>Stable content includes basic elevator operations such as transporting passengers, opening/closing doors, moving up/down, etc. The distributor thread sends passengers from the <code>waitQueue</code> to elevator waiting queues, and elevator threads pick up passengers from these queues, carrying them along with other passengers en route.</p>
+<p>Variable content includes maintenance requests, custom requirements like capacity and operation time, affecting time and output operations within elevator threads. Accessibility requirements mean the distributor considers whether both the current and demand floors are reachable when allocating passengers, and elevators must consider these factors when opening/closing doors and picking up passengers. Door opening limits introduce additional conditions beyond the original door operations.</p>
+<h2 id="Reflections"><a href="#Reflections" class="headerlink" title="Reflections"></a>Reflections</h2><h4 id="Thread-Safety"><a href="#Thread-Safety" class="headerlink" title="Thread Safety"></a>Thread Safety</h4><p>Thread safety is crucial in multi-threaded programming. To control access to shared resources, synchronization through locking mechanisms is essential. In this assignment, I used only the <code>synchronized</code> keyword, applying it to methods and calling <code>notifyAll()</code> at the end to wake up other threads waiting for access.</p>
+<h4 id="Hierarchical-Design"><a href="#Hierarchical-Design" class="headerlink" title="Hierarchical Design"></a>Hierarchical Design</h4><p>This unit deepened my understanding of hierarchical design. Using the producer-consumer pattern makes it easy to understand the role of each class. Producers allocate items (passengers) to conveyor belts (<code>waitQueue</code>), while consumers only need to take out items. This approach allows each class to focus on its own tasks, adhering to the principle of “high cohesion, low coupling,” making the system clearer and easier to understand (and debug).</p>
+<h4 id="Personal-Insights"><a href="#Personal-Insights" class="headerlink" title="Personal Insights"></a>Personal Insights</h4><p>This unit has been incredibly rewarding, transitioning from knowing nothing about multi-threading to developing a sophisticated multi-threaded elevator scheduling program. Key takeaways include:</p>
+<ul>
+<li>Identifying problems is far more important than solving them. The lesson from the second assignment taught me that modifying potential bugs without truly understanding the problem wastes significant time and effort.</li>
+<li>The importance of collaboration. Before this unit, assignments were typically tackled alone. However, for the second assignment, consulting numerous peers and upperclassmen ultimately led to resolving the issue. Without their help, completing the assignment would have been impossible.</li>
+</ul>
+<p>Thank you to all the classmates who provided enthusiastic assistance ^_^; I look forward to gaining even more knowledge on this journey.</p>
+<hr>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>第二单元作业的基本训练目标是模拟<strong>多线程实时电梯系统</strong>，三次作业为迭代开发。</p>
 <ul>
 <li>第一次作业要求设计一个具有功能为上下行，开关门，以及模拟乘客进出的电梯系统，目标是让我们熟悉线程的创建、运行等基本操作，熟悉多线程程序的设计方法；</li>
 <li>第二次作业新增加了模拟电梯系统扩建和日常维护时乘客的调度的功能，目标是让我们掌握线程安全知识并解决线程安全问题，同时在架构上围绕线程之间的协同设计层次架构；</li>
@@ -38,15 +201,15 @@
 <blockquote>
 <p>说明：本次作业课程组已经为我们提供了输入输出的接口，因此不再考虑解析输入的请求和格式化时间戳输出。</p>
 </blockquote>
-<h4 id="队列类"><a href="#队列类" class="headerlink" title="队列类"></a>队列类</h4><h5 id="PassengerQueue"><a href="#PassengerQueue" class="headerlink" title="PassengerQueue:"></a><code>PassengerQueue</code>:</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab4496fcada11d3763b4c2.png"></p>
+<h4 id="队列类"><a href="#队列类" class="headerlink" title="队列类"></a>队列类</h4><h5 id="PassengerQueue-2"><a href="#PassengerQueue-2" class="headerlink" title="PassengerQueue:"></a><code>PassengerQueue</code>:</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab4496fcada11d3763b4c2.png"></p>
 <p> <code>addPassenger(Passenger)</code>和<code>removePassenger(Passenger)</code>用于添加和移除乘客，<code>getOnePassenger()</code>用于分配乘客时按时间先后取出，<code>setEnd(boolean)</code>用于设定队列结束。其他方法用于返回该队列的一些属性，例如是否结束，是否为空以及队列所有乘客组成的集合(<code>ArrayList&lt;Passenger&gt;</code>)。</p>
-<h4 id="调度器类"><a href="#调度器类" class="headerlink" title="调度器类"></a><strong>调度器类</strong></h4><h5 id="Controller"><a href="#Controller" class="headerlink" title="Controller:"></a><code>Controller</code>:</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab452ffcada11d3763c8b6.png"></p>
+<h4 id="调度器类"><a href="#调度器类" class="headerlink" title="调度器类"></a><strong>调度器类</strong></h4><h5 id="Controller-1"><a href="#Controller-1" class="headerlink" title="Controller:"></a><code>Controller</code>:</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab452ffcada11d3763c8b6.png"></p>
 <p>重写了<code>run()</code>方法将乘客分配。</p>
 <p>分配策略：采取均匀分配的策略。按照乘客到来的时间先后顺序将总等候队列中的乘客均匀分配给电梯的等候队列。（<del>所以性能不好<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.452ex;" xmlns="http://www.w3.org/2000/svg" width="1.357ex" height="2.149ex" role="img" focusable="false" viewBox="0 -750 600 950"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="merror" data-mjx-error="Missing superscript or subscript argument" title="Missing superscript or subscript argument"><rect data-background="true" width="600" height="950" y="-200"></rect><title>Missing superscript or subscript argument</title><g data-mml-node="mtext" style="font-family: serif;"><text data-variant="-explicitFont" transform="scale(1,-1)" font-size="884px">_</text></g></g></g></g></svg></mjx-container></del>)</p>
 <p>一个示例：</p>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="keyword">if</span> (<span class="comment">/*结束条件*/</span>) {</span><br><span class="line">            <span class="comment">//将所有电梯等候队列设为结束//</span></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="type">Passenger</span> <span class="variable">passenger</span> <span class="operator">=</span> waitQueue.getOnePassenger()<span class="comment">//按时间顺序取出//;</span></span><br><span class="line">        <span class="keyword">if</span> (passenger == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        }</span><br><span class="line">        elevatorQueues.get(<span class="comment">/*index*/</span>).addPassenger(passenger);<span class="comment">//分配</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
 
-<h4 id="电梯类："><a href="#电梯类：" class="headerlink" title="电梯类："></a>电梯类：</h4><h5 id="Elevator"><a href="#Elevator" class="headerlink" title="Elevator:"></a><code>Elevator</code>:</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab4549fcada11d3763c9b2.png"></p>
+<h4 id="电梯类："><a href="#电梯类：" class="headerlink" title="电梯类："></a>电梯类：</h4><h5 id="Elevator-2"><a href="#Elevator-2" class="headerlink" title="Elevator:"></a><code>Elevator</code>:</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab4549fcada11d3763c9b2.png"></p>
 <p> 重写了<code>run()</code>方法使电梯运行，总的模式是这样的：根据等候队列中的顺序，确定主请求然后将主请求的乘客送到目的地。在这个过程中分为接主请求乘客和送主请求乘客两部分，这两个过程中在未超载（主请求计算在内）且运行方向相同的情况下可进行捎带。在每一个主请求到达的时候将电梯内部先到的乘客确定为主请求，继续运行直至电梯内部为空，再从等候队列中取出乘客。</p>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> {</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="keyword">if</span> (<span class="comment">/*结束条件*/</span>) {</span><br><span class="line">		    <span class="keyword">return</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="type">Passenger</span> <span class="variable">passenger</span> <span class="operator">=</span> queue.getOnePassenger();<span class="comment">//queue(ArrayList&lt;Passenger&gt;)是该电梯的等候队列</span></span><br><span class="line">        <span class="keyword">if</span> (passenger == <span class="literal">null</span>) {</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">//分两步：</span></span><br><span class="line">        <span class="comment">//1.将最早的乘客起始点设为主请求，接人</span></span><br><span class="line">        <span class="built_in">this</span>.setTarget(passenger.getFromFloor());</span><br><span class="line">        forward(passenger);</span><br><span class="line">        <span class="comment">//2.将该乘客目的地设为主请求，送人</span></span><br><span class="line">        <span class="built_in">this</span>.setTarget(passenger.getToFloor());</span><br><span class="line">        forward(passenger);</span><br><span class="line">        <span class="keyword">while</span> (!<span class="built_in">this</span>.list.isEmpty()) {</span><br><span class="line">            <span class="comment">//将剩下的乘客逐一运送</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
 
@@ -68,9 +231,9 @@
 <li>在<strong>电梯</strong>类的运行方法中新增判断是否<code>maintain</code>的方法以及处理措施的方法</li>
 <li>修改线程结束的条件(<code>waitQueue</code>的输入来源不止一个main了，还有维修的电梯)</li>
 </ol>
-<h4 id="队列类-1"><a href="#队列类-1" class="headerlink" title="队列类"></a>队列类</h4><h5 id="PassengerQueue-1"><a href="#PassengerQueue-1" class="headerlink" title="PassengerQueue:"></a><code>PassengerQueue</code>:</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab457ffcada11d3763cc5f.png"></p>
+<h4 id="队列类-1"><a href="#队列类-1" class="headerlink" title="队列类"></a>队列类</h4><h5 id="PassengerQueue-3"><a href="#PassengerQueue-3" class="headerlink" title="PassengerQueue:"></a><code>PassengerQueue</code>:</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab457ffcada11d3763cc5f.png"></p>
 <p>增加了<code>setMaintainSymbol(int)</code>， <code>isMaintained()</code>和<code>addMaintainList(ArrayList&lt;PersonRequest)</code>三个方法。其中<code>setMaintainSymbol(int)</code>和<code>isMaintained()</code>分别用于设定维修标志和判断维修标志,<code>addMaintainList()</code>将参数<code>ArrayList&lt;PersonRequest&gt; list</code>全部加入到此对象的<code>List</code>中，可以适应将与维修电梯相关人员加入到<code>waitQueue</code>的操作。</p>
-<h4 id="调度器类-1"><a href="#调度器类-1" class="headerlink" title="调度器类"></a>调度器类</h4><h5 id="Distribute"><a href="#Distribute" class="headerlink" title="Distribute:"></a><code>Distribute</code>:</h5><p><del>对的，不是打错了，是改名了</del></p>
+<h4 id="调度器类-1"><a href="#调度器类-1" class="headerlink" title="调度器类"></a>调度器类</h4><h5 id="Distribute-2"><a href="#Distribute-2" class="headerlink" title="Distribute:"></a><code>Distribute</code>:</h5><p><del>对的，不是打错了，是改名了</del></p>
 <p>由于电梯也能将<code>waitQueue</code>加入乘客，因此需要修改调度器的结束条件：</p>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        <span class="keyword">if</span> (waitQueue.isEnd() &amp;&amp; waitQueue.isEmpty()) {</span><br><span class="line">            <span class="keyword">try</span> {</span><br><span class="line">                sleep(<span class="number">1000</span>);</span><br><span class="line">            } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (!waitQueue.isEmpty()) {</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">for</span> (PassengerQueue elevatorQueue : elevatorQueues) {</span><br><span class="line">                elevatorQueue.setEnd(<span class="literal">true</span>);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">//Your Method</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
 
@@ -80,7 +243,7 @@
 <p>其实仅仅时增加了中间一部分，因为考虑到maintain这个过程是需要时间的，如果仅仅在<code>waitQueue</code>为空时结束，那么一些收到maintain信号的电梯可能没来得及放出乘客，此时关闭调度器可能会使这些乘客无法参与分配从而永远到达不了目的地<del>_</del></p>
 <p>所以我在满足原结束条件的情况下使调度器休眠固定时间，这也是由于课程组要求两层<code>arrive</code>以内必须完成<code>maintain</code>的操作，因此这个时间不会太难控制。如果休眠之后仍满足该条件，则结束。</p>
 <p>第二次作业的调度策略与第一次作业的差别不大，此处不再赘述。</p>
-<h4 id="电梯类"><a href="#电梯类" class="headerlink" title="电梯类"></a>电梯类</h4><h5 id="Elevator-1"><a href="#Elevator-1" class="headerlink" title="Elevator:"></a><code>Elevator</code>:</h5><p>在第一次作业上新增了一个方法：</p>
+<h4 id="电梯类"><a href="#电梯类" class="headerlink" title="电梯类"></a>电梯类</h4><h5 id="Elevator-3"><a href="#Elevator-3" class="headerlink" title="Elevator:"></a><code>Elevator</code>:</h5><p>在第一次作业上新增了一个方法：</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab459ffcada11d3763ce23.png"></p>
 <p>用于处理维修请求，一个示例（删去了很多细节代码，仅供参考）：</p>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">dealMaintain</span><span class="params">(PersonRequest p)</span> {</span><br><span class="line">    ArrayList&lt;PersonRequest&gt; arr = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(list);</span><br><span class="line">    <span class="keyword">if</span> (<span class="comment">/*p不在电梯中*/</span>) {</span><br><span class="line">       waitQueue.add(p);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">for</span> (PersonRequest person : arr) {</span><br><span class="line">        <span class="keyword">if</span> (<span class="comment">/*乘客未到达*/</span>) {</span><br><span class="line">            <span class="comment">//修改person的属性fromFloor为当前楼层</span></span><br><span class="line">            person.setFromFloor(nowFloor);</span><br><span class="line">            waitQueue.add(person);</span><br><span class="line">        }</span><br><span class="line">        <span class="built_in">this</span>.out(person);</span><br><span class="line">    }</span><br><span class="line">    waitQueue.addAll(<span class="built_in">this</span>.queue.getList());<span class="comment">//别忘了等候队列的可怜人:)</span></span><br><span class="line">    <span class="built_in">this</span>.maintainFlag = <span class="number">1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
@@ -120,7 +283,7 @@
 <li>考虑到部分电梯的可达性，需要在分配乘客之前确定路径</li>
 </ol>
 <p>为了解决上述问题，我新增了一个<code>StateMap</code>类并提供诸多方法用于解决新的问题。</p>
-<h4 id="个性化需求类"><a href="#个性化需求类" class="headerlink" title="个性化需求类"></a>个性化需求类</h4><h5 id="StateMap"><a href="#StateMap" class="headerlink" title="StateMap:"></a><code>StateMap</code>:</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab45effcada11d3763d272.png"></p>
+<h4 id="个性化需求类"><a href="#个性化需求类" class="headerlink" title="个性化需求类"></a>个性化需求类</h4><h5 id="StateMap-1"><a href="#StateMap-1" class="headerlink" title="StateMap:"></a><code>StateMap</code>:</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab45effcada11d3763d272.png"></p>
 <p>对于限制开门数量的要求，可以这样实现：</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab4606fcada11d3763d395.png"></p>
 <p><code>serviceMap</code>的<code>value</code>对应了每层楼服务中的电梯数量，<code>key</code>指示楼层，因此初始时每层楼服务数量都是0。</p>
@@ -138,7 +301,7 @@
 <h4 id="调度器类-2"><a href="#调度器类-2" class="headerlink" title="调度器类"></a>调度器类</h4><h5 id="Distribute："><a href="#Distribute：" class="headerlink" title="Distribute："></a><code>Distribute</code>：</h5><p>在调度的时候需要考虑乘客的当前需求楼层和所在楼层对于该电梯是可达的，在此基础上均匀分配：</p>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">LinkedList&lt;Integer&gt; demand = stateMap.findPath(passenger);</span><br><span class="line">passenger.updateDemand(demand);</span><br><span class="line"><span class="keyword">do</span> {</span><br><span class="line">    i = (i + <span class="number">1</span>) % elevatorQueues.size();</span><br><span class="line">} <span class="keyword">while</span> (!(<span class="comment">/*乘客的当前需求楼层和所在楼层对于该电梯是可达的*/</span>));</span><br><span class="line">elevatorQueues.get(i).addPassenger(passenger);</span><br></pre></td></tr></table></figure></div>
 
-<h4 id="电梯类-1"><a href="#电梯类-1" class="headerlink" title="电梯类"></a>电梯类</h4><h5 id="Elevetor"><a href="#Elevetor" class="headerlink" title="Elevetor:"></a><code>Elevetor</code>:</h5><p>需要在开门前，关门后对<code>stateMap</code>做处理，如果数量不满足条件则会<code>wait()</code>直至被唤醒：</p>
+<h4 id="电梯类-1"><a href="#电梯类-1" class="headerlink" title="电梯类"></a>电梯类</h4><h5 id="Elevetor-1"><a href="#Elevetor-1" class="headerlink" title="Elevetor:"></a><code>Elevetor</code>:</h5><p>需要在开门前，关门后对<code>stateMap</code>做处理，如果数量不满足条件则会<code>wait()</code>直至被唤醒：</p>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="comment">/*判断只接人的方法*/</span>) {</span><br><span class="line">  	<span class="built_in">this</span>.stateMap.addOnly(nowFloor);</span><br><span class="line">}</span><br><span class="line"><span class="built_in">this</span>.stateMap.addService(nowFloor);</span><br><span class="line">open();</span><br></pre></td></tr></table></figure></div>
 
 <p>还需要把原来<code>passenger.getToFloor()</code>替换为<code>passenger.getDemand()</code>。因为现在乘客的总需求被拆分为多个子请求，我们在得到路径之后需要逐一处理子请求，<code>getDemand()</code>就是取出队列头部元素：</p>
@@ -1283,7 +1446,1303 @@
   <entry>
     <title>Summary of Object-Oriented Design and Construction Unit 1</title>
     <url>/2023/03/17/1Summary%20of%20Object-Oriented%20Design%20and%20Construction%20Unit%201/</url>
-    <content><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>第一单元作业总的训练目标是对表达式结构进行建模，体会层次化的思想，三次作业为迭代开发。第一次作业是完成对多项式括号的展开，第二次作业新引入了三角函数(sin,cos)以及自定义函数(f(x),g(x,y),h(x,y,z))，第三次作业新增求导因子(dx(表达式))并允许函数定义时调用其他已定义过的函数。</p>
+    <content><![CDATA[<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>The overall training objective of the first unit assignments is to model expression structures, experience hierarchical design thinking, and develop iteratively. The three assignments focus on expanding polynomial expressions in the first task, introducing trigonometric functions (sin, cos) and custom functions (f(x), g(x,y), h(x,y,z)) in the second task, and adding differentiation factors (dx(expression)) and allowing function definitions to call other predefined functions in the third task.</p>
+<p>You can refer to my code here: <a class="link" href="https://github.com/LeostarR/Object-oriented-Design-and-Construction">GitHub Repository <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="Summary-of-First-Assignment"><a href="#Summary-of-First-Assignment" class="headerlink" title="Summary of First Assignment"></a>Summary of First Assignment</h2><h3 id="Design-and-Architecture"><a href="#Design-and-Architecture" class="headerlink" title="Design and Architecture"></a>Design and Architecture</h3><p>My general approach was divided into three steps:</p>
+<ol>
+<li>Preprocessing the expression</li>
+<li>Parsing the expression</li>
+<li>Converting to a string and printing</li>
+</ol>
+<h4 id="Preprocessing-Expressions"><a href="#Preprocessing-Expressions" class="headerlink" title="Preprocessing Expressions"></a>Preprocessing Expressions</h4><h5 id="PreStr"><a href="#PreStr" class="headerlink" title="PreStr"></a><code>PreStr</code></h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab4785fcada11d3763e8af.png"></p>
+<p>Preprocessing includes:</p>
+<ul>
+<li>Removing all consecutive whitespace characters using Java’s built-in <code>replaceAll</code> method.</li>
+<li>Using a series of <code>replaceAll</code> calls to ensure that the string does not contain two or more consecutive ‘+’ or ‘-‘ signs (e.g., “—-“ should be simplified to “+”, “+-“ to “-“).</li>
+<li>Replacing the power symbol “**” with “^” to avoid confusion with multiplication symbols and prevent unnecessary bugs.</li>
+</ul>
+<h4 id="Parsing-Expressions"><a href="#Parsing-Expressions" class="headerlink" title="Parsing Expressions"></a>Parsing Expressions</h4><h5 id="Lexer"><a href="#Lexer" class="headerlink" title="Lexer"></a><code>Lexer</code></h5><p>Processing involves:</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab47a8fcada11d3763ebe4.png"></p>
+<ul>
+<li><code>read()</code> ensures that each operand or operator is retrieved at a time.</li>
+<li><code>next()</code> reads the next operand or operator.</li>
+<li>Due to the unpredictable length of numbers, <code>getNumber()</code> retrieves the current number.</li>
+</ul>
+<h5 id="Ele"><a href="#Ele" class="headerlink" title="Ele"></a><code>Ele</code></h5><p>According to the requirements, I created an <code>Ele</code> class for storing basic elements. Each <code>Ele</code> has the following structure:</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab47c1fcada11d3763ed2a.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab48f9fcada11d376494b9.png"></p>
+<ul>
+<li><code>coe</code> stores the coefficient of each <code>Ele</code>.<img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab47eafcada11d3763f18d.png"></li>
+<li><code>hashVar</code> uses a <code>HashMap</code> to store variables and their corresponding powers.</li>
+</ul>
+<p>Initially, only <code>setCoe()</code>, <code>getCoe()</code>, <code>setHashVar()</code>, and <code>getHashVar()</code> methods were written for setting and getting values. Other methods were added during the overall framework construction.</p>
+<h5 id="Expr"><a href="#Expr" class="headerlink" title="Expr"></a><code>Expr</code></h5><p>A sequence of expressions looks like this:</p>
+<p>Coefficients may carry signs themselves, so they are directly connected by plus signs.</p>
+<p>To facilitate data access, I chose an <code>ArrayList</code> to store multiple <code>Ele</code> objects:</p>
+<p>The <code>Expr</code> class contains methods such as <code>initExperList(ArrayList&lt;Ele&gt;)</code>, <code>initExpr(Ele)</code> for initialization, and <code>getExperlist()</code> for retrieving the <code>ArrayList</code>. Many other methods were completed during the overall construction process.</p>
+<h5 id="Parser"><a href="#Parser" class="headerlink" title="Parser"></a><code>Parser</code></h5><p>Using recursive descent parsing for expressions:</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab4865fcada11d376426ed.png"></p>
+<p>Note: <code>dealEx(Expr)</code> is part of <code>parseExpr()</code>, separated due to method length affecting code style.</p>
+<ol>
+<li><code>parseExpr()</code> parses expressions, which consist of several terms connected by addition and subtraction operators. The first term may have a positive or negative sign indicating its polarity. Thus, it considers the following structure:</li>
+</ol>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">parseExpr</span><span class="params">()</span> {</span><br><span class="line">    <span class="keyword">if</span> (currentSymbol == <span class="string">'+'</span> || currentSymbol == <span class="string">'-'</span>) { <span class="comment">// An expression's first term can have a sign (+, -)</span></span><br><span class="line">        parseTerm();</span><br><span class="line">        combTerm();</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        parseTerm();</span><br><span class="line">        combTerm();</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">while</span> (currentSymbol == <span class="string">'+'</span> || currentSymbol == <span class="string">'-'</span>) {</span><br><span class="line">        parseTerm();</span><br><span class="line">        combTerm();</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> expr;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<p>Sign handling is involved, so distinguishing between addition and subtraction within the method isn’t necessary; instead, a new combination method <code>Expr.combTerm(ArrayList&lt;Ele&gt; list, String s)</code> is used, where <code>s</code> represents the sign. If <code>s</code> is a minus sign, <code>Expr.reverseList(ArrayList&lt;Ele&gt; list)</code> is called to negate, then <code>addAll()</code> is used. For performance, simplification occurs after <code>combTerm</code> using <code>merge()</code> to combine like terms.</p>
+<ol>
+<li><code>parseTerm()</code> parses terms, which consist of several factors connected by multiplication operators. Similar to above but requires writing a multiplication method <code>Expr.mulTerm(ArrayList&lt;Ele&gt;)</code> to multiply two <code>ArrayList&lt;Ele&gt;</code> objects (essentially multiple additions).</li>
+<li><code>parseFactor()</code> parses factors, which include power functions, constant factors, and expression factors.</li>
+<li><code>parsePow()</code> handles power functions similarly and returns an <code>Expr</code> object. Separated due to method length affecting code style.</li>
+</ol>
+<h4 id="Converting-to-String-and-Printing"><a href="#Converting-to-String-and-Printing" class="headerlink" title="Converting to String and Printing"></a>Converting to String and Printing</h4><p>This primarily manifests in the <code>toString()</code> method of the <code>Expr</code> class. The idea is to set up a <code>StringBuilder</code> and continuously append. Each <code>Ele</code> in the <code>ArrayList</code> is sequentially checked for ‘+’, whether it is ±1, if the exponent is 0, and if the whole expression is 0. This section requires special attention to detail.</p>
+<h3 id="Program-Structure-Analysis-Based-on-Metrics"><a href="#Program-Structure-Analysis-Based-on-Metrics" class="headerlink" title="Program Structure Analysis Based on Metrics"></a>Program Structure Analysis Based on Metrics</h3><h4 id="Code-Size-Analysis"><a href="#Code-Size-Analysis" class="headerlink" title="Code Size Analysis"></a>Code Size Analysis</h4><p>Core code is around 450 lines, with the <code>Expr</code> class having the most lines at 175, followed by the <code>Parser</code> class with 119 lines.</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab4887fcada11d37644047.png"></p>
+<h4 id="Complexity-Analysis"><a href="#Complexity-Analysis" class="headerlink" title="Complexity Analysis"></a>Complexity Analysis</h4><h5 id="Method-Complexity"><a href="#Method-Complexity" class="headerlink" title="Method Complexity"></a>Method Complexity</h5><table>
+<thead>
+<tr>
+<th align="left">Method</th>
+<th align="left">CogC</th>
+<th align="left">ev(G)</th>
+<th align="left">iv(G)</th>
+<th align="left">v(G)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">DeFun.max(int, int)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">DeFun.process(String)</td>
+<td align="left">22</td>
+<td align="left">6</td>
+<td align="left">13</td>
+<td align="left">13</td>
+</tr>
+<tr>
+<td align="left">DeFun.readFun(String)</td>
+<td align="left">6</td>
+<td align="left">3</td>
+<td align="left">5</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">Lexer.Lexer(String)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Lexer.getNumber()</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Lexer.next()</td>
+<td align="left">5</td>
+<td align="left">2</td>
+<td align="left">3</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">Lexer.read()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">MainClass.main(String[])</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Parser.Parser(Lexer)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.dealEx(Expr)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.parseExpr()</td>
+<td align="left">5</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="left">Parser.parseFactor()</td>
+<td align="left">18</td>
+<td align="left">5</td>
+<td align="left">11</td>
+<td align="left">12</td>
+</tr>
+<tr>
+<td align="left">Parser.parsePow()</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Parser.parseTerm()</td>
+<td align="left">9</td>
+<td align="left">1</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">Parser.parseTri()</td>
+<td align="left">8</td>
+<td align="left">1</td>
+<td align="left">4</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">PreStr.pre(String)</td>
+<td align="left">6</td>
+<td align="left">1</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.Ele()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.canMerge(Ele)</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">4</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.compareTo(Object)</td>
+<td align="left">27</td>
+<td align="left">13</td>
+<td align="left">12</td>
+<td align="left">13</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.getCoe()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.getHashCos()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.getHashSin()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.getHashVar()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.initHashCos(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.initHashSin(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.initHashVar(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.isOne()</td>
+<td align="left">6</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">8</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.isZero()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.putHashCos(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.putHashSin(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.setCoe(BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.setHashCos(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.setHashSin(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.setHashVar(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.zero()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.combTerm(ArrayList, String)</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.getExprList()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.initExpr(Ele)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.initExprList(ArrayList)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.merge()</td>
+<td align="left">10</td>
+<td align="left">4</td>
+<td align="left">7</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.mulTerm(ArrayList)</td>
+<td align="left">3</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.reverse()</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.reverseList(ArrayList)</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.simplify()</td>
+<td align="left">4</td>
+<td align="left">3</td>
+<td align="left">4</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.sort()</td>
+<td align="left">32</td>
+<td align="left">13</td>
+<td align="left">12</td>
+<td align="left">13</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.toString()</td>
+<td align="left">16</td>
+<td align="left">1</td>
+<td align="left">10</td>
+<td align="left">11</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.triStr(Ele)</td>
+<td align="left">14</td>
+<td align="left">1</td>
+<td align="left">11</td>
+<td align="left">11</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.varStr(Ele)</td>
+<td align="left">21</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">16</td>
+</tr>
+<tr>
+<td align="left">expr.Term.getTermList()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Total</td>
+<td align="left">233</td>
+<td align="left">90</td>
+<td align="left">180</td>
+<td align="left">195</td>
+</tr>
+<tr>
+<td align="left">Average</td>
+<td align="left">4.75</td>
+<td align="left">1.83</td>
+<td align="left">3.67</td>
+<td align="left">3.97</td>
+</tr>
+</tbody></table>
+<h5 id="Class-Complexity"><a href="#Class-Complexity" class="headerlink" title="Class Complexity"></a>Class Complexity</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab4967fcada11d3764e765.png"></p>
+<p>The diagram shows that the most complex methods are <code>Parser.parseFactor()</code>, <code>expr.Expr.toString()</code>, and <code>expr.Expr.varStr(Ele)</code>. The complexity increases significantly for these methods because they handle multiple types of factors and string conversion scenarios.</p>
+<p>The diagram also highlights that the <code>Expr</code>, <code>Ele</code>, and <code>Parser</code> classes have higher complexity due to the numerous methods for decomposition and calculation/merging.</p>
+<h6 id="Attached-Metric-Analysis-Item-Explanations"><a href="#Attached-Metric-Analysis-Item-Explanations" class="headerlink" title="Attached: Metric Analysis Item Explanations"></a>Attached: Metric Analysis Item Explanations</h6><ul>
+<li>CogC: Cognitive Complexity</li>
+<li>ev(G): Basic complexity of non-abstract methods, measures control flow structure defects, range [1, v(G)]</li>
+<li>iv(G): Design complexity of methods, measures coupling between method control flows and other methods, range [1, v(G)]</li>
+<li>v(G): Cyclomatic complexity of non-abstract methods, measures the number of different execution paths within each method</li>
+<li>OC: Non-abstract method cyclomatic complexity of classes, excluding inherited classes</li>
+<li>WMC: Total cyclomatic complexity of classes</li>
+</ul>
+<h4 id="UML-Class-Diagram"><a href="#UML-Class-Diagram" class="headerlink" title="UML Class Diagram"></a>UML Class Diagram</h4><p>Each class design consideration has been explained in the previous sections, so it will not be repeated here.</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab48bafcada11d37646547.jpg"></p>
+<h2 id="Summary-of-Second-Assignment"><a href="#Summary-of-Second-Assignment" class="headerlink" title="Summary of Second Assignment"></a>Summary of Second Assignment</h2><h3 id="Design-and-Architecture-1"><a href="#Design-and-Architecture-1" class="headerlink" title="Design and Architecture"></a>Design and Architecture</h3><p>New requirements for this assignment included:</p>
+<ul>
+<li>Supporting nested multi-level parentheses.</li>
+<li>Adding trigonometric factor support, with any factor inside trigonometric function parentheses.</li>
+<li>Introducing custom function factors, though custom function expressions do not call other functions.</li>
+</ul>
+<p>Based on the first assignment, the following tasks needed to be accomplished:</p>
+<ol>
+<li>Replace custom functions.</li>
+<li>Introduce new data structures to store trigonometric factors.</li>
+<li>Add or improve methods to complete trigonometric function calculations and simplifications.</li>
+</ol>
+<h4 id="Replacing-Custom-Functions"><a href="#Replacing-Custom-Functions" class="headerlink" title="Replacing Custom Functions"></a>Replacing Custom Functions</h4><h5 id="DeFun"><a href="#DeFun" class="headerlink" title="DeFun"></a><code>DeFun</code></h5><p>Implementation of replacement allows for expression parsing using the previously implemented recursive descent:</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab48d0fcada11d376472dd.png"></p>
+<ul>
+<li>Splitting the string by ‘=’ to find formal parameters from the left side and storing them along with the right-side expression in a <code>HashMap</code>.</li>
+<li>Replacing all custom functions in the original expression through <code>process()</code>.</li>
+</ul>
+<h4 id="Handling-Trigonometric-Factors"><a href="#Handling-Trigonometric-Factors" class="headerlink" title="Handling Trigonometric Factors"></a>Handling Trigonometric Factors</h4><h5 id="Ele-1"><a href="#Ele-1" class="headerlink" title="Ele"></a><code>Ele</code></h5><p>Each <code>Ele</code> type now looks like this:</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab48e7fcada11d376484ba.png"></p>
+<p>Trigonometric factors inside parentheses are converted to strings as keys, with exponents as values stored in a <code>HashMap</code>.</p>
+<p>Methods for handling trigonometric factors have been added:</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab48f9fcada11d376494b9.png"></p>
+<h5 id="Expr-1"><a href="#Expr-1" class="headerlink" title="Expr"></a><code>Expr</code></h5><p>Addition and multiplication require only adding trigonometric factor operations on top of existing logic (addition and multiplication need additional conditions in <code>canMerge()</code>).</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab492efcada11d3764be2f.png"></p>
+<p>In <code>toString()</code>, a method <code>triStr(Ele)</code> for printing trigonometric factors is added.</p>
+<h3 id="Program-Structure-Analysis-Based-on-Metrics-1"><a href="#Program-Structure-Analysis-Based-on-Metrics-1" class="headerlink" title="Program Structure Analysis Based on Metrics"></a>Program Structure Analysis Based on Metrics</h3><h4 id="Code-Size-Analysis-1"><a href="#Code-Size-Analysis-1" class="headerlink" title="Code Size Analysis"></a>Code Size Analysis</h4><p>Core code is around 742 lines, with the <code>Expr</code> class having the most lines at 259, followed by the <code>Parser</code> class with 150 lines.</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab494cfcada11d3764d335.png"></p>
+<h4 id="Complexity-Analysis-1"><a href="#Complexity-Analysis-1" class="headerlink" title="Complexity Analysis"></a>Complexity Analysis</h4><h5 id="Method-Complexity-1"><a href="#Method-Complexity-1" class="headerlink" title="Method Complexity"></a>Method Complexity</h5><table>
+<thead>
+<tr>
+<th align="left">Method</th>
+<th align="left">CogC</th>
+<th align="left">ev(G)</th>
+<th align="left">iv(G)</th>
+<th align="left">v(G)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">DeFun.max(int, int)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">DeFun.process(String)</td>
+<td align="left">22</td>
+<td align="left">6</td>
+<td align="left">13</td>
+<td align="left">13</td>
+</tr>
+<tr>
+<td align="left">DeFun.readFun(String)</td>
+<td align="left">6</td>
+<td align="left">3</td>
+<td align="left">5</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">Lexer.Lexer(String)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Lexer.getNumber()</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Lexer.next()</td>
+<td align="left">5</td>
+<td align="left">2</td>
+<td align="left">3</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">Lexer.read()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">MainClass.main(String[])</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Parser.Parser(Lexer)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.dealEx(Expr)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.parseExpr()</td>
+<td align="left">5</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="left">Parser.parseFactor()</td>
+<td align="left">18</td>
+<td align="left">5</td>
+<td align="left">11</td>
+<td align="left">12</td>
+</tr>
+<tr>
+<td align="left">Parser.parsePow()</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Parser.parseTerm()</td>
+<td align="left">9</td>
+<td align="left">1</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">Parser.parseTri()</td>
+<td align="left">8</td>
+<td align="left">1</td>
+<td align="left">4</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">PreStr.pre(String)</td>
+<td align="left">6</td>
+<td align="left">1</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.Ele()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.canMerge(Ele)</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">4</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.compareTo(Object)</td>
+<td align="left">27</td>
+<td align="left">13</td>
+<td align="left">12</td>
+<td align="left">13</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.getCoe()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.getHashCos()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.getHashSin()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.getHashVar()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.initHashCos(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.initHashSin(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.initHashVar(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.isOne()</td>
+<td align="left">6</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">8</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.isZero()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.putHashCos(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.putHashSin(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.setCoe(BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.setHashCos(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.setHashSin(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.setHashVar(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Ele.zero()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.combTerm(ArrayList, String)</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.getExprList()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.initExpr(Ele)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.initExprList(ArrayList)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.merge()</td>
+<td align="left">10</td>
+<td align="left">4</td>
+<td align="left">7</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.mulTerm(ArrayList)</td>
+<td align="left">3</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.reverse()</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.reverseList(ArrayList)</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.simplify()</td>
+<td align="left">4</td>
+<td align="left">3</td>
+<td align="left">4</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.sort()</td>
+<td align="left">32</td>
+<td align="left">13</td>
+<td align="left">12</td>
+<td align="left">13</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.toString()</td>
+<td align="left">16</td>
+<td align="left">1</td>
+<td align="left">10</td>
+<td align="left">11</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.triStr(Ele)</td>
+<td align="left">14</td>
+<td align="left">1</td>
+<td align="left">11</td>
+<td align="left">11</td>
+</tr>
+<tr>
+<td align="left">expr.Expr.varStr(Ele)</td>
+<td align="left">21</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">16</td>
+</tr>
+<tr>
+<td align="left">expr.Term.getTermList()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Total</td>
+<td align="left">233</td>
+<td align="left">90</td>
+<td align="left">180</td>
+<td align="left">195</td>
+</tr>
+<tr>
+<td align="left">Average</td>
+<td align="left">4.75</td>
+<td align="left">1.83</td>
+<td align="left">3.67</td>
+<td align="left">3.97</td>
+</tr>
+</tbody></table>
+<h3 id="Class-Complexity-1"><a href="#Class-Complexity-1" class="headerlink" title="Class Complexity"></a>Class Complexity</h3><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab4967fcada11d3764e765.png" alt="Class Complexity"></p>
+<h4 id="UML-Class-Diagram-1"><a href="#UML-Class-Diagram-1" class="headerlink" title="UML Class Diagram"></a>UML Class Diagram</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab4989fcada11d37650132.jpg" alt="UML Class Diagram"></p>
+<p>The design considerations for each class have been explained in the previous sections on design and architecture, so they will not be repeated here.</p>
+<h2 id="Summary-of-Third-Assignment"><a href="#Summary-of-Third-Assignment" class="headerlink" title="Summary of Third Assignment"></a>Summary of Third Assignment</h2><h3 id="Design-and-Architecture-2"><a href="#Design-and-Architecture-2" class="headerlink" title="Design and Architecture"></a>Design and Architecture</h3><p>For this assignment, new requirements were introduced:</p>
+<ul>
+<li>Custom function definitions can now call other predefined custom functions.</li>
+<li>A differentiation factor has been added.</li>
+</ul>
+<p>Based on the second assignment, the following tasks needed to be completed:</p>
+<ol>
+<li>Improve methods in the <code>DeFun</code> class to support calling previously defined custom functions and include differentiation factors.</li>
+<li>Add a differentiation method in the <code>Expr</code> class.</li>
+</ol>
+<h4 id="Improving-the-Replacement-of-Custom-Functions"><a href="#Improving-the-Replacement-of-Custom-Functions" class="headerlink" title="Improving the Replacement of Custom Functions"></a>Improving the Replacement of Custom Functions</h4><h5 id="DeFun-1"><a href="#DeFun-1" class="headerlink" title="DeFun"></a><code>DeFun</code></h5><p>Replace custom functions that already exist in the HashMap within the same class, then replace the differentiation factors (according to the assignment requirements, simplification and replacement of differentiation factors need to occur at this stage). Therefore, we directly reuse the Parser class to parse the expression inside the differentiation factor and use <code>toString()</code> to replace the original differentiation factor.</p>
+<p>Below is an example snippet:</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (str.contains(<span class="string">"d"</span>)) { <span class="comment">// Differentiation factor appears only once</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">begin</span> <span class="operator">=</span> str.indexOf(<span class="string">"d"</span>);</span><br><span class="line">    <span class="comment">// subString = dx(expression) | dy(expression) | dz(expression), which is the differentiation factor</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">subString</span> <span class="operator">=</span> sim.substring(<span class="comment">/* extract the substring inside dx() or dy() or dz() */</span>);</span><br><span class="line">    <span class="type">String</span> <span class="variable">derFact</span> <span class="operator">=</span> subString.substring(<span class="number">2</span>); <span class="comment">// derFact is the expression to differentiate</span></span><br><span class="line">    parser.parseExpr(); <span class="comment">// Preprocess, parse, return an Expr object</span></span><br><span class="line">    expr.derExpr(); <span class="comment">// Differentiate the expression inside the parentheses, returning an Expr object</span></span><br><span class="line">    str = str.replace(subString, <span class="string">"("</span> + expr + <span class="string">")"</span>); <span class="comment">// Remove (replace) the entire differentiation factor</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="Adding-Differentiation-Methods"><a href="#Adding-Differentiation-Methods" class="headerlink" title="Adding Differentiation Methods"></a>Adding Differentiation Methods</h4><h5 id="Ele-2"><a href="#Ele-2" class="headerlink" title="Ele"></a><code>Ele</code></h5><p>In the <code>Ele</code> class, add methods to check if it contains a specific variable (‘x’, ‘y’, ‘z’). If it does not contain the variable, the result of differentiation should be zero; otherwise, perform normal differentiation.</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab49b0fcada11d37651f94.png"></p>
+<h5 id="Expr-2"><a href="#Expr-2" class="headerlink" title="Expr"></a><code>Expr</code></h5><p>Add support for differentiation methods where <code>derExpr(char)</code> differentiates with respect to the parameter <code>char</code> as the independent variable, separately differentiating each <code>Ele</code>‘s variable part and trigonometric factor part before combining them.</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab49c5fcada11d37652fa1.png"></p>
+<h3 id="Program-Structure-Analysis-Based-on-Metrics-2"><a href="#Program-Structure-Analysis-Based-on-Metrics-2" class="headerlink" title="Program Structure Analysis Based on Metrics"></a>Program Structure Analysis Based on Metrics</h3><h4 id="Code-Size-Analysis-2"><a href="#Code-Size-Analysis-2" class="headerlink" title="Code Size Analysis"></a>Code Size Analysis</h4><p>Core code is around 899 lines, with the <code>Expr</code> class having the most lines at 370, followed by the <code>Parser</code> class with 173 lines.</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab49dcfcada11d376541d1.png"></p>
+<h4 id="Complexity-Analysis-2"><a href="#Complexity-Analysis-2" class="headerlink" title="Complexity Analysis"></a>Complexity Analysis</h4><h5 id="Method-Complexity-2"><a href="#Method-Complexity-2" class="headerlink" title="Method Complexity"></a>Method Complexity</h5><table>
+<thead>
+<tr>
+<th align="left">Method</th>
+<th align="left">CogC</th>
+<th align="left">ev(G)</th>
+<th align="left">iv(G)</th>
+<th align="left">v(G)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">DeFun.findRi(int, String)</td>
+<td align="left">9</td>
+<td align="left">5</td>
+<td align="left">6</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">DeFun.max(int, int)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">DeFun.process(String)</td>
+<td align="left">10</td>
+<td align="left">1</td>
+<td align="left">8</td>
+<td align="left">8</td>
+</tr>
+<tr>
+<td align="left">DeFun.readFun(String)</td>
+<td align="left">7</td>
+<td align="left">3</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">Ele.Ele()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.canMerge(Ele)</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">4</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="left">Ele.compareTo(Object)</td>
+<td align="left">27</td>
+<td align="left">13</td>
+<td align="left">12</td>
+<td align="left">13</td>
+</tr>
+<tr>
+<td align="left">Ele.cosContain(String)</td>
+<td align="left">3</td>
+<td align="left">3</td>
+<td align="left">2</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Ele.getCoe()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.getHashCos()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.getHashSin()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.getHashVar()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.initHashCos(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.initHashSin(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.initHashVar(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.isOne()</td>
+<td align="left">6</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">8</td>
+</tr>
+<tr>
+<td align="left">Ele.isZero()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.putHashCos(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Ele.putHashSin(HashMap&lt;String, BigInteger&gt;)</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Ele.setCoe(BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.setHashCos(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.setHashSin(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.setHashVar(String, BigInteger)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Ele.sinContain(String)</td>
+<td align="left">3</td>
+<td align="left">3</td>
+<td align="left">2</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Ele.varContain(String)</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Ele.zero()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Expr.combTerm(ArrayList, String)</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Expr.derCos(int, String)</td>
+<td align="left">7</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="left">Expr.derExpr(char)</td>
+<td align="left">14</td>
+<td align="left">1</td>
+<td align="left">8</td>
+<td align="left">8</td>
+</tr>
+<tr>
+<td align="left">Expr.derSin(int, String)</td>
+<td align="left">7</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="left">Expr.derVar(int, String)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Expr.getExprList()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Expr.initExpr(Ele)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Expr.initExprList(ArrayList)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Expr.merge()</td>
+<td align="left">10</td>
+<td align="left">4</td>
+<td align="left">7</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">Expr.mulTerm(ArrayList)</td>
+<td align="left">3</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Expr.reverse()</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Expr.reverseList(ArrayList)</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Expr.simplify()</td>
+<td align="left">4</td>
+<td align="left">3</td>
+<td align="left">4</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">Expr.sort()</td>
+<td align="left">32</td>
+<td align="left">13</td>
+<td align="left">12</td>
+<td align="left">13</td>
+</tr>
+<tr>
+<td align="left">Expr.toString()</td>
+<td align="left">16</td>
+<td align="left">1</td>
+<td align="left">10</td>
+<td align="left">11</td>
+</tr>
+<tr>
+<td align="left">Expr.triStr(Ele)</td>
+<td align="left">22</td>
+<td align="left">1</td>
+<td align="left">13</td>
+<td align="left">13</td>
+</tr>
+<tr>
+<td align="left">Expr.varStr(Ele)</td>
+<td align="left">21</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">16</td>
+</tr>
+<tr>
+<td align="left">Lexer.Lexer(String)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Lexer.getNumber()</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Lexer.next()</td>
+<td align="left">6</td>
+<td align="left">2</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">Lexer.read()</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">MainClass.main(String[])</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">Parser.Parser(Lexer)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.dealEx(Expr)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.parseDer(char)</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">Parser.parseExpr()</td>
+<td align="left">5</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="left">Parser.parseFactor()</td>
+<td align="left">20</td>
+<td align="left">6</td>
+<td align="left">14</td>
+<td align="left">15</td>
+</tr>
+<tr>
+<td align="left">Parser.parsePow()</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Parser.parseTerm()</td>
+<td align="left">9</td>
+<td align="left">1</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">Parser.parseTri()</td>
+<td align="left">8</td>
+<td align="left">1</td>
+<td align="left">4</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">PreStr.pre(String)</td>
+<td align="left">6</td>
+<td align="left">1</td>
+<td align="left">6</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="left">Total</td>
+<td align="left">277</td>
+<td align="left">102</td>
+<td align="left">214</td>
+<td align="left">230</td>
+</tr>
+<tr>
+<td align="left">Average</td>
+<td align="left">4.85</td>
+<td align="left">1.79</td>
+<td align="left">3.75</td>
+<td align="left">4.04</td>
+</tr>
+</tbody></table>
+<h5 id="Class-Complexity-2"><a href="#Class-Complexity-2" class="headerlink" title="Class Complexity"></a>Class Complexity</h5><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab49f4fcada11d3765538f.png" alt="Class Complexity"></p>
+<p>The diagram shows that the <code>Expr</code>, <code>Ele</code>, and <code>Parser</code> classes have higher complexity due to the numerous simplification, calculation, and differentiation methods within the <code>Expr</code> class.</p>
+<h4 id="UML-Class-Diagram-2"><a href="#UML-Class-Diagram-2" class="headerlink" title="UML Class Diagram"></a>UML Class Diagram</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab4a0bfcada11d37656557.jpg" alt="UML Class Diagram"></p>
+<p>The design considerations for each class have been explained in the previous sections on design and architecture, so they will not be repeated here.</p>
+<h2 id="Bug-Analysis"><a href="#Bug-Analysis" class="headerlink" title="Bug Analysis"></a>Bug Analysis</h2><h3 id="Analyzing-Bugs-in-My-Program"><a href="#Analyzing-Bugs-in-My-Program" class="headerlink" title="Analyzing Bugs in My Program"></a>Analyzing Bugs in My Program</h3><h5 id="First-Assignment"><a href="#First-Assignment" class="headerlink" title="First Assignment"></a>First Assignment</h5><ul>
+<li>Special cases such as <code>0^0+5^0+2*10^0</code> required debugging and modifications in <code>toString()</code>.</li>
+</ul>
+<h5 id="Second-Assignment"><a href="#Second-Assignment" class="headerlink" title="Second Assignment"></a>Second Assignment</h5><ul>
+<li>When replacing custom functions based on commas, there could be errors when handling nested functions like <code>f(g(y,z),h(x,y),sin(x))</code> with more than two commas. The solution was to find and replace the last custom function in each loop (ensuring no nested custom functions are inside).</li>
+<li>Pay attention to index positions during replacement, e.g., <code>f((((x,y,z))))</code> might cause bracket judgment errors.</li>
+<li>Handle special and edge cases, such as <code>sin((0))^2</code>, <code>sin((0))^0</code>, <code>cos((0))^3</code>.</li>
+<li>When the exponent is 0, directly read the integer rather than parsing the subsequent expression.</li>
+</ul>
+<h5 id="Third-Assignment"><a href="#Third-Assignment" class="headerlink" title="Third Assignment"></a>Third Assignment</h5><ul>
+<li>Simplification after differentiation caused issues, e.g., <code>dx(x*cos(x)**0)</code> would result in incorrect output even though the parsed <code>Expr</code> was correct. This was because checking if the cosine part contains <code>x</code> relied on whether the <code>HashMap</code> was empty (leftover from the second assignment), but I did not remove entries accordingly after differentiation, leading to incorrect output.</li>
+</ul>
+<h3 id="Analyzing-Bugs-in-Others’-Programs"><a href="#Analyzing-Bugs-in-Others’-Programs" class="headerlink" title="Analyzing Bugs in Others’ Programs"></a>Analyzing Bugs in Others’ Programs</h3><p>Manually construct representative boundary data with multiple levels of nested parentheses and special conditions (results being 0, 1, or no independent variable inside the differentiation), such as:</p>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="title function_">f</span>(x,y)=(((<span class="title function_">sin</span>(<span class="title function_">cos</span>(x))-(+<span class="number">1</span>-<span class="title function_">sin</span>(<span class="title function_">cos</span>(y))))))</span><br><span class="line"><span class="title function_">f</span>((<span class="title function_">sin</span>(x)),(y**<span class="number">2</span>-<span class="number">0</span>**<span class="number">0</span>))+<span class="title function_">cos</span>(<span class="number">0</span>)**<span class="number">0</span>-<span class="title function_">sin</span>(<span class="number">0</span>)**<span class="number">0</span></span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="title function_">dx</span>(x*<span class="title function_">cos</span>(x)**<span class="number">0</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="Reflection"><a href="#Reflection" class="headerlink" title="Reflection"></a>Reflection</h2><p>The first unit assignments focused on iterative development of expanding expressions and differentiation over three iterations. Initially struggling with understanding the role of Git, I gradually recognized the importance of version control in projects. From feeling lost with IDEA and making frequent mistakes to appreciating its powerful features, and from unfamiliarity with Java to becoming acquainted with its many convenient methods, data structures, and object-oriented thinking. Additionally, the emphasis on coding style has made me increasingly aware of its importance and improved my programming style. The first assignment was challenging due to the lack of knowledge about Java syntax and data structures. Iterative development in the second and third assignments was easier than starting from scratch, but extra care had to be taken to minimize coupling between classes and methods, avoiding changes to existing methods to make bug detection easier. Lastly, reviewing classmates’ design ideas in discussion areas greatly assisted my architectural design. Thank you to the teaching assistants and fellow students for your enthusiastic help!</p>
+<hr>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>第一单元作业总的训练目标是对表达式结构进行建模，体会层次化的思想，三次作业为迭代开发。第一次作业是完成对多项式括号的展开，第二次作业新引入了三角函数(sin,cos)以及自定义函数(f(x),g(x,y),h(x,y,z))，第三次作业新增求导因子(dx(表达式))并允许函数定义时调用其他已定义过的函数。</p>
 <p>点击此处可以参考我的代码：<a class="link" href="https://github.com/LeostarR/Object-oriented-Design-and-Construction">https://github.com/LeostarR/Object-oriented-Design-and-Construction <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <h2 id="第一次作业总结"><a href="#第一次作业总结" class="headerlink" title="第一次作业总结"></a>第一次作业总结</h2><h3 id="设计与架构"><a href="#设计与架构" class="headerlink" title="设计与架构"></a>设计与架构</h3><p>我的总思路分为三步：</p>
 <ol>
@@ -1291,34 +2750,34 @@
 <li>解析表达式</li>
 <li>转化为字符串并打印</li>
 </ol>
-<h4 id="预处理表达式"><a href="#预处理表达式" class="headerlink" title="预处理表达式"></a>预处理表达式</h4><h5 id="PreStr"><a href="#PreStr" class="headerlink" title="PreStr"></a><code>PreStr</code></h5><p>预处理：</p>
+<h4 id="预处理表达式"><a href="#预处理表达式" class="headerlink" title="预处理表达式"></a>预处理表达式</h4><h5 id="PreStr-1"><a href="#PreStr-1" class="headerlink" title="PreStr"></a><code>PreStr</code></h5><p>预处理：</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab4785fcada11d3763e8af.png"></p>
 <ul>
 <li>去除所有连续的空白字符（用Java自带的方法<code>replaceAll</code>即可解决）</li>
 <li>通过一系列<code>replaceAll</code>使得字符串不含有连续的两个及以上的’+’和’-‘（例如”—-“应化为”+”，”+-“应化为”-“）</li>
 <li>将表示幂次的”**”替换为”^”，防止与乘号弄混，产生不必要的bug</li>
 </ul>
-<h4 id="解析表达式"><a href="#解析表达式" class="headerlink" title="解析表达式"></a>解析表达式</h4><h5 id="Lexer"><a href="#Lexer" class="headerlink" title="Lexer"></a><code>Lexer</code></h5><p>读取处理：</p>
+<h4 id="解析表达式"><a href="#解析表达式" class="headerlink" title="解析表达式"></a>解析表达式</h4><h5 id="Lexer-1"><a href="#Lexer-1" class="headerlink" title="Lexer"></a><code>Lexer</code></h5><p>读取处理：</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab47a8fcada11d3763ebe4.png"></p>
 <ul>
 <li><code>read()</code>能够保证每次取出当前的操作数或者运算符</li>
 <li><code>next()</code>能够往后读一个操作数或者运算符</li>
 <li>由于数字长度的不确定，使用<code>getNumber()</code>能够取出当前数字</li>
 </ul>
-<h5 id="Ele"><a href="#Ele" class="headerlink" title="Ele"></a><code>Ele</code></h5><p>根据题目要求，我选择新建一个<code>Ele</code>类完成对基本元素的存储，每一个<code>Ele</code>应形如：</p>
+<h5 id="Ele-3"><a href="#Ele-3" class="headerlink" title="Ele"></a><code>Ele</code></h5><p>根据题目要求，我选择新建一个<code>Ele</code>类完成对基本元素的存储，每一个<code>Ele</code>应形如：</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab47c1fcada11d3763ed2a.png"></p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab47dbfcada11d3763f065.png"></p>
 <p><code>coe</code>存储每一个<code>Ele</code>的系数，<code>hashVar</code>通过<code>HashMap</code>存储变量及其对应幂次。</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab47eafcada11d3763f18d.png"></p>
 <p>刚开始写<code>Ele</code>时只写了<code>setCoe()</code>,<code>getCoe()</code>,<code>setHashVar()</code>,<code>getHashVar()</code>四个方法用于设定值和取值，其他方法是在后续框架的整体搭建中书写的，因此放到后面讲解。</p>
-<h5 id="Expr"><a href="#Expr" class="headerlink" title="Expr"></a><code>Expr</code></h5><p>一连串的表达式形如：</p>
+<h5 id="Expr-3"><a href="#Expr-3" class="headerlink" title="Expr"></a><code>Expr</code></h5><p>一连串的表达式形如：</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab480ffcada11d3763f56f.png"></p>
 <p>此处系数本身是可能带符号的，因此直接用加号相连。</p>
 <p>为了方便数据的调用，我选择<code>ArrayList</code>来存储多个<code>Ele</code>：</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab4831fcada11d3763fee0.png"></p>
 <p><code>Expr</code>方法中，<code>initExperList(ArrayList&lt;Ele&gt;)</code>,<code>initExpr(Ele)</code>用于初始化，<code>getExperlist()</code>用于取出该<code>ArrayList</code>，其他很多方法是在构建整体的过程中完成的，因此也放到后面。</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab484cfcada11d3764139a.png"></p>
-<h5 id="Parser"><a href="#Parser" class="headerlink" title="Parser"></a><code>Parser</code></h5><p>使用递归下降解析表达式：</p>
+<h5 id="Parser-1"><a href="#Parser-1" class="headerlink" title="Parser"></a><code>Parser</code></h5><p>使用递归下降解析表达式：</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab4865fcada11d376426ed.png"></p>
 <p>注：<code>dealEx(Expr)</code>是<code>parseExpr()</code>的一部分，分离出来是因为方法过长影响码风:）</p>
 <p>1.<code>parseExpr()</code>用于解析表达式，根据定义，表达式由加法和减法运算符连接若干项组成并且在第一项之前，可以带一个正号或者负号，表示第一个项的正负，因此考虑如下结构。</p>
@@ -1621,19 +3080,19 @@
 <li>引入新的数据结构能够存储三角因子</li>
 <li>增加或完善方法并完成三角函数的计算与化简</li>
 </ol>
-<h4 id="替换自定义函数"><a href="#替换自定义函数" class="headerlink" title="替换自定义函数"></a>替换自定义函数</h4><h5 id="DeFun"><a href="#DeFun" class="headerlink" title="DeFun"></a><code>DeFun</code></h5><p>仅仅实现替换，替换之后即可按照之前的递归下降实现表达式解析：</p>
+<h4 id="替换自定义函数"><a href="#替换自定义函数" class="headerlink" title="替换自定义函数"></a>替换自定义函数</h4><h5 id="DeFun-2"><a href="#DeFun-2" class="headerlink" title="DeFun"></a><code>DeFun</code></h5><p>仅仅实现替换，替换之后即可按照之前的递归下降实现表达式解析：</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab48d0fcada11d376472dd.png"></p>
 <ul>
 <li>根据’=’分割成左右两字符串，左边的可根据’,’找出形参，将形参和右边的表达式存入<code>HashMap</code></li>
 <li>在原表达式中通过<code>process()</code>替换所有的自定义函数</li>
 </ul>
-<h4 id="处理三角因子"><a href="#处理三角因子" class="headerlink" title="处理三角因子"></a>处理三角因子</h4><h5 id="Ele-1"><a href="#Ele-1" class="headerlink" title="Ele"></a><code>Ele</code></h5><p>本次作业每个<code>Ele</code>类型应形如：</p>
+<h4 id="处理三角因子"><a href="#处理三角因子" class="headerlink" title="处理三角因子"></a>处理三角因子</h4><h5 id="Ele-4"><a href="#Ele-4" class="headerlink" title="Ele"></a><code>Ele</code></h5><p>本次作业每个<code>Ele</code>类型应形如：</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab48e7fcada11d376484ba.png"></p>
 <p>将三角因子括号内部的因子<code>toString</code>作为<code>key</code>，指数作为<code>value</code>再存入<code>HashMap</code>：</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab48f9fcada11d376494b9.png"></p>
 <p>增加了处理三角因子的方法：</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab490cfcada11d3764a49b.png"></p>
-<h5 id="Expr-1"><a href="#Expr-1" class="headerlink" title="Expr"></a><code>Expr</code></h5><p>加法和乘法只需在原有基础上添加三角因子的运算即可（加法乘法需要在<code>canMerge()</code>中添加条件)。</p>
+<h5 id="Expr-4"><a href="#Expr-4" class="headerlink" title="Expr"></a><code>Expr</code></h5><p>加法和乘法只需在原有基础上添加三角因子的运算即可（加法乘法需要在<code>canMerge()</code>中添加条件)。</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab492efcada11d3764be2f.png"></p>
 <p>在<code>toString()</code>中加上打印三角因子的方法<code>triStr(Ele)</code>。</p>
 <h3 id="基于度量的程序结构分析-1"><a href="#基于度量的程序结构分析-1" class="headerlink" title="基于度量的程序结构分析"></a>基于度量的程序结构分析</h3><h4 id="代码规模分析-1"><a href="#代码规模分析-1" class="headerlink" title="代码规模分析"></a>代码规模分析</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab494cfcada11d3764d335.png"></p>
@@ -2019,13 +3478,13 @@
 <li>在<code>DeFun</code>类中完善方法使支持调用定义过的自定义函数并且包含求导因子</li>
 <li>在<code>Expr</code>类中新增求导的方法</li>
 </ol>
-<h4 id="完善替换自定义函数的方法"><a href="#完善替换自定义函数的方法" class="headerlink" title="完善替换自定义函数的方法"></a>完善替换自定义函数的方法</h4><h5 id="DeFun-1"><a href="#DeFun-1" class="headerlink" title="DeFun"></a><code>DeFun</code></h5><p>在同一个类中替换已经存在于HashMap中的自定义函数，然后替换求导因子（根据题目要求，需要在这里将求导因子化简并替换），因此我们直接复用之前的Parser类解析求导因子内部的表达式，并且用<code>toString()</code>替换原求导因子。</p>
+<h4 id="完善替换自定义函数的方法"><a href="#完善替换自定义函数的方法" class="headerlink" title="完善替换自定义函数的方法"></a>完善替换自定义函数的方法</h4><h5 id="DeFun-3"><a href="#DeFun-3" class="headerlink" title="DeFun"></a><code>DeFun</code></h5><p>在同一个类中替换已经存在于HashMap中的自定义函数，然后替换求导因子（根据题目要求，需要在这里将求导因子化简并替换），因此我们直接复用之前的Parser类解析求导因子内部的表达式，并且用<code>toString()</code>替换原求导因子。</p>
 <p>下面是可能的示例：</p>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (str.contains(<span class="string">"d"</span>)) { <span class="comment">//求导因子只出现一次</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">begin</span> <span class="operator">=</span> str.indexOf(<span class="string">"d"</span>);</span><br><span class="line">            <span class="comment">//subString = dx(表达式) | dy(表达式) | dz(表达式)，是求导因子</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">subString</span> <span class="operator">=</span> sim.substring(<span class="comment">/*将dx()或dy()或dz()的子串提取出来*/</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">derFact</span> <span class="operator">=</span> subString.substring(<span class="number">2</span>); <span class="comment">//derFact是需要求导的表达式</span></span><br><span class="line">            parser.parseExpr();<span class="comment">//预处理，解析，返回一个Expr类</span></span><br><span class="line">            expr.derExpr();<span class="comment">//括号内的表达式进行求导能够返回一个Expr类</span></span><br><span class="line">            str = str.replace(subString, <span class="string">"("</span> + expr + <span class="string">")"</span>); <span class="comment">//将整个求导因子剔除（替换）</span></span><br><span class="line">        }</span><br></pre></td></tr></table></figure></div>
 
-<h4 id="增加求导的方法"><a href="#增加求导的方法" class="headerlink" title="增加求导的方法"></a>增加求导的方法</h4><h5 id="Ele-2"><a href="#Ele-2" class="headerlink" title="Ele"></a><code>Ele</code></h5><p>在<code>Ele</code>中增加方法支持判断该<code>Ele</code>是否包含该变量（’x’,’y’,’z’)，若不包含，则求导的结果为零，反之则可进行正常的求导。</p>
+<h4 id="增加求导的方法"><a href="#增加求导的方法" class="headerlink" title="增加求导的方法"></a>增加求导的方法</h4><h5 id="Ele-5"><a href="#Ele-5" class="headerlink" title="Ele"></a><code>Ele</code></h5><p>在<code>Ele</code>中增加方法支持判断该<code>Ele</code>是否包含该变量（’x’,’y’,’z’)，若不包含，则求导的结果为零，反之则可进行正常的求导。</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab49b0fcada11d37651f94.png"></p>
-<h5 id="Expr-2"><a href="#Expr-2" class="headerlink" title="Expr"></a><code>Expr</code></h5><p>增加支持求导的方法，<code>derExpr(char)</code>中对参数<code>char</code>作为自变量求导，分别对每一个<code>Ele</code>的变量部分，三角因子部分进行求导再合并。</p>
+<h5 id="Expr-5"><a href="#Expr-5" class="headerlink" title="Expr"></a><code>Expr</code></h5><p>增加支持求导的方法，<code>derExpr(char)</code>中对参数<code>char</code>作为自变量求导，分别对每一个<code>Ele</code>的变量部分，三角因子部分进行求导再合并。</p>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab49c5fcada11d37652fa1.png"></p>
 <h3 id="基于度量的程序结构分析-2"><a href="#基于度量的程序结构分析-2" class="headerlink" title="基于度量的程序结构分析"></a>基于度量的程序结构分析</h3><h4 id="代码规模分析-2"><a href="#代码规模分析-2" class="headerlink" title="代码规模分析"></a>代码规模分析</h4><p><img lazyload="" src="/images/loading.svg" data-src="https://pic.superbed.cc/item/66ab49dcfcada11d376541d1.png"></p>
 <p>核心代码在899行左右，<code>Expr</code>类行数最多，占到了370行，其次是173行的解析<code>Expr</code>类。</p>
