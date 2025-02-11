@@ -5094,27 +5094,4 @@
         <tag>computer network</tag>
       </tags>
   </entry>
-  <entry>
-    <title>Notes for Data Science</title>
-    <url>/2025/02/10/11/11Notes-for-Data-Science/</url>
-    <content><![CDATA[<h2 id="UCB-Data100-Principles-and-Techniques-of-Data-Science"><a href="#UCB-Data100-Principles-and-Techniques-of-Data-Science" class="headerlink" title="UCB Data100: Principles and Techniques of Data Science"></a>UCB Data100: Principles and Techniques of Data Science</h2><h5 id="课程简介"><a href="#课程简介" class="headerlink" title="课程简介"></a>课程简介</h5><ul>
-<li>所属大学：UC Berkeley</li>
-<li>编程语言：Python</li>
-<li>预计学时：80 小时</li>
-</ul>
-<p>伯克利的数据科学入门课程，内容相对基础，覆盖了数据清洗、特征提取、数据可视化以及机器学习和推理的基础内容，也会讲授 Pandas, Numpy, Matplotlib 等数据科学常用工具。</p>
-<h5 id="课程资源"><a href="#课程资源" class="headerlink" title="课程资源"></a>课程资源</h5><ul>
-<li>课程网站：<a class="link" href="https://ds100.org/">https://ds100.org/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> (尽量选择时间早一点有ppt和视频教学资源的，笔者选择的是24 spring)</li>
-<li>课程视频：<a class="link" href="https://www.youtube.com/watch?v=LNDpalpnwv8&list=PLQCcNQgUcDfpyNlB6sAsLHjxr3fcsakez">https://www.youtube.com/watch?v=LNDpalpnwv8&amp;list=PLQCcNQgUcDfpyNlB6sAsLHjxr3fcsakez <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li>课程教材：<a class="link" href="https://www.textbook.ds100.org/intro.html">https://www.textbook.ds100.org/intro.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li>课程作业：作业需要学生账号登陆CalNet Authentication Service，但是<a class="link" href="https://github.com/DS-100">该网站 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>存储了作业资源，需要自己根据年份查找</li>
-</ul>
-]]></content>
-      <categories>
-        <category>computer science</category>
-      </categories>
-      <tags>
-        <tag>data science</tag>
-      </tags>
-  </entry>
 </search>
